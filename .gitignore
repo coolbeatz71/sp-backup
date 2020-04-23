@@ -3,3 +3,7 @@ node_modules
 *.log
 .env
 coverage
+*-lock.json
+out/
+.DS_Store
+cypress/

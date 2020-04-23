@@ -6,12 +6,14 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "test": "jest --watchAll",
-    "test:e2e": "cypress open"
+    "test": "jest --coverage",
+    "test:e2e": "cypress open --config-file cypress.json",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "antd": "^4.1.1",
     "next": "latest",
+    "next-pwa": "^2.3.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
@@ -23,7 +25,7 @@
     "@types/react-dom": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "babel-jest": "^25.2.6",
-    "cypress": "^4.3.0",
+    "cypress": "^4.4.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-config-airbnb": "^18.1.0",
@@ -34,5 +36,21 @@
     "tslint-react": "^4.2.0",
     "typescript": "3.7.3"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "description": "Save Plus Web",
+  "main": "next.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:DreamStartLabs/save/save-plus-web.git"
+  },
+  "author": "Elie Mugenzi",
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
+  }
 }

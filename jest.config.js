@@ -12,7 +12,7 @@ module.exports = {
      '^.+\\.tsx?$': 'ts-jest'
   },
   testPathIgnorePatterns: [
-    '<rootDir>/.next/', '<rootDir>/node_modules/'
+    '<rootDir>/.next/', '<rootDir>/node_modules/', '<rootDir>/tests/e2e/', '<rootDir>/cypress/'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   collectCoverage: true,

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Result } from 'antd';
 import Layout from '../components/Layout';
-
-const { Paragraph } = Typography;
 
 const IndexPage = () => {
   return (
     <Layout title="Save Plus">
-      <h1>Hello Save Plus 👋</h1>
-      <Paragraph>Welcome to Save Plus</Paragraph>
+       <Result
+          status="success"
+          title="Welcome to Save Plus"
+          subTitle="Welcome to Save Plus, please visit us again very soon. Our developers are busy adding new features."
+        />
     </Layout>
   );
 };
