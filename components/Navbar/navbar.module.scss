@@ -1,0 +1,19 @@
+@import "styles/_variables";
+
+.navbar{
+  background: $color-light;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  nav{
+    & > * {
+      margin-left: 1rem;
+      font-size: 15px;
+    }
+    a{
+      color: $color-dark;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,15 +1,33 @@
 import React from 'react';
-import { Result } from 'antd';
 import Layout from '../components/Layout';
+import { Button } from 'antd';
 
 const IndexPage = () => {
   return (
     <Layout title="Save Plus">
-       <Result
-          status="success"
-          title="Welcome to Save Plus"
-          subTitle="Welcome to Save Plus, please visit us again very soon. Our developers are busy adding new features."
-        />
+      <div className="index-container">
+        <h1>Put a Smile on Someone Face  </h1>
+        <Button className="btn-primary">
+          GET STARTED
+        </Button>
+      </div>
+
+      <style jsx>{`
+        .index-container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: inherit;
+          flex-direction: column;
+          background: #F4FAFd;
+        }
+        h1{
+          text-align: center;
+          font-size: 30px;
+          font-weight: 500;
+          font-style: normal;
+        }
+      `}</style>
     </Layout>
   );
 };

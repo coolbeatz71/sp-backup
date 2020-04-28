@@ -1,0 +1,36 @@
+$color-primary: #219BB2;
+$color-secondary: #EB5757;
+$color-dark: #333333;
+$color-light: #FFFFFF;
+
+.color-primary{
+  color: $color-primary !important;
+}
+
+.bg-primary{
+  background-color: $color-primary !important;
+}
+
+.color-secondary{
+  color: $color-secondary !important;
+}
+
+.bg-secondary{
+  background-color: $color-secondary !important;
+}
+
+.color-dark{
+  color: $color-dark !important;
+}
+
+.bg-dark{
+  background-color: $color-dark !important;
+}
+
+.color-light{
+  color: $color-light !important;
+}
+
+.bg-light{
+  background-color: $color-light !important;
+}
