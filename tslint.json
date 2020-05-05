@@ -132,6 +132,6 @@
     "tslint-config-airbnb",
     "tslint:latest",
     "tslint-react",
-    "tslint-eslint-rules"
-    ]
+    "tslint-eslint-rules" 
+   ]
 }

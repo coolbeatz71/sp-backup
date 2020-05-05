@@ -24,7 +24,6 @@ const Navbar: React.SFC<{}> = () => {
   const handleClick = (e: any) => {
     e.preventDefault();
   };
-
   return (
     <div className={styles.navbar}>
       <img src="/logo.svg" alt="save logo" />

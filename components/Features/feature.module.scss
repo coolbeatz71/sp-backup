@@ -11,10 +11,6 @@
         display: inline-block;
         margin-bottom: 20px;
     }
-
-    &__title{
-        color: $color-primary;
-    }
 }
 
 .featureCardTitle {
@@ -33,7 +29,7 @@
 }
 
 .featureCardDescription {
-    font-size: .8rem;
+    font-size: .7rem;
 }
 
 .featureList{
@@ -56,4 +52,22 @@
 
 .featureCardBody {
     padding: 20px;
+}
+
+.featuresHeading {
+    margin: 30px 10%;
+    position: relative;
+
+    h2{
+        text-transform: uppercase;
+        margin: auto 25px;
+    }
+
+    img{
+        position: absolute;
+        top: -10px;
+        width: 35px;
+        height: 35px;
+        left: 25px;
+    }
 }
