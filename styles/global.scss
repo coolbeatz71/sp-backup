@@ -53,6 +53,12 @@ img {
   }
 }
 
+.btn-secondary{
+  color: $color-primary;
+  background: rgba(33, 155, 178, 0.3);
+  border-radius: 3px;
+}
+
 
 .children-container{
   min-height: calc(100vh - (68.5px + 226px));
