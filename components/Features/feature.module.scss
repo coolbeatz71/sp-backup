@@ -1,0 +1,59 @@
+@import 'styles/_variables';
+
+.featureCard {
+    margin-right: 20px;
+    padding: 0;
+    background-color: $color-primary-light;
+    flex-basis: 28%;
+    min-height: 380px;
+
+    @media(max-width: 768px){
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    &__title{
+        color: $color-primary;
+    }
+}
+
+.featureCardTitle {
+    color: $color-primary;
+}
+
+.featureCardHeader {
+    position: relative;
+}
+
+.featureCardHeaderRight {
+    position: relative;
+    width: 45%;
+    top: 0;
+    left: 55%;
+}
+
+.featureCardDescription {
+    font-size: .8rem;
+}
+
+.featureList{
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto 10%;
+
+    @media(max-width: 768px){
+       display: block;
+    }
+}
+
+.featureIcon {
+    margin: 0 10px auto 10%;
+    img{
+        width: 35px;
+        height: 35px;
+    }
+}
+
+.featureCardBody {
+    padding: 20px;
+}
