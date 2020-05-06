@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { Button } from "antd";
 import { SocialButton } from "components/common/Button";
 import CauseCard from "components/common/CauseCard";
+import SectionTitle from 'components/common/SectionTitle';
 
 const IndexPage = () => {
   const clickExample = () => console.log("here social clicked");
@@ -39,6 +40,8 @@ const IndexPage = () => {
           daysToGo={72}
         />
       </div>
+
+      <SectionTitle title="How It Works" icon="icons/gardening.png" />
 
       <style jsx>{`
         .index-container {
