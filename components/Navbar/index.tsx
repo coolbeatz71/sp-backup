@@ -33,7 +33,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
             Causes <DownOutlined />
           </a>
         </Dropdown>
-        <Link href="/">
+        <Link href="/pricing">
           <a>Pricing</a>
         </Link>
         <Button className="btn-primary">SIGN UP</Button>
