@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Head from 'next/head';
+import * as React from "react";
+import Head from "next/head";
 
 type Props = {
-    title?: string
-  }
+  title?: string,
+};
 
 const Header:  React.FunctionComponent<Props>  = ({
-    title = 'Save Plus',
+    title = "Save Plus",
 }) => (
     <Head>
         <title>{title}</title>
@@ -29,6 +29,6 @@ const Header:  React.FunctionComponent<Props>  = ({
             <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
             <meta name="theme-color" content="#ffffff" />
     </Head>
-)
+);
 
 export default Header;
