@@ -8,7 +8,7 @@ import { InputPassword, Input } from "components/common/Input";
 
 const { Option } = Select;
 const { Group: InputGroup } = SemanticInput;
-import Features from "components/Features";
+import HowItWorks from "components/HowItWorks";
 
 const IndexPage = () => {
   const clickExample = () => console.log("here social clicked");

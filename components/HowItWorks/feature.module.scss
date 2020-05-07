@@ -1,0 +1,56 @@
+@import 'styles/_variables';
+
+.featureCard {
+    margin-right: 20px;
+    padding: 0;
+    background-color: $color-primary-light;
+    flex-basis: 28%;
+    min-height: 380px;
+
+    @media(max-width: 768px){
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        color: $color-primary;
+    }
+
+    &__header {
+        position: relative;
+
+        &__right {
+            position: relative;
+            width: 45%;
+            top: 0;
+            left: 55%;
+        }
+    }
+
+    &__description {
+        font-size: .7rem;
+    }
+
+    &__icon {
+        margin: 0 10px auto 10%;
+        img{
+            width: 35px;
+            height: 35px;
+        } 
+    }
+
+    &__body {
+        padding: 20px;
+    }
+}
+
+.featureList{
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto 10%;
+
+    @media(max-width: 768px){
+       display: block;
+    }
+}
+
