@@ -63,3 +63,18 @@ img {
 .children-container{
   min-height: calc(100vh - (68.5px + 226px));
 }
+
+.tag{
+  background: $color-primary;
+  font-size: 13px;
+  text-align: center;
+  padding: 3px 16px;
+  border-radius: 4px;
+  color: #fff;
+  width: fit-content;
+  height: fit-content;
+}
+
+.dv-star-rating{
+  top: -3px;
+}
