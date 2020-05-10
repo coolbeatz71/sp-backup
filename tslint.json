@@ -122,13 +122,16 @@
       {},
       null,
       { "ignoreExternalModule": false, "case": "any-case" }
-    ]
+    ],
+    "ter-arrow-parens": [true],
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "jsx-no-multiline-js": false
   },
   "extends": [
     "tslint-config-airbnb",
     "tslint:latest",
     "tslint-react",
-    "tslint-eslint-rules",
-    "tslint-config-prettier"
-  ]
+    "tslint-eslint-rules"
+    ]
 }

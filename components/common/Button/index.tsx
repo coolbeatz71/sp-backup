@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import style from "./button.module.scss";
 
-
 export interface SocialButtonProps {
   type?: string;
   onClick?: () => void;
@@ -30,7 +29,7 @@ const SocialButton: FunctionComponent<SocialButtonProps> = (props) => {
 };
 
 SocialButton.defaultProps = {
-  type: "google"
+  type: "google",
 };
 
 export { SocialButton };

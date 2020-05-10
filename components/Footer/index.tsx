@@ -1,11 +1,10 @@
 import * as React from "react";
 import Link from "next/link";
-import styles from './footer.module.scss';
+import styles from "./footer.module.scss";
 
-export interface FooterProps {}
-
-const Footer: React.SFC<FooterProps> = () => {
-  return <div className={styles.container}>
+const Footer: React.SFC<{}> = () => {
+  return (
+  <div className={styles.container}>
     <div className={styles.content}>
       <div>
         <img src="/logo.svg" className={styles.logo} alt="footer logo"/>
@@ -38,7 +37,8 @@ const Footer: React.SFC<FooterProps> = () => {
         <a href="mailto:support@Saveplus.io?subject=Support from Our Site">support@Saveplus.io</a>
       </div>
     </div>
-  </div>;
+  </div>
+  );
 };
 
 export default Footer;
