@@ -4,7 +4,7 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
 type Props = {
-  title?: string,
+  title?: string;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -14,9 +14,7 @@ const Layout: React.FunctionComponent<Props> = ({
   <div>
     <Header title={title} />
     <Navbar />
-      <div className="children-container">
-        {children}
-      </div>
+    <div className="children-container">{children}</div>
     <Footer />
   </div>
 );

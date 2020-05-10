@@ -17,19 +17,19 @@ const IndexPage = () => {
 
   return (
     <Layout title="Save Plus">
-        <div className="index-container">
-          <h1>Put a Smile on Someone's Face </h1>
-          <Button className="btn-primary">GET STARTED</Button>
-          <div className="buttons">
-            <Button className="btn-primary">PRIMARY</Button>
-            <Button className="btn-primary-outline">OUTLINE</Button>
-            <Button className="btn-secondary">SECONDARY</Button>
-            <SocialButton onClick={clickExample} type="facebook" />
-            <SocialButton onClick={clickExample} />
-          </div>
-          <CauseCard
-            title="by Dative Kamana"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      <div className="index-container">
+        <h1>Put a Smile on Someone's Face </h1>
+        <Button className="btn-primary">GET STARTED</Button>
+        <div className="buttons">
+          <Button className="btn-primary">PRIMARY</Button>
+          <Button className="btn-primary-outline">OUTLINE</Button>
+          <Button className="btn-secondary">SECONDARY</Button>
+          <SocialButton onClick={clickExample} type="facebook" />
+          <SocialButton onClick={clickExample} />
+        </div>
+        <CauseCard
+          title="by Dative Kamana"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
           ad minim veniam, quis nostrud"
           cover="https://res.cloudinary.com/dutstern8/image/upload/v1588675939/Rectangle_79_q3ljb6.png"
@@ -89,6 +89,7 @@ const IndexPage = () => {
       </div>
 
       <SectionTitle title="How It Works" icon="icons/gardening.png" />
+      <HowItWorks />
 
       <style jsx={true}>{`
         .index-container {

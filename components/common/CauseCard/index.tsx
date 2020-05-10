@@ -44,18 +44,26 @@ const CauseCard: FC<CauseCardProps> = ({
         <div className={styles.causeCard__body__header}>
           <div className={styles.causeCard__body__header__causeOwner}>
             <div className={styles.top}>
-              <img src={avatar} alt="" className={styles.causeCard__body__header__causeOwner__avatar} />
+              <img
+                src={avatar}
+                alt=""
+                className={styles.causeCard__body__header__causeOwner__avatar}
+              />
               {verified && (
                 <img
                   src="/icons/verified-icon.svg"
                   alt=""
-                  className={styles.causeCard__body__header__causeOwner__verified}
+                  className={
+                    styles.causeCard__body__header__causeOwner__verified
+                  }
                 />
               )}
             </div>
             <span>by {name} </span>
           </div>
-          <div className={`tag ${styles.causeCard__body__header__causeTag}`}>Charity</div>
+          <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
+            Charity
+          </div>
         </div>
         <div className={styles.causeCard__body__content}>
           <div className={styles.causeCard__body__content__title}>
@@ -66,15 +74,21 @@ const CauseCard: FC<CauseCardProps> = ({
         <div className={styles.causeCard__body__progress}>
           <div className={styles.causeCard__body__progress__raised}>
             <h5>{numberFormatter(amountRaised)} RWF Raised</h5>
-            <span className={styles.causeCard__body__progress__percentage}>{numberFormatter(progress)} %</span>
+            <span className={styles.causeCard__body__progress__percentage}>
+              {numberFormatter(progress)} %
+            </span>
           </div>
           <div className={styles.causeCard__body__progress__progressBar}>
-            <div className={`progression ${styles.causeCard__body__progress__progression}`} />
+            <div
+              className={`progression ${styles.causeCard__body__progress__progression}`}
+            />
           </div>
           <div className={styles.causeCard__body__progress__goal}>
             <h5>{numberFormatter(amountToReach)} RWF Goal</h5>
             <span className={styles.causeStatus}>
-              {causeStatus.isOpen === status ? `${daysToGo} Days to Go` : "Cause is Stopped"}
+              {causeStatus.isOpen === status
+                ? `${daysToGo} Days to Go`
+                : "Cause is Stopped"}
             </span>
           </div>
         </div>
@@ -99,7 +113,11 @@ const CauseCard: FC<CauseCardProps> = ({
       </div>
       <div className={styles.causeCard__footer}>
         <Link href="/">
-          <a>{causeStatus.isOpen === status ? "Make a Donation" : "This Cause has been Stopped "}</a>
+          <a>
+            {causeStatus.isOpen === status
+              ? "Make a Donation"
+              : "This Cause has been Stopped "}
+          </a>
         </Link>
       </div>
       <style jsx>{`
