@@ -1,0 +1,31 @@
+.input {
+  position: relative;
+  input {
+    border-radius: 5px;
+  }
+  &__label {
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 7px 11px;
+    padding: 0 6px;
+    color: #444;
+    background: transparent;
+    backdrop-filter: blur(50px);
+    transition: all 200ms;
+    opacity: 0.35;
+  }
+  
+  label.focused__mode {
+    font-size: 70%;
+    transform: translate3d(0, -80%, 0);
+    opacity: 1;
+    color: #219bb2;
+  }
+}
+
+.canHaveError {
+  margin: 1.1rem 0;
+}
+
