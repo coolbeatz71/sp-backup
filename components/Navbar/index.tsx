@@ -20,11 +20,9 @@ const menu = (
 );
 
 const Navbar: React.SFC<{}> = () => {
-
   const handleClick = (e: any) => {
     e.preventDefault();
   };
-
   return (
     <div className={styles.navbar}>
       <img src="/logo.svg" alt="save logo" />
@@ -34,7 +32,7 @@ const Navbar: React.SFC<{}> = () => {
             Causes <DownOutlined />
           </a>
         </Dropdown>
-        <Link href="/pricing">
+        <Link href="/">
           <a>Pricing</a>
         </Link>
         <Button className="btn-primary">SIGN UP</Button>

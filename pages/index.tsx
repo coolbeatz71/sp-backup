@@ -8,6 +8,7 @@ import { InputPassword, Input } from "components/common/Input";
 
 const { Option } = Select;
 const { Group: InputGroup } = SemanticInput;
+import HowItWorks from "components/HowItWorks";
 
 const IndexPage = () => {
   const clickExample = () => console.log("here social clicked");
@@ -17,7 +18,7 @@ const IndexPage = () => {
   return (
     <Layout title="Save Plus">
       <div className="index-container">
-        <h1>Put a Smile on Someone Face </h1>
+        <h1>Put a Smile on Someone's Face </h1>
         <Button className="btn-primary">GET STARTED</Button>
         <div className="buttons">
           <Button className="btn-primary">PRIMARY</Button>
@@ -88,6 +89,7 @@ const IndexPage = () => {
       </div>
 
       <SectionTitle title="How It Works" icon="icons/gardening.png" />
+      <HowItWorks />
 
       <style jsx={true}>{`
         .index-container {
