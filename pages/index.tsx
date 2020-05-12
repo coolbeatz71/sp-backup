@@ -1,25 +1,37 @@
 import React from "react";
-import Layout from "../components/Layout";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Select, Input as SemanticInput, Form } from "antd";
 import { SocialButton } from "components/common/Button";
 import CauseCard from "components/common/CauseCard";
 import SectionTitle from "components/common/SectionTitle";
 import { InputPassword, Input } from "components/common/Input";
+import changeName from "redux/actions/example/changeName";
+import { IRootState } from "redux/initialStates";
 
 const { Option } = Select;
 const { Group: InputGroup } = SemanticInput;
 import HowItWorks from "components/HowItWorks";
 
 const IndexPage = () => {
+  const dispatch = useDispatch();
   const clickExample = () => console.log("here social clicked");
+
+  const { currentName } = useSelector(
+    ({ example: { changeName } }: IRootState) => changeName,
+  );
 
   const handleChange = ({ target }: any) => console.log("here ", target.value);
 
   return (
-    <Layout title="Save Plus">
+    <div title="Save Plus">
       <div className="index-container">
-        <h1>Put a Smile on Someone's Face </h1>
-        <Button className="btn-primary">GET STARTED</Button>
+        <h1>Put a Smile on {currentName} Face </h1>
+        <Button
+          className="btn-primary"
+          onClick={() => changeName("Redux")(dispatch)}
+        >
+          GET STARTED
+        </Button>
         <div className="buttons">
           <Button className="btn-primary">PRIMARY</Button>
           <Button className="btn-primary-outline">OUTLINE</Button>
@@ -117,7 +129,7 @@ const IndexPage = () => {
           margin: 1rem 0;
         }
       `}</style>
-    </Layout>
+    </div>
   );
 };
 

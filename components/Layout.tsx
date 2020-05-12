@@ -2,6 +2,7 @@ import * as React from "react";
 import Header from "components/common/header";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
+import { withRedux } from "helpers/with-redux-store";
 
 type Props = {
   title?: string;
@@ -9,7 +10,7 @@ type Props = {
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  title = "This is the default title",
+  title = "Save Plus",
 }) => (
   <div>
     <Header title={title} />
@@ -19,4 +20,4 @@ const Layout: React.FunctionComponent<Props> = ({
   </div>
 );
 
-export default Layout;
+export default withRedux(Layout);
