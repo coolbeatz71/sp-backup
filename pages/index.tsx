@@ -1,137 +1,223 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Button } from "antd";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Select, Input as SemanticInput, Form } from "antd";
-import { SocialButton } from "components/common/Button";
+import Swipeable from "react-swipeable-views";
 import CauseCard from "components/common/CauseCard";
 import SectionTitle from "components/common/SectionTitle";
-import { InputPassword, Input } from "components/common/Input";
-import changeName from "redux/actions/example/changeName";
-import { IRootState } from "redux/initialStates";
-
-const { Option } = Select;
-const { Group: InputGroup } = SemanticInput;
 import HowItWorks from "components/HowItWorks";
+import Spinner from "components/Spinner";
+
+import { getFeed } from "redux/actions/causes/getFeed";
+import { IRootState } from "redux/initialStates";
+import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
-  const clickExample = () => console.log("here social clicked");
+  const { push } = useRouter();
 
-  const { currentName } = useSelector(
-    ({ example: { changeName } }: IRootState) => changeName,
+  const goToRegister = () => {
+    push("/signup");
+  };
+
+  useEffect(() => {
+    getFeed()(dispatch);
+    // tslint:disable-next-line: align
+  }, [dispatch]);
+
+  const { data, loading, fetched, error } = useSelector(
+    ({ causes: { feed } }: IRootState) => feed,
   );
-
-  const handleChange = ({ target }: any) => console.log("here ", target.value);
-
   return (
     <div title="Save Plus">
       <div className="index-container">
-        <h1>Put a Smile on {currentName} Face </h1>
-        <Button
-          className="btn-primary"
-          onClick={() => changeName("Redux")(dispatch)}
-        >
-          GET STARTED
-        </Button>
-        <div className="buttons">
-          <Button className="btn-primary">PRIMARY</Button>
-          <Button className="btn-primary-outline">OUTLINE</Button>
-          <Button className="btn-secondary">SECONDARY</Button>
-          <SocialButton onClick={clickExample} type="facebook" />
-          <SocialButton onClick={clickExample} />
+        <div className="index__intro">
+          <div className="index__intro--info">
+            <h1>Put a Smile on Someone's Face</h1>
+            <Button className="btn-primary index__intro--button">
+              GET STARTED
+            </Button>
+          </div>
         </div>
-        <CauseCard
-          title="by Dative Kamana"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-          ad minim veniam, quis nostrud"
-          cover="https://res.cloudinary.com/dutstern8/image/upload/v1588675939/Rectangle_79_q3ljb6.png"
-          owner={{
-            avatar:
-              "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-            name: "by Dative Kamana",
-            verified: true,
-          }}
-          amountRaised={5100}
-          amountToReach={"600000"}
-          progress={50}
-          status="open"
-          rating={4}
-          daysToGo={72}
-        />
-        <div className="inputs">
-          <div className="field">
-            <SemanticInput placeholder="Standard Input" />
-          </div>
-          <div className="field">
-            <Input
-              name="namey"
-              placeholder="Custom Input"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <InputPassword
-              placeholder="Password"
-              visibilityToggle={true}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field">
-            <InputGroup compact>
-              <Select defaultValue="250" style={{ width: "20%" }}>
-                <Option value="250">+250</Option>
-                <Option value="254">+254</Option>
-                <Option value="243">+243</Option>
-              </Select>
-              <SemanticInput style={{ width: "80%" }} placeholder="Telephone" />
-            </InputGroup>
-          </div>
-          <Form>
-            <Form.Item validateStatus="error" help="Should be a number">
-              <Input placeholder="Validation Error" />
-            </Form.Item>
-            <Input
-              name="namey"
-              placeholder="Custom Input"
-              onChange={handleChange}
-            />
-          </Form>
+        <div className="index__landing__picture">
+          <img src="icons/landing-image.png" alt="" />
         </div>
       </div>
 
-      <SectionTitle title="How It Works" icon="icons/gardening.png" />
-      <HowItWorks />
+      <div className="howitworks__section">
+        <SectionTitle title="How It Works" icon="icons/gardening.png" />
+        <HowItWorks />
+      </div>
 
-      <style jsx={true}>{`
-        .index-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: inherit;
-          flex-direction: column;
-          background: #f4fafd;
-        }
-        h1 {
-          text-align: center;
-          font-size: 30px;
-          font-weight: 500;
-          font-style: normal;
-        }
-        .buttons {
-          display: flex;
-          width: 60%;
-          margin-top: 1rem;
-          justify-content: space-around;
-        }
-        .inputs {
-          width: 40%;
-          margin: 1rem 0;
-        }
-        .field{
-          margin-bottom: 1rem
-        }
-      `}</style>
+      <div className="causes">
+        <SectionTitle title="Featured Causes" icon="icons/heart-beat.png" />
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <div className="causes__grid--mobile">
+              <Swipeable>
+                {fetched && !error &&
+                  data.causes_featured.map((cause: any, index: number) => (
+                    <CauseCard
+                      title={cause.name}
+                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud"
+                      cover={cause.image}
+                      owner={{
+                        avatar:
+                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
+                        name: "Dative Kamana",
+                        verified: true,
+                      }}
+                      amountRaised={5100}
+                      amountToReach={cause.target_amount}
+                      progress={50}
+                      status={cause.status === "active" ? "open" : "closed"}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                      key={index}
+                    />
+                  ))}
+              </Swipeable>
+            </div>
+            <div className="causes__grid causes__grid--lg">
+              {fetched && !error &&
+                data.causes_featured.map((cause: any, index: number) => (
+                  <div className="causes__grid--item" key={index}>
+                    <CauseCard
+                      title={cause.name}
+                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud"
+                      cover={cause.image}
+                      owner={{
+                        avatar:
+                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
+                        name: "Dative Kamana",
+                        verified: true,
+                      }}
+                      amountRaised={5100}
+                      amountToReach={cause.target_amount}
+                      progress={50}
+                      status={cause.status === "active" ? "open" : "closed"}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                    />
+                  </div>
+                ))}
+            </div>
+          </>
+        )}
+
+        <div className="more__causes">
+          <Button className="btn-secondary">DISCOVER MORE CAUSES</Button>
+        </div>
+      </div>
+
+      <div className="causes">
+        <SectionTitle title="Recent Causes" icon="icons/love-birds.png" />
+
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <div className="causes__grid--mobile">
+              <Swipeable>
+                {fetched && !error &&
+                  data.causes_recents.map((cause: any, index: number) => (
+                    <CauseCard
+                      title={cause.name}
+                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud"
+                      cover={cause.image}
+                      owner={{
+                        avatar:
+                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
+                        name: "Dative Kamana",
+                        verified: true,
+                      }}
+                      amountRaised={5100}
+                      amountToReach={cause.target_amount}
+                      progress={50}
+                      status={cause.status === "active" ? "open" : "closed"}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                      key={index}
+                    />
+                  ))}
+              </Swipeable>
+            </div>
+              <div className="causes__grid causes__grid--lg">
+                {fetched && !error && data.causes_recents.map((cause: any, index: number) => (
+                  <div className="causes__grid--item" key={index}>
+                  <CauseCard
+                    title={cause.name}
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud"
+                    cover={cause.image}
+                    owner={{
+                      avatar:
+                        "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
+                      name: "Dative Kamana",
+                      verified: true,
+                    }}
+                    amountRaised={5100}
+                    amountToReach={cause.target_amount}
+                    progress={50}
+                    status={cause.status === "active" ? "open" : "closed"}
+                    rating={cause.ratings}
+                    daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                  />
+                </div>
+                ))}
+            </div>
+          </>
+        )}
+        <div className="more__causes">
+          <Button className="btn-secondary">DISCOVER MORE CAUSES</Button>
+        </div>
+      </div>
+      <div className="short__intro">
+        <div className="short__intro--container">
+          <h1 className="short__intro--title">Short video on Save Plus</h1>
+          <div className="short__intro--video">
+            <iframe
+              src="https://www.youtube.com/embed/3_SusAjQjnw"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            />
+          </div>
+          <div className="short__intro--button">
+            <Button className="btn-primary">
+              Android & iOS App coming soon
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="mission">
+        <div className="mission__item mission--with-image">
+          <img src="icons/kid-overlay.png" alt="" />
+        </div>
+        <div className="mission__item">
+          <div className="mission__item--title">
+            <img src="icons/family.png" alt="" />
+            <h2>SAVE Plus</h2>
+            <span>Mission</span>
+          </div>
+          <div className="mission__item--description">
+            <p>
+              We are a platform dedicated to connecting socially impactful
+              causes, conscious people.
+            </p>
+          </div>
+          <div className="mission__item--button">
+            <Button className="btn-primary-outline" onClick={goToRegister}>JOIN US</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

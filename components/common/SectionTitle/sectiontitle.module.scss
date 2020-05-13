@@ -1,10 +1,17 @@
+@import "styles/_mixins";
 .sectionTitle {
-    margin: 30px 10%;
+    margin: 30px 3%;
     position: relative;
 
     h2{
         text-transform: uppercase;
         margin: auto 25px;
+
+        @include mediaMd {
+            font-size: 1rem;
+        }
+
+
     }
 
     img{
@@ -13,5 +20,10 @@
         width: 35px;
         height: 35px;
         left: 25px;
+        z-index: -1;
+
+        @include mediaMd {
+            top: -75%;
+        }
     }
 }

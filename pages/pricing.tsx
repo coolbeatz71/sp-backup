@@ -1,10 +1,9 @@
 import * as React from "react";
-import Layout from "../components/Layout";
 import PricingCard from "../components/Pricing";
 
 const PricingPage = () => {
   return (
-    <Layout title="Pricing | Save Plus">
+    <div title="Pricing | Save Plus">
       <div className="pricing__container">
         <div className="pricing__grid">
           <PricingCard
@@ -25,19 +24,18 @@ const PricingPage = () => {
         {`
           .pricing__container {
             background: #3c3f59;
-            height: 100vh;
-            padding: 10px;
+            padding: 50px;
             display: flex;
             justify-content: center;
             text-align: center;
           }
           .pricing__grid {
             display: flex;
-            margin-top: 20%;
+            margin-top: 10%;
           }
         `}
       </style>
-    </Layout>
+    </div>
   );
 };
 

@@ -96,7 +96,8 @@
     "no-submodule-imports": false,
     "jsx-no-multiline-js": false,
     "jsx-wrap-multiline": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false
   },
   "extends": [
     "tslint-config-airbnb",

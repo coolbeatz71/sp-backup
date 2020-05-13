@@ -1,4 +1,5 @@
 @import "styles/_variables";
+@import "styles/_mixins";
 
 .container {
   display: flex;
@@ -7,10 +8,19 @@
 .content {
   padding: 1rem 0;
   width: 25%;
+
+  @include mediaMd {
+    width: 70%;
+
+    img {
+      width: 30%;
+    }
+  }
 }
 
 .logo {
   margin: 0 auto;
+  max-width: 50%;
 }
 
 .labelCopyright {
@@ -29,6 +39,12 @@
     color: $color-dark;
     font-weight: 500;
     font-size: 12px;
+
+    @include mediaMd {
+      font-weight: 200;
+      font-size: 10px;
+      margin-right: 20px;
+    }
   }
 }
 

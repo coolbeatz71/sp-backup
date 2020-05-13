@@ -1,4 +1,5 @@
 @import "./_variables";
+@import "./mixins";
 
 html,
 body {
@@ -8,6 +9,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  overflow-x: hidden;
   body,
   div,
   h1,
@@ -24,6 +26,8 @@ body {
   }
 }
 
+@import './pages/index.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -38,8 +42,9 @@ a:hover {
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   display: block;
+  position: relative;
 }
 
 .menu .anticon, .navbar_navbar__menuMobile__2OXwc .anticon {
@@ -194,3 +199,52 @@ img {
   }
 }
 
+.navbar {
+  &__mobile {
+    display: none;
+    padding: 20px;
+    transform: translate3d(0, -100%, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: $color-light;
+    color: $color-dark;
+    transition: .5s ease-out;
+
+    &.active {
+      transform: translate3d(0, 0, 0);
+    }
+
+    a {
+      color: $color-dark;
+      text-decoration: none;
+    }
+
+    @include mediaMd {
+      display: block;
+
+      &--close {
+        position: relative;
+        right: 0;
+        top: 15%;
+        left: 90%;
+      }
+
+      &--menu {
+        list-style: none;
+
+        li {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
+
+.react-swipeable-view-container {
+  div[data-swipeable]{
+    width: 85% !important;
+  }
+}
