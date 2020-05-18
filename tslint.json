@@ -94,7 +94,8 @@
     "ter-arrow-parens": [true],
     "no-implicit-dependencies": false,
     "no-submodule-imports": false,
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false
   },
   "extends": [
     "tslint-config-airbnb",

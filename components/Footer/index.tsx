@@ -1,9 +1,13 @@
-import * as React from "react";
+import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "./footer.module.scss";
+import isFooterNonApplicable from "helpers/isFooterNonApplicable";
 
-const Footer: React.SFC<{}> = () => {
-  return (
+const Footer: React.FC<{}> = () => {
+  const { pathname } = useRouter();
+  const isApplicable = !isFooterNonApplicable(pathname);
+  return isApplicable ? (
     <div className={styles.container}>
       <div className={styles.content}>
         <div>
@@ -40,6 +44,8 @@ const Footer: React.SFC<{}> = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

@@ -128,6 +128,9 @@ const IndexPage = () => {
           width: 40%;
           margin: 1rem 0;
         }
+        .field{
+          margin-bottom: 1rem
+        }
       `}</style>
     </div>
   );

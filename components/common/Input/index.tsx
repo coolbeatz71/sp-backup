@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Input as SemanticInput } from "antd";
 import { InputProps, PasswordProps } from "antd/es/input";
 import styles from "./input.module.scss";
@@ -7,27 +7,42 @@ const { Password } = SemanticInput;
 
 export interface InputInterface {
   canHaveError?: boolean;
+  ref?: any;
 }
 
 const Input: React.FC<InputInterface & InputProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
   const [onFocus, setOnFocus] = useState(false);
+  useEffect(() => {
+    if (props.value || props.defaultValue) setOnFocus(true);
+  }, [props.value]);
+  const inputRef = useRef({ focus: (): any => null });
   const handleFocus = ({ target }: any) => {
     if (target.value.length > 0) return setOnFocus(true);
     setOnFocus(!onFocus);
   };
 
+  const focusOnClick = () => inputRef.current.focus();
+
   return (
-    <div className={`${styles.input} ${props.canHaveError ? styles.canHaveError : ""}`}>
+    <div
+      className={`${styles.input} ${props.className} ${
+        props.canHaveError ? styles.canHaveError : ""
+      }`}
+    >
       <SemanticInput
         id={props.name}
-        {...defaultProps}
         onFocus={handleFocus}
         onBlur={handleFocus}
+        ref={inputRef}
+        {...defaultProps}
       />
       <label
-        className={`${styles.input__label} ${onFocus ? styles.focused__mode : ""}`}
+        className={`${styles.input__label} ${
+          onFocus ? styles.focused__mode : ""
+        }`}
         htmlFor={props.name}
+        onClick={focusOnClick}
       >
         {props.placeholder}
       </label>
@@ -38,22 +53,37 @@ const Input: React.FC<InputInterface & InputProps> = (props) => {
 const InputPassword: React.FC<InputInterface & PasswordProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
   const [onFocus, setOnFocus] = useState(false);
+  useEffect(() => {
+    if (props.value || props.defaultValue) setOnFocus(true);
+  }, [props.value]);
+  const inputRef = useRef({ focus: (): any => null });
+
+  const focusOnClick = () => inputRef.current.focus();
+
   const handleFocus = ({ target }: any) => {
     if (target.value.length > 0) return setOnFocus(true);
     setOnFocus(!onFocus);
   };
 
   return (
-    <div className={`${styles.input} ${props.canHaveError ? styles.canHaveError : ""}`}>
+    <div
+      className={`${styles.input} ${props.className} ${
+        props.canHaveError ? styles.canHaveError : ""
+      }`}
+    >
       <Password
         id={props.name}
-        {...defaultProps}
         onFocus={handleFocus}
         onBlur={handleFocus}
+        ref={inputRef}
+        {...defaultProps}
       />
       <label
-        className={`${styles.input__label} ${onFocus ? styles.focused__mode : ""}`}
+        className={`${styles.input__label} ${
+          onFocus ? styles.focused__mode : ""
+        }`}
         htmlFor={props.name}
+        onClick={focusOnClick}
       >
         {placeholder}
       </label>
@@ -62,11 +92,11 @@ const InputPassword: React.FC<InputInterface & PasswordProps> = (props) => {
 };
 
 Input.defaultProps = {
-  canHaveError: true
+  canHaveError: true,
 };
 
 InputPassword.defaultProps = {
-  canHaveError: true
+  canHaveError: true,
 };
 
 export { Input, InputPassword };

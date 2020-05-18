@@ -1,0 +1,40 @@
+.authForm {
+  background: #fff;
+  border: 0.5px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 1.5rem 2rem 0;
+  width: 70%;
+  &__actions{
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    &__signin{
+      font-size: 0.9em;
+      margin-top: 0.5em;
+    }
+  }
+  &__socialAuth{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    padding: 1rem;
+    &__actions{
+      flex-direction: column;
+      text-align: center;
+      padding: 0 1rem;
+      &__signin{
+        margin-bottom: 0.9em;
+      }
+    }
+    &__socialAuth{
+      flex-direction: column;
+      padding: 0 1rem;
+      & > * {
+        margin-bottom: 0.6rem;
+      }
+    }
+  }  
+}
