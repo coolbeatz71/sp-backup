@@ -3,19 +3,20 @@
   background: #f4fafb;
   display: flex;
   flex-wrap: wrap;
+  padding: 4rem 8rem;
+  align-content: flex-start;
   .message {
     width: 40%;
-    padding: 4rem;
     font-weight: bold;
     font-size: 25px;
   }
   .form {
     width: 60%;
-    padding: 4rem;
+    display: flex;
+    justify-content: flex-end;
   }
   @media only screen and (max-width: 768px) {
     padding: 1rem;
-    align-content: flex-start;
     .message, .form {
       padding: 0;
       margin: 0;

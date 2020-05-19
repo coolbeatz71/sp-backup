@@ -25,10 +25,20 @@ export default {
     error: {},
     loading: false,
   },
+  login: {
+    message: {},
+    error: {},
+    loading: false,
+  },
 };
 
 export interface Iauth {
   signup: {
+    message: {};
+    error: any;
+    loading: boolean;
+  };
+  login: {
     message: {};
     error: any;
     loading: boolean;
