@@ -120,7 +120,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         )}
         {["signup", "verify-phone"].includes(context) ? (
           <>
-            <div className="d-md-flex d-sm-none">
+            <div className="d-md-flex d-block">
               <Form.Item
                 name="first_name"
                 rules={[{ required: true, min: 3 }]}
