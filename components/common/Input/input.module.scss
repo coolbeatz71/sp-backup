@@ -15,6 +15,9 @@
     backdrop-filter: blur(50px);
     transition: all 200ms;
     opacity: 0.35;
+    &:hover{
+      cursor: text;
+    }
   }
   
   label.focused__mode {
@@ -23,9 +26,5 @@
     opacity: 1;
     color: #219bb2;
   }
-}
-
-.canHaveError {
-  margin: 1.1rem 0;
 }
 

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import style from "./button.module.scss";
 
 export interface SocialButtonProps {
-  type?: string;
+  type?: "facebook" | "google";
   onClick?: () => void;
 }
 

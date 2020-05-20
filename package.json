@@ -13,10 +13,15 @@
   "dependencies": {
     "@types/react-star-rating-component": "^1.4.0",
     "antd": "^4.1.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "lodash": "^4.17.15",
     "next": "9.3",
     "next-pwa": "^2.3.3",
+    "nprogress": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-hook-form": "^5.7.2",
     "react-star-rating-component": "^1.4.1",
     "sass": "^1.26.5"
   },

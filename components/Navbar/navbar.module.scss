@@ -16,4 +16,19 @@
       font-weight: 500;
     }
   }
+  &__menuMobile{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-top: 2rem;
+    & > * {
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      font-size: 16px
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    background: #f4fafb;
+    padding: 1rem;
+  } 
 }
