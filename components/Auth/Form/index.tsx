@@ -4,7 +4,6 @@ import styles from "./authForm.module.scss";
 import {
   Form,
   Button,
-  Input as SemanticInput,
   Select,
   Typography,
   Divider,
@@ -143,7 +142,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
               rules={[{ len: 9, required: true }]}
               name="phone_number"
             >
-              <SemanticInput
+              <Input
                 placeholder="Phone Number"
                 addonBefore={prefixSelector}
                 maxLength={9}
@@ -182,7 +181,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
               rules={[{ len: 9, required: true }]}
               name="phone_number"
             >
-              <SemanticInput
+              <Input
                 placeholder="Phone Number"
                 addonBefore={prefixSelector}
                 maxLength={9}

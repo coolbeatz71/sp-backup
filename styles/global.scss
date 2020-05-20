@@ -112,6 +112,24 @@ img {
   padding: 4px 11px !important;
 }
 
+.ant-input-group{
+  .ant-input-group-addon{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+}
+
+.ant-input-group-wrapper + .input_input__label__1H7Jb {
+  left: 75px !important;
+  z-index: 100;
+}
+
+.authLayout_form__1BIXO{
+  .input_input__label__1H7Jb{
+    background: #fff;
+  }
+}
+
 .ant-input-password {
   min-height: 38px;
   border-radius: 5px;
