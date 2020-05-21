@@ -12,7 +12,7 @@ export default {
 export interface Iuser {
   currentUser: {
     isLoggedin: boolean;
-    data: {};
+    data: { [key: string]: any };
     loading: boolean;
     error: any;
   };

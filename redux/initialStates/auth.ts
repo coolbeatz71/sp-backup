@@ -30,6 +30,11 @@ export default {
     error: {},
     loading: false,
   },
+  logout: {
+    message: {},
+    error: {},
+    loading: false,
+  },
 };
 
 export interface Iauth {
@@ -39,6 +44,11 @@ export interface Iauth {
     loading: boolean;
   };
   login: {
+    message: {};
+    error: any;
+    loading: boolean;
+  };
+  logout: {
     message: {};
     error: any;
     loading: boolean;

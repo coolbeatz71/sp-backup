@@ -1,22 +1,20 @@
-@import "styles/_variables";
-
-.navbar{
-  background: $color-light;
+.navbar {
+  background: #fff;
   display: flex;
   justify-content: space-between;
   padding: 1rem 3rem;
-  nav{
-    & > * {
-      margin-left: 1rem;
-      font-size: 15px;
-    }
-    a{
-      color: $color-dark;
+  nav {
+    a {
+      color: #333;
       text-decoration: none;
       font-weight: 500;
     }
   }
-  &__menuMobile{
+  &__menuNonMobile > * {
+    margin-left: 1rem;
+    font-size: 15px;
+  }
+  &__menuMobile {
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -24,11 +22,34 @@
     & > * {
       margin-bottom: 0.8rem;
       font-weight: 500;
-      font-size: 16px
+      font-size: 16px;
     }
   }
+
+  &__profile{
+    &__avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      display: inline-block;
+      margin-top: -5px;
+      margin-right: 5px;
+      border: 1px solid #219bb2;
+    }
+  }
+
+  &__avatar__name{
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover{
+      color: #000000a6 !important;
+      cursor: initial;
+    }
+  }
+
   @media only screen and (max-width: 768px) {
     background: #f4fafb;
     padding: 1rem;
-  } 
+  }
 }
