@@ -16,9 +16,11 @@ export default (data: {}) => (push: any, dispatch: any) => {
   saveApi
     .post("/auth/login", data)
     .then((response: any) => {
-      const { token } = response.data;
-      localStorage.setItem("SPL-token", token);
+      let { token } = response.data;
+      token = `JWT ${token}`;
+      localStorage.setItem("save-token", token);
       splApi.defaults.headers.Authorization = token;
+      saveApi.defaults.headers.Authorization = token;
       const payload = response.data;
       dispatch({
         type: LOGIN_SUCCESS,

@@ -60,10 +60,11 @@ img {
   color: #fff;
   border-radius: 3px;
   border: none;
-  &:hover, &:focus {
-    background: rgba($color: $color-primary, $alpha: 0.7);
-    background-color: rgba($color: $color-primary, $alpha: 0.7);
+  &:hover, &:focus, &:active {
+    background: rgba($color: $color-primary, $alpha: 0.7) !important;
+    background-color: rgba($color: $color-primary, $alpha: 0.7) !important;
     color: $color-light;
+    box-shadow: unset !important;
   }
 }
 
@@ -101,6 +102,40 @@ img {
 .dv-star-rating{
   top: -3px;
 }
+
+//navbar
+.navbar__menu{
+  min-width: 180px !important;
+  .ant-dropdown-menu-item{
+    &:hover{
+      background-color: transparent;
+      color: $color-primary;
+    }
+  }
+  &__logout{
+    color: #EB5757;
+    &:hover{
+      color: #EB5757 !important;
+      font-weight: 500;
+    }
+  }
+}
+
+.navbar__menu--last{
+  width: 180px;
+  top: 54px !important;
+  .ant-dropdown-menu-item-divider{
+    background-color: #f0f0f08f;
+  }
+  .avatar__profile__divider{
+    background-color: #ddd;
+  }
+  @media only screen and (min-width: 768px) {
+    right: 10px;
+    left: unset !important;
+  } 
+}
+
 // custom input
 
 .ant-input {

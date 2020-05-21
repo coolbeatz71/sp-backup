@@ -21,7 +21,7 @@ export default (data: {}) => (push: any, dispatch: any) => {
     .post("/auth/signup", data)
     .then((response: any) => {
       const { token } = response.data;
-      localStorage.setItem("SPL-token", token);
+      localStorage.setItem("save-token", token);
       splApi.defaults.headers.Authorization = token;
       const payload = response.data;
       dispatch({
