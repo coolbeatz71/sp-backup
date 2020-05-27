@@ -1,13 +1,25 @@
-.navbar {
-  background: #fff;
+@import "styles/_variables";
+@import 'styles/_mixins';
+
+.navbar{
+  background: $color-light;
   display: flex;
   justify-content: space-between;
   padding: 1rem 3rem;
+
+  &__logo {
+    max-width: 100% !important;
+    width: auto !important;
+  }
   nav {
     a {
       color: #333;
       text-decoration: none;
       font-weight: 500;
+    }
+
+    @include mediaMd {
+      display: none;
     }
   }
   &__menuNonMobile > * {
@@ -48,8 +60,17 @@
     }
   }
 
-  @media only screen and (max-width: 768px) {
+  @include mediaMd {
     background: #f4fafb;
     padding: 1rem;
+  }
+}
+
+.menuHamburger {
+  display: none;
+  position: relative;
+  right: 0;
+  @include mediaMd {
+    display: block;
   }
 }

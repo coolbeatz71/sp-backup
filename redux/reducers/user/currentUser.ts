@@ -9,7 +9,7 @@ import { Iuser } from "redux/initialStates/user";
 
 export default (
   state: Iuser,
-  { type, payload }: { type: string; payload: any }
+  { type, payload }: { type: string; payload: any },
 ) => {
   switch (type) {
     case SET_CURRENT_USER_START:

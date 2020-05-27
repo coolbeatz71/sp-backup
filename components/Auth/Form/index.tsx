@@ -15,7 +15,7 @@ import {
   IauthCurrentUser,
   authCurrentUserDefault,
 } from "redux/initialStates/auth";
-import phoneFormatter from 'helpers/phoneNumberFormatter';
+import phoneFormatter from "helpers/phoneNumberFormatter";
 
 const { Option } = Select;
 const { Text } = Typography;

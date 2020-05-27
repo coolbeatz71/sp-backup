@@ -80,7 +80,7 @@ const Navbar: React.SFC<{}> = () => {
           Causes <DownOutlined />
         </a>
       </Dropdown>
-      <Link href="/">
+      <Link href="/pricing">
         <a>Pricing</a>
       </Link>
       {!isLoggedin ? (
@@ -134,7 +134,7 @@ const Navbar: React.SFC<{}> = () => {
         {navItems()}
       </Modal>
       <Link href="/">
-        <img src="/logo.svg" alt="save logo" />
+        <img src="/logo.svg" alt="save logo" className={styles.navbar__logo} />
       </Link>
       <MenuOutlined
         onClick={toggleMenuMobile}

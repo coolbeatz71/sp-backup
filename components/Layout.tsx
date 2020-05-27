@@ -18,14 +18,14 @@ const Layout: React.FunctionComponent<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const { isLoggedin, loading, data } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
     if (!loading && isLoggedin && isEmpty(data)) {
       getCurrentUser(dispatch);
     }
-  }, []);
+  },        []);
 
   return (
     <div>

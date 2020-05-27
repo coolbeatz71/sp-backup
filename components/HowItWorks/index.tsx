@@ -1,4 +1,5 @@
 import * as React from "react";
+import Swipeable from "react-swipeable-views";
 import Feature from "./Feature";
 import styles from "./feature.module.scss";
 
@@ -34,6 +35,18 @@ const Features: React.FC<{}> = () => (
           description={feature.description}
         />
       ))}
+    </div>
+    <div className={styles.featureListMobile}>
+      <Swipeable>
+        {features.map((feature, index) => (
+          <Feature
+            key={index}
+            title={feature.title}
+            icon={feature.icon}
+            description={feature.description}
+          />
+        ))}
+      </Swipeable>
     </div>
   </div>
 );

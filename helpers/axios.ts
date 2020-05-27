@@ -29,12 +29,6 @@ export const saveApi = axios.create({
   },
 });
 
-saveApi.interceptors.response.use(
-  responseHandler,
-  errorHandler,
-);
+saveApi.interceptors.response.use(responseHandler, errorHandler);
 
-splApi.interceptors.response.use(
-  responseHandler,
-  errorHandler,
-);
+splApi.interceptors.response.use(responseHandler, errorHandler);

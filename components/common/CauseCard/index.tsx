@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./causeCard.module.scss";
 import Link from "next/link";
-import { Button } from "antd";
+// import { Button } from "antd";
 import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
 
@@ -67,7 +67,9 @@ const CauseCard: FC<CauseCardProps> = ({
         </div>
         <div className={styles.causeCard__body__content}>
           <div className={styles.causeCard__body__content__title}>
-            <h3>{title}</h3>
+            <Link href="/">
+              <h3>{title}</h3>
+            </Link>
           </div>
           <p>{description}</p>
         </div>
@@ -104,10 +106,10 @@ const CauseCard: FC<CauseCardProps> = ({
             />
           </div>
           <div className={styles.causeCard__body__extra__share}>
-            <span>share</span>
-            <Button>
+            <span className={styles.causeCard__share__text}>share</span>
+            <span className={styles.causeCard__share}>
               <img src="/icons/share-icon.svg" alt="" />
-            </Button>
+            </span>
           </div>
         </div>
       </div>

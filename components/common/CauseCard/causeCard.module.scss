@@ -1,18 +1,53 @@
-.causeCard{
-  background: #F6F6F6;
-  width: 300px;
-  &__body{
-    padding: 0 1rem 0.2rem 1rem ;
-    &__header{
+@import "styles/_variables";
+@import "styles/_mixins";
+.causeCard {
+  background: #f6f6f6;
+  &:hover, &:focus {
+    cursor: pointer;
+  }
+
+  @include mediaMd {
+    width: 80%;
+    margin-left: 5%;
+    display: inline-block;
+
+    .cover {
+      position: relative;
+      img {
+        z-index: -1;
+      }
+    }
+  }
+
+  &__share {
+    background: transparent !important;
+    margin-left: 10px;
+    cursor: pointer;
+    &:hover {
+      background: transparent !important;
+      border: none;
+      outline: none;
+    }
+
+    &__text {
+      color: $color-primary;
+    }
+  }
+
+  
+  width: 100%;
+  &__body {
+    padding: 0 1rem 0.2rem 1rem;
+    &__header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: .2rem;
-      &__causeOwner{
+      margin-bottom: 0.2rem;
+      &__causeOwner {
         $grandParent: &;
-        .top{
+        .top {
           display: flex;
-          margin-bottom: .3rem;
-          #{$grandParent}__avatar{
+          margin-bottom: 0.3rem;
+          #{$grandParent}__avatar {
             margin-top: -30px;
             width: 50px;
             height: 50px;
@@ -21,81 +56,84 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
           }
-          #{$grandParent}__verified{
+          #{$grandParent}__verified {
             margin: -10px 0 0 10px;
+            width: 25px;
+            height: 25px;
           }
         }
-        span{
+        span {
           font-size: 12px;
         }
       }
-      &__causeTag{
+      &__causeTag {
         margin-top: -12px;
+        z-index: 100;
       }
     }
-    &__content{
+    &__content {
       margin-bottom: 0.8rem;
-      &__title{
-        h3{
-
+      &__title {
+        h3 {
           font-size: 15px;
           font-weight: 500;
         }
       }
-      p{
+      p {
         font-size: 12px;
       }
     }
-    &__progress{
+    &__progress {
       $grandParent: &;
-      margin-bottom: .8rem;
-      &__raised, &__goal {
+      margin-bottom: 0.8rem;
+      &__raised,
+      &__goal {
         display: flex;
         justify-content: space-between;
-        h5{
+        h5 {
           font-weight: 400;
           font-size: 14px;
           margin: 0;
         }
-        span{
+        span {
           font-size: 13px;
           opacity: 0.5;
         }
       }
-      &__progressBar{
+      &__progressBar {
         background: #fff;
         border-radius: 5px;
         border: 0.3px solid rgba(51, 51, 51, 0.3);
         height: 8px;
         width: 100%;
         margin: 8px 0;
-        #{$grandParent}__progression{
-          background: #219BB2;
+        #{$grandParent}__progression {
+          background: #219bb2;
           height: 100%;
           border-top-left-radius: inherit;
           border-bottom-left-radius: inherit;
         }
       }
     }
-    &__extra{
+    &__extra {
       display: flex;
       justify-content: space-between;
-      span{
-        font-size: .7em;
+      span {
+        font-size: 0.7em;
       }
-      &__ratings{
+      &__ratings {
         display: flex;
-        span{
+        span {
           margin-right: 5px;
         }
       }
-      &__share{
+      &__share {
         display: flex;
-        button{
+        button {
           border: none;
           background: transparent;
           box-shadow: none;
-          img{
+          img {
             width: 20px;
             margin-top: -10px;
           }
@@ -103,10 +141,10 @@
       }
     }
   }
-  &__footer{
-    border-top: .5px solid #33333338;
+  &__footer {
+    border-top: 0.5px solid #33333338;
     text-align: center;
-    a{
+    a {
       color: #444;
       font-size: 13px;
       font-weight: 600;

@@ -6,21 +6,20 @@ import AuthLayout from "components/Auth/Layout";
 import { IRootState } from "redux/initialStates";
 import login from "redux/actions/Auth/login";
 
-export interface LoginProps {}
-
-const Login: React.SFC<LoginProps> = () => {
+const Login: React.SFC<{}> = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
   const { loading, error } = useSelector(
-    ({ auth: { login } }: IRootState) => login
+    ({ auth: { login } }: IRootState) => login,
   );
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
     if (isLoggedin) push("/");
+  // tslint:disable-next-line: align
   }, []);
 
   const handleSubmit = (form: {}) => {
