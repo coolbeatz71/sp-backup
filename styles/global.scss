@@ -41,12 +41,6 @@ a:hover {
   text-decoration: underline;
 }
 
-img {
-  width: 100%;
-  display: block;
-  position: relative;
-}
-
 .menu .anticon,
 .navbar_navbar__menuMobile__2OXwc .anticon {
   vertical-align: 0.2em;
@@ -149,10 +143,23 @@ img {
 .ant-input {
   padding: 7px 11px;
 }
+textarea.ant-input {
+  border-radius: 5px;
+}
 
 .ant-select-selector {
   min-height: 38px;
   padding: 4px 11px !important;
+  border-radius: 5px;
+}
+
+.ant-picker {
+  min-height: 38px;
+  border-radius: 5px;
+}
+
+.ant-upload-drag{
+  background: rgba(33, 155, 178, 0.1) !important;
 }
 
 .ant-input-group {
@@ -251,3 +258,19 @@ img {
     width: 85% !important;
   }
 }
+
+.ant-switch-checked{
+  background-color: $color-primary;
+}
+
+.ant-switch{
+  margin-top: -0.5rem;
+  width: 43.88px;
+  height: 27px;
+}
+
+.ant-switch-loading-icon, .ant-switch::after{
+  width: 22px;
+  height: 22px;
+}
+

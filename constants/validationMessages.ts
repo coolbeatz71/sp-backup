@@ -1,4 +1,4 @@
-const typeTemplate = "'${name}' is not a valid ${type}";
+const typeTemplate = "is not a valid ${type}";
 
 export const validateMessages = {
   default: "Validation error on field '${name}'",

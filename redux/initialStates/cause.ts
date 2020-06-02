@@ -11,6 +11,11 @@ export default {
     error: null,
     fetched: false,
   },
+  create: {
+    data: {},
+    loading: false,
+    error: "",
+  },
 };
 
 export interface ICauseFeed {
@@ -20,7 +25,12 @@ export interface ICauseFeed {
   fetched: boolean;
 }
 
-export interface ICauses {
+export interface ICause {
   feed: ICauseFeed;
   user: ICauseFeed;
+  create: {
+    data: { [key: string]: any };
+    error: string;
+    loading: boolean;
+  };
 }

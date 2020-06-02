@@ -26,5 +26,16 @@
     opacity: 1;
     color: #219bb2;
   }
+
+  &__wordsCount {
+    display: block;
+    text-align: right;
+    margin-bottom: -1rem;
+    color: #8c8d8f;
+    position: relative;
+    top: -24px;
+    right: 18px;
+    font-size: 13px;
+  }
 }
 

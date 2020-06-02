@@ -3,7 +3,7 @@ import {
   GET_USER_CAUSES_ERROR,
   GET_USER_CAUSES_SUCCESS,
   GET_USER_CAUSES_START,
-} from "redux/action-types/causes/userCauses";
+} from "redux/action-types/cause/userCauses";
 
 export const getUserCauses = () => (dispatch: any) => {
   dispatch({

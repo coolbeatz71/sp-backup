@@ -4,6 +4,7 @@
 .container {
   display: flex;
   justify-content: center;
+  background: #F9F9FA;
 }
 .content {
   padding: 1rem 0;
@@ -12,8 +13,9 @@
   @include mediaMd {
     width: 70%;
 
-    img {
+    img.logo {
       width: 30%;
+      display: block;
     }
   }
 }

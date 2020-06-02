@@ -1,18 +1,19 @@
-import { ICauses } from "redux/initialStates/causes";
+import { ICause } from "redux/initialStates/cause";
 import {
   GET_FEED_START,
   GET_FEED_SUCCESS,
   GET_FEED_ERROR,
-} from "redux/action-types/causes/feed";
+} from "redux/action-types/cause/feed";
 
 interface Iaction {
   type: string;
   payload: any;
 }
 
-export default (state: ICauses, { type, payload }: Iaction) => {
+export default (state: ICause, { type, payload }: Iaction) => {
   switch (type) {
     case GET_FEED_START:
+      console.log("here starts reducer", state)
       return {
         ...state,
         feed: {
