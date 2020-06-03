@@ -7,9 +7,10 @@ import {
   Select,
   Typography,
   Divider,
+  Row,
+  Col,
 } from "antd";
 import { InputPassword, Input } from "components/common/Input";
-import { SocialButton } from "components/common/Button";
 import { validateMessages } from "constants/validationMessages";
 import {
   IauthCurrentUser,
@@ -120,22 +121,28 @@ const AuthForm: React.FC<AuthFormProps> = ({
         )}
         {["signup", "verify-phone"].includes(context) ? (
           <>
-            <div className="d-md-flex d-block">
-              <Form.Item
-                name="first_name"
-                rules={[{ required: true, min: 3 }]}
-                validateTrigger={["onSubmit", "onBlur"]}
-              >
-                <Input placeholder="First Name" className="mr-md-3" />
-              </Form.Item>
-              <Form.Item
-                name="last_name"
-                validateTrigger={["onSubmit", "onBlur"]}
-                rules={[{ required: true, min: 3 }]}
-              >
-                <Input placeholder="Last Name" />
-              </Form.Item>
-            </div>
+            <Form.Item className={styles.authForm__names}>
+              <Row gutter={8}>
+                <Col span={12}>
+                  <Form.Item
+                    name="first_name"
+                    rules={[{ required: true, min: 3 }]}
+                    validateTrigger={["onSubmit", "onBlur"]}
+                  >
+                    <Input placeholder="First Name" />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    name="last_name"
+                    validateTrigger={["onSubmit", "onBlur"]}
+                    rules={[{ required: true, min: 3 }]}
+                  >
+                    <Input placeholder="Last Name" />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form.Item>
             <Form.Item
               className="form-group"
               validateTrigger={["onSubmit", "onBlur"]}
@@ -174,36 +181,37 @@ const AuthForm: React.FC<AuthFormProps> = ({
             </Form.Item>
           </>
         ) : (
-          <>
-            <Form.Item
-              className="form-group"
-              validateTrigger={["onSubmit", "onBlur"]}
-              rules={[{ len: 9, required: true }]}
-              name="phone_number"
-            >
-              <Input
-                placeholder="Phone Number"
-                addonBefore={prefixSelector}
-                maxLength={9}
-              />
-            </Form.Item>
-            <Form.Item
-              className="form-group"
-              rules={[
-                {
-                  len: 5,
-                  required: true,
-                  pattern: /^[0-9]{5}$/,
-                  message: "Password must be number of 5 digits",
-                },
-              ]}
-              validateTrigger={["onSubmit", "onBlur"]}
-              name="password"
-            >
-              <InputPassword maxLength={5} placeholder="PIN" />
-            </Form.Item>
-          </>
-        )}
+            <>
+              <Form.Item
+                className="form-group"
+                validateTrigger={["onSubmit", "onBlur"]}
+                rules={[{ len: 9, required: true }]}
+                name="phone_number"
+              >
+                <Input
+                  placeholder="Phone Number"
+                  addonBefore={prefixSelector}
+                  maxLength={9}
+                />
+              </Form.Item>
+              <Form.Item
+                className="form-group"
+                rules={[
+                  {
+                    len: 5,
+                    required: true,
+                    pattern: /^[0-9]{5}$/,
+                    message: "Password must be number of 5 digits",
+                  },
+                ]}
+                validateTrigger={["onSubmit", "onBlur"]}
+                name="password"
+              >
+                <InputPassword maxLength={5} placeholder="PIN" />
+              </Form.Item>
+            </>
+          )
+        }
         <div className={styles.authForm__actions}>
           <div className={styles.authForm__actions__signin}>
             <span>{formAction(context).suggestionMessage}</span>
@@ -215,19 +223,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
             {formAction(context).text}
           </Button>
         </div>
-        {context !== "verify-phone" && (
-          <div className={styles.authForm__socialAuth}>
-            <SocialButton type="google" />
-            <SocialButton type="facebook" />
-          </div>
-        )}
-      </Form>
+      </Form >
       <style jsx={true}>{`
         .form-group {
           margin-bottom: 1.3rem;
         }
       `}</style>
-    </div>
+    </div >
   );
 };
 
