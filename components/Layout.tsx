@@ -25,7 +25,7 @@ const Layout: React.FunctionComponent<Props> = ({
     if (!loading && isLoggedin && isEmpty(data)) {
       getCurrentUser(dispatch);
     }
-  },        []);
+  }, []);
 
   return (
     <div>
