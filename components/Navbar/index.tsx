@@ -93,34 +93,34 @@ const Navbar: React.SFC<{}> = () => {
           </Link>
         </>
       ) : (
-        <Dropdown
-          overlayClassName="navbar__menu navbar__menu--last"
-          overlay={userMenu}
-          trigger={["click"]}
-        >
-          <a
-            className={`ant-dropdown-link ${styles.navbar__profile}`}
-            onClick={handleClick}
+          <Dropdown
+            overlayClassName="navbar__menu navbar__menu--last"
+            overlay={userMenu}
+            trigger={["click"]}
           >
-            {loading ? <Spin indicator={<LoadingOutlined spin={loading} />} /> : (
-              <>
-                {avatar ? (
-                  <img
-                    src={avatar}
-                    alt="avatar"
-                    className={styles.navbar__profile__avatar}
-                  />
-                ) : (
-                  <Avatar style={{ backgroundColor: color, marginRight: 5 }}>
-                    {abName(first_name, last_name)}
-                  </Avatar>
-                )}
-                <DownOutlined />
-              </>
-            )}
-          </a>
-        </Dropdown>
-      )}
+            <a
+              className={`ant-dropdown-link ${styles.navbar__profile}`}
+              onClick={handleClick}
+            >
+              {loading ? <Spin indicator={<LoadingOutlined spin={loading} />} /> : (
+                <>
+                  {avatar ? (
+                    <img
+                      src={avatar}
+                      alt="avatar"
+                      className={styles.navbar__profile__avatar}
+                    />
+                  ) : (
+                      <Avatar style={{ backgroundColor: color, marginRight: 5 }}>
+                        {abName(first_name, last_name)}
+                      </Avatar>
+                    )}
+                  <DownOutlined />
+                </>
+              )}
+            </a>
+          </Dropdown>
+        )}
     </div>
   );
   return (
