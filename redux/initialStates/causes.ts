@@ -5,6 +5,12 @@ export default {
     error: null,
     fetched: false,
   },
+  user: {
+    data: {},
+    loading: false,
+    error: null,
+    fetched: false,
+  },
 };
 
 export interface ICauseFeed {
@@ -16,4 +22,5 @@ export interface ICauseFeed {
 
 export interface ICauses {
   feed: ICauseFeed;
+  user: ICauseFeed;
 }

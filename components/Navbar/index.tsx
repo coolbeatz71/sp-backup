@@ -49,12 +49,22 @@ const Navbar: React.SFC<{}> = () => {
   const userMenu = (
     <Menu>
       <Menu.Item className={styles.navbar__avatar__name}>
-        <span>{first_name || last_name ? capitalize(`${first_name} ${last_name}`) : "..."}</span>
+        <span>
+          {first_name || last_name
+            ? capitalize(`${first_name} ${last_name}`)
+            : "..."}
+        </span>
       </Menu.Item>
       <Menu.Divider className="avatar__profile__divider" />
       <Menu.Item>Profile</Menu.Item>
       <Menu.Divider />
-      <Menu.Item>My Cause</Menu.Item>
+
+      <Menu.Item>
+        <Link href="/user/causes">
+          <a>My Cause</a>
+        </Link>
+      </Menu.Item>
+
       <Menu.Divider />
       <Menu.Item
         className="navbar__menu__logout"
@@ -93,34 +103,36 @@ const Navbar: React.SFC<{}> = () => {
           </Link>
         </>
       ) : (
-          <Dropdown
-            overlayClassName="navbar__menu navbar__menu--last"
-            overlay={userMenu}
-            trigger={["click"]}
+        <Dropdown
+          overlayClassName="navbar__menu navbar__menu--last"
+          overlay={userMenu}
+          trigger={["click"]}
+        >
+          <a
+            className={`ant-dropdown-link ${styles.navbar__profile}`}
+            onClick={handleClick}
           >
-            <a
-              className={`ant-dropdown-link ${styles.navbar__profile}`}
-              onClick={handleClick}
-            >
-              {loading ? <Spin indicator={<LoadingOutlined spin={loading} />} /> : (
-                <>
-                  {avatar ? (
-                    <img
-                      src={avatar}
-                      alt="avatar"
-                      className={styles.navbar__profile__avatar}
-                    />
-                  ) : (
-                      <Avatar style={{ backgroundColor: color, marginRight: 5 }}>
-                        {abName(first_name, last_name)}
-                      </Avatar>
-                    )}
-                  <DownOutlined />
-                </>
-              )}
-            </a>
-          </Dropdown>
-        )}
+            {loading ? (
+              <Spin indicator={<LoadingOutlined spin={loading} />} />
+            ) : (
+              <>
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt="avatar"
+                    className={styles.navbar__profile__avatar}
+                  />
+                ) : (
+                  <Avatar style={{ backgroundColor: color, marginRight: 5 }}>
+                    {abName(first_name, last_name)}
+                  </Avatar>
+                )}
+                <DownOutlined />
+              </>
+            )}
+          </a>
+        </Dropdown>
+      )}
     </div>
   );
   return (
