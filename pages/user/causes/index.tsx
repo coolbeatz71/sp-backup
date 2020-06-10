@@ -14,7 +14,7 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import PrivateComponent from "pages/privateRoute";
 
 const pageTitle: string = "your causes";
-const causesLength: any = 2;
+const causesLength: any = 6;
 
 const renderHeader = (causes: { [key: string]: any }) => (
   <div className={styles.causes__header}>
@@ -54,16 +54,9 @@ const renderFeedContainer = (
                   pathName={pathName}
                   slug={cause.slug}
                   title={cause.name}
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam, quis nostrud"
+                  description={cause.summary}
                   cover={cause.image}
-                  owner={{
-                    avatar:
-                      "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                    name: "Dative Kamana",
-                    verified: true,
-                  }}
+                  owner={{}}
                   amountRaised={5100}
                   amountToReach={cause.target_amount}
                   progress={50}
@@ -89,16 +82,9 @@ const renderFeedContainer = (
                   pathName={pathName}
                   slug={cause.slug}
                   title={cause.name}
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam, quis nostrud"
+                  description={cause.summary}
                   cover={cause.image}
-                  owner={{
-                    avatar:
-                      "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                    name: "Dative Kamana",
-                    verified: true,
-                  }}
+                  owner={{}}
                   amountRaised={5100}
                   amountToReach={cause.target_amount}
                   progress={50}
