@@ -1,0 +1,29 @@
+@import "styles/_mixins";
+.pageTitle {
+  position: relative;
+
+  &__title {
+    text-transform: capitalize;
+    font-size: 20pt;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 48px;
+    margin: 0;
+    @include mediaMd {
+      font-size: 1rem;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: -18px;
+    width: 42px;
+    height: 42px;
+    left: 2px;
+    z-index: -1;
+
+    @include mediaMd {
+      top: -75%;
+    }
+  }
+}

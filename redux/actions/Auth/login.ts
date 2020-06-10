@@ -4,9 +4,7 @@ import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
 } from "redux/action-types/Auth/login";
-import {
-  SET_CURRENT_USER_SUCCESS,
-} from "redux/action-types/user/currentUser";
+import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 
 export default (data: {}) => (push: any, dispatch: any) => {
   dispatch({

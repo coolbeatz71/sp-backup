@@ -14,7 +14,7 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
-  const { push } = useRouter();
+  const { push, pathname } = useRouter();
 
   const goToRegister = () => {
     push("/signup");
@@ -28,6 +28,11 @@ const IndexPage = () => {
   const { data, loading, fetched, error } = useSelector(
     ({ causes: { feed } }: IRootState) => feed,
   );
+
+  const { isLoggedin } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
   return (
     <div title="Save Plus">
       <div className="index-container">
@@ -57,9 +62,12 @@ const IndexPage = () => {
           <>
             <div className="causes__grid--mobile">
               <Swipeable>
-                {fetched && !error &&
+                {fetched &&
+                  !error &&
                   data.causes_featured.map((cause: any, index: number) => (
                     <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
                       title={cause.name}
                       description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -76,17 +84,23 @@ const IndexPage = () => {
                       progress={50}
                       status={cause.status === "active" ? "open" : "closed"}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                      daysToGo={getCauseRemainingDays(
+                        cause.start_date,
+                        cause.end_date,
+                      )}
                       key={index}
                     />
                   ))}
               </Swipeable>
             </div>
             <div className="causes__grid causes__grid--lg">
-              {fetched && !error &&
+              {fetched &&
+                !error &&
                 data.causes_featured.map((cause: any, index: number) => (
                   <div className="causes__grid--item" key={index}>
                     <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
                       title={cause.name}
                       description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -103,7 +117,10 @@ const IndexPage = () => {
                       progress={50}
                       status={cause.status === "active" ? "open" : "closed"}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                      daysToGo={getCauseRemainingDays(
+                        cause.start_date,
+                        cause.end_date,
+                      )}
                     />
                   </div>
                 ))}
@@ -125,9 +142,12 @@ const IndexPage = () => {
           <>
             <div className="causes__grid--mobile">
               <Swipeable>
-                {fetched && !error &&
+                {fetched &&
+                  !error &&
                   data.causes_recents.map((cause: any, index: number) => (
                     <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
                       title={cause.name}
                       description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -144,35 +164,45 @@ const IndexPage = () => {
                       progress={50}
                       status={cause.status === "active" ? "open" : "closed"}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
+                      daysToGo={getCauseRemainingDays(
+                        cause.start_date,
+                        cause.end_date,
+                      )}
                       key={index}
                     />
                   ))}
               </Swipeable>
             </div>
-              <div className="causes__grid causes__grid--lg">
-                {fetched && !error && data.causes_recents.map((cause: any, index: number) => (
+            <div className="causes__grid causes__grid--lg">
+              {fetched &&
+                !error &&
+                data.causes_recents.map((cause: any, index: number) => (
                   <div className="causes__grid--item" key={index}>
-                  <CauseCard
-                    title={cause.name}
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
+                      title={cause.name}
+                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud"
-                    cover={cause.image}
-                    owner={{
-                      avatar:
-                        "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                      name: "Dative Kamana",
-                      verified: true,
-                    }}
-                    amountRaised={5100}
-                    amountToReach={cause.target_amount}
-                    progress={50}
-                    status={cause.status === "active" ? "open" : "closed"}
-                    rating={cause.ratings}
-                    daysToGo={getCauseRemainingDays(cause.start_date, cause.end_date)}
-                  />
-                </div>
+                      cover={cause.image}
+                      owner={{
+                        avatar:
+                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
+                        name: "Dative Kamana",
+                        verified: true,
+                      }}
+                      amountRaised={5100}
+                      amountToReach={cause.target_amount}
+                      progress={50}
+                      status={cause.status === "active" ? "open" : "closed"}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(
+                        cause.start_date,
+                        cause.end_date,
+                      )}
+                    />
+                  </div>
                 ))}
             </div>
           </>
@@ -214,7 +244,12 @@ const IndexPage = () => {
             </p>
           </div>
           <div className="mission__item--button">
-            <Button className="btn-primary-outline" onClick={goToRegister}>JOIN US</Button>
+            {console.log(isLoggedin)}
+            {!isLoggedin && (
+              <Button className="btn-primary-outline" onClick={goToRegister}>
+                JOIN US
+              </Button>
+            )}
           </div>
         </div>
       </div>

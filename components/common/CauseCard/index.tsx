@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import styles from "./causeCard.module.scss";
 import Link from "next/link";
+import { MoreOutlined } from "@ant-design/icons";
 // import { Button } from "antd";
 import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
+import { HOME_PATH, USER_CAUSES_PATH } from "./../../../helpers/paths";
 
 enum causeStatus {
   isClosed = "closed",
@@ -11,6 +13,8 @@ enum causeStatus {
 }
 
 export interface CauseCardProps {
+  pathName: string;
+  slug: string;
   owner: { avatar: string; name: string; verified: boolean };
   cover: string;
   title: string;
@@ -23,7 +27,109 @@ export interface CauseCardProps {
   daysToGo?: number | string;
 }
 
+const renderOwnerInfo = (avatar: string, verified: boolean, name: string) => {
+  return (
+    <>
+      <div className={styles.causeCard__body__header__causeOwner}>
+        <div className={styles.top}>
+          <img
+            src={avatar}
+            alt=""
+            className={styles.causeCard__body__header__causeOwner__avatar}
+          />
+          {verified && (
+            <img
+              src="/icons/verified-icon.svg"
+              alt=""
+              className={styles.causeCard__body__header__causeOwner__verified}
+            />
+          )}
+        </div>
+        <span>by {name} </span>
+      </div>
+      <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
+        Charity
+      </div>
+    </>
+  );
+};
+
+const renderStatusInfo = (status: string) => {
+  return (
+    <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
+      {status}
+    </div>
+  );
+};
+
+const renderExtraInfo = (rating: number) => {
+  return (
+    <div className={styles.causeCard__body__extra}>
+      <div className={styles.causeCard__body__extra__ratings}>
+        <span>Rating:</span>
+        <ReactStars
+          starCount={5}
+          value={rating}
+          name="rate1"
+          starColor="#F4A86C"
+          editing={false}
+        />
+      </div>
+      <div className={styles.causeCard__body__extra__share}>
+        <span className={styles.causeCard__share__text}>share</span>
+        <span className={styles.causeCard__share}>
+          <img src="/icons/share-icon.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const renderFooter = (status: string, pathName: string, slug: string) => {
+  if (pathName === HOME_PATH) {
+    return (
+      <div className={styles.causeCard__footer}>
+        <Link href="/">
+          <a>
+            {causeStatus.isOpen === status
+              ? "Make a Donation"
+              : "This Cause has been Stopped "}
+          </a>
+        </Link>
+      </div>
+    );
+  }
+
+  if (pathName === USER_CAUSES_PATH) {
+    return (
+      <div className={styles.causeCard__footer}>
+        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+          <a>View Cause Detail</a>
+        </Link>
+      </div>
+    );
+  }
+};
+
+const renderDetailIcon = (pathName: string, slug: string) => {
+  if (pathName === USER_CAUSES_PATH) {
+    return (
+      <div className={styles.causeCard__body__content__detailIcon}>
+        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+          <a>
+            <MoreOutlined
+              className={styles.causeCard__body__content__detailIcon__icon}
+            />
+          </a>
+        </Link>
+      </div>
+    );
+  }
+};
+
 const CauseCard: FC<CauseCardProps> = ({
+  pathName,
+  slug,
   owner: { avatar, name, verified },
   cover,
   title,
@@ -35,40 +141,36 @@ const CauseCard: FC<CauseCardProps> = ({
   rating,
   daysToGo,
 }) => {
+  const renderHeaderInfo = () => {
+    if (pathName === HOME_PATH) {
+      return renderOwnerInfo(avatar, verified, name);
+    }
+
+    if (pathName === USER_CAUSES_PATH) {
+      return renderStatusInfo(status);
+    }
+  };
+
   return (
     <div className={styles.causeCard}>
       <div className="cover">
-        <img src={cover} alt="" />
+        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+          <a>
+            <img src={cover} alt="" />
+          </a>
+        </Link>
       </div>
       <div className={styles.causeCard__body}>
         <div className={styles.causeCard__body__header}>
-          <div className={styles.causeCard__body__header__causeOwner}>
-            <div className={styles.top}>
-              <img
-                src={avatar}
-                alt=""
-                className={styles.causeCard__body__header__causeOwner__avatar}
-              />
-              {verified && (
-                <img
-                  src="/icons/verified-icon.svg"
-                  alt=""
-                  className={
-                    styles.causeCard__body__header__causeOwner__verified
-                  }
-                />
-              )}
-            </div>
-            <span>by {name} </span>
-          </div>
-          <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
-            Charity
-          </div>
+          {renderHeaderInfo()}
         </div>
         <div className={styles.causeCard__body__content}>
+          {renderDetailIcon(pathName, slug)}
           <div className={styles.causeCard__body__content__title}>
-            <Link href="/">
-              <h3>{title}</h3>
+            <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+              <a>
+                <h3>{title}</h3>
+              </a>
             </Link>
           </div>
           <p>{description}</p>
@@ -94,34 +196,9 @@ const CauseCard: FC<CauseCardProps> = ({
             </span>
           </div>
         </div>
-        <div className={styles.causeCard__body__extra}>
-          <div className={styles.causeCard__body__extra__ratings}>
-            <span>Rating:</span>
-            <ReactStars
-              starCount={5}
-              value={rating}
-              name="rate1"
-              starColor="#F4A86C"
-              editing={false}
-            />
-          </div>
-          <div className={styles.causeCard__body__extra__share}>
-            <span className={styles.causeCard__share__text}>share</span>
-            <span className={styles.causeCard__share}>
-              <img src="/icons/share-icon.svg" alt="" />
-            </span>
-          </div>
-        </div>
+        {pathName === HOME_PATH ? renderExtraInfo(rating) : null}
       </div>
-      <div className={styles.causeCard__footer}>
-        <Link href="/">
-          <a>
-            {causeStatus.isOpen === status
-              ? "Make a Donation"
-              : "This Cause has been Stopped "}
-          </a>
-        </Link>
-      </div>
+      {renderFooter(status, pathName, slug)}
       <style jsx>{`
         .progression {
           width: ${progress}%;

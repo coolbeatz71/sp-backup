@@ -1,0 +1,62 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
+.causes {
+  &__header {
+    margin-top: 1.5rem;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 3em;
+
+    &__subTitle {
+      font-size: 12pt;
+      font-weight: 500;
+    }
+  }
+
+  &__illustration {
+    padding: 1em 3em;
+    img {
+      margin: auto !important;
+      width: 30rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    &__mobile {
+      display: none;
+
+      @include mediaMd {
+        padding: 2em 3em;
+        display: block;
+        width: 100vw;
+      }
+    }
+
+    &__lg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 3rem;
+      padding: 2em 3em;
+
+      @include mediaMd {
+        display: none !important;
+      }
+    }
+  }
+
+  &__footer {
+    padding: 4em 3em 6.5em;
+    display: flex;
+    justify-content: center;
+    button {
+      background: rgba(87, 138, 148, 0.3) !important;
+
+      &:hover {
+        background-color: #219bb2 !important;
+      }
+    }
+  }
+}
