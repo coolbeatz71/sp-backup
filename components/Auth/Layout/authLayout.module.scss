@@ -1,10 +1,8 @@
 .authLayout{
-  min-height: calc(100vh - 68.5px);
   background: #f4fafb;
   display: flex;
   flex-wrap: wrap;
   padding: 4rem 8rem;
-  align-content: flex-start;
   .message {
     width: 40%;
     font-weight: bold;
