@@ -57,7 +57,11 @@ const Navbar: React.SFC<{}> = () => {
         </span>
       </Menu.Item>
       <Menu.Divider className="avatar__profile__divider" />
-      <Menu.Item>Profile</Menu.Item>
+      <Menu.Item>
+      <Link href="/profile">
+          <a>Profile</a>
+        </Link>
+      </Menu.Item>
       <Menu.Divider />
 
       <Menu.Item>
