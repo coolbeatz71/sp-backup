@@ -1,16 +1,16 @@
-import { ICauses } from "redux/initialStates/causes";
+import { ICause } from "redux/initialStates/cause";
 import {
   GET_USER_CAUSES_START,
   GET_USER_CAUSES_SUCCESS,
   GET_USER_CAUSES_ERROR,
-} from "redux/action-types/causes/userCauses";
+} from "redux/action-types/cause/userCauses";
 
 interface IAction {
   type: string;
   payload: any;
 }
 
-export default (state: ICauses, { type, payload }: IAction) => {
+export default (state: ICause, { type, payload }: IAction) => {
   switch (type) {
     case GET_USER_CAUSES_START:
       return {

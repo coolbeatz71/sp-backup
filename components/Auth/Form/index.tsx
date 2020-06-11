@@ -4,7 +4,6 @@ import styles from "./authForm.module.scss";
 import {
   Form,
   Button,
-  Select,
   Typography,
   Divider,
   Row,
@@ -17,8 +16,8 @@ import {
   authCurrentUserDefault,
 } from "redux/initialStates/auth";
 import phoneFormatter from "helpers/phoneNumberFormatter";
+import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 
-const { Option } = Select;
 const { Text } = Typography;
 
 export interface AuthFormProps {
@@ -84,15 +83,10 @@ const AuthForm: React.FC<AuthFormProps> = ({
   };
 
   const onSubmit = (data: any) => {
-    if (data.phone_number) data.phone_number = phoneFormatter(data.phone_number);
+    if (data.phone_number)
+      data.phone_number = phoneFormatter(data.phone_number);
     handleSubmit(data);
   };
-
-  const prefixSelector = (
-    <Select defaultValue="250">
-      <Option value="250">+250</Option>
-    </Select>
-  );
 
   return (
     <div className={styles.authForm}>
@@ -151,7 +145,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             >
               <Input
                 placeholder="Phone Number"
-                addonBefore={prefixSelector}
+                addonBefore={PhoneCountrySelector}
                 maxLength={9}
                 disabled={context === "verify-phone"}
               />
@@ -181,37 +175,36 @@ const AuthForm: React.FC<AuthFormProps> = ({
             </Form.Item>
           </>
         ) : (
-            <>
-              <Form.Item
-                className="form-group"
-                validateTrigger={["onSubmit", "onBlur"]}
-                rules={[{ len: 9, required: true }]}
-                name="phone_number"
-              >
-                <Input
-                  placeholder="Phone Number"
-                  addonBefore={prefixSelector}
-                  maxLength={9}
-                />
-              </Form.Item>
-              <Form.Item
-                className="form-group"
-                rules={[
-                  {
-                    len: 5,
-                    required: true,
-                    pattern: /^[0-9]{5}$/,
-                    message: "Password must be number of 5 digits",
-                  },
-                ]}
-                validateTrigger={["onSubmit", "onBlur"]}
-                name="password"
-              >
-                <InputPassword maxLength={5} placeholder="PIN" />
-              </Form.Item>
-            </>
-          )
-        }
+          <>
+            <Form.Item
+              className="form-group"
+              validateTrigger={["onSubmit", "onBlur"]}
+              rules={[{ len: 9, required: true }]}
+              name="phone_number"
+            >
+              <Input
+                placeholder="Phone Number"
+                addonBefore={PhoneCountrySelector}
+                maxLength={9}
+              />
+            </Form.Item>
+            <Form.Item
+              className="form-group"
+              rules={[
+                {
+                  len: 5,
+                  required: true,
+                  pattern: /^[0-9]{5}$/,
+                  message: "Password must be number of 5 digits",
+                },
+              ]}
+              validateTrigger={["onSubmit", "onBlur"]}
+              name="password"
+            >
+              <InputPassword maxLength={5} placeholder="PIN" />
+            </Form.Item>
+          </>
+        )}
         <div className={styles.authForm__actions}>
           <div className={styles.authForm__actions__signin}>
             <span>{formAction(context).suggestionMessage}</span>

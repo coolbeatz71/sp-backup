@@ -3,7 +3,7 @@ import {
   GET_FEED_ERROR,
   GET_FEED_SUCCESS,
   GET_FEED_START,
-} from "redux/action-types/causes/feed";
+} from "redux/action-types/cause/feed";
 
 export const getFeed = () => (dispatch: any) => {
   dispatch({

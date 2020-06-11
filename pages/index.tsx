@@ -8,7 +8,7 @@ import SectionTitle from "components/common/SectionTitle";
 import HowItWorks from "components/HowItWorks";
 import Spinner from "components/Spinner";
 
-import { getFeed } from "redux/actions/causes/getFeed";
+import { getFeed } from "redux/actions/cause/getFeed";
 import { IRootState } from "redux/initialStates";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 
@@ -31,7 +31,7 @@ const IndexPage = () => {
   }, [dispatch]);
 
   const { data, loading, fetched, error } = useSelector(
-    ({ causes: { feed } }: IRootState) => feed,
+    ({ cause: { feed } }: IRootState) => feed,
   );
 
   const { isLoggedin } = useSelector(

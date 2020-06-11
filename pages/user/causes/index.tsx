@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
 import { IRootState } from "redux/initialStates";
 import { Button } from "antd";
 import Swipeable from "react-swipeable-views";
 import PageTitle from "components/common/PageTitle";
 import styles from "./causes.module.scss";
 import { isEmpty } from "lodash";
-import { getUserCauses } from "redux/actions/causes/getUserCauses";
+import { getUserCauses } from "redux/actions/cause/getUserCauses";
 import Spinner from "components/Spinner";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
@@ -26,7 +27,9 @@ const renderHeader = (causes: { [key: string]: any }) => (
           : "Track all your cause here."}
       </p>
     </div>
-    <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
+    <Link href="/causes/create">
+      <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
+    </Link >
   </div>
 );
 
@@ -42,58 +45,58 @@ const renderFeedContainer = (
       <img src="../sitting-reading.svg" />
     </div>
   ) : (
-    <>
-      <div className={styles.causes__grid__mobile}>
-        <Swipeable>
+      <>
+        <div className={styles.causes__grid__mobile}>
+          <Swipeable>
+            {fetched &&
+              !error &&
+              causes.data
+                .slice(0, sliceCausesNumber)
+                .map((cause: any, index: number) => (
+                  <CauseCard
+                    pathName={pathName}
+                    slug={cause.slug}
+                    title={cause.name}
+                    description={cause.summary}
+                    cover={cause.image}
+                    owner={{}}
+                    amountRaised={cause.raised_amount}
+                    amountToReach={cause.target_amount}
+                    currency={cause.currency}
+                    status={cause.status}
+                    rating={cause.ratings}
+                    daysToGo={getCauseRemainingDays(cause.end_date)}
+                    key={index}
+                  />
+                ))}
+          </Swipeable>
+        </div>
+        <div className={styles.causes__grid__lg}>
           {fetched &&
             !error &&
             causes.data
               .slice(0, sliceCausesNumber)
               .map((cause: any, index: number) => (
-                <CauseCard
-                  pathName={pathName}
-                  slug={cause.slug}
-                  title={cause.name}
-                  description={cause.summary}
-                  cover={cause.image}
-                  owner={{}}
-                  amountRaised={cause.raised_amount}
-                  amountToReach={cause.target_amount}
-                  currency={cause.currency}
-                  status={cause.status}
-                  rating={cause.ratings}
-                  daysToGo={getCauseRemainingDays(cause.end_date)}
-                  key={index}
-                />
+                <div className={styles.causes__grid__item} key={index}>
+                  <CauseCard
+                    pathName={pathName}
+                    slug={cause.slug}
+                    title={cause.name}
+                    description={cause.summary}
+                    cover={cause.image}
+                    owner={{}}
+                    amountRaised={cause.raised_amount}
+                    amountToReach={cause.target_amount}
+                    currency={cause.currency}
+                    status={cause.status}
+                    rating={cause.ratings}
+                    daysToGo={getCauseRemainingDays(cause.end_date)}
+                  />
+                </div>
               ))}
-        </Swipeable>
-      </div>
-      <div className={styles.causes__grid__lg}>
-        {fetched &&
-          !error &&
-          causes.data
-            .slice(0, sliceCausesNumber)
-            .map((cause: any, index: number) => (
-              <div className={styles.causes__grid__item} key={index}>
-                <CauseCard
-                  pathName={pathName}
-                  slug={cause.slug}
-                  title={cause.name}
-                  description={cause.summary}
-                  cover={cause.image}
-                  owner={{}}
-                  amountRaised={cause.raised_amount}
-                  amountToReach={cause.target_amount}
-                  currency={cause.currency}
-                  status={cause.status}
-                  rating={cause.ratings}
-                  daysToGo={getCauseRemainingDays(cause.end_date)}
-                />
-              </div>
-            ))}
-      </div>
-    </>
-  );
+        </div>
+      </>
+    );
 
 const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
@@ -104,7 +107,7 @@ const Causes: React.SFC<{}> = () => {
   );
 
   const { data, loading, fetched, error } = useSelector(
-    ({ causes: { user } }: IRootState) => user,
+    ({ cause: { user } }: IRootState) => user,
   );
 
   useEffect(() => {
@@ -120,23 +123,23 @@ const Causes: React.SFC<{}> = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div>
-          {renderHeader(data)}
-          {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
-          {!isEmpty(data.data) && data.data.length > causesLength ? (
-            <div className={styles.causes__footer}>
-              <div>
-                <Button
-                  className="btn-primary-outline"
-                  onClick={() => setCausesNumber(undefined)}
-                >
-                  VIEW ALL CAUSES
+          <div>
+            {renderHeader(data)}
+            {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
+            {!isEmpty(data.data) && data.data.length > causesLength ? (
+              <div className={styles.causes__footer}>
+                <div>
+                  <Button
+                    className="btn-primary-outline"
+                    onClick={() => setCausesNumber(undefined)}
+                  >
+                    VIEW ALL CAUSES
                 </Button>
+                </div>
               </div>
-            </div>
-          ) : null}
-        </div>
-      )}
+            ) : null}
+          </div>
+        )}
     </div>
   );
 };
