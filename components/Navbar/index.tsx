@@ -11,6 +11,7 @@ import logout from "redux/actions/Auth/logout";
 import capitalize from "helpers/capitalize";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
+import { USER_CAUSES_PATH } from "helpers/paths";
 
 const { SubMenu } = Menu;
 
@@ -60,7 +61,7 @@ const Navbar: React.SFC<{}> = () => {
       <Menu.Divider />
 
       <Menu.Item>
-        <Link href="/user/causes">
+        <Link href={USER_CAUSES_PATH}>
           <a>My Cause</a>
         </Link>
       </Menu.Item>

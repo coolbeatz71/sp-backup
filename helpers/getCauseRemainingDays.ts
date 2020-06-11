@@ -1,11 +1,8 @@
 import moment from "moment";
 
-const getCauseRemainingDays = (startDate: string, endDate: string) => {
-  const start = moment(startDate);
-  const end = moment(endDate);
-
-  const diff = moment.duration(end.diff(start));
-  return diff.asDays();
+const getCauseRemainingDays = (endDate: string) => {
+  const now = moment().format();
+  return moment(endDate).diff(now, "days");
 };
 
 export default getCauseRemainingDays;
