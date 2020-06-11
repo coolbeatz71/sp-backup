@@ -1,21 +1,26 @@
 import React, { FC } from "react";
 import styles from "./causeCard.module.scss";
 import Link from "next/link";
+import { Avatar } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
-// import { Button } from "antd";
+import { truncate } from "lodash";
 import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
 import { HOME_PATH, USER_CAUSES_PATH } from "./../../../helpers/paths";
+import randmonColor from "randomcolor";
+import abName from "helpers/abName";
 
 enum causeStatus {
   isClosed = "closed",
   isOpen = "open",
 }
 
+const color = randmonColor();
+
 export interface CauseCardProps {
   pathName: string;
   slug: string;
-  owner: { avatar: string; name: string; verified: boolean };
+  owner: { avatar?: string; name?: string; verified?: boolean };
   cover: string;
   title: string;
   description: string;
@@ -27,16 +32,36 @@ export interface CauseCardProps {
   daysToGo?: number | string;
 }
 
-const renderOwnerInfo = (avatar: string, verified: boolean, name: string) => {
+const renderOwnerInfo = (
+  avatar?: string,
+  verified?: boolean,
+  name?: string,
+) => {
+  const names: any = name?.split(" ");
   return (
     <>
       <div className={styles.causeCard__body__header__causeOwner}>
         <div className={styles.top}>
-          <img
-            src={avatar}
-            alt=""
-            className={styles.causeCard__body__header__causeOwner__avatar}
-          />
+          {avatar ? (
+            <img
+              src={avatar}
+              alt=""
+              className={styles.causeCard__body__header__causeOwner__avatar}
+            />
+          ) : (
+            <Avatar
+              size="large"
+              style={{
+                marginRight: 5,
+                marginTop: "-20px",
+                backgroundColor: color,
+                verticalAlign: "middle",
+              }}
+            >
+              {abName(names[0], names[1])}
+            </Avatar>
+          )}
+
           {verified && (
             <img
               src="/icons/verified-icon.svg"
@@ -169,11 +194,19 @@ const CauseCard: FC<CauseCardProps> = ({
           <div className={styles.causeCard__body__content__title}>
             <Link href={`${USER_CAUSES_PATH}/${slug}`}>
               <a>
-                <h3>{title}</h3>
+                <h3>
+                  {truncate(title, {
+                    length: 58,
+                  })}
+                </h3>
               </a>
             </Link>
           </div>
-          <p>{description}</p>
+          <p>
+            {truncate(description, {
+              length: 111,
+            })}
+          </p>
         </div>
         <div className={styles.causeCard__body__progress}>
           <div className={styles.causeCard__body__progress__raised}>

@@ -20,6 +20,11 @@ const IndexPage = () => {
     push("/signup");
   };
 
+  const getOwnerInfo = (name: string, verified: boolean) => ({
+    name,
+    verified,
+  });
+
   useEffect(() => {
     getFeed()(dispatch);
     // tslint:disable-next-line: align
@@ -69,16 +74,9 @@ const IndexPage = () => {
                       pathName={pathname}
                       slug={cause.slug}
                       title={cause.name}
-                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud"
+                      description={cause.summary}
                       cover={cause.image}
-                      owner={{
-                        avatar:
-                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                        name: "Dative Kamana",
-                        verified: true,
-                      }}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={5100}
                       amountToReach={cause.target_amount}
                       progress={50}
@@ -102,16 +100,9 @@ const IndexPage = () => {
                       pathName={pathname}
                       slug={cause.slug}
                       title={cause.name}
-                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud"
+                      description={cause.summary}
                       cover={cause.image}
-                      owner={{
-                        avatar:
-                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                        name: "Dative Kamana",
-                        verified: true,
-                      }}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={5100}
                       amountToReach={cause.target_amount}
                       progress={50}
@@ -149,16 +140,9 @@ const IndexPage = () => {
                       pathName={pathname}
                       slug={cause.slug}
                       title={cause.name}
-                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud"
+                      description={cause.summary}
                       cover={cause.image}
-                      owner={{
-                        avatar:
-                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                        name: "Dative Kamana",
-                        verified: true,
-                      }}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={5100}
                       amountToReach={cause.target_amount}
                       progress={50}
@@ -182,16 +166,9 @@ const IndexPage = () => {
                       pathName={pathname}
                       slug={cause.slug}
                       title={cause.name}
-                      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud"
+                      description={cause.summary}
                       cover={cause.image}
-                      owner={{
-                        avatar:
-                          "https://res.cloudinary.com/dutstern8/image/upload/v1583071786/yAJ2TZk4XFsNkKanjppChiWW.png",
-                        name: "Dative Kamana",
-                        verified: true,
-                      }}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={5100}
                       amountToReach={cause.target_amount}
                       progress={50}
@@ -244,7 +221,6 @@ const IndexPage = () => {
             </p>
           </div>
           <div className="mission__item--button">
-            {console.log(isLoggedin)}
             {!isLoggedin && (
               <Button className="btn-primary-outline" onClick={goToRegister}>
                 JOIN US
