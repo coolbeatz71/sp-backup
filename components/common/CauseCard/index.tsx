@@ -9,13 +9,27 @@ import numberFormatter from "helpers/numberFormater";
 import { HOME_PATH, USER_CAUSES_PATH } from "./../../../helpers/paths";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
-
-enum causeStatus {
-  isClosed = "closed",
-  isOpen = "open",
-}
+import { ICauseStatus, causeStatus } from "interfaces/";
+import getCauseTagColor from "helpers/getCauseTagColor";
+import getProgressPercentage from "./../../../helpers/getProgressPercentage";
 
 const color = randmonColor();
+
+const daysToGoStatus: ICauseStatus = {
+  active: causeStatus.active,
+  stopped: causeStatus.stopped,
+  closed: causeStatus.closed,
+  completed: causeStatus.completed,
+  cancelled: causeStatus.cancelled,
+};
+
+const canDonateMsg: ICauseStatus = {
+  active: "Make a Donation",
+  stopped: "This cause has been Stopped",
+  closed: "This cause has been Closed",
+  completed: "This cause has been completed",
+  cancelled: "This cause has been cancelled",
+};
 
 export interface CauseCardProps {
   pathName: string;
@@ -26,11 +40,17 @@ export interface CauseCardProps {
   description: string;
   amountRaised: number | string;
   amountToReach: number | string;
-  progress: number | string;
-  status: "open" | "closed";
+  currency: string;
+  status: string;
   rating: number;
   daysToGo?: number | string;
 }
+
+const getDaysToGoMsg = (status: string, daysToGo: any): string => {
+  return status === causeStatus.active && daysToGo > 0
+    ? `${daysToGo} Days to Go`
+    : daysToGoStatus[status];
+};
 
 const renderOwnerInfo = (
   avatar?: string,
@@ -64,8 +84,8 @@ const renderOwnerInfo = (
 
           {verified && (
             <img
-              src="/icons/verified-icon.svg"
               alt=""
+              src="/icons/verified-icon.svg"
               className={styles.causeCard__body__header__causeOwner__verified}
             />
           )}
@@ -80,8 +100,12 @@ const renderOwnerInfo = (
 };
 
 const renderStatusInfo = (status: string) => {
+  const color = getCauseTagColor(status);
   return (
-    <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
+    <div
+      className={`tag ${styles.causeCard__body__header__causeTag}`}
+      style={{ backgroundColor: color }}
+    >
       {status}
     </div>
   );
@@ -115,11 +139,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
     return (
       <div className={styles.causeCard__footer}>
         <Link href="/">
-          <a>
-            {causeStatus.isOpen === status
-              ? "Make a Donation"
-              : "This Cause has been Stopped "}
-          </a>
+          <a>{canDonateMsg[status] || canDonateMsg.closed}</a>
         </Link>
       </div>
     );
@@ -161,7 +181,7 @@ const CauseCard: FC<CauseCardProps> = ({
   description,
   amountRaised,
   amountToReach,
-  progress,
+  currency,
   status,
   rating,
   daysToGo,
@@ -175,6 +195,9 @@ const CauseCard: FC<CauseCardProps> = ({
       return renderStatusInfo(status);
     }
   };
+
+  const progress = getProgressPercentage(amountRaised, amountToReach);
+  const progressBar = progress > 100 ? 100 : progress;
 
   return (
     <div className={styles.causeCard}>
@@ -210,9 +233,11 @@ const CauseCard: FC<CauseCardProps> = ({
         </div>
         <div className={styles.causeCard__body__progress}>
           <div className={styles.causeCard__body__progress__raised}>
-            <h5>{numberFormatter(amountRaised)} RWF Raised</h5>
+            <h5>
+              {numberFormatter(amountRaised)} {currency} Raised
+            </h5>
             <span className={styles.causeCard__body__progress__percentage}>
-              {numberFormatter(progress)} %
+              {progress} %
             </span>
           </div>
           <div className={styles.causeCard__body__progress__progressBar}>
@@ -221,11 +246,11 @@ const CauseCard: FC<CauseCardProps> = ({
             />
           </div>
           <div className={styles.causeCard__body__progress__goal}>
-            <h5>{numberFormatter(amountToReach)} RWF Goal</h5>
+            <h5>
+              {numberFormatter(amountToReach)} {currency} Goal
+            </h5>
             <span className={styles.causeStatus}>
-              {causeStatus.isOpen === status
-                ? `${daysToGo} Days to Go`
-                : "Cause is Stopped"}
+              {getDaysToGoMsg(status, daysToGo)}
             </span>
           </div>
         </div>
@@ -234,7 +259,7 @@ const CauseCard: FC<CauseCardProps> = ({
       {renderFooter(status, pathName, slug)}
       <style jsx>{`
         .progression {
-          width: ${progress}%;
+          width: ${progressBar}%;
         }
       `}</style>
     </div>

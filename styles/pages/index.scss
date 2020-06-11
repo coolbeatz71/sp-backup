@@ -48,10 +48,9 @@ h1 {
         display: block;
         width: 100vw;
       }
-
     }
 
-    &--lg{
+    &--lg {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
 
@@ -85,8 +84,7 @@ h1 {
 }
 
 .short__intro {
-  
-  background: url('../../public/icons/light-blue-bg.png') no-repeat center/cover;
+  background: url("../../public/icons/light-blue-bg.png") no-repeat center/cover;
   &--container {
     margin: 50px 10%;
     position: relative;
@@ -144,7 +142,7 @@ h1 {
     &--with-image {
       position: relative;
       height: 100%;
-  
+
       img {
         height: 100%;
         width: 100%;
@@ -152,12 +150,17 @@ h1 {
     }
   }
 
-  
   &__item {
     flex-basis: 50%;
     $parent: &;
-    &:nth-child(2){
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) -279.41%, rgba(117, 194, 208, 0.140049) -50.37%, rgba(25, 154, 177, 0.1) 102.64%), #219BB2;
+    &:nth-child(2) {
+      background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.2) -279.41%,
+          rgba(117, 194, 208, 0.140049) -50.37%,
+          rgba(25, 154, 177, 0.1) 102.64%
+        ),
+        #219bb2;
       padding: 40px 5%;
       color: $color-light;
       display: grid;
@@ -165,13 +168,13 @@ h1 {
 
       @include mediaMd {
         p {
-          font-size: .5rem;
+          font-size: 0.5rem;
           font-weight: 100;
         }
       }
       #{$parent}--title {
         position: relative;
-        margin-top: -150px;
+        margin-top: -1px;
         color: $color-light;
 
         @include mediaMd {
@@ -180,19 +183,20 @@ h1 {
 
         h2 {
           color: $color-light;
+          margin-bottom: 0;
         }
-         img {
-           position: absolute;
-           top:5px;
-           left: -20px;
-           width: 35px;
-           height: 35px;
-         }
+        img {
+          position: absolute;
+          top: 5px;
+          left: -20px;
+          width: 35px;
+          height: 35px;
+        }
 
-         span {
-           font-size: .8rem;
-           transform: translateY(-20px) !important;
-         }
+        span {
+          font-size: 0.8rem;
+          transform: translateY(-20px) !important;
+        }
       }
     }
   }

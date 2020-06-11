@@ -77,15 +77,12 @@ const IndexPage = () => {
                       description={cause.summary}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
-                      amountRaised={5100}
+                      amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
-                      progress={50}
-                      status={cause.status === "active" ? "open" : "closed"}
+                      currency={cause.currency}
+                      status={cause.status}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(
-                        cause.start_date,
-                        cause.end_date,
-                      )}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
                   ))}
@@ -103,15 +100,12 @@ const IndexPage = () => {
                       description={cause.summary}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
-                      amountRaised={5100}
+                      amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
-                      progress={50}
-                      status={cause.status === "active" ? "open" : "closed"}
+                      currency={cause.currency}
+                      status={cause.status}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(
-                        cause.start_date,
-                        cause.end_date,
-                      )}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>
                 ))}
@@ -143,15 +137,12 @@ const IndexPage = () => {
                       description={cause.summary}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
-                      amountRaised={5100}
+                      amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
-                      progress={50}
-                      status={cause.status === "active" ? "open" : "closed"}
+                      currency={cause.currency}
+                      status={cause.status}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(
-                        cause.start_date,
-                        cause.end_date,
-                      )}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
                   ))}
@@ -169,15 +160,12 @@ const IndexPage = () => {
                       description={cause.summary}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
-                      amountRaised={5100}
+                      amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
-                      progress={50}
-                      status={cause.status === "active" ? "open" : "closed"}
+                      currency={cause.currency}
+                      status={cause.status}
                       rating={cause.ratings}
-                      daysToGo={getCauseRemainingDays(
-                        cause.start_date,
-                        cause.end_date,
-                      )}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>
                 ))}
@@ -220,13 +208,13 @@ const IndexPage = () => {
               causes, conscious people.
             </p>
           </div>
-          <div className="mission__item--button">
-            {!isLoggedin && (
+          {!isLoggedin && (
+            <div className="mission__item--button">
               <Button className="btn-primary-outline" onClick={goToRegister}>
                 JOIN US
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
