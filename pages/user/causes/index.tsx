@@ -64,6 +64,7 @@ const renderFeedContainer = (
                   amountToReach={cause.target_amount}
                   currency={cause.currency}
                   status={cause.status}
+                  category={cause.category.title}
                   rating={cause.ratings}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
                   key={index}
@@ -89,6 +90,7 @@ const renderFeedContainer = (
                   amountToReach={cause.target_amount}
                   currency={cause.currency}
                   status={cause.status}
+                  category={cause.category.title}
                   rating={cause.ratings}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
                 />

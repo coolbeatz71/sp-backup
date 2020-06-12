@@ -1,4 +1,10 @@
 export default {
+  all: {
+    data: {},
+    loading: false,
+    error: null,
+    fetched: false,
+  },
   feed: {
     data: {},
     loading: false,
@@ -31,6 +37,7 @@ export interface ICauseFeed {
 }
 
 export interface ICause {
+  all: ICauseFeed;
   feed: ICauseFeed;
   user: ICauseFeed;
   create: {

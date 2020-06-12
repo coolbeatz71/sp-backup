@@ -41,12 +41,12 @@ const IndexPage = () => {
   );
 
   return (
-    <div title="Save Plus">
+    <div title="Save Plus" className="index-page">
       <div className="index-container">
         <div className="index__intro">
           <div className="index__intro--info">
             <h1>Put a Smile on Someone's Face</h1>
-            <Button className="btn-primary index__intro--button">
+            <Button size="large" className="btn-primary index__intro--button">
               GET STARTED
             </Button>
           </div>
@@ -83,6 +83,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
@@ -106,6 +107,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
@@ -145,6 +147,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
@@ -168,6 +171,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />

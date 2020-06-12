@@ -1,6 +1,12 @@
 @import "styles/_mixins";
 @import "styles/_variables";
 
+.index-page {
+  background: url("../../public/home-abstract-bg.svg");
+  background-size: cover;
+  background-position: 0% 45%;
+}
+
 .index-container {
   display: flex;
   justify-content: space-between;
@@ -39,12 +45,12 @@ h1 {
   margin: 100px auto;
   &__grid {
     display: grid;
-    margin-left: 5%;
 
     &--mobile {
       display: none;
 
       @include mediaMd {
+        padding: 0 3em;
         display: block;
         width: 100vw;
       }
@@ -53,26 +59,20 @@ h1 {
     &--lg {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-gap: 3rem;
+      padding: 0 3em;
 
       @include mediaMd {
         display: none !important;
-      }
-    }
-
-    &--item {
-      margin-right: 85px;
-
-      @include mediaMd {
-        margin-right: 50px;
       }
     }
   }
 
   .more {
     &__causes {
-      margin-right: 6%;
       float: right;
       margin-top: 20px;
+      margin-right: 3em;
 
       @include mediaMd {
         float: none;
@@ -84,24 +84,33 @@ h1 {
 }
 
 .short__intro {
-  background: url("../../public/icons/light-blue-bg.png") no-repeat center/cover;
+  background: $color-primary-light url("../../public/short-intro-bg.svg")
+    no-repeat center/cover;
+  background-position: 0 20%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   &--container {
     margin: 50px 10%;
     position: relative;
-    padding: 30px 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
   &--video {
     width: 60%;
     height: 50%;
     position: relative;
     margin-top: 50px;
+    display: flex;
+    align-items: center;
 
     iframe {
       width: 900px;
       height: 500px;
       border: none;
       border-radius: 5px;
-      margin: auto 10%;
+      margin: auto;
 
       @include mediaMd {
         width: 500px !important;

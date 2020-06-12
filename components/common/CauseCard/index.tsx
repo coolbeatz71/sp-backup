@@ -46,6 +46,7 @@ export interface CauseCardProps {
   amountToReach: number | string;
   currency: string;
   status: string;
+  category: string;
   rating: number;
   daysToGo?: number | string;
 }
@@ -57,6 +58,7 @@ const getDaysToGoMsg = (status: string, daysToGo: any): string => {
 };
 
 const renderOwnerInfo = (
+  category: string,
   avatar?: string,
   verified?: boolean,
   name?: string,
@@ -97,7 +99,7 @@ const renderOwnerInfo = (
         <span>by {name} </span>
       </div>
       <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
-        Charity
+        {category}
       </div>
     </>
   );
@@ -189,10 +191,11 @@ const CauseCard: FC<CauseCardProps> = ({
   status,
   rating,
   daysToGo,
+  category,
 }) => {
   const renderHeaderInfo = () => {
     if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
-      return renderOwnerInfo(avatar, verified, name);
+      return renderOwnerInfo(category, avatar, verified, name);
     }
 
     if (pathName === USER_CAUSES_PATH) {

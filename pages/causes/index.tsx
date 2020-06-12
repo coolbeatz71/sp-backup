@@ -13,10 +13,11 @@ import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import { SIGNUP_PATH } from "helpers/paths";
+import { isEmpty } from "lodash";
 
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
-  const { push, pathname } = useRouter();
+  const { push, pathname, asPath } = useRouter();
 
   const goToRegister = () => {
     push(SIGNUP_PATH);
@@ -36,16 +37,25 @@ const AllCauses: React.SFC<{}> = () => {
 
   useEffect(() => {
     getAllCategories()(dispatch);
-    getAllCauses()(dispatch);
     // tslint:disable-next-line: align
   }, [dispatch]);
 
+  useEffect(() => {
+    getAllCauses(asPath)(dispatch);
+    // tslint:disable-next-line: align
+  }, [asPath, dispatch]);
+
   return (
-    <div>
+    <>
       <CategoriesBar categories={categories} />
       <div className={styles.allCauses}>
         {categories.loading || loading ? (
           <Spinner />
+        ) : isEmpty(data.data) ? (
+          <div className={styles.allCauses__illustration}>
+            <img src="404.png" />
+            <h1>No cause found</h1>
+          </div>
         ) : (
           <>
             <div className={styles.allCauses__grid__mobile}>
@@ -64,6 +74,7 @@ const AllCauses: React.SFC<{}> = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
@@ -87,6 +98,7 @@ const AllCauses: React.SFC<{}> = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
@@ -99,7 +111,7 @@ const AllCauses: React.SFC<{}> = () => {
       <div>
         <Mission isLoggedin={isLoggedin} goToRegister={goToRegister} />
       </div>
-    </div>
+    </>
   );
 };
 

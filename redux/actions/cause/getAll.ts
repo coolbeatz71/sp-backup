@@ -5,12 +5,12 @@ import {
   GET_ALL_CAUSES_START,
 } from "redux/action-types/cause/all";
 
-export const getAllCauses = () => (dispatch: any) => {
+export const getAllCauses = (url: string) => (dispatch: any) => {
   dispatch({
     type: GET_ALL_CAUSES_START,
   });
   splApi
-    .get("/causes")
+    .get(url)
     .then((response: any) => {
       dispatch({
         payload: response,
