@@ -6,7 +6,11 @@ import { MoreOutlined } from "@ant-design/icons";
 import { truncate } from "lodash";
 import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
-import { HOME_PATH, USER_CAUSES_PATH } from "./../../../helpers/paths";
+import {
+  HOME_PATH,
+  USER_CAUSES_PATH,
+  ALL_CAUSES_PATH,
+} from "./../../../helpers/paths";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
 import { ICauseStatus, causeStatus } from "interfaces/";
@@ -135,7 +139,7 @@ const renderExtraInfo = (rating: number) => {
 };
 
 const renderFooter = (status: string, pathName: string, slug: string) => {
-  if (pathName === HOME_PATH) {
+  if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
     return (
       <div className={styles.causeCard__footer}>
         <Link href="/causes/[slug]" as={`/causes/${slug}`}>
@@ -187,7 +191,7 @@ const CauseCard: FC<CauseCardProps> = ({
   daysToGo,
 }) => {
   const renderHeaderInfo = () => {
-    if (pathName === HOME_PATH) {
+    if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
       return renderOwnerInfo(avatar, verified, name);
     }
 
@@ -254,7 +258,9 @@ const CauseCard: FC<CauseCardProps> = ({
             </span>
           </div>
         </div>
-        {pathName === HOME_PATH ? renderExtraInfo(rating) : null}
+        {pathName === HOME_PATH || pathName === ALL_CAUSES_PATH
+          ? renderExtraInfo(rating)
+          : null}
       </div>
       {renderFooter(status, pathName, slug)}
       <style jsx>{`

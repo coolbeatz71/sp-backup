@@ -1,0 +1,3 @@
+export const GET_ALL_CAUSES_START: string = "GET_ALL_CAUSES_START";
+export const GET_ALL_CAUSES_SUCCESS: string = "GET_ALL_CAUSES_SUCCESS";
+export const GET_ALL_CAUSES_ERROR: string = "GET_ALL_CAUSES_ERROR";

@@ -1,11 +1,13 @@
-import example from "redux/reducers/example";
-import auth from "redux/reducers/auth";
-import user from "redux/reducers/user";
-import cause from "redux/reducers/cause";
+import example from "./example";
+import auth from "./auth";
+import user from "./user";
+import cause from "./cause";
+import categories from "./categories";
 
 export default {
   example,
   auth,
   user,
   cause,
+  categories,
 };

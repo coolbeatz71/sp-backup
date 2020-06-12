@@ -136,7 +136,11 @@ h1 {
 
 .mission {
   display: flex;
-
+  &--with-image {
+    img {
+      width: 100%;
+    }
+  }
   @include mediaMd {
     height: 20vh;
     &--with-image {

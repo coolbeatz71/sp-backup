@@ -1,0 +1,29 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
+.allCauses {
+  padding-top: 5rem;
+  &__grid {
+    display: grid;
+    &__mobile {
+      display: none;
+
+      @include mediaMd {
+        padding: 2em 3em;
+        display: block;
+        width: 100vw;
+      }
+    }
+
+    &__lg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 3rem;
+      padding: 2em 3em;
+
+      @include mediaMd {
+        display: none !important;
+      }
+    }
+  }
+}

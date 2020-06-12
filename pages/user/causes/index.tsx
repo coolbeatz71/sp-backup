@@ -29,7 +29,7 @@ const renderHeader = (causes: { [key: string]: any }) => (
     </div>
     <Link href="/causes/create">
       <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
-    </Link >
+    </Link>
   </div>
 );
 
@@ -45,58 +45,58 @@ const renderFeedContainer = (
       <img src="../sitting-reading.svg" />
     </div>
   ) : (
-      <>
-        <div className={styles.causes__grid__mobile}>
-          <Swipeable>
-            {fetched &&
-              !error &&
-              causes.data
-                .slice(0, sliceCausesNumber)
-                .map((cause: any, index: number) => (
-                  <CauseCard
-                    pathName={pathName}
-                    slug={cause.slug}
-                    title={cause.name}
-                    description={cause.summary}
-                    cover={cause.image}
-                    owner={{}}
-                    amountRaised={cause.raised_amount}
-                    amountToReach={cause.target_amount}
-                    currency={cause.currency}
-                    status={cause.status}
-                    rating={cause.ratings}
-                    daysToGo={getCauseRemainingDays(cause.end_date)}
-                    key={index}
-                  />
-                ))}
-          </Swipeable>
-        </div>
-        <div className={styles.causes__grid__lg}>
+    <>
+      <div className={styles.causes__grid__mobile}>
+        <Swipeable>
           {fetched &&
             !error &&
             causes.data
               .slice(0, sliceCausesNumber)
               .map((cause: any, index: number) => (
-                <div className={styles.causes__grid__item} key={index}>
-                  <CauseCard
-                    pathName={pathName}
-                    slug={cause.slug}
-                    title={cause.name}
-                    description={cause.summary}
-                    cover={cause.image}
-                    owner={{}}
-                    amountRaised={cause.raised_amount}
-                    amountToReach={cause.target_amount}
-                    currency={cause.currency}
-                    status={cause.status}
-                    rating={cause.ratings}
-                    daysToGo={getCauseRemainingDays(cause.end_date)}
-                  />
-                </div>
+                <CauseCard
+                  pathName={pathName}
+                  slug={cause.slug}
+                  title={cause.name}
+                  description={cause.summary}
+                  cover={cause.image}
+                  owner={{}}
+                  amountRaised={cause.raised_amount}
+                  amountToReach={cause.target_amount}
+                  currency={cause.currency}
+                  status={cause.status}
+                  rating={cause.ratings}
+                  daysToGo={getCauseRemainingDays(cause.end_date)}
+                  key={index}
+                />
               ))}
-        </div>
-      </>
-    );
+        </Swipeable>
+      </div>
+      <div className={styles.causes__grid__lg}>
+        {fetched &&
+          !error &&
+          causes.data
+            .slice(0, sliceCausesNumber)
+            .map((cause: any, index: number) => (
+              <div className={styles.causes__grid__item} key={index}>
+                <CauseCard
+                  pathName={pathName}
+                  slug={cause.slug}
+                  title={cause.name}
+                  description={cause.summary}
+                  cover={cause.image}
+                  owner={{}}
+                  amountRaised={cause.raised_amount}
+                  amountToReach={cause.target_amount}
+                  currency={cause.currency}
+                  status={cause.status}
+                  rating={cause.ratings}
+                  daysToGo={getCauseRemainingDays(cause.end_date)}
+                />
+              </div>
+            ))}
+      </div>
+    </>
+  );
 
 const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
@@ -123,23 +123,23 @@ const Causes: React.SFC<{}> = () => {
       {loading ? (
         <Spinner />
       ) : (
-          <div>
-            {renderHeader(data)}
-            {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
-            {!isEmpty(data.data) && data.data.length > causesLength ? (
-              <div className={styles.causes__footer}>
-                <div>
-                  <Button
-                    className="btn-primary-outline"
-                    onClick={() => setCausesNumber(undefined)}
-                  >
-                    VIEW ALL CAUSES
+        <div>
+          {renderHeader(data)}
+          {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
+          {!isEmpty(data.data) && data.data.length > causesLength ? (
+            <div className={styles.causes__footer}>
+              <div>
+                <Button
+                  className="btn-primary-outline"
+                  onClick={() => setCausesNumber(undefined)}
+                >
+                  VIEW ALL CAUSES
                 </Button>
-                </div>
               </div>
-            ) : null}
-          </div>
-        )}
+            </div>
+          ) : null}
+        </div>
+      )}
     </div>
   );
 };
