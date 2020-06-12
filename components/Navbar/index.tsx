@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import styles from "components/Navbar/navbar.module.scss";
@@ -11,15 +11,20 @@ import logout from "redux/actions/Auth/logout";
 import capitalize from "helpers/capitalize";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
-import { USER_CAUSES_PATH } from "helpers/paths";
-
-const { SubMenu } = Menu;
+import { USER_CAUSES_PATH, ALL_CAUSES_PATH } from "helpers/paths";
+import { getAllCategories } from "redux/actions/categories/getAll";
+import { Icategories } from "interfaces/categories";
 
 const Navbar: React.SFC<{}> = () => {
   const isMobile = useMedia("(max-width: 768px)");
   const dispatch = useDispatch();
   const { push } = useRouter();
   const color = randmonColor();
+
+  useEffect(() => {
+    getAllCategories()(dispatch);
+    // tslint:disable-next-line: align
+  }, [dispatch]);
 
   const [menuMobileVisible, setMenuMobileVisible] = useState(false);
   const {
@@ -28,22 +33,45 @@ const Navbar: React.SFC<{}> = () => {
     data: { first_name, last_name, avatar },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
+  const { categories } = useSelector(
+    ({ categories }: IRootState) => categories,
+  );
+
   const toggleMenuMobile = () => setMenuMobileVisible(!menuMobileVisible);
+  const { data, fetched, error } = categories;
 
   const handleClick = (e: any) => {
     e.preventDefault();
   };
 
+  const onCategoryClick = (categoryId?: number): void => {
+    const url =
+      categoryId && typeof categoryId === "number"
+        ? `${ALL_CAUSES_PATH}?category_id=${categoryId}`
+        : ALL_CAUSES_PATH;
+    push(url);
+  };
+
+  const MenuItem = (props: any) => {
+    return (
+      <>
+        <Menu.Item {...props}>{props.children}</Menu.Item>
+        <Menu.Divider className={styles.navbar__menu__divider} />
+      </>
+    );
+  };
+
   const causeMenu = (
     <Menu>
-      <Menu.Item>Medical Treatment</Menu.Item>
-      <Menu.Divider />
-      <Menu.Item>NGO/Charity</Menu.Item>
-      <Menu.Divider />
-      <SubMenu title="Social Cause">
-        <Menu.Item>3rd menu item</Menu.Item>
-        <Menu.Item>4th menu item</Menu.Item>
-      </SubMenu>
+      {fetched &&
+        !error &&
+        data.data.map((category: Icategories) => (
+          <MenuItem
+            key={category.id}
+            onClick={() => onCategoryClick(category.id)}
+            children={category.title}
+          />
+        ))}
     </Menu>
   );
 
@@ -58,7 +86,7 @@ const Navbar: React.SFC<{}> = () => {
       </Menu.Item>
       <Menu.Divider className="avatar__profile__divider" />
       <Menu.Item>
-      <Link href="/profile">
+        <Link href="/profile">
           <a>Profile</a>
         </Link>
       </Menu.Item>

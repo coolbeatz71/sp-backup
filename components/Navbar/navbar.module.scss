@@ -16,7 +16,17 @@
     max-width: 100% !important;
     width: auto !important;
   }
-  nav {
+
+  &__menu {
+    &__divider {
+      border-bottom: 1px solid #eeeeef;
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+  & nav {
     a {
       color: #333;
       text-decoration: none;

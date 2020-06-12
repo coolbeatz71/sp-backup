@@ -4,13 +4,14 @@
 .allCauses {
   padding-top: 5rem;
   min-height: calc(100vh - (68.5px));
+  @include mediaMd {
+    padding-top: 9rem;
+  }
   &__grid {
     display: grid;
     &__mobile {
       display: none;
-
       @include mediaMd {
-        padding: 2em 3em;
         display: block;
         width: 100vw;
         background: url("../../public/home-abstract-bg.svg");

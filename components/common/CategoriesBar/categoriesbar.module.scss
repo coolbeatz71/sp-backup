@@ -11,6 +11,23 @@
   padding: 1em 3em;
   background: $color-primary-light;
 
+  @include mediaMd {
+    display: flex;
+    flex-flow: column;
+    padding: 1em 1em;
+
+    &__list {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+
+      span {
+        font-size: 15px !important;
+        margin-right: 0 !important;
+      }
+    }
+  }
+
   &__list {
     display: flex;
     align-items: center;
