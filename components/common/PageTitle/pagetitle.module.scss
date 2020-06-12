@@ -10,7 +10,7 @@
     line-height: 48px;
     margin: 0;
     @include mediaMd {
-      font-size: 1rem;
+      font-size: 18pt;
     }
   }
 
@@ -23,7 +23,7 @@
     z-index: -1;
 
     @include mediaMd {
-      top: -75%;
+      top: -35%;
     }
   }
 }

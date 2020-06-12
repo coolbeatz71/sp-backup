@@ -39,8 +39,12 @@
     justify-content: center;
     flex-flow: column;
     img {
-      margin: auto !important;
-      width: 45rem;
+      margin: 0 auto !important;
+      width: 55vw;
+
+      @include mediaMd {
+        width: 80vw;
+      }
     }
 
     h1 {

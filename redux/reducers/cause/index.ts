@@ -5,6 +5,7 @@ import create from "./create";
 import single from "./single";
 import all from "./all";
 import donateCause from "./donateCause";
+import stopCause from "./stopCause";
 
 export default (
   state = initialState.cause,
@@ -18,5 +19,6 @@ export default (
     ...single(state, action),
     ...all(state, action),
     ...donateCause(state, action),
+    ...stopCause(state, action),
   };
 };

@@ -55,7 +55,9 @@ const Navbar: React.SFC<{}> = () => {
   const MenuItem = (props: any) => {
     return (
       <>
-        <Menu.Item {...props}>{props.children}</Menu.Item>
+        <Menu.Item className={styles.navbar__menu__item} {...props}>
+          {props.children}
+        </Menu.Item>
         <Menu.Divider className={styles.navbar__menu__divider} />
       </>
     );
@@ -126,7 +128,11 @@ const Navbar: React.SFC<{}> = () => {
         trigger={["click"]}
       >
         <a className="ant-dropdown-link" onClick={handleClick}>
-          Causes <DownOutlined />
+          {fetched && !error && (
+            <>
+              Causes <DownOutlined />
+            </>
+          )}
         </a>
       </Dropdown>
       <Link href="/pricing">
