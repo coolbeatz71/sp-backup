@@ -1,9 +1,9 @@
 import { ICause } from "redux/initialStates/cause";
 import {
-  GET_FEED_START,
-  GET_FEED_SUCCESS,
-  GET_FEED_ERROR,
-} from "redux/action-types/cause/feed";
+  GET_SINGLE_CAUSE_START,
+  GET_SINGLE_CAUSE_SUCCESS,
+  GET_SINGLE_CAUSE_ERROR,
+} from "redux/action-types/cause/getSingle";
 
 interface Iaction {
   type: string;
@@ -12,35 +12,32 @@ interface Iaction {
 
 export default (state: ICause, { type, payload }: Iaction) => {
   switch (type) {
-    case GET_FEED_START:
+    case GET_SINGLE_CAUSE_START:
       return {
         ...state,
-        feed: {
-          ...state.feed,
+        single: {
+          ...state.single,
           loading: true,
           error: null,
-          fetched: false,
         },
       };
-    case GET_FEED_SUCCESS:
+    case GET_SINGLE_CAUSE_SUCCESS:
       return {
         ...state,
-        feed: {
-          ...state.feed,
+        single: {
+          ...state.single,
           loading: false,
           data: payload,
           error: null,
-          fetched: true,
         },
       };
-    case GET_FEED_ERROR:
+    case GET_SINGLE_CAUSE_ERROR:
       return {
         ...state,
-        feed: {
-          ...state.feed,
+        single: {
+          ...state.single,
           loading: false,
           error: payload,
-          fetched: true,
         },
       };
     default:

@@ -16,6 +16,11 @@ export default {
     loading: false,
     error: "",
   },
+  single: {
+    data: {},
+    loading: false,
+    error: "",
+  },
 };
 
 export interface ICauseFeed {
@@ -31,6 +36,11 @@ export interface ICause {
   create: {
     data: { [key: string]: any };
     error: string;
+    loading: boolean;
+  };
+  single: {
+    data: { [key: string]: any };
+    error: any;
     loading: boolean;
   };
 }

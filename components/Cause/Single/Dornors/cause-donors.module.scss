@@ -1,0 +1,51 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.donors {
+  width: 35%;
+  background: white;
+  height: fit-content;
+  margin-top: 2.5rem;
+  padding: 1.5rem 1rem;
+  h5 {
+    color: $color-primary;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    span {
+      color: rgba($color: $color-dark, $alpha: 0.9);
+      font-size: 14px;
+      font-weight: 300;
+    }
+    &__name {
+      width: 60%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &__amount {
+      width: 40%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  @include mediaMd {
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    padding: 0;
+    &__details {
+      padding: 0 10px;
+      color: $color-dark;
+      span {
+        font-weight: 400;
+      }
+    }
+  }
+}

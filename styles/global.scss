@@ -39,6 +39,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: $color-primary;
 }
 
 .menu .anticon,
@@ -158,7 +159,7 @@ textarea.ant-input {
   border-radius: 5px;
 }
 
-.ant-upload-drag{
+.ant-upload-drag {
   background: rgba(33, 155, 178, 0.1) !important;
 }
 
@@ -259,18 +260,24 @@ textarea.ant-input {
   }
 }
 
-.ant-switch-checked{
+.ant-switch-checked {
   background-color: $color-primary;
 }
 
-.ant-switch{
+.ant-switch {
   margin-top: -0.5rem;
   width: 43.88px;
   height: 27px;
 }
 
-.ant-switch-loading-icon, .ant-switch::after{
+.ant-switch-loading-icon,
+.ant-switch::after {
   width: 22px;
   height: 22px;
 }
 
+.ant-spin {
+  .ant-spin-dot-item {
+    background: $color-primary;
+  }
+}
