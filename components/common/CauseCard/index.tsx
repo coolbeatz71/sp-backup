@@ -138,7 +138,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
   if (pathName === HOME_PATH) {
     return (
       <div className={styles.causeCard__footer}>
-        <Link href="/">
+        <Link href="/causes/[slug]" as={`/causes/${slug}`}>
           <a>{canDonateMsg[status] || canDonateMsg.closed}</a>
         </Link>
       </div>
@@ -202,7 +202,7 @@ const CauseCard: FC<CauseCardProps> = ({
   return (
     <div className={styles.causeCard}>
       <div className="cover">
-        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+        <Link href="/causes/[slug]" as={`/causes/${slug}`}>
           <a>
             <img src={cover} alt="" />
           </a>
@@ -215,7 +215,7 @@ const CauseCard: FC<CauseCardProps> = ({
         <div className={styles.causeCard__body__content}>
           {renderDetailIcon(pathName, slug)}
           <div className={styles.causeCard__body__content__title}>
-            <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+            <Link href="/causes/[slug]" as={`/causes/${slug}`}>
               <a>
                 <h3>
                   {truncate(title, {

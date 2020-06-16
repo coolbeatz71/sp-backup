@@ -1,0 +1,155 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.singleCause {
+  background: #f4fafb;
+  min-height: calc(100vh - 300px);
+  &__header {
+    margin: 0 auto;
+    width: 80%;
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      object-position: center;
+    }
+    &__progress {
+      margin: 0 auto;
+      background: #fff;
+      width: 80%;
+      position: relative;
+      top: -3rem;
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0px 4px 4px rgba(187, 187, 187, 0.2);
+      $grandParent: &;
+      margin-bottom: 0.8rem;
+      &__container {
+        width: 80%;
+      }
+      &__raised,
+      &__goal {
+        display: flex;
+        justify-content: space-between;
+        h5 {
+          font-weight: 500;
+          font-size: 14px;
+          margin: 0;
+        }
+        span {
+          font-size: 13px;
+          opacity: 0.5;
+        }
+      }
+      &__progressBar {
+        background: #f1f1f1;
+        border-radius: 15px;
+        height: 18px;
+        width: 100%;
+        margin: 8px 0;
+        #{$grandParent}__progression {
+          background: #219bb2;
+          height: 100%;
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+  &__body {
+    margin: 0 auto;
+    width: 63%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2rem;
+    &__details {
+      width: 60%;
+      h5 {
+        color: $color-primary;
+        font-weight: 500;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin: 0.3rem 0 1rem;
+      }
+      p {
+        color: rgba($color: $color-dark, $alpha: 1);
+        font-size: 15px;
+        font-weight: 300;
+      }
+      &__summary {
+        h5 {
+          font-size: 24px;
+          font-weight: 700;
+        }
+      }
+      &__contact {
+        font-size: 17px;
+      }
+    }
+  }
+
+  @include mediaMd {
+    padding: 0;
+    &__header {
+      width: 100%;
+      &__progress {
+        width: 90%;
+        padding: 6px 1rem;
+        position: initial;
+        margin: 1rem auto 0;
+        &__raised,
+        &__goal {
+          h5 {
+            font-size: 12px;
+          }
+          span {
+            font-size: 11px;
+          }
+        }
+        &__progressBar {
+          height: 12px;
+        }
+        &__container {
+          width: 100%;
+        }
+      }
+      button {
+        margin-left: 1rem;
+      }
+    }
+    &__body {
+      width: 100%;
+      padding: 0 1rem;
+      flex-direction: column;
+      margin-top: 0;
+      &__details {
+        width: 100%;
+        margin-top: 1rem;
+        h5 {
+          margin: 0.3rem;
+          font-weight: 600;
+          font-size: 20px;
+        }
+        p {
+          padding: 0 10px;
+          color: $color-dark;
+        }
+        &__contact {
+          display: none;
+        }
+      }
+      &__contact {
+        font-size: 14px;
+        h5 {
+          color: $color-primary;
+          font-weight: 500;
+          font-size: 15px;
+          text-transform: uppercase;
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}
