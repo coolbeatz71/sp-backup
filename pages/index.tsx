@@ -11,19 +11,21 @@ import Spinner from "components/Spinner";
 import { getFeed } from "redux/actions/cause/getFeed";
 import { IRootState } from "redux/initialStates";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
+import { getOwnerInfo } from "helpers/getOwnerInfo";
+import Mission from "components/common/Mission";
+import { SIGNUP_PATH, ALL_CAUSES_PATH } from "helpers/paths";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   const { push, pathname } = useRouter();
 
   const goToRegister = () => {
-    push("/signup");
+    push(SIGNUP_PATH);
   };
 
-  const getOwnerInfo = (name: string, verified: boolean) => ({
-    name,
-    verified,
-  });
+  const goToAllCauses = () => {
+    push(ALL_CAUSES_PATH);
+  };
 
   useEffect(() => {
     getFeed()(dispatch);
@@ -39,12 +41,12 @@ const IndexPage = () => {
   );
 
   return (
-    <div title="Save Plus">
+    <div title="Save Plus" className="index-page">
       <div className="index-container">
         <div className="index__intro">
           <div className="index__intro--info">
             <h1>Put a Smile on Someone's Face</h1>
-            <Button className="btn-primary index__intro--button">
+            <Button size="large" className="btn-primary index__intro--button">
               GET STARTED
             </Button>
           </div>
@@ -81,6 +83,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
@@ -104,6 +107,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
@@ -114,7 +118,9 @@ const IndexPage = () => {
         )}
 
         <div className="more__causes">
-          <Button className="btn-secondary">DISCOVER MORE CAUSES</Button>
+          <Button className="btn-secondary" onClick={goToAllCauses}>
+            DISCOVER MORE CAUSES
+          </Button>
         </div>
       </div>
 
@@ -141,6 +147,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
@@ -164,6 +171,7 @@ const IndexPage = () => {
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
                       status={cause.status}
+                      category={cause.category.title}
                       rating={cause.ratings}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
@@ -173,7 +181,9 @@ const IndexPage = () => {
           </>
         )}
         <div className="more__causes">
-          <Button className="btn-secondary">DISCOVER MORE CAUSES</Button>
+          <Button className="btn-secondary" onClick={goToAllCauses}>
+            DISCOVER MORE CAUSES
+          </Button>
         </div>
       </div>
       <div className="short__intro">
@@ -192,31 +202,7 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-      <div className="mission">
-        <div className="mission__item mission--with-image">
-          <img src="icons/kid-overlay.png" alt="" />
-        </div>
-        <div className="mission__item">
-          <div className="mission__item--title">
-            <img src="icons/family.png" alt="" />
-            <h2>SAVE Plus</h2>
-            <span>Mission</span>
-          </div>
-          <div className="mission__item--description">
-            <p>
-              We are a platform dedicated to connecting socially impactful
-              causes, conscious people.
-            </p>
-          </div>
-          {!isLoggedin && (
-            <div className="mission__item--button">
-              <Button className="btn-primary-outline" onClick={goToRegister}>
-                JOIN US
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
+      <Mission isLoggedin={isLoggedin} goToRegister={goToRegister} />
     </div>
   );
 };

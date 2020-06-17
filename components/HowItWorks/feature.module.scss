@@ -2,7 +2,6 @@
 @import "styles/_mixins";
 
 .featureCard {
-  margin-right: 50px;
   padding: 0;
   background-color: $color-primary-light;
   min-height: 380px;
@@ -54,10 +53,10 @@
 }
 
 .featureList {
-  display: flex;
-  justify-content: space-evenly;
-  margin-left: 5%;
-  margin-right: 3% !important;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem;
+  padding: 0 3em;
 
   &Mobile {
     display: none;
@@ -69,5 +68,4 @@
   @include mediaMd {
     display: none;
   }
-
 }

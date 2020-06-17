@@ -17,6 +17,8 @@
 
   &__illustration {
     padding: 1em 3em;
+    display: flex;
+    justify-content: center;
     img {
       margin: auto !important;
       width: 30rem;

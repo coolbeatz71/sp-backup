@@ -6,7 +6,11 @@ import { MoreOutlined } from "@ant-design/icons";
 import { truncate } from "lodash";
 import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
-import { HOME_PATH, USER_CAUSES_PATH } from "./../../../helpers/paths";
+import {
+  HOME_PATH,
+  USER_CAUSES_PATH,
+  ALL_CAUSES_PATH,
+} from "./../../../helpers/paths";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
 import { ICauseStatus, causeStatus } from "interfaces/";
@@ -42,6 +46,7 @@ export interface CauseCardProps {
   amountToReach: number | string;
   currency: string;
   status: string;
+  category: string;
   rating: number;
   daysToGo?: number | string;
 }
@@ -53,6 +58,7 @@ const getDaysToGoMsg = (status: string, daysToGo: any): string => {
 };
 
 const renderOwnerInfo = (
+  category: string,
   avatar?: string,
   verified?: boolean,
   name?: string,
@@ -93,7 +99,7 @@ const renderOwnerInfo = (
         <span>by {name} </span>
       </div>
       <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
-        Charity
+        {category}
       </div>
     </>
   );
@@ -135,7 +141,7 @@ const renderExtraInfo = (rating: number) => {
 };
 
 const renderFooter = (status: string, pathName: string, slug: string) => {
-  if (pathName === HOME_PATH) {
+  if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
     return (
       <div className={styles.causeCard__footer}>
         <Link href="/causes/[slug]" as={`/causes/${slug}`}>
@@ -185,10 +191,11 @@ const CauseCard: FC<CauseCardProps> = ({
   status,
   rating,
   daysToGo,
+  category,
 }) => {
   const renderHeaderInfo = () => {
-    if (pathName === HOME_PATH) {
-      return renderOwnerInfo(avatar, verified, name);
+    if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
+      return renderOwnerInfo(category, avatar, verified, name);
     }
 
     if (pathName === USER_CAUSES_PATH) {
@@ -254,7 +261,9 @@ const CauseCard: FC<CauseCardProps> = ({
             </span>
           </div>
         </div>
-        {pathName === HOME_PATH ? renderExtraInfo(rating) : null}
+        {pathName === HOME_PATH || pathName === ALL_CAUSES_PATH
+          ? renderExtraInfo(rating)
+          : null}
       </div>
       {renderFooter(status, pathName, slug)}
       <style jsx>{`

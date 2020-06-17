@@ -10,7 +10,7 @@ const Footer: React.FC<{}> = () => {
   return isApplicable ? (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div>
+        <div className="footer-header">
           <img src="/logo.svg" className={styles.logo} alt="footer logo" />
           <span className={styles.labelCopyright}>copyright© 2020 exuus</span>
         </div>
@@ -43,6 +43,15 @@ const Footer: React.FC<{}> = () => {
           </a>
         </div>
       </div>
+      <style jsx={true}>
+        {`
+          .footer-header {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+          }
+        `}
+      </style>
     </div>
   ) : (
     <></>

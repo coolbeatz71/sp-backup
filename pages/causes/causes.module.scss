@@ -1,0 +1,49 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
+.allCauses {
+  padding-top: 5rem;
+  min-height: calc(100vh - (68.5px));
+  &__grid {
+    display: grid;
+    &__mobile {
+      display: none;
+
+      @include mediaMd {
+        padding: 2em 3em;
+        display: block;
+        width: 100vw;
+        background: url("../../public/home-abstract-bg.svg");
+        background-size: cover;
+      }
+    }
+
+    &__lg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 3rem;
+      padding: 2em 3em;
+      background: url("../../public/home-abstract-bg.svg");
+      background-size: cover;
+
+      @include mediaMd {
+        display: none !important;
+      }
+    }
+  }
+
+  &__illustration {
+    padding: 1em 3em;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    img {
+      margin: auto !important;
+      width: 45rem;
+    }
+
+    h1 {
+      margin: auto !important;
+    }
+  }
+}

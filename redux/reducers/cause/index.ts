@@ -3,6 +3,7 @@ import feed from "./feed";
 import userCauses from "./userCauses";
 import create from "./create";
 import single from "./single";
+import all from "./all";
 
 export default (
   state = initialState.cause,
@@ -14,5 +15,6 @@ export default (
     ...userCauses(state, action),
     ...create(state, action),
     ...single(state, action),
+    ...all(state, action),
   };
 };
