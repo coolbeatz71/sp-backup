@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./single.module.scss";
 import { Button } from "antd";
@@ -34,18 +35,20 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
   );
 
   const donateButton = (screen?: string) => (
-    <Button
-      className={`btn-primary mt-3 ${
-        screen === "mobile" && isMobile
-          ? "d-block d-md-none"
-          : !screen || screen === "tablet"
-          ? "d-none d-md-block"
-          : "d-none"
-      }`}
-      size="large"
-    >
-      Donate
-    </Button>
+    <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
+      <Button
+        className={`btn-primary mt-3 ${
+          screen === "mobile" && isMobile
+            ? "d-block d-md-none"
+            : !screen || screen === "tablet"
+            ? "d-none d-md-block"
+            : "d-none"
+        }`}
+        size="large"
+      >
+        Donate
+      </Button>
+    </Link>
   );
 
   const contactInfo = (screen?: string) => (

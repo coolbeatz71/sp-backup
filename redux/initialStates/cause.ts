@@ -1,3 +1,5 @@
+import { IBasicReduxStore } from "interfaces/reduxStore";
+
 export default {
   all: {
     data: {},
@@ -27,6 +29,11 @@ export default {
     loading: false,
     error: "",
   },
+  donate: {
+    data: {},
+    loading: false,
+    error: "",
+  },
 };
 
 export interface ICauseFeed {
@@ -50,4 +57,5 @@ export interface ICause {
     error: any;
     loading: boolean;
   };
+  donate: IBasicReduxStore;
 }
