@@ -6,7 +6,7 @@
   &__label {
     font-size: 14px;
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 0;
     margin: 7px 11px;
     padding: 0 6px;
@@ -22,7 +22,7 @@
   
   label.focused__mode {
     font-size: 70%;
-    transform: translate3d(0, -80%, 0);
+    transform: translate3d(0, -110%, 0);
     opacity: 1;
     color: #219bb2;
   }

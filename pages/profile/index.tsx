@@ -6,7 +6,6 @@ import {
   Button,
   Row,
   Col,
-  Select,
   Upload,
   Spin,
   Avatar,
@@ -23,10 +22,10 @@ import abName from "helpers/abName";
 import updateProfile from "redux/actions/user/updateProfile";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import Link from "next/link";
+import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 
 export interface ProfileProps { }
 
-const { Option } = Select;
 const { Text } = Typography;
 
 const Profile: React.FC<ProfileProps> = () => {
@@ -66,11 +65,6 @@ const Profile: React.FC<ProfileProps> = () => {
     });
   }
 
-  const prefixSelector = (
-    <Select defaultValue="250">
-      <Option value="250">+250</Option>
-    </Select>
-  );
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -180,7 +174,7 @@ const Profile: React.FC<ProfileProps> = () => {
               >
                 <Input
                   placeholder="Phone Number"
-                  addonBefore={prefixSelector}
+                  addonBefore={PhoneCountrySelector}
                   maxLength={9}
                   disabled={true}
                 />

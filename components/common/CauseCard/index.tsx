@@ -144,7 +144,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
   if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
     return (
       <div className={styles.causeCard__footer}>
-        <Link href="/causes/[slug]" as={`/causes/${slug}`}>
+        <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
           <a>{canDonateMsg[status] || canDonateMsg.closed}</a>
         </Link>
       </div>

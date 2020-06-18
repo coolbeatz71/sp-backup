@@ -101,8 +101,15 @@ a:hover {
   height: fit-content;
 }
 
+//rating component
 .dv-star-rating {
   top: -3px;
+}
+
+.donate_donate__33jso {
+  .dv-star-rating-star {
+    margin-right: 0.5rem;
+  }
 }
 
 //navbar
@@ -138,23 +145,39 @@ a:hover {
   }
 }
 
+.donate_donate__33jso {
+  .ant-form-item {
+    margin-bottom: 1.6rem;
+  }
+}
+
 // custom input
 
 .ant-input {
   padding: 7px 11px;
+  line-height: 2;
 }
 textarea.ant-input {
   border-radius: 5px;
 }
 
 .ant-select-selector {
-  min-height: 38px;
+  min-height: 44px;
   padding: 4px 11px !important;
-  border-radius: 5px;
+  border-radius: 5px !important;
+}
+
+.ant-select-selection-item {
+  line-height: 35px !important;
+  margin-left: 7px;
+}
+.ant-select-selection-placeholder {
+  line-height: 35px !important;
+  margin-left: 7px;
 }
 
 .ant-picker {
-  min-height: 38px;
+  min-height: 44px;
   border-radius: 5px;
 }
 
@@ -181,7 +204,11 @@ textarea.ant-input {
 }
 
 .ant-input-password {
-  min-height: 38px;
+  min-height: 44px;
+  border-radius: 5px;
+}
+.ant-input-affix-wrapper {
+  min-height: 44px;
   border-radius: 5px;
 }
 
@@ -278,5 +305,11 @@ textarea.ant-input {
 .ant-spin {
   .ant-spin-dot-item {
     background: $color-primary;
+  }
+}
+
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 5px;
   }
 }
