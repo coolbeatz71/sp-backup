@@ -34,6 +34,11 @@ export default {
     loading: false,
     error: "",
   },
+  stop: {
+    data: {},
+    loading: false,
+    error: "",
+  },
 };
 
 export interface ICauseFeed {
@@ -58,4 +63,5 @@ export interface ICause {
     loading: boolean;
   };
   donate: IBasicReduxStore;
+  stop: IBasicReduxStore;
 }

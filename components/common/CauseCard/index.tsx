@@ -1,23 +1,19 @@
 import React, { FC } from "react";
 import styles from "./causeCard.module.scss";
 import Link from "next/link";
-import { Avatar } from "antd";
-import { MoreOutlined } from "@ant-design/icons";
 import { truncate } from "lodash";
-import ReactStars from "react-star-rating-component";
 import numberFormatter from "helpers/numberFormater";
 import {
   HOME_PATH,
   USER_CAUSES_PATH,
   ALL_CAUSES_PATH,
 } from "./../../../helpers/paths";
-import randmonColor from "randomcolor";
-import abName from "helpers/abName";
 import { ICauseStatus, causeStatus } from "interfaces/";
-import getCauseTagColor from "helpers/getCauseTagColor";
 import getProgressPercentage from "./../../../helpers/getProgressPercentage";
-
-const color = randmonColor();
+import OwnerInfo from "./OwnerInfo";
+import StatusInfo from "./StatusInfo";
+import ActionIcon from "./ActionIcon";
+import ExtraInfo from "./ExtraInfo";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
@@ -57,96 +53,17 @@ const getDaysToGoMsg = (status: string, daysToGo: any): string => {
     : daysToGoStatus[status];
 };
 
-const renderOwnerInfo = (
-  category: string,
-  avatar?: string,
-  verified?: boolean,
-  name?: string,
-) => {
-  const names: any = name?.split(" ");
-  return (
-    <>
-      <div className={styles.causeCard__body__header__causeOwner}>
-        <div className={styles.top}>
-          {avatar ? (
-            <img
-              src={avatar}
-              alt=""
-              className={styles.causeCard__body__header__causeOwner__avatar}
-            />
-          ) : (
-            <Avatar
-              size="large"
-              style={{
-                marginRight: 5,
-                marginTop: "-20px",
-                backgroundColor: color,
-                verticalAlign: "middle",
-              }}
-            >
-              {abName(names[0], names[1])}
-            </Avatar>
-          )}
-
-          {verified && (
-            <img
-              alt=""
-              src="/icons/verified-icon.svg"
-              className={styles.causeCard__body__header__causeOwner__verified}
-            />
-          )}
-        </div>
-        <span>by {name} </span>
-      </div>
-      <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
-        {category}
-      </div>
-    </>
-  );
-};
-
-const renderStatusInfo = (status: string) => {
-  const color = getCauseTagColor(status);
-  return (
-    <div
-      className={`tag ${styles.causeCard__body__header__causeTag}`}
-      style={{ backgroundColor: color }}
-    >
-      {status}
-    </div>
-  );
-};
-
-const renderExtraInfo = (rating: number) => {
-  return (
-    <div className={styles.causeCard__body__extra}>
-      <div className={styles.causeCard__body__extra__ratings}>
-        <span>Rating:</span>
-        <ReactStars
-          starCount={5}
-          value={rating}
-          name="rate1"
-          starColor="#F4A86C"
-          editing={false}
-        />
-      </div>
-      <div className={styles.causeCard__body__extra__share}>
-        <span className={styles.causeCard__share__text}>share</span>
-        <span className={styles.causeCard__share}>
-          <img src="/icons/share-icon.svg" alt="" />
-        </span>
-      </div>
-    </div>
-  );
-};
-
 const renderFooter = (status: string, pathName: string, slug: string) => {
   if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
     return (
       <div className={styles.causeCard__footer}>
-        <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
-          <a>{canDonateMsg[status] || canDonateMsg.closed}</a>
-        </Link>
+        {status === causeStatus.active ? (
+          <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
+            <a>{canDonateMsg[status]}</a>
+          </Link>
+        ) : (
+          <p>{canDonateMsg[status] || canDonateMsg.closed}</p>
+        )}
       </div>
     );
   }
@@ -156,22 +73,6 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
       <div className={styles.causeCard__footer}>
         <Link href={`${USER_CAUSES_PATH}/${slug}`}>
           <a>View Cause Detail</a>
-        </Link>
-      </div>
-    );
-  }
-};
-
-const renderDetailIcon = (pathName: string, slug: string) => {
-  if (pathName === USER_CAUSES_PATH) {
-    return (
-      <div className={styles.causeCard__body__content__detailIcon}>
-        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
-          <a>
-            <MoreOutlined
-              className={styles.causeCard__body__content__detailIcon__icon}
-            />
-          </a>
         </Link>
       </div>
     );
@@ -194,13 +95,17 @@ const CauseCard: FC<CauseCardProps> = ({
   category,
 }) => {
   const renderHeaderInfo = () => {
-    if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) {
-      return renderOwnerInfo(category, avatar, verified, name);
-    }
+    if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH)
+      return (
+        <OwnerInfo
+          category={category}
+          avatar={avatar}
+          verified={verified}
+          name={name}
+        />
+      );
 
-    if (pathName === USER_CAUSES_PATH) {
-      return renderStatusInfo(status);
-    }
+    if (pathName === USER_CAUSES_PATH) return <StatusInfo status={status} />;
   };
 
   const progress = getProgressPercentage(amountRaised, amountToReach);
@@ -220,7 +125,9 @@ const CauseCard: FC<CauseCardProps> = ({
           {renderHeaderInfo()}
         </div>
         <div className={styles.causeCard__body__content}>
-          {renderDetailIcon(pathName, slug)}
+          {pathName === USER_CAUSES_PATH && (
+            <ActionIcon slug={slug} status={status} />
+          )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>
               <a>
@@ -234,7 +141,7 @@ const CauseCard: FC<CauseCardProps> = ({
           </div>
           <p>
             {truncate(description, {
-              length: 111,
+              length: 105,
             })}
           </p>
         </div>
@@ -261,9 +168,9 @@ const CauseCard: FC<CauseCardProps> = ({
             </span>
           </div>
         </div>
-        {pathName === HOME_PATH || pathName === ALL_CAUSES_PATH
-          ? renderExtraInfo(rating)
-          : null}
+        {(pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) && (
+          <ExtraInfo rating={rating} />
+        )}
       </div>
       {renderFooter(status, pathName, slug)}
       <style jsx>{`

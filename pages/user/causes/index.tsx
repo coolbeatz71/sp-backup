@@ -24,7 +24,7 @@ const renderHeader = (causes: { [key: string]: any }) => (
       <p className={styles.causes__header__subTitle}>
         {isEmpty(causes.data)
           ? "Start a cause today!"
-          : "Track all your cause here."}
+          : "Track all your causes here."}
       </p>
     </div>
     <Link href="/causes/create">
@@ -40,7 +40,7 @@ const renderFeedContainer = (
   error: any,
   sliceCausesNumber: any,
 ) =>
-  isEmpty(causes.data) ? (
+  fetched && !error && isEmpty(causes.data) ? (
     <div className={styles.causes__illustration}>
       <img src="../sitting-reading.svg" />
     </div>

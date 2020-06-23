@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "./categoriesbar.module.scss";
 import { isEmpty } from "lodash";
@@ -16,6 +16,19 @@ const CategoriesBar: FC<CategoriesBarProps> = ({ categories }) => {
   const { query, push } = useRouter();
   const { category_id } = query;
   const { data, fetched, error } = categories;
+
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  useEffect(() => {
+    const delayTimer = setTimeout(() => {
+      if (!isEmpty(searchKeyword.trim()))
+        push(`${ALL_CAUSES_PATH}?search=${searchKeyword}`);
+      // tslint:disable-next-line: align
+    }, 3000);
+
+    return () => clearTimeout(delayTimer);
+    // tslint:disable-next-line: align
+  }, [searchKeyword]);
 
   const onCategoryClick = (categoryId?: number): void => {
     url =
@@ -66,6 +79,7 @@ const CategoriesBar: FC<CategoriesBarProps> = ({ categories }) => {
       </div>
       <Input
         placeholder="Search"
+        onChange={(e) => setSearchKeyword(e.target.value)}
         onKeyPress={(e) => onSearchKeyPress(e)}
         style={{ backgroundColor: PRIMARY_LIGHT }}
       />
