@@ -1,4 +1,4 @@
-import { IBasicReduxStore } from "interfaces/reduxStore";
+import { IBasicReduxStore, basicReduxStoreDefault } from "interfaces/reduxStore";
 
 export default {
   all: {
@@ -29,16 +29,13 @@ export default {
     loading: false,
     error: "",
   },
-  donate: {
-    data: {},
-    loading: false,
-    error: "",
-  },
+  donate: basicReduxStoreDefault,
   stop: {
     data: {},
     loading: false,
     error: "",
   },
+  edit: basicReduxStoreDefault,
 };
 
 export interface ICauseFeed {
@@ -64,4 +61,5 @@ export interface ICause {
   };
   donate: IBasicReduxStore;
   stop: IBasicReduxStore;
+  edit: IBasicReduxStore;
 }

@@ -283,6 +283,17 @@ textarea.ant-input {
   }
 }
 
+.causeCard-menu{
+  .ant-dropdown-menu-item{
+    a{
+      text-decoration: none;
+      &:hover{
+        color: $color-primary;
+      }
+    }
+  }
+}
+
 .react-swipeable-view-container {
   div[data-swipeable] {
     width: 85% !important;

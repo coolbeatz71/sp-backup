@@ -4,6 +4,7 @@ import { MoreOutlined } from "@ant-design/icons";
 import styles from "../causeCard.module.scss";
 import StopCause from "./Stop";
 import { causeStatus } from "interfaces";
+import Link from "next/link";
 
 enum ActionType {
   stop = "stop",
@@ -35,7 +36,11 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
 
   const actionMenu = (
     <Menu>
-      <Menu.Item disabled={isUneditable(status)}>Edit Cause</Menu.Item>
+      <Menu.Item disabled={isUneditable(status)}>
+        <Link href="/causes/[slug]/edit" as={`/causes/${slug}/edit`}>
+          <a>Edit Cause</a>
+        </Link>
+      </Menu.Item>
       <Menu.Divider />
 
       {status === causeStatus.stopped ? (
@@ -62,7 +67,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
   return (
     <div className={styles.causeCard__body__content__actionIcon}>
       <Dropdown
-        overlayClassName="navbar__menu"
+        overlayClassName="navbar__menu causeCard-menu"
         overlay={actionMenu}
         trigger={["click"]}
         placement="bottomRight"
