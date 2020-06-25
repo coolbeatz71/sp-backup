@@ -39,7 +39,7 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
                 verticalAlign: "middle",
               }}
             >
-              {abName(names[0], names[1])}
+              {names && abName(names[0], names[1])}
             </Avatar>
           )}
 

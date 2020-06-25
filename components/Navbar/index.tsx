@@ -102,7 +102,7 @@ const Navbar: React.SFC<{}> = () => {
       <Menu.Divider />
       <Menu.Item>
         <Link href={USER_CAUSES_PATH}>
-          <a>My Cause</a>
+          <a>My Causes</a>
         </Link>
       </Menu.Item>
 

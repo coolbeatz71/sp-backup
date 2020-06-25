@@ -3,3 +3,9 @@ export interface IBasicReduxStore {
   error: any;
   loading: boolean;
 }
+
+export const basicReduxStoreDefault = {
+  data: {},
+  loading: false,
+  error: "",
+};

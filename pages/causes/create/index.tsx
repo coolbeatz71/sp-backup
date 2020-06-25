@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./createCause.module.scss";
 import { Button, Typography, Form } from "antd";
@@ -10,12 +10,18 @@ import PaymentInfo from "components/Cause/Create/PaymentInfo";
 import Success from "components/Cause/Create/Success";
 import { formStateDefaultValue } from "interfaces/cause/create/formState";
 import { validateMessages } from "constants/validationMessages";
-import { remove, forEach } from "lodash";
+import { remove, forEach, pick } from "lodash";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import createCause from "redux/actions/cause/create";
 import { IRootState } from "redux/initialStates";
+import { IUnknownObject } from "interfaces/unknownObject";
+import editCause from "redux/actions/cause/edit";
+import { useRouter } from "next/router";
 
-export interface CreateCauseProps {}
+export interface CreateCauseProps {
+  editFormState: IUnknownObject;
+  slug: string | string[];
+}
 
 const { Title, Text } = Typography;
 
@@ -25,8 +31,10 @@ interface Isteps {
   content: React.ReactElement;
 }
 
-const CreateCause: React.FC<CreateCauseProps> = () => {
+const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const dispatch = useDispatch();
+  const { push } = useRouter();
+  const editing = !!editFormState;
   const defaultSteps: Isteps[] = [
     {
       title: "Basic Information",
@@ -58,13 +66,39 @@ const CreateCause: React.FC<CreateCauseProps> = () => {
 
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
-  const [formState, setFormState] = useState(formStateDefaultValue);
+  const [formState, setFormState] = useState(
+    editFormState || formStateDefaultValue
+  );
+  const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
   const [successStep, setSuccessStep] = useState<boolean>(false);
 
   const stepsCount = steps.length - 1;
 
-  const { loading, data, error } = useSelector(({ cause: { create } }: IRootState) => create);
+  const { loading, data, error } = useSelector(
+    ({ cause: { create } }: IRootState) => create
+  );
+
+  const { loading: loadingEdit, error: errorEdit } = useSelector(
+    ({ cause: { edit } }: IRootState) => edit
+  );
+
+  useEffect(() => {
+    if (editing) {
+      if (editFormState.category_id === 1) {
+        const indexToInsert =
+          steps.findIndex((step) => step.title === "Basic Information") + 1;
+        steps.splice(indexToInsert, 0, medicalInformation);
+        setSteps([...steps]);
+      }
+      if (editFormState.affiliated === true) {
+        const indexToInsert =
+          steps.findIndex((step) => step.title === "Detailed Information") + 1;
+        steps.splice(indexToInsert, 0, orgInformation);
+        setSteps([...steps]);
+      }
+    }
+  }, []);
 
   const formatFlatObject = (data: { [key: string]: any }) => {
     forEach(data, (value, key) => {
@@ -113,18 +147,34 @@ const CreateCause: React.FC<CreateCauseProps> = () => {
     return groupedObject;
   };
 
+  const getTouchedFields = (values: IUnknownObject) => {
+    const touchedKeys = Object.keys(values).filter((key) =>
+      form.isFieldTouched(key)
+    );
+    const touchedFields = pick(values, touchedKeys);
+    return touchedFields;
+  };
+
   const handleSubmit = (values: any) => {
     setFormState({ ...formState, ...values });
+    if (editing) {
+      const touchedFields = getTouchedFields(values);
+      setEditFormValues({ ...editFormValues, ...touchedFields });
+    }
     if (currentStep === stepsCount) {
+      const finalData = editing ? { ...editFormValues, ...getTouchedFields(values) } : { ...formState, ...values };
       const formattedData = groupData(
-        formatFlatObject({ ...formState, ...values })
+        formatFlatObject(finalData)
       );
       const form = new FormData();
       Object.keys(formattedData).forEach((key) => {
-        const value = key === "image" || typeof formattedData[key] === "string" ? formattedData[key] : JSON.stringify(formattedData[key]);
+        const value =
+          key === "image" || typeof formattedData[key] === "string"
+            ? formattedData[key]
+            : JSON.stringify(formattedData[key]);
         form.append(key, value);
-      },
-      );
+      });
+      if (editing) return editCause(form, slug)(push, dispatch);
       createCause(form)(dispatch, setSuccessStep);
     } else {
       const current = currentStep + 1;
@@ -169,7 +219,9 @@ const CreateCause: React.FC<CreateCauseProps> = () => {
 
   return (
     <div className={styles.createCause}>
-      <h4 className={styles.createCause__title}>{successStep ? "Cause Created Succesfully" : "Create a new cause"}</h4>
+      <h4 className={styles.createCause__title}>
+        {successStep ? "Cause Created Succesfully" : editing ? "Edit cause" : "Create a new cause"}
+      </h4>
       <div className={styles.createCause__content}>
         {!successStep ? (
           <>
@@ -202,7 +254,7 @@ const CreateCause: React.FC<CreateCauseProps> = () => {
                 onFinish={handleSubmit}
               >
                 <Text type="danger" className="mb-3 d-block">
-                  {error}
+                  {error || errorEdit}
                 </Text>
                 {steps[currentStep].content}
                 <div className={styles.createCause__content__actions}>
@@ -211,20 +263,21 @@ const CreateCause: React.FC<CreateCauseProps> = () => {
                       PREVIOUS
                     </Button>
                   )}
-                  <Button loading={loading} className="btn-primary" htmlType="submit">
+                  <Button
+                    loading={loading || loadingEdit}
+                    className="btn-primary"
+                    htmlType="submit"
+                  >
                     {currentStep !== stepsCount
                       ? "SAVE AND CONTINUE"
-                      : "CREATE A CAUSE"}
+                      : editing ? "EDIT CAUSE" : "CREATE A CAUSE"}
                   </Button>
                 </div>
               </Form>
             </div>
           </>
         ) : (
-          <Success
-            slug={data.slug}
-            summary={data.summary}
-          />
+          <Success slug={data.slug} summary={data.summary} />
         )}
       </div>
     </div>
