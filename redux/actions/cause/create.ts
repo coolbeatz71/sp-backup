@@ -24,7 +24,7 @@ export default (data: any) => (dispatch: any, setSuccessStep: any) => {
       console.error("here", error);
       dispatch({
         type: CREATE_CAUSE_ERROR,
-        payload: "We couldnt create your cause 😥, something went wrong!",
+        payload:  error.message || "We couldnt create your cause 😥, something went wrong!",
       });
     });
 };

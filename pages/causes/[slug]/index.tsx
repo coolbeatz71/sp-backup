@@ -17,6 +17,7 @@ import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { getAllCauseSlugs, getCauseData } from "helpers/getAllCauseSlugs";
 import { IUnknownObject } from "interfaces/unknownObject";
+import { causeStatus } from "interfaces";
 
 export interface SingleCauseProps {}
 
@@ -36,7 +37,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
     ({ cause: { single } }: IRootState) => single
   );
 
-  const donateButton = (screen?: string) => (
+  const donateButton = (screen?: string) => data.status === causeStatus.active && (
     <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
       <Button
         className={`btn-primary mt-3 ${

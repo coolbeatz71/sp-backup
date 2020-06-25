@@ -12,7 +12,7 @@ import { ICauseStatus, causeStatus } from "interfaces/";
 import getProgressPercentage from "./../../../helpers/getProgressPercentage";
 import OwnerInfo from "./OwnerInfo";
 import StatusInfo from "./StatusInfo";
-import ActionIcon from "./ActionIcon";
+import Actions from "./Actions";
 import ExtraInfo from "./ExtraInfo";
 
 const daysToGoStatus: ICauseStatus = {
@@ -71,7 +71,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
   if (pathName === USER_CAUSES_PATH) {
     return (
       <div className={styles.causeCard__footer}>
-        <Link href={`${USER_CAUSES_PATH}/${slug}`}>
+        <Link href="/causes/[slug]" as={`/causes/${slug}`}>
           <a>View Cause Detail</a>
         </Link>
       </div>
@@ -126,7 +126,7 @@ const CauseCard: FC<CauseCardProps> = ({
         </div>
         <div className={styles.causeCard__body__content}>
           {pathName === USER_CAUSES_PATH && (
-            <ActionIcon slug={slug} status={status} />
+            <Actions slug={slug} status={status} />
           )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>

@@ -36,6 +36,7 @@ export default {
     error: "",
   },
   edit: basicReduxStoreDefault,
+  cancel: basicReduxStoreDefault,
 };
 
 export interface ICauseFeed {
@@ -62,4 +63,5 @@ export interface ICause {
   donate: IBasicReduxStore;
   stop: IBasicReduxStore;
   edit: IBasicReduxStore;
+  cancel: IBasicReduxStore;
 }

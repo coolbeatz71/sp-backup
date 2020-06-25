@@ -3,7 +3,8 @@ export enum causeStatus {
   closed = "closed",
   stopped = "stopped",
   completed = "completed",
-  cancelled = "cancelled",
+  cancelled = "canceled",
+  canceled = "canceled",
 }
 
 export interface ICauseStatus {

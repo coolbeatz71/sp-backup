@@ -102,7 +102,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const formatFlatObject = (data: { [key: string]: any }) => {
     forEach(data, (value, key) => {
-      if (key.includes("phone")) {
+      if (key.includes("phone") || key.includes("account_number")) {
         data[key] = phoneFormatter(value);
         return;
       }
