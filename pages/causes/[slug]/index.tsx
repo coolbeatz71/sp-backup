@@ -15,6 +15,8 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import Error from "components/common/Error";
 import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
+import { getAllCauseSlugs, getCauseData } from "helpers/getAllCauseSlugs";
+import { IUnknownObject } from "interfaces/unknownObject";
 
 export interface SingleCauseProps {}
 
@@ -148,3 +150,16 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
 };
 
 export default SingleCause;
+
+export async function getStaticPaths() {
+  const paths = await getAllCauseSlugs();
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }: IUnknownObject) {
+  const cause = await getCauseData(params.slug);
+  return { props: { cause } };
+}

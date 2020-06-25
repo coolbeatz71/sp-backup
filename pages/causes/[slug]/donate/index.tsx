@@ -26,6 +26,7 @@ import getPlatformUrl from "helpers/getPlatformUrl";
 import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
+import { getCauseData, getAllCauseSlugs } from "helpers/getAllCauseSlugs";
 
 export interface DonateCauseProps {}
 
@@ -202,7 +203,8 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                     { required: true, message: "Amount is required" },
                     {
                       pattern: /([1-9]\d{2,})$$/g,
-                      message: "The amount should be valid with a minimum of 100 rwf",
+                      message:
+                        "The amount should be valid with a minimum of 100 rwf",
                     },
                   ]}
                   validateTrigger={["onSubmit", "onBlur"]}
@@ -335,3 +337,16 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
 };
 
 export default DonateCause;
+
+export async function getStaticPaths() {
+  const paths = await getAllCauseSlugs();
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }: IUnknownObject) {
+  const cause = await getCauseData(params.slug);
+  return { props: { cause } };
+}
