@@ -1,14 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./authForm.module.scss";
-import {
-  Form,
-  Button,
-  Typography,
-  Divider,
-  Row,
-  Col,
-} from "antd";
+import { Form, Button, Typography, Divider, Row, Col } from "antd";
 import { InputPassword, Input } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import {
@@ -140,7 +133,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
             <Form.Item
               className="form-group"
               validateTrigger={["onSubmit", "onBlur"]}
-              rules={[{ len: 9, required: true }]}
+              rules={[
+                { len: 9, required: true },
+                {
+                  pattern: /^7[238]/,
+                  message: "Phone number format should be valid",
+                },
+              ]}
               name="phone_number"
             >
               <Input
@@ -179,7 +178,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
             <Form.Item
               className="form-group"
               validateTrigger={["onSubmit", "onBlur"]}
-              rules={[{ len: 9, required: true }]}
+              rules={[
+                { len: 9, required: true },
+                {
+                  pattern: /^7[238]/,
+                  message: "Phone number format should be valid",
+                },
+              ]}
               name="phone_number"
             >
               <Input
@@ -216,13 +221,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
             {formAction(context).text}
           </Button>
         </div>
-      </Form >
+      </Form>
       <style jsx={true}>{`
         .form-group {
           margin-bottom: 1.3rem;
         }
       `}</style>
-    </div >
+    </div>
   );
 };
 

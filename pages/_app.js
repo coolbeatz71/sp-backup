@@ -13,6 +13,7 @@ Router.events.on("routeChangeComplete", () => {
     top: 0,
     left: 0,
   });
+  NProgress.done();
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 

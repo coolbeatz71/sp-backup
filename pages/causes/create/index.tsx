@@ -162,10 +162,10 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       setEditFormValues({ ...editFormValues, ...touchedFields });
     }
     if (currentStep === stepsCount) {
-      const finalData = editing ? { ...editFormValues, ...getTouchedFields(values) } : { ...formState, ...values };
-      const formattedData = groupData(
-        formatFlatObject(finalData)
-      );
+      const finalData = editing
+        ? { ...editFormValues, ...getTouchedFields(values) }
+        : { ...formState, ...values };
+      const formattedData = groupData(formatFlatObject(finalData));
       const form = new FormData();
       Object.keys(formattedData).forEach((key) => {
         const value =
@@ -220,7 +220,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   return (
     <div className={styles.createCause}>
       <h4 className={styles.createCause__title}>
-        {successStep ? "Cause Created Succesfully" : editing ? "Edit cause" : "Create a new cause"}
+        {successStep
+          ? "Cause Created Succesfully"
+          : editing
+          ? "Edit cause"
+          : "Create a new cause"}
       </h4>
       <div className={styles.createCause__content}>
         {!successStep ? (
@@ -234,6 +238,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                 {steps.map((step, index) => (
                   <div
                     key={step.title}
+                    onClick={() => setCurrentStep(index)}
+                    onKeyUp={({ keyCode }) => {
+                      if (keyCode === 13) setCurrentStep(index);
+                    }}
+                    role="button"
                     className={`
                     ${styles.createCause__content__header__steps__step}
                     ${
@@ -269,8 +278,10 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                     htmlType="submit"
                   >
                     {currentStep !== stepsCount
-                      ? "SAVE AND CONTINUE"
-                      : editing ? "EDIT CAUSE" : "CREATE A CAUSE"}
+                      ? "CONTINUE"
+                      : editing
+                      ? "EDIT CAUSE"
+                      : "CREATE A CAUSE"}
                   </Button>
                 </div>
               </Form>

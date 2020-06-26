@@ -18,7 +18,13 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       <Form.Item
         className="form-group"
         validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ len: 9, required: true }]}
+        rules={[
+          { len: 9, required: true },
+          {
+            pattern: /^7[238]/,
+            message: "Phone number format should be valid",
+          },
+        ]}
         name="institution_phone_number"
       >
         <Input
@@ -45,7 +51,13 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       <Form.Item
         className="form-group"
         validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ len: 9, required: true }]}
+        rules={[
+          { len: 9, required: true },
+          {
+            pattern: /^7[238]/,
+            message: "Phone number format should be valid",
+          },
+        ]}
         name="next_keen_phone_number"
       >
         <Input

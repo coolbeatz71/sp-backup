@@ -65,7 +65,6 @@ const Profile: React.FC<ProfileProps> = () => {
     });
   }
 
-
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
@@ -97,24 +96,15 @@ const Profile: React.FC<ProfileProps> = () => {
           <h4>Your Profile</h4>
         </div>
         <p>
-          Make modfications to your profile information and also fill in other
+          Make modifications to your profile information and also fill in other
           relevant information
         </p>
       </div>
       <div className={styles.profile__body}>
         <div className={styles.profile__body__form}>
           <div className="d-flex justify-content-between">
-            <div className="title-left mb-4">
+            <div className="title-left">
               <h5 className={styles.profile__body__form__title}>Update your personal details</h5>
-              <div className={styles.profile__body__form__progress}>
-                <p>Your profile is {calculatePercentage()}% complete</p>
-                <div className="progress__bar" />
-                <div className={styles.profile__body__form__progress__progressBar}>
-                  <div
-                    className={`progression ${styles.profile__body__form__progress__progressBar__progression}`}
-                  />
-                </div>
-              </div>
             </div>
             {data.avatar ? (
               <img
@@ -128,6 +118,15 @@ const Profile: React.FC<ProfileProps> = () => {
                 </Avatar>
               )}
           </div>
+          <div className={styles.profile__body__form__progress}>
+                <p>Your profile is {calculatePercentage()}% complete</p>
+                <div className="progress__bar" />
+                <div className={styles.profile__body__form__progress__progressBar}>
+                  <div
+                    className={`progression ${styles.profile__body__form__progress__progressBar__progression}`}
+                  />
+                </div>
+              </div>
           {dataLoading || isEmpty(data) ? <Spin /> : (
             <Form
               form={form}
@@ -202,7 +201,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 loading={loading}
                 htmlType="submit"
               >
-                UPDATE & SAVE
+                UPDATE
               </Button>
             </Form>
           )}
@@ -226,7 +225,7 @@ const Profile: React.FC<ProfileProps> = () => {
           width: ${calculatePercentage()}%;
         }
         .title-left{
-          width: 53%;
+          width: 75%;
         }
       `}</style>
     </div>
