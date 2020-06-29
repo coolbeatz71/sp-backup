@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Select, Switch } from "antd";
 import { Input } from "components/common/Input";
 import PhoneCountrySelector from "components/common/PhoneCountrySelector";
@@ -7,6 +7,25 @@ import { mobileMoney } from "constants/paymentMethods";
 export interface PaymentInfoProps {}
 
 const PaymentInfo: React.FC<PaymentInfoProps> = () => {
+  const [isPrivate, setPrivate] = useState<boolean>(false);
+  const [selectedTelco, setSelectedTelco] = useState<string>("default");
+  const handleAccess = (isChecked: boolean) => setPrivate(isChecked);
+  const handleSelect = (option: any) => setSelectedTelco(option);
+  const phoneNumberValidation: { [key: string]: { regex: RegExp, message: string }} = {
+    default: {
+      regex: /$^/,
+      message: "You should first select payment method",
+    },
+    MTN_Rwanda: {
+      regex: /^78/,
+      message: "Phone number should be a valid Mtn number",
+    },
+    Airtel_Rwanda: {
+      regex: /^7[23]/,
+      message: "Phone number should be a valid Airtel number",
+    },
+  }
+
   return (
     <div>
       <Form.Item
@@ -14,7 +33,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur", "onChange"]}
         rules={[{ required: true }]}
       >
-        <Select placeholder="Select Payment Method">
+        <Select placeholder="Select Payment Method" onSelect={handleSelect}>
           {mobileMoney.map(({ name, text }) => (
             <Select.Option key={name} value={name}>
               {text}
@@ -25,7 +44,13 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
       <Form.Item
         className="form-group"
         validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ len: 9, required: true }]}
+        rules={[
+          { len: 9, required: true },
+          {
+            pattern: phoneNumberValidation[selectedTelco].regex,
+            message: phoneNumberValidation[selectedTelco].message,
+          },
+        ]}
         name="payment_account_number"
       >
         <Input
@@ -50,14 +75,13 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
           validateTrigger={["onSubmit", "onBlur"]}
           name="access"
         >
-          <Switch />
+          <Switch onChange={handleAccess} />
         </Form.Item>
       </div>
-      <p className="note mb-4">Note: This cause will not be published on our website.</p>
+      {isPrivate && <p className="note">Note: This cause will not be published on our website.</p>}
     <style jsx>{`
         .note{
           font-size: 0.87em;
-          font-weight: 500;
           color: rgba(51, 51, 51, 0.6);
         }
       `}</style>

@@ -32,7 +32,13 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
       <Form.Item
         className="form-group"
         validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ len: 9, required: true }]}
+        rules={[
+          { len: 9, required: true },
+          {
+            pattern: /^7[238]/,
+            message: "Phone number format should be valid",
+          },
+        ]}
         name="organization_phone_number"
       >
         <Input

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Select, DatePicker, Upload } from "antd";
 import { Input } from "components/common/Input";
-import { InboxOutlined } from "@ant-design/icons";
+import { FileImageOutlined } from "@ant-design/icons";
 import splApi from "helpers/axios";
 import { Icategories } from 'interfaces/categories';
 
@@ -70,18 +70,20 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
       </Form.Item>
       <div className="mb-3">
         <p className="font-weight-bold">Image</p>
-        <Form.Item
-          name="image"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          noStyle
-          rules={[{ required: true }]}
-        >
-          <Upload.Dragger name="files" listType="picture" multiple={false} >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-          </Upload.Dragger>
+        <Form.Item>
+          <Form.Item
+            name="image"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            noStyle
+            rules={[{ required: true }]}
+          >
+            <Upload.Dragger beforeUpload={() => false} listType="picture" multiple={false} >
+              <p className="ant-upload-drag-icon">
+                <FileImageOutlined />
+              </p>
+            </Upload.Dragger>
+          </Form.Item>
         </Form.Item>
       </div>
     </div>

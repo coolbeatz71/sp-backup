@@ -41,6 +41,12 @@ a:hover {
   color: $color-primary;
 }
 
+#nprogress{
+  .spinner{
+    display: none !important;
+  }
+}
+
 .menu .anticon,
 .navbar_navbar__menuMobile__2OXwc .anticon {
   vertical-align: 0.2em;
@@ -157,11 +163,12 @@ a:hover {
 // custom input
 
 .ant-input {
-  padding: 7px 11px;
+  padding: 7px 16px;
   line-height: 2;
 }
 textarea.ant-input {
   border-radius: 5px;
+  padding: 7px 16px;
 }
 
 .ant-select-selector {
@@ -196,7 +203,7 @@ textarea.ant-input {
 }
 
 .ant-input-group-wrapper + .input_input__label__1H7Jb {
-  left: 75px !important;
+  left: 82px !important;
   z-index: 100;
 }
 
@@ -209,10 +216,12 @@ textarea.ant-input {
 .ant-input-password {
   min-height: 44px;
   border-radius: 5px;
+  padding: 7px 16px;
 }
 .ant-input-affix-wrapper {
   min-height: 44px;
   border-radius: 5px;
+  padding: 7px 16px;
 }
 
 .ant-input:focus,
