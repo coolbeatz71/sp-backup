@@ -3,12 +3,14 @@ import user, { Iuser } from "./user";
 import auth, { Iauth } from "./auth";
 import cause, { ICause } from "./cause";
 import categories, { IAllCategories } from "./categories";
+import pin, { IPinReset } from "./pin";
 export default {
   example,
   user,
   auth,
   cause,
   categories,
+  pin,
 };
 
 export interface IRootState {
@@ -17,4 +19,5 @@ export interface IRootState {
   auth: Iauth;
   cause: ICause;
   categories: IAllCategories;
+  pin: IPinReset;
 }

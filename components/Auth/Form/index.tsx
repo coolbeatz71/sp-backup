@@ -10,11 +10,17 @@ import {
 } from "redux/initialStates/auth";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import PhoneCountrySelector from "components/common/PhoneCountrySelector";
+import { PIN_RESET_PATH } from "helpers/paths";
 
 const { Text } = Typography;
 
 export interface AuthFormProps {
-  context: "signup" | "login" | "verify-phone";
+  context:
+    | "signup"
+    | "login"
+    | "verify-phone"
+    | "pin-reset"
+    | "pin-reset-update";
   formState: { error?: string; loading?: boolean; data?: IauthCurrentUser };
   handleSubmit: (form: {}) => void;
 }
@@ -69,6 +75,15 @@ const AuthForm: React.FC<AuthFormProps> = ({
           text: "SIGN IN",
         };
         break;
+      case "pin-reset":
+      case "pin-reset-update":
+        formAction = {
+          suggestionMessage: "Remember PIN: ",
+          suggestionActionText: "SIGN IN",
+          suggestionActionUrl: "/login",
+          text: "RESET PIN",
+        };
+        break;
       default:
         break;
     }
@@ -92,6 +107,49 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <Text type="danger" className="mb-3 d-block">
           {error}
         </Text>
+        {context === "pin-reset" && (
+          <Form.Item
+            className="form-group"
+            validateTrigger={["onSubmit", "onBlur"]}
+            rules={[
+              {
+                len: 10,
+                required: true,
+                pattern: /^07[238]/,
+                message: "Telephone format should be 07XXXXXXXX",
+              },
+            ]}
+            name="phone_number"
+          >
+            <Input placeholder="Phone Number" maxLength={10} />
+          </Form.Item>
+        )}
+        {context === "pin-reset-update" && (
+          <>
+            <Form.Item
+              validateTrigger={["onSubmit", "onBlur"]}
+              rules={[{ required: true, len: 5 }]}
+              name="code"
+            >
+              <Input maxLength={5} placeholder="Enter the 5-digit code" />
+            </Form.Item>
+            <Form.Item
+              className="form-group"
+              rules={[
+                {
+                  len: 5,
+                  required: true,
+                  pattern: /^[0-9]{5}$/,
+                  message: "New password must be number of 5 digits",
+                },
+              ]}
+              validateTrigger={["onSubmit", "onBlur"]}
+              name="new_password"
+            >
+              <InputPassword maxLength={5} placeholder="New password" />
+            </Form.Item>
+          </>
+        )}
         {context === "verify-phone" && (
           <>
             <Form.Item
@@ -106,7 +164,10 @@ const AuthForm: React.FC<AuthFormProps> = ({
             </Divider>
           </>
         )}
-        {["signup", "verify-phone"].includes(context) ? (
+        {["pin-reset", "pin-reset-update"].includes(context) ? null : [
+            "signup",
+            "verify-phone",
+          ].includes(context) ? (
           <>
             <Form.Item className={styles.authForm__names}>
               <Row gutter={8}>
@@ -208,6 +269,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
             >
               <InputPassword maxLength={5} placeholder="PIN" />
             </Form.Item>
+            <Link href={PIN_RESET_PATH}>
+              <a className={styles.authForm__forgotPin}>Forgot PIN</a>
+            </Link>
           </>
         )}
         <div className={styles.authForm__actions}>

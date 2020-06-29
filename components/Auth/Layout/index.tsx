@@ -29,6 +29,13 @@ const AuthLayout: React.SFC<AuthLayoutProps & AuthFormProps> = ({
       case "login":
         message.downMessage = "Sign into your account";
         break;
+      case "pin-reset":
+        message.upMessage = "Reset PIN";
+        break;
+      case "pin-reset-update":
+        message.upMessage = "Use the short code";
+        message.downMessage = "Sent to your Phone to set a new PIN";
+        break;
       default:
         break;
     }
