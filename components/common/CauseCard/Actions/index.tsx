@@ -1,17 +1,18 @@
 import React, { FC, useState } from "react";
-import { Dropdown, Menu } from "antd";
+import { Dropdown, Menu, Button } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import styles from "../causeCard.module.scss";
-import StopCause from "./Stop";
+import ActionModal from "./ActionModal";
 import { causeStatus } from "interfaces";
 import Link from "next/link";
 
-enum ActionType {
+export enum ActionType {
   stop = "stop",
+  cancel = "cancel",
 }
 
 const isUncancellable = (status: string): boolean =>
-  status !== causeStatus.active && status !== causeStatus.stopped;
+  status === causeStatus.cancelled;
 
 const isUnstoppable = (status: string): boolean =>
   status !== causeStatus.active && status !== causeStatus.cancelled;
@@ -20,13 +21,18 @@ const isUneditable = (status: string) =>
   status !== causeStatus.active && status !== causeStatus.stopped;
 
 const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
-  const [stopCauseModal, setStopCauseModal] = useState<boolean>(false);
+  const [causeModal, setCauseModal] = useState<{
+    isVisible: boolean;
+    context?: ActionType | "";
+  }>({ isVisible: false, context: "" });
 
-  const onClick = (type: ActionType) => {
-    setStopCauseModal(false);
+  const handleAction = (type: ActionType) => {
     switch (type) {
       case ActionType.stop:
-        setStopCauseModal(true);
+        setCauseModal({ isVisible: true, context: type });
+        break;
+      case ActionType.cancel:
+        setCauseModal({ isVisible: true, context: type });
         break;
 
       default:
@@ -36,9 +42,11 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
 
   const actionMenu = (
     <Menu>
-      <Menu.Item disabled={isUneditable(status)}>
+      <Menu.Item>
         <Link href="/causes/[slug]/edit" as={`/causes/${slug}/edit`}>
-          <a>Edit Cause</a>
+          <Button type="link" disabled={isUneditable(status)} className="m-0 p-0 h-25">
+            Edit Cause
+          </Button>
         </Link>
       </Menu.Item>
       <Menu.Divider />
@@ -47,7 +55,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
         <Menu.Item>Reactivate Cause</Menu.Item>
       ) : (
         <Menu.Item
-          onClick={() => onClick(ActionType.stop)}
+          onClick={() => handleAction(ActionType.stop)}
           disabled={isUnstoppable(status)}
         >
           Stop Cause
@@ -57,6 +65,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
 
       <Menu.Item
         className={styles.causeCard__body__content__actionIcon__cancel}
+        onClick={() => handleAction(ActionType.cancel)}
         disabled={isUncancellable(status)}
       >
         Cancel Cause
@@ -76,10 +85,11 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
           className={styles.causeCard__body__content__actionIcon__icon}
         />
       </Dropdown>
-      <StopCause
+      <ActionModal
         slug={slug}
-        visible={stopCauseModal}
-        onCancel={() => setStopCauseModal(false)}
+        visible={causeModal.isVisible}
+        context={causeModal.context}
+        closeModal={() => setCauseModal({ isVisible: false })}
       />
     </div>
   );

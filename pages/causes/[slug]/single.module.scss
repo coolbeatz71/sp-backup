@@ -28,7 +28,10 @@
       $grandParent: &;
       margin-bottom: 0.8rem;
       &__container {
-        width: 80%;
+        width: fill-available;
+        width: -moz-available; 
+        width: -webkit-fill-available; 
+        margin-right: 1rem;
       }
       &__raised,
       &__goal {

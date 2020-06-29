@@ -7,6 +7,7 @@ import all from "./all";
 import donateCause from "./donateCause";
 import stopCause from "./stopCause";
 import edit from "./edit";
+import cancelCause from "./cancelCause";
 
 export default (
   state = initialState.cause,
@@ -22,5 +23,6 @@ export default (
     ...donateCause(state, action),
     ...stopCause(state, action),
     ...edit(state, action),
+    ...cancelCause(state, action),
   };
 };

@@ -1,0 +1,3 @@
+export const CANCEL_CAUSE_START: string = "CANCEL_CAUSE_START";
+export const CANCEL_CAUSE_SUCCESS: string = "CANCEL_CAUSE_SUCCESS";
+export const CANCEL_CAUSE_ERROR: string = "CANCEL_CAUSE_ERROR";

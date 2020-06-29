@@ -81,7 +81,7 @@ const EditCause: React.FC<EditCauseProps> = () => {
           });
           return;
         }
-        if (key.includes("phone")) {
+        if (key.includes("phone") || key.includes("account_number")) {
           formattedData[key] = phoneFormatter(value);
           return;
         }
