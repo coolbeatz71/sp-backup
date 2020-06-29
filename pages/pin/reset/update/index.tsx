@@ -17,8 +17,8 @@ const PinResetUpdate: React.FC<{}> = () => {
     ({ pin: { reset_update } }: IRootState) => reset_update,
   );
 
-  const plainPhone = AES.decrypt(id.toString(), "").toString(enc.Utf8);
   const handleSubmit = (form: { [key: string]: any }) => {
+    const plainPhone = AES.decrypt(id.toString(), "").toString(enc.Utf8);
     const data = { ...form, phone_number: plainPhone };
     resetUpdate(data)(replace, dispatch);
   };
