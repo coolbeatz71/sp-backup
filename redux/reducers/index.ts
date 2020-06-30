@@ -3,6 +3,7 @@ import auth from "./auth";
 import user from "./user";
 import cause from "./cause";
 import categories from "./categories";
+import pin from "./pin";
 
 export default {
   example,
@@ -10,4 +11,5 @@ export default {
   user,
   cause,
   categories,
+  pin,
 };

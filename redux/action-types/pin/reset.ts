@@ -1,0 +1,3 @@
+export const PIN_RESET_START = "PIN_RESET_START";
+export const PIN_RESET_ERROR = "PIN_RESET_ERROR";
+export const PIN_RESET_SUCCESS = "PIN_RESET_SUCCESS";
