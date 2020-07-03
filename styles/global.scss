@@ -41,8 +41,8 @@ a:hover {
   color: $color-primary;
 }
 
-#nprogress{
-  .spinner{
+#nprogress {
+  .spinner {
     display: none !important;
   }
 }
@@ -59,6 +59,43 @@ a:hover {
 .ant-modal-close-icon {
   color: #000;
   font-size: 20px;
+}
+
+.ant-collapse-item-active {
+  border: 0 !important;
+  .ant-collapse-header {
+    border-bottom: 1px solid #d9d9d9;
+  }
+}
+
+.ant-collapse-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .ant-collapse-content-box {
+    text-align: justify;
+    padding: 12px 0 !important;
+    color: $color-primary;
+    font-size: 12pt;
+  }
+}
+
+.ant-collapse-borderless {
+  background-color: $color-light;
+}
+
+.ant-collapse-header {
+  font-size: 13pt;
+  text-align: justify;
+  padding: 12px 0 !important;
+  padding-right: 0 !important;
+
+  .ant-collapse-arrow {
+    right: 0 !important;
+    left: auto;
+  }
 }
 
 .btn-primary {
@@ -292,11 +329,11 @@ textarea.ant-input {
   }
 }
 
-.causeCard-menu{
-  .ant-dropdown-menu-item{
-    a{
+.causeCard-menu {
+  .ant-dropdown-menu-item {
+    a {
       text-decoration: none;
-      &:hover{
+      &:hover {
         color: $color-primary;
       }
     }
@@ -334,5 +371,16 @@ textarea.ant-input {
 .ant-modal {
   .ant-modal-content {
     border-radius: 5px;
+  }
+}
+
+#mobile-swipeable > div:first-of-type {
+  .react-swipeable-view-container {
+    margin-top: 3rem;
+    overflow: visible !important;
+  }
+
+  .react-swipeable-view-container > div {
+    overflow: visible !important;
   }
 }
