@@ -7,6 +7,8 @@ import { withRedux } from "helpers/with-redux-store";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { IRootState } from "redux/initialStates";
 import { isEmpty } from "lodash";
+import { useRouter } from "next/router";
+import { PRICING_PATH } from "helpers/paths";
 
 type Props = {
   title?: string;
@@ -17,20 +19,24 @@ const Layout: React.FunctionComponent<Props> = ({
   title = "Save Plus",
 }) => {
   const dispatch = useDispatch();
+  const { pathname } = useRouter();
   const { isLoggedin, loading, data } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
+
+  const isLight = pathname !== PRICING_PATH;
 
   useEffect(() => {
     if (!loading && isLoggedin && isEmpty(data)) {
       getCurrentUser(dispatch);
     }
+    // tslint:disable-next-line: align
   }, []);
 
   return (
     <div>
       <Header title={title} />
-      <Navbar />
+      <Navbar isLight={isLight} />
       <div className="children-container">{children}</div>
       <Footer />
     </div>

@@ -11,15 +11,38 @@ import logout from "redux/actions/Auth/logout";
 import capitalize from "helpers/capitalize";
 import randmonColor from "randomcolor";
 import abName from "helpers/abName";
-import { USER_CAUSES_PATH, ALL_CAUSES_PATH } from "helpers/paths";
+import { USER_CAUSES_PATH, ALL_CAUSES_PATH, PRICING_PATH } from "helpers/paths";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import { Icategories } from "interfaces/categories";
 
-const Navbar: React.SFC<{}> = () => {
+const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
   const isMobile = useMedia("(max-width: 768px)");
+  const [isLightNavbar, setLightNavbar] = useState(isLight);
+
   const dispatch = useDispatch();
   const { push } = useRouter();
   const color = randmonColor();
+
+  const updateNavbarTheme = () => {
+    if (!isMobile && window.scrollY > 580) setLightNavbar(true);
+    else if (isMobile && window.scrollY > 320) setLightNavbar(true);
+    else setLightNavbar(isLight);
+  };
+
+  useEffect(() => {
+    if (!isLight) {
+      setLightNavbar(false);
+      window.addEventListener("scroll", updateNavbarTheme);
+    } else {
+      setLightNavbar(true);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updateNavbarTheme);
+    };
+
+    // tslint:disable-next-line: align
+  }, [isLight, isMobile]);
 
   useEffect(() => {
     getAllCategories()(dispatch);
@@ -127,7 +150,12 @@ const Navbar: React.SFC<{}> = () => {
         overlay={causeMenu}
         trigger={["click"]}
       >
-        <a className="ant-dropdown-link" onClick={handleClick}>
+        <a
+          className={
+            isLightNavbar ? "ant-dropdown-link" : "ant-dropdown-link-dark"
+          }
+          onClick={handleClick}
+        >
           {fetched && !error && (
             <>
               Causes <DownOutlined />
@@ -135,8 +163,14 @@ const Navbar: React.SFC<{}> = () => {
           )}
         </a>
       </Dropdown>
-      <Link href="/pricing">
-        <a>Pricing</a>
+      <Link href={PRICING_PATH}>
+        <a
+          className={
+            isLightNavbar ? "ant-dropdown-link" : "ant-dropdown-link-dark"
+          }
+        >
+          Pricing
+        </a>
       </Link>
       {!isLoggedin ? (
         <>
@@ -144,7 +178,15 @@ const Navbar: React.SFC<{}> = () => {
             <Button className="btn-primary">SIGN UP</Button>
           </Link>
           <Link href="/login">
-            <Button className="btn-primary-outline">SIGN IN</Button>
+            <Button
+              className={
+                !isMobile && !isLightNavbar
+                  ? "btn-light-outline"
+                  : "btn-primary-outline"
+              }
+            >
+              SIGN IN
+            </Button>
           </Link>
         </>
       ) : (
@@ -154,7 +196,9 @@ const Navbar: React.SFC<{}> = () => {
           trigger={["click"]}
         >
           <a
-            className={`ant-dropdown-link ${styles.navbar__profile}`}
+            className={`${
+              isLightNavbar ? "ant-dropdown-link" : "ant-dropdown-link-dark"
+            } ${styles.navbar__profile}`}
             onClick={handleClick}
           >
             {loading ? (
@@ -180,8 +224,9 @@ const Navbar: React.SFC<{}> = () => {
       )}
     </div>
   );
+
   return (
-    <div className={styles.navbar}>
+    <div className={`${isLightNavbar ? "" : "dark-navbar"} ${styles.navbar}`}>
       <Modal
         visible={menuMobileVisible}
         onCancel={toggleMenuMobile}
@@ -191,11 +236,23 @@ const Navbar: React.SFC<{}> = () => {
         {navItems()}
       </Modal>
       <Link href="/">
-        <img src="/logo.svg" alt="save logo" className={styles.navbar__logo} />
+        {isLightNavbar ? (
+          <img
+            src="/logo.svg"
+            alt="save logo"
+            className={styles.navbar__logo}
+          />
+        ) : (
+          <img
+            src="/logo-beta-white.svg"
+            alt="save logo"
+            className={styles.navbar__logo}
+          />
+        )}
       </Link>
       <MenuOutlined
         onClick={toggleMenuMobile}
-        style={{ fontSize: "25px", color: "#000" }}
+        style={{ fontSize: "25px", color: isLightNavbar ? "#000" : "#fff" }}
         className="d-block d-md-none"
       />
       <nav className="menu d-md-block d-none">{navItems()}</nav>
