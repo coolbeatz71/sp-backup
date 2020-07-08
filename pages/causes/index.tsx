@@ -29,8 +29,9 @@ const AllCauses: React.SFC<{}> = () => {
   };
 
   const hideCategoryBar = () => {
-    if (!isMobile && window.scrollY > 40) toggleCategoryBar(true)(dispatch);
-    else toggleCategoryBar(false)(dispatch);
+    if (!isMobile) {
+      toggleCategoryBar(window.scrollY > 40)(dispatch);
+    }
   };
 
   const { isLoggedin } = useSelector(
@@ -46,12 +47,14 @@ const AllCauses: React.SFC<{}> = () => {
   );
 
   useEffect(() => {
-    window.addEventListener("scroll", hideCategoryBar);
+    if (!isMobile) {
+      window.addEventListener("scroll", hideCategoryBar);
+    }
     return () => {
       window.removeEventListener("scroll", hideCategoryBar);
     };
     // tslint:disable-next-line: align
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     getAllCategories()(dispatch);
