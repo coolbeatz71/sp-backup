@@ -238,7 +238,7 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
       <Link href="/">
         {isLightNavbar ? (
           <img
-            src="/logo.svg"
+            src="/logo-beta.svg"
             alt="save logo"
             className={styles.navbar__logo}
           />
