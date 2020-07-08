@@ -1,7 +1,6 @@
 import React from "react";
 import { Form } from "antd";
 import { Input } from "components/common/Input";
-import PhoneCountrySelector from 'components/common/PhoneCountrySelector';
 
 export interface OrgInformationProps {}
 
@@ -30,7 +29,7 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
         <Input placeholder="Official Email Address" />
       </Form.Item>
       <Form.Item
-        className="form-group"
+        className="form-group phone-code"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
           { len: 9, required: true },
@@ -43,7 +42,7 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
       >
         <Input
           placeholder="Contact Phone Number"
-          addonBefore={PhoneCountrySelector}
+          addonBefore="+250"
           maxLength={9}
         />
       </Form.Item>

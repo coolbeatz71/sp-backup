@@ -9,31 +9,49 @@ import Spinner from "components/Spinner";
 import Mission from "components/common/Mission";
 import CategoriesBar from "components/common/CategoriesBar";
 import { getAllCauses } from "./../../redux/actions/cause/getAll";
+import { toggleCategoryBar } from "./../../redux/actions/categories/hide";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import { SIGNUP_PATH } from "helpers/paths";
 import { isEmpty } from "lodash";
+import { ALL_CAUSES_PATH } from "../../helpers/paths";
+import { useMedia } from "react-use";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { push, pathname, asPath } = useRouter();
+  const isMobile = useMedia("(max-width: 768px)");
 
   const goToRegister = () => {
     push(SIGNUP_PATH);
+  };
+
+  const hideCategoryBar = () => {
+    if (!isMobile && window.scrollY > 40) toggleCategoryBar(true)(dispatch);
+    else toggleCategoryBar(false)(dispatch);
   };
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
-  const { categories } = useSelector(
+  const { categories, hide } = useSelector(
     ({ categories }: IRootState) => categories,
   );
 
   const { data, loading, fetched, error } = useSelector(
     ({ cause: { all } }: IRootState) => all,
   );
+
+  useEffect(() => {
+    window.addEventListener("scroll", hideCategoryBar);
+    return () => {
+      window.removeEventListener("scroll", hideCategoryBar);
+    };
+    // tslint:disable-next-line: align
+  }, []);
 
   useEffect(() => {
     getAllCategories()(dispatch);
@@ -47,7 +65,13 @@ const AllCauses: React.SFC<{}> = () => {
 
   return (
     <>
-      <CategoriesBar categories={categories} />
+      <TransitionGroup component={null}>
+        {!hide && (
+          <CSSTransition classNames="category" timeout={300}>
+            <CategoriesBar page={ALL_CAUSES_PATH} categories={categories} />
+          </CSSTransition>
+        )}
+      </TransitionGroup>
       <div className={styles.allCauses}>
         {categories.loading || loading ? (
           <Spinner />

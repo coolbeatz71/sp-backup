@@ -1,5 +1,6 @@
 import initialState from "redux/initialStates";
 import all from "./all";
+import hide from "./hide";
 
 export default (
   state = initialState.categories,
@@ -7,4 +8,5 @@ export default (
 ) => ({
   ...state,
   ...all(state, action),
+  ...hide(state, action),
 });

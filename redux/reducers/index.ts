@@ -4,6 +4,7 @@ import user from "./user";
 import cause from "./cause";
 import categories from "./categories";
 import pin from "./pin";
+import search from "./search";
 
 export default {
   example,
@@ -12,4 +13,5 @@ export default {
   cause,
   categories,
   pin,
+  search,
 };

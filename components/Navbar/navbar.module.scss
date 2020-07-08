@@ -40,8 +40,18 @@
       display: none;
     }
   }
+  &__menuNonMobile {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    a {
+      padding: 0.5em 0;
+    }
+  }
+
   &__menuNonMobile > * {
-    margin-left: 1rem;
+    margin-left: 1.5rem;
     font-size: 15px;
   }
   &__menuMobile {

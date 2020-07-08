@@ -5,6 +5,7 @@ export default {
     error: null,
     fetched: false,
   },
+  hide: false,
 };
 
 export interface IAllCategories {
@@ -14,4 +15,5 @@ export interface IAllCategories {
     error: any;
     fetched: boolean;
   };
+  hide: boolean;
 }

@@ -9,7 +9,6 @@ import {
   authCurrentUserDefault,
 } from "redux/initialStates/auth";
 import phoneFormatter from "helpers/phoneNumberFormatter";
-import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 import { PIN_RESET_PATH } from "helpers/paths";
 
 const { Text } = Typography;
@@ -192,7 +191,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
               </Row>
             </Form.Item>
             <Form.Item
-              className="form-group"
+              className="form-group phone-code"
               validateTrigger={["onSubmit", "onBlur"]}
               rules={[
                 { len: 9, required: true },
@@ -205,7 +204,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             >
               <Input
                 placeholder="Phone Number"
-                addonBefore={PhoneCountrySelector}
+                addonBefore="+250"
                 maxLength={9}
                 disabled={context === "verify-phone"}
               />
@@ -237,7 +236,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         ) : (
           <>
             <Form.Item
-              className="form-group"
+              className="form-group phone-code"
               validateTrigger={["onSubmit", "onBlur"]}
               rules={[
                 { len: 9, required: true },
@@ -250,7 +249,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             >
               <Input
                 placeholder="Phone Number"
-                addonBefore={PhoneCountrySelector}
+                addonBefore="+250"
                 maxLength={9}
               />
             </Form.Item>
