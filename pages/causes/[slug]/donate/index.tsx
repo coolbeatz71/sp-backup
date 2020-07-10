@@ -13,6 +13,7 @@ import {
   Button,
   Modal,
   Typography,
+  Spin,
 } from "antd";
 import { validateMessages } from "constants/validationMessages";
 import { Input } from "components/common/Input";
@@ -27,6 +28,9 @@ import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
 import { getCauseData, getAllCauseSlugs } from "helpers/getAllCauseSlugs";
+import normalizeInputNumber from "helpers/normalizeInputNumber";
+import serializeFormattedNumber from "helpers/serializeFormattedNumber";
+import { isEmpty } from "lodash";
 
 export interface DonateCauseProps {}
 
@@ -39,9 +43,27 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   const [confirmationModal, setConfirmationModal] = useState<boolean>(false);
   const [donationSuccessful, setDonationSuccessful] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
+  const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const router = useRouter();
   const { slug } = router.query;
+  const phoneNumberValidation: {
+    [key: string]: { regex: RegExp; message: string };
+  } = {
+    default: {
+      regex: /$^/,
+      message: "You should first select payment method",
+    },
+    MTN_Rwanda: {
+      regex: /^78/,
+      message: "Phone number should be a valid Mtn number",
+    },
+    Airtel_Rwanda: {
+      regex: /^7[23]/,
+      message: "Phone number should be a valid Airtel number",
+    },
+  };
 
   const { data: cause } = useSelector(
     ({ cause: { single } }: IRootState) => single
@@ -51,17 +73,21 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     ({ cause: { donate } }: IRootState) => donate
   );
 
-  const { isLoggedin } = useSelector(
+  const { isLoggedin, data, loading: userDataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser
   );
+
+  if (data.phone_number) data.phone_number = phoneFormatter(data.phone_number);
 
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   let encodedURL = "";
   if (cause.summary) encodedURL = encodeURI(`${cause.summary} \n\n${URL}`);
 
   const formatData = (data: IUnknownObject) => {
+    if (data.email === "") delete data.email;
     return {
       ...data,
+      amount: serializeFormattedNumber(data.amount),
       phone_number: phoneFormatter(data.phone_number),
     };
   };
@@ -74,6 +100,8 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
       dispatch
     );
   };
+
+  const handleSelect = (option: any) => setSelectedTelco(option);
 
   const handleValueChange = (changedField: any) => {
     if (Object.keys(changedField)[0] === "type") {
@@ -88,6 +116,10 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     setRating(nextValue);
     if (!isLoggedin) return router.push("/login");
     rateCause(slug, { rating: nextValue });
+  };
+
+  const handleModalCancel = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -105,11 +137,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
               </Link>
               <div className={styles.donate__body__form__successful__share}>
                 <span>Share</span>
-                <a
-                  rel="stylesheet"
-                  href={`https://api.whatsapp.com/send?text=${encodedURL}`}
-                  target="_blank"
-                >
+                <a rel="stylesheet" onClick={() => setModalVisible(true)}>
                   <img
                     className="social__share__icon"
                     src="/icons/smartphone-ussd.svg"
@@ -174,157 +202,165 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                   donation using Mobile Money
                 </p>
               </div>
-              <Form
-                form={form}
-                validateMessages={validateMessages}
-                onFinish={handleSubmit}
-                onValuesChange={handleValueChange}
-                initialValues={{ type: "individual" }}
-              >
-                <Text type="danger" className="mb-3 d-block">
-                  {error && error.message}
-                </Text>
-                <Form.Item
-                  name="type"
-                  validateTrigger={["onSubmit", "onBlur", "onChange"]}
-                  rules={[{ required: true }]}
+              {userDataLoading && isEmpty(data) ? (
+                <Spin />
+              ) : (
+                <Form
+                  form={form}
+                  validateMessages={validateMessages}
+                  onFinish={handleSubmit}
+                  onValuesChange={handleValueChange}
+                  initialValues={{ ...data, type: "individual" }}
                 >
-                  <Select placeholder="Type">
-                    {donationTypes.map((type, index) => (
-                      <Select.Option key={index} value={type}>
-                        {capitalize(type)}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  name="amount"
-                  rules={[
-                    { required: true, message: "Amount is required" },
-                    {
-                      pattern: /([1-9]\d{2,})$$/g,
-                      message:
-                        "The amount should be valid with a minimum of 100 rwf",
-                    },
-                  ]}
-                  validateTrigger={["onSubmit", "onBlur"]}
-                >
-                  <Input
-                    suffix="RWF"
-                    type="number"
-                    placeholder="Amount Donate"
-                  />
-                </Form.Item>
-                {userType === "individual" ? (
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="first_name"
-                        rules={[{ required: true, min: 3 }]}
-                        validateTrigger={["onSubmit", "onBlur"]}
-                      >
-                        <Input placeholder="First Name" />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name="last_name"
-                        validateTrigger={["onSubmit", "onBlur"]}
-                        rules={[{ required: true, min: 3 }]}
-                      >
-                        <Input placeholder="Last Name" />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                ) : (
-                  userType === "organization" && (
-                    <>
-                      <Form.Item
-                        name="organization_name"
-                        validateTrigger={["onSubmit", "onBlur"]}
-                        rules={[{ required: true, min: 3 }]}
-                      >
-                        <Input placeholder="Organization Name" />
-                      </Form.Item>
-                      <Form.Item
-                        name="contact_person"
-                        validateTrigger={["onSubmit", "onBlur"]}
-                        rules={[{ required: true, min: 3 }]}
-                      >
-                        <Input placeholder="Contact Person" />
-                      </Form.Item>
-                    </>
-                  )
-                )}
-                <Form.Item
-                  name="payment_method"
-                  validateTrigger={["onSubmit", "onBlur", "onChange"]}
-                  rules={[{ required: true }]}
-                >
-                  <Select placeholder="Select Donation Method">
-                    {mobileMoney.map(({ name, text }) => (
-                      <Select.Option key={name} value={name}>
-                        {capitalize(text)}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  className="form-group"
-                  validateTrigger={["onSubmit", "onBlur"]}
-                  rules={[
-                    { len: 9, required: true },
-                    {
-                      pattern: /^7[238]/,
-                      message: "Phone number format should be valid",
-                    },
-                  ]}
-                  name="phone_number"
-                >
-                  <Input
-                    placeholder="Phone Number"
-                    addonBefore={PhoneCountrySelector}
-                    maxLength={9}
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="email"
-                  validateTrigger={["onSubmit", "onBlur"]}
-                  rules={[{ required: true, min: 3, type: "email" }]}
-                >
-                  <Input placeholder="Email Address" />
-                </Form.Item>
-                <div className="d-flex">
-                  <span className="font-weight-bold">Anonymous</span>
+                  <Text type="danger" className="mb-3 d-block">
+                    {error && error.message}
+                  </Text>
                   <Form.Item
-                    className="form-group ml-3 mb-1"
-                    validateTrigger={["onSubmit", "onBlur"]}
-                    name="anonymous"
+                    name="type"
+                    validateTrigger={["onSubmit", "onBlur", "onChange"]}
+                    rules={[{ required: true }]}
                   >
-                    <Switch />
+                    <Select placeholder="Type">
+                      {donationTypes.map((type, index) => (
+                        <Select.Option key={index} value={type}>
+                          {capitalize(type)}
+                        </Select.Option>
+                      ))}
+                    </Select>
                   </Form.Item>
-                </div>
-                {isAnonymous && (
-                  <p className="note mb-4">
-                    Note: Your name will not be displayed
-                  </p>
-                )}
-                <div className="d-flex mb-3">
-                  <Button
-                    htmlType="submit"
-                    loading={loading}
-                    className="btn-primary ml-auto"
+                  <Form.Item
+                    name="amount"
+                    rules={[
+                      { required: true, message: "Amount is required" },
+                      {
+                        pattern: /([1-9][\d,]{2,})$$/g,
+                        message:
+                          "The amount should be valid with a minimum of 100 rwf",
+                      },
+                    ]}
+                    validateTrigger={["onSubmit", "onBlur"]}
+                    normalize={normalizeInputNumber}
                   >
-                    DONATE
-                  </Button>
-                </div>
-              </Form>
+                    <Input
+                      prefix="RWF"
+                      placeholder="Amount Donate"
+                      className="prefixed"
+                    />
+                  </Form.Item>
+                  {userType === "individual" ? (
+                    <Row gutter={8}>
+                      <Col span={12}>
+                        <Form.Item
+                          name="first_name"
+                          rules={[{ required: true, min: 3 }]}
+                          validateTrigger={["onSubmit", "onBlur"]}
+                        >
+                          <Input placeholder="First Name" />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item
+                          name="last_name"
+                          validateTrigger={["onSubmit", "onBlur"]}
+                          rules={[{ required: true, min: 3 }]}
+                        >
+                          <Input placeholder="Last Name" />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  ) : (
+                    userType === "organization" && (
+                      <>
+                        <Form.Item
+                          name="organization_name"
+                          validateTrigger={["onSubmit", "onBlur"]}
+                          rules={[{ required: true, min: 3 }]}
+                        >
+                          <Input placeholder="Organization Name" />
+                        </Form.Item>
+                        <Form.Item
+                          name="contact_person"
+                          validateTrigger={["onSubmit", "onBlur"]}
+                          rules={[{ required: true, min: 3 }]}
+                        >
+                          <Input placeholder="Contact Person" />
+                        </Form.Item>
+                      </>
+                    )
+                  )}
+                  <Form.Item
+                    name="payment_method"
+                    validateTrigger={["onSubmit", "onBlur", "onChange"]}
+                    rules={[{ required: true }]}
+                  >
+                    <Select
+                      placeholder="Select Donation Method"
+                      onSelect={handleSelect}
+                    >
+                      {mobileMoney.map(({ name, text }) => (
+                        <Select.Option key={name} value={name}>
+                          {capitalize(text)}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    className="form-group"
+                    validateTrigger={["onSubmit", "onBlur"]}
+                    rules={[
+                      { len: 9, required: true },
+                      {
+                        pattern: phoneNumberValidation[selectedTelco].regex,
+                        message: phoneNumberValidation[selectedTelco].message,
+                      },
+                    ]}
+                    name="phone_number"
+                  >
+                    <Input
+                      placeholder="Phone Number"
+                      addonBefore={PhoneCountrySelector}
+                      maxLength={9}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="email"
+                    validateTrigger={["onSubmit", "onBlur"]}
+                    rules={[{ min: 3, type: "email" }]}
+                  >
+                    <Input placeholder="Email Address" />
+                  </Form.Item>
+                  <div className="d-flex">
+                    <span className="font-weight-bold">Anonymous</span>
+                    <Form.Item
+                      className="form-group ml-3 mb-1"
+                      validateTrigger={["onSubmit", "onBlur"]}
+                      name="anonymous"
+                    >
+                      <Switch />
+                    </Form.Item>
+                  </div>
+                  {isAnonymous && (
+                    <p className="note mb-4">
+                      Note: Your name will not be displayed
+                    </p>
+                  )}
+                  <div className="d-flex mb-3">
+                    <Button
+                      htmlType="submit"
+                      loading={loading}
+                      className="btn-primary ml-auto"
+                    >
+                      DONATE
+                    </Button>
+                  </div>
+                </Form>
+              )}
             </>
           )}
         </div>
       </div>
       <Modal
-        visible={confirmationModal}
+        visible={!error?.message && confirmationModal}
         footer={false}
         closable={false}
         maskStyle={{ background: "#000000b3" }}
@@ -337,6 +373,14 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
               phoneFormatter(form.getFieldValue("phone_number"))}
           </p>
         </div>
+      </Modal>
+      <Modal
+        visible={modalVisible}
+        onCancel={handleModalCancel}
+        footer={false}
+      >
+        <h6 className="text-center mt-5">Make your donation using the USSD Code</h6>
+        <h6 className="my-4 text-center">{`*777*77*${cause.till_number}#`}</h6>
       </Modal>
     </div>
   );

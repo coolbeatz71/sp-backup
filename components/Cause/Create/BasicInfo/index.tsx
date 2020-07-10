@@ -3,7 +3,8 @@ import { Form, Select, DatePicker, Upload } from "antd";
 import { Input } from "components/common/Input";
 import { FileImageOutlined } from "@ant-design/icons";
 import splApi from "helpers/axios";
-import { Icategories } from 'interfaces/categories';
+import { Icategories } from "interfaces/categories";
+import normalizeInputNumber from "helpers/normalizeInputNumber";
 
 export interface BasicInfoProps {}
 
@@ -13,13 +14,13 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
   const [categories, setCatories] = useState<Icategories[]>([]);
   useEffect(() => {
     splApi
-    .get("/categories")
-    .then((response: any) => {
-      setCatories(response.categories);
-    })
-    .catch((error) => {
-      console.error("here", error);
-    });
+      .get("/categories")
+      .then((response: any) => {
+        setCatories(response.categories);
+      })
+      .catch((error) => {
+        console.error("here", error);
+      });
   }, []);
 
   const normFile = (e: any) => {
@@ -28,6 +29,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
     }
     return e && e.fileList;
   };
+
   return (
     <div>
       <Form.Item
@@ -35,7 +37,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input  placeholder="Cause Name" />
+        <Input placeholder="Cause Name" />
       </Form.Item>
       <Form.Item
         name="category_id"
@@ -43,23 +45,27 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         rules={[{ required: true }]}
       >
         <Select placeholder="Category">
-          {categories.length > 0 && categories.map(({ id, title }) => (
-            <Select.Option key={id} value={id}>
-              {title}
-            </Select.Option>
-          ))}
+          {categories.length > 0 &&
+            categories.map(({ id, title }) => (
+              <Select.Option key={id} value={id}>
+                {title}
+              </Select.Option>
+            ))}
         </Select>
       </Form.Item>
       <Form.Item
         name="target_amount"
         validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ required: true, min: 3 }]}
+        rules={[
+          { required: true },
+          {
+            pattern: /([1-9][\d,]{2,})$$/g,
+            message: "The amount should be valid with a minimum of 100 rwf",
+          },
+        ]}
+        normalize={normalizeInputNumber}
       >
-        <Input
-          type="number"
-          placeholder="Cause fundraising target"
-          suffix="RWF"
-        />
+        <Input placeholder="Cause fundraising target" prefix="RWF" className="prefixed" />
       </Form.Item>
       <Form.Item
         name="duration"
@@ -78,7 +84,11 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
             noStyle
             rules={[{ required: true }]}
           >
-            <Upload.Dragger beforeUpload={() => false} listType="picture" multiple={false} >
+            <Upload.Dragger
+              beforeUpload={() => false}
+              listType="picture"
+              multiple={false}
+            >
               <p className="ant-upload-drag-icon">
                 <FileImageOutlined />
               </p>

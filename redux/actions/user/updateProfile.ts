@@ -5,7 +5,7 @@ import {
   UPDATE_PROFILE_SUCCESS,
 } from "redux/action-types/user/updateProfile";
 
-export default (data: { [key: string]: any}) => (dispatch: any, setSuccessModal: any) => {
+export default (data: { [key: string]: any}, uploadAvatar?: boolean) => (dispatch: any, setSuccessModal: any) => {
   dispatch({
     type: UPDATE_PROFILE_START,
   });
@@ -18,7 +18,7 @@ export default (data: { [key: string]: any}) => (dispatch: any, setSuccessModal:
         payload,
         type: UPDATE_PROFILE_SUCCESS,
       });
-      setSuccessModal(true);
+      setSuccessModal(!uploadAvatar);
     })
     .catch((error) => {
       console.error("here update profile error", error);

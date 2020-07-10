@@ -12,6 +12,7 @@ import {
   Typography,
   Modal,
 } from "antd";
+import { RcFile } from "antd/es/upload";
 import randmonColor from "randomcolor";
 import { Input } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
@@ -23,10 +24,15 @@ import updateProfile from "redux/actions/user/updateProfile";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import Link from "next/link";
 import PhoneCountrySelector from "components/common/PhoneCountrySelector";
+import { IUnknownObject } from "interfaces/unknownObject";
+import notification from "utils/notification";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export interface ProfileProps { }
+export interface ProfileProps {}
 
 const { Text } = Typography;
+const antIcon = <LoadingOutlined style={{ fontSize: 18 }} spin />;
+
 
 const Profile: React.FC<ProfileProps> = () => {
   const [form] = Form.useForm();
@@ -38,19 +44,18 @@ const Profile: React.FC<ProfileProps> = () => {
     getCurrentUser(dispatch);
   }, []);
 
-  const { data, loading: dataLoading } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
-  const { loading, error } = useSelector(({ user: { updateProfile } }: IRootState) => updateProfile);
+  const { data, loading: dataLoading } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser
+  );
+  const { loading, error } = useSelector(
+    ({ user: { updateProfile } }: IRootState) => updateProfile
+  );
 
   const onSubmit = (form: any) => {
     const formattedData: { [key: string]: any } = {
       ...form,
       phone_number: phoneFormatter(form.phone_number),
     };
-    if (form.avatar) {
-      formattedData.avatar = form.avatar.originFileObj;
-    } else {
-      delete  formattedData.avatar;
-    }
     const formData = new FormData();
     Object.keys(formattedData).forEach((key) => {
       if (key !== "phone_number") formData.append(key, formattedData[key]);
@@ -59,22 +64,22 @@ const Profile: React.FC<ProfileProps> = () => {
   };
 
   const formattedData = () => {
-    return ({
+    return {
       ...data,
       phone_number: phoneFormatter(data.phone_number),
-    });
-  }
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList[0];
+    };
   };
 
   const calculatePercentage = () => {
     if (!isEmpty(data)) {
-      const fieldsToFill = ["first_name", "last_name", "email", "phone_number", "id_number", "avatar"];
+      const fieldsToFill = [
+        "first_name",
+        "last_name",
+        "email",
+        "phone_number",
+        "id_number",
+        "avatar",
+      ];
       const fields = fieldsToFill.reduce((accumulator, currentValue) => {
         if (data[currentValue]) {
           return accumulator + 1;
@@ -82,11 +87,27 @@ const Profile: React.FC<ProfileProps> = () => {
         return accumulator;
       }, 0);
       const precisePercentage = (fields * 100) / 6;
-      return Number((precisePercentage).toFixed(0));
+      return Number(precisePercentage.toFixed(0));
     }
     return 0;
   };
 
+  const handleSubmitAvatar = (file: RcFile): boolean => {
+    const form: IUnknownObject = {
+      avatar: file,
+    };
+    const formData = new FormData();
+    Object.keys(form).forEach((key) => {
+      formData.append(key, form[key]);
+    });
+    const isLessThan2MB = file.size / 1024 / 1024 < 2;
+    if (!isLessThan2MB) {
+      notification("Avatar must smaller than 2MB!", "error");
+      return false;
+    }
+    updateProfile(formData, true)(dispatch, setSuccessModal);
+    return true;
+  };
 
   return (
     <div className={styles.profile}>
@@ -104,30 +125,48 @@ const Profile: React.FC<ProfileProps> = () => {
         <div className={styles.profile__body__form}>
           <div className="d-flex justify-content-between">
             <div className="title-left">
-              <h5 className={styles.profile__body__form__title}>Update your personal details</h5>
+              <h5 className={styles.profile__body__form__title}>
+                Update your personal details
+              </h5>
             </div>
-            {data.avatar ? (
-              <img
-                src={data.avatar}
-                alt="avatar"
-                className={styles.navbar__profile__avatar}
-              />
-            ) : (
-                <Avatar style={{ backgroundColor: color }}>
-                  {abName(data.first_name, data.last_name)}
-                </Avatar>
-              )}
-          </div>
-          <div className={styles.profile__body__form__progress}>
-                <p>Your profile is {calculatePercentage()}% complete</p>
-                <div className="progress__bar" />
-                <div className={styles.profile__body__form__progress__progressBar}>
-                  <div
-                    className={`progression ${styles.profile__body__form__progress__progressBar__progression}`}
+            <Upload
+              name="avatar"
+              accept="image/x-png,image/jpeg,image/jpg"
+              showUploadList={false}
+              multiple={false}
+              beforeUpload={handleSubmitAvatar}
+            >
+              <div className={styles.profile__body__form__avatar}>
+                {loading && <Spin indicator={antIcon} />}
+                {data.avatar ? (
+                  <img src={data.avatar} alt="avatar" />
+                ) : (
+                  <Avatar style={{ backgroundColor: color }} size="large">
+                    {abName(data.first_name, data.last_name)}
+                  </Avatar>
+                )}
+                <div className={styles.profile__body__form__avatar__pen}>
+                  <img
+                    src="/icons/camera.png"
+                    alt="avatar"
+                    className={styles.navbar__profile__avatar}
                   />
                 </div>
               </div>
-          {dataLoading || isEmpty(data) ? <Spin /> : (
+            </Upload>
+          </div>
+          <div className={styles.profile__body__form__progress}>
+            <p>Your profile is {calculatePercentage()}% complete</p>
+            <div className="progress__bar" />
+            <div className={styles.profile__body__form__progress__progressBar}>
+              <div
+                className={`progression ${styles.profile__body__form__progress__progressBar__progression}`}
+              />
+            </div>
+          </div>
+          {dataLoading || isEmpty(data) ? (
+            <Spin />
+          ) : (
             <Form
               form={form}
               initialValues={formattedData()}
@@ -185,17 +224,6 @@ const Profile: React.FC<ProfileProps> = () => {
               >
                 <Input placeholder="National ID or Passport Number" />
               </Form.Item>
-              <Form.Item className={styles.profile__draggable} >
-                <Form.Item name="avatar" rules={[{ required: !data.avatar }]} valuePropName="avatar" getValueFromEvent={normFile} noStyle>
-                  <Upload.Dragger
-                    accept="image/x-png,image/jpeg,image/jpg"
-                    name="files"
-                    listType="picture"
-                    multiple={false}>
-                    <p className="ant-upload-hint">Upload profile picture</p>
-                  </Upload.Dragger>
-                </Form.Item>
-              </Form.Item>
               <Button
                 className="btn-primary"
                 loading={loading}
@@ -221,10 +249,10 @@ const Profile: React.FC<ProfileProps> = () => {
         </div>
       </Modal>
       <style jsx>{`
-        .progression{
+        .progression {
           width: ${calculatePercentage()}%;
         }
-        .title-left{
+        .title-left {
           width: 75%;
         }
       `}</style>

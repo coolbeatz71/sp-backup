@@ -17,6 +17,7 @@ import { IRootState } from "redux/initialStates";
 import { IUnknownObject } from "interfaces/unknownObject";
 import editCause from "redux/actions/cause/edit";
 import { useRouter } from "next/router";
+import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -120,7 +121,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
         return;
       }
       if (key.includes("target_amount")) {
-        data.target_amount = Number(data.target_amount);
+        data.target_amount = Number(
+          serializeFormattedNumber(data.target_amount),
+        );
         return;
       }
     });
@@ -288,7 +291,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
             </div>
           </>
         ) : (
-          <Success slug={data.slug} summary={data.summary} />
+          <Success till_number={data.till_number} slug={data.slug} summary={data.summary} />
         )}
       </div>
     </div>

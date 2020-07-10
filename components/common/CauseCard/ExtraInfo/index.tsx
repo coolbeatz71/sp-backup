@@ -13,6 +13,7 @@ const ExtraInfo: FC<{ rating: number }> = ({ rating }) => {
           name="rate1"
           starColor="#F4A86C"
           editing={false}
+          emptyStarColor="#ddd"
         />
       </div>
       <div className={styles.causeCard__body__extra__share}>

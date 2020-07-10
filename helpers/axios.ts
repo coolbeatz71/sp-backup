@@ -5,6 +5,13 @@ const token = getToken();
 
 const responseHandler = (response: any) => response.data;
 const errorHandler = (error: any) => {
+  if (error?.response?.status === 401) {
+    console.log("here error", error.response.status);
+    if (process.browser) {
+      localStorage.removeItem("save-token");
+      window.location.href = "/login";
+    }
+  }
   const errorResponse: any = error.response
     ? error.response.data
     : error.message;
