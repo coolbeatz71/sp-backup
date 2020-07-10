@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next -p 8000",
     "build": "next build",
+    "build:dev": "NODE_ENV=development & next build",
     "start": "next start -p 8000",
     "export": "next export",
     "type-check": "tsc",

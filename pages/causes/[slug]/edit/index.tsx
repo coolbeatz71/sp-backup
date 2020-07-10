@@ -11,7 +11,6 @@ import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
 import Error from "components/common/Error";
 import notification from "utils/notification";
-import { getCauseData, getAllCauseSlugs } from "helpers/getAllCauseSlugs";
 
 export interface EditCauseProps {}
 
@@ -107,16 +106,3 @@ const EditCause: React.FC<EditCauseProps> = () => {
 };
 
 export default EditCause;
-
-export async function getStaticPaths() {
-  const paths = await getAllCauseSlugs();
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: IUnknownObject) {
-  const cause = await getCauseData(params.slug);
-  return { props: { cause } };
-}
