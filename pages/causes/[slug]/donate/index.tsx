@@ -27,7 +27,6 @@ import getPlatformUrl from "helpers/getPlatformUrl";
 import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
-import { getCauseData, getAllCauseSlugs } from "helpers/getAllCauseSlugs";
 import normalizeInputNumber from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
@@ -374,12 +373,10 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
           </p>
         </div>
       </Modal>
-      <Modal
-        visible={modalVisible}
-        onCancel={handleModalCancel}
-        footer={false}
-      >
-        <h6 className="text-center mt-5">Make your donation using the USSD Code</h6>
+      <Modal visible={modalVisible} onCancel={handleModalCancel} footer={false}>
+        <h6 className="text-center mt-5">
+          Make your donation using the USSD Code
+        </h6>
         <h6 className="my-4 text-center">{`*777*77*${cause.till_number}#`}</h6>
       </Modal>
     </div>
@@ -387,16 +384,3 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
 };
 
 export default DonateCause;
-
-export async function getStaticPaths() {
-  const paths = await getAllCauseSlugs();
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: IUnknownObject) {
-  const cause = await getCauseData(params.slug);
-  return { props: { cause } };
-}

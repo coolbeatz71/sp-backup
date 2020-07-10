@@ -15,8 +15,6 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import Error from "components/common/Error";
 import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
-import { getAllCauseSlugs, getCauseData } from "helpers/getAllCauseSlugs";
-import { IUnknownObject } from "interfaces/unknownObject";
 import { causeStatus } from "interfaces";
 
 export interface SingleCauseProps {}
@@ -37,22 +35,23 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
     ({ cause: { single } }: IRootState) => single
   );
 
-  const donateButton = (screen?: string) => data.status === causeStatus.active && (
-    <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
-      <Button
-        className={`btn-primary mt-3 ${
-          screen === "mobile" && isMobile
-            ? "d-block d-md-none"
-            : !screen || screen === "tablet"
-            ? "d-none d-md-block"
-            : "d-none"
-        }`}
-        size="large"
-      >
-        Donate
-      </Button>
-    </Link>
-  );
+  const donateButton = (screen?: string) =>
+    data.status === causeStatus.active && (
+      <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
+        <Button
+          className={`btn-primary mt-3 ${
+            screen === "mobile" && isMobile
+              ? "d-block d-md-none"
+              : !screen || screen === "tablet"
+              ? "d-none d-md-block"
+              : "d-none"
+          }`}
+          size="large"
+        >
+          Donate
+        </Button>
+      </Link>
+    );
 
   const contactInfo = (screen?: string) => (
     <div
@@ -151,16 +150,3 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
 };
 
 export default SingleCause;
-
-export async function getStaticPaths() {
-  const paths = await getAllCauseSlugs();
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: IUnknownObject) {
-  const cause = await getCauseData(params.slug);
-  return { props: { cause } };
-}
