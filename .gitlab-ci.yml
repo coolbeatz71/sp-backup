@@ -1,18 +1,7 @@
 image: node:latest
 
 stages:
-  - install
   - deploy
-
-install_dependencies:
-  stage: install
-  except:
-    - develop
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
 
 deploy-staging:
   image: ubuntu:latest
