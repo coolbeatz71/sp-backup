@@ -2,7 +2,7 @@
   "name": "save-plus-web",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 8000",
     "build": "next build",
     "start": "next start -p 8000",
     "export": "next export",
