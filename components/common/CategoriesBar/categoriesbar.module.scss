@@ -4,11 +4,11 @@
 .categoriesBar {
   display: flex;
   position: fixed;
-  z-index: 1000;
+  z-index: 999;
   left: 0;
   right: 0;
   justify-content: space-between;
-  padding: 1em 3em;
+  padding: 1em 4em;
   background: $color-primary-light;
 
   @include mediaMd {

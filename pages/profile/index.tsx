@@ -23,7 +23,6 @@ import abName from "helpers/abName";
 import updateProfile from "redux/actions/user/updateProfile";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import Link from "next/link";
-import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -32,7 +31,6 @@ export interface ProfileProps {}
 
 const { Text } = Typography;
 const antIcon = <LoadingOutlined style={{ fontSize: 18 }} spin />;
-
 
 const Profile: React.FC<ProfileProps> = () => {
   const [form] = Form.useForm();
@@ -45,10 +43,10 @@ const Profile: React.FC<ProfileProps> = () => {
   }, []);
 
   const { data, loading: dataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
   const { loading, error } = useSelector(
-    ({ user: { updateProfile } }: IRootState) => updateProfile
+    ({ user: { updateProfile } }: IRootState) => updateProfile,
   );
 
   const onSubmit = (form: any) => {
@@ -205,14 +203,14 @@ const Profile: React.FC<ProfileProps> = () => {
                 <Input placeholder="Email (Optional)" />
               </Form.Item>
               <Form.Item
-                className="form-group"
+                className="form-group phone-code"
                 validateTrigger={["onSubmit", "onBlur"]}
                 rules={[{ len: 9, required: true }]}
                 name="phone_number"
               >
                 <Input
                   placeholder="Phone Number"
-                  addonBefore={PhoneCountrySelector}
+                  addonBefore="+250"
                   maxLength={9}
                   disabled={true}
                 />

@@ -1,0 +1,1 @@
+export const HIDE_CATEGORY_BAR = "HIDE_CATEGORY_BAR";

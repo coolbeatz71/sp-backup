@@ -5,12 +5,12 @@ import {
   GET_USER_CAUSES_START,
 } from "redux/action-types/cause/userCauses";
 
-export const getUserCauses = () => (dispatch: any) => {
+export const getUserCauses = (url: string) => (dispatch: any) => {
   dispatch({
     type: GET_USER_CAUSES_START,
   });
   splApi
-    .get("user/causes")
+    .get(url)
     .then((response: any) => {
       dispatch({
         payload: response,

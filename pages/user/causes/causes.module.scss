@@ -2,12 +2,16 @@
 @import "styles/_mixins";
 
 .causes {
+  padding-top: 6rem;
+  min-height: calc(100vh - (68.5px));
+  @include mediaMd {
+    padding-top: 9rem;
+  }
   &__header {
-    margin-top: 1.5rem;
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 1em 3em;
+    padding: 1em 4em;
 
     @include mediaMd {
       padding: 1em;
@@ -26,7 +30,7 @@
   }
 
   &__illustration {
-    padding: 1em 3em;
+    padding: 1em 4em;
     display: flex;
     justify-content: center;
     img {
@@ -50,7 +54,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 3rem;
-      padding: 2em 3em;
+      padding: 2em 4em;
 
       @include mediaMd {
         display: none !important;

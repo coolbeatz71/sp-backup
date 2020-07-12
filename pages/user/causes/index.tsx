@@ -13,6 +13,8 @@ import Spinner from "components/Spinner";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import PrivateComponent from "pages/privateRoute";
+import { USER_CAUSES_PATH } from "helpers/paths";
+import CategoriesBar from "components/common/CategoriesBar";
 
 const pageTitle: string = "your causes";
 const causesLength: any = 6;
@@ -102,7 +104,7 @@ const renderFeedContainer = (
 
 const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
-  const { push, pathname } = useRouter();
+  const { push, pathname, asPath } = useRouter();
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -112,37 +114,46 @@ const Causes: React.SFC<{}> = () => {
     ({ cause: { user } }: IRootState) => user,
   );
 
+  const { categories } = useSelector(
+    ({ categories }: IRootState) => categories,
+  );
+
   useEffect(() => {
     if (!isLoggedin) push("/");
-    getUserCauses()(dispatch);
+    getUserCauses(asPath)(dispatch);
     // tslint:disable-next-line: align
-  }, [dispatch]);
+  }, [asPath, dispatch]);
 
   const [causesNumber, setCausesNumber] = useState(causesLength);
 
   return (
-    <div className={styles.causes}>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div>
-          {renderHeader(data)}
-          {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
-          {!isEmpty(data.data) && data.data.length > causesLength ? (
-            <div className={styles.causes__footer}>
-              <div>
-                <Button
-                  className="btn-primary-outline"
-                  onClick={() => setCausesNumber(undefined)}
-                >
-                  VIEW ALL CAUSES
-                </Button>
+    <>
+      {fetched && !error && !isEmpty(data) ? (
+        <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
+      ) : null}
+      <div className={styles.causes}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            {renderHeader(data)}
+            {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
+            {!isEmpty(data.data) && data.data.length > causesLength ? (
+              <div className={styles.causes__footer}>
+                <div>
+                  <Button
+                    className="btn-primary-outline"
+                    onClick={() => setCausesNumber(undefined)}
+                  >
+                    VIEW ALL CAUSES
+                  </Button>
+                </div>
               </div>
-            </div>
-          ) : null}
-        </div>
-      )}
-    </div>
+            ) : null}
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

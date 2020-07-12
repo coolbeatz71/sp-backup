@@ -1,7 +1,6 @@
 import React from "react";
 import { Form } from "antd";
 import { Input } from "components/common/Input";
-import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 
 export interface MedicalInfoProps {}
 
@@ -16,7 +15,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
         <Input placeholder="Name of Hospital" />
       </Form.Item>
       <Form.Item
-        className="form-group"
+        className="form-group phone-code"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
           { len: 9, required: true },
@@ -29,7 +28,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       >
         <Input
           placeholder="Hospital Phone Number"
-          addonBefore={PhoneCountrySelector}
+          addonBefore="+250"
           maxLength={9}
         />
       </Form.Item>
@@ -49,7 +48,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
         <Input placeholder="Relationship with person" />
       </Form.Item>
       <Form.Item
-        className="form-group"
+        className="form-group phone-code"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
           { len: 9, required: true },
@@ -62,7 +61,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       >
         <Input
           placeholder="Contact Phone Number"
-          addonBefore={PhoneCountrySelector}
+          addonBefore="+250"
           maxLength={9}
         />
       </Form.Item>

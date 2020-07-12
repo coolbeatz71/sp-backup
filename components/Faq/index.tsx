@@ -87,7 +87,7 @@ const Faq: FC<{}> = () => {
   return (
     <Collapse
       bordered={false}
-      defaultActiveKey={["1"]}
+      defaultActiveKey={["0"]}
       expandIcon={expandIcon}
       expandIconPosition="right"
     >

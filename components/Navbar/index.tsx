@@ -14,8 +14,15 @@ import abName from "helpers/abName";
 import { USER_CAUSES_PATH, ALL_CAUSES_PATH, PRICING_PATH } from "helpers/paths";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import { Icategories } from "interfaces/categories";
+import SearchInput from "../common/SearchInput/";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
+export interface NavbarProps {
+  isLight: boolean;
+  page: string;
+}
+
+const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
   const isMobile = useMedia("(max-width: 768px)");
   const [isLightNavbar, setLightNavbar] = useState(isLight);
 
@@ -24,7 +31,7 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
   const color = randmonColor();
 
   const updateNavbarTheme = () => {
-    if (!isMobile && window.scrollY > 580) setLightNavbar(true);
+    if (!isMobile && window.scrollY > 500) setLightNavbar(true);
     else if (isMobile && window.scrollY > 320) setLightNavbar(true);
     else setLightNavbar(isLight);
   };
@@ -56,9 +63,11 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
     data: { first_name, last_name, avatar },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
-  const { categories } = useSelector(
+  const { categories, hide } = useSelector(
     ({ categories }: IRootState) => categories,
   );
+
+  const { keyword } = useSelector(({ search }: IRootState) => search);
 
   const toggleMenuMobile = () => setMenuMobileVisible(!menuMobileVisible);
   const { data, fetched, error } = categories;
@@ -68,10 +77,19 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
   };
 
   const onCategoryClick = (categoryId?: number): void => {
-    const url =
-      categoryId && typeof categoryId === "number"
-        ? `${ALL_CAUSES_PATH}?category_id=${categoryId}`
-        : ALL_CAUSES_PATH;
+    let url: string = "";
+    if (page === USER_CAUSES_PATH) {
+      url =
+        categoryId && typeof categoryId === "number"
+          ? `${page}?category_id=${categoryId}`
+          : page;
+    } else {
+      url =
+        categoryId && typeof categoryId === "number"
+          ? `${ALL_CAUSES_PATH}?category_id=${categoryId}`
+          : ALL_CAUSES_PATH;
+    }
+
     push(url);
   };
 
@@ -145,6 +163,13 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
         isMobile ? styles.navbar__menuMobile : styles.navbar__menuNonMobile
       }
     >
+      <TransitionGroup component={null}>
+        {hide && (
+          <CSSTransition classNames="search" timeout={400}>
+            <SearchInput defaultValue={keyword} page={page} />
+          </CSSTransition>
+        )}
+      </TransitionGroup>
       <Dropdown
         overlayClassName="navbar__menu"
         overlay={causeMenu}
@@ -255,6 +280,7 @@ const Navbar: React.SFC<{ isLight: boolean }> = ({ isLight }) => {
         style={{ fontSize: "25px", color: isLightNavbar ? "#000" : "#fff" }}
         className="d-block d-md-none"
       />
+
       <nav className="menu d-md-block d-none">{navItems()}</nav>
     </div>
   );

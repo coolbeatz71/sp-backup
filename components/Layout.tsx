@@ -36,7 +36,7 @@ const Layout: React.FunctionComponent<Props> = ({
   return (
     <div>
       <Header title={title} />
-      <Navbar isLight={isLight} />
+      <Navbar isLight={isLight} page={pathname} />
       <div className="children-container">{children}</div>
       <Footer />
     </div>

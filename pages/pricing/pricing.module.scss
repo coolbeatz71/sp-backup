@@ -8,8 +8,9 @@
     padding: 0;
     background: #3c3f59 url("../.././public/pricing-bg.svg");
     background-position: bottom;
+    background-repeat: repeat-x;
     width: 100%;
-    height: 550px;
+    height: 480px;
 
     @include mediaMd {
       height: 350px;
@@ -33,7 +34,7 @@
 
       &__desc {
         margin: auto;
-        width: 45%;
+        width: 27rem;
         font-weight: 300;
         font-size: 15px;
       }
@@ -48,7 +49,7 @@
       }
 
       @include mediaXL {
-        padding: 2em 15vw;
+        padding: 2em 21vw;
       }
 
       &__grid {
@@ -90,7 +91,7 @@
       }
 
       @include mediaXL {
-        padding: 2em 15vw;
+        padding: 2em 21vw;
       }
     }
 
@@ -99,7 +100,7 @@
         padding: 3rem 1rem;
 
         &__desc {
-          width: 60%;
+          width: 55%;
         }
       }
       &__cards {
@@ -129,14 +130,6 @@
 
       &__faq {
         padding: 0;
-      }
-    }
-
-    @include mediaXL {
-      &__header {
-        &__desc {
-          width: 45%;
-        }
       }
     }
   }

@@ -20,7 +20,6 @@ import { Input } from "components/common/Input";
 import donationTypes, { donationType } from "constants/donationTypes";
 import capitalize from "helpers/capitalize";
 import { mobileMoney } from "constants/paymentMethods";
-import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
 import getPlatformUrl from "helpers/getPlatformUrl";
@@ -65,15 +64,15 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   };
 
   const { data: cause } = useSelector(
-    ({ cause: { single } }: IRootState) => single
+    ({ cause: { single } }: IRootState) => single,
   );
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   if (data.phone_number) data.phone_number = phoneFormatter(data.phone_number);
@@ -96,7 +95,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     donateCause(slug, formattedData)(
       setConfirmationModal,
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -304,7 +303,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                     </Select>
                   </Form.Item>
                   <Form.Item
-                    className="form-group"
+                    className="form-group phone-code"
                     validateTrigger={["onSubmit", "onBlur"]}
                     rules={[
                       { len: 9, required: true },
@@ -317,7 +316,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                   >
                     <Input
                       placeholder="Phone Number"
-                      addonBefore={PhoneCountrySelector}
+                      addonBefore="+250"
                       maxLength={9}
                     />
                   </Form.Item>

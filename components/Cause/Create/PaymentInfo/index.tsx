@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Select, Switch } from "antd";
 import { Input } from "components/common/Input";
-import PhoneCountrySelector from "components/common/PhoneCountrySelector";
 import { mobileMoney } from "constants/paymentMethods";
 
 export interface PaymentInfoProps {}
@@ -11,7 +10,9 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
   const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const handleAccess = (isChecked: boolean) => setPrivate(isChecked);
   const handleSelect = (option: any) => setSelectedTelco(option);
-  const phoneNumberValidation: { [key: string]: { regex: RegExp, message: string }} = {
+  const phoneNumberValidation: {
+    [key: string]: { regex: RegExp; message: string };
+  } = {
     default: {
       regex: /$^/,
       message: "You should first select payment method",
@@ -24,7 +25,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
       regex: /^7[23]/,
       message: "Phone number should be a valid Airtel number",
     },
-  }
+  };
 
   return (
     <div>
@@ -42,7 +43,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         </Select>
       </Form.Item>
       <Form.Item
-        className="form-group"
+        className="form-group phone-code"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
           { len: 9, required: true },
@@ -55,7 +56,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
       >
         <Input
           placeholder="Enter Phone Number"
-          addonBefore={PhoneCountrySelector}
+          addonBefore="+250"
           maxLength={9}
         />
       </Form.Item>
@@ -64,12 +65,10 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input  placeholder="Account Name" />
+        <Input placeholder="Account Name" />
       </Form.Item>
       <div className="d-flex">
-        <span className="font-weight-bold">
-            Private Cause
-        </span>
+        <span className="font-weight-bold">Private Cause</span>
         <Form.Item
           className="form-group ml-3 mb-1"
           validateTrigger={["onSubmit", "onBlur"]}
@@ -78,9 +77,13 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
           <Switch onChange={handleAccess} />
         </Form.Item>
       </div>
-      {isPrivate && <p className="note">Note: This cause will not be published on our website.</p>}
-    <style jsx>{`
-        .note{
+      {isPrivate && (
+        <p className="note">
+          Note: This cause will not be published on our website.
+        </p>
+      )}
+      <style jsx>{`
+        .note {
           font-size: 0.87em;
           color: rgba(51, 51, 51, 0.6);
         }
