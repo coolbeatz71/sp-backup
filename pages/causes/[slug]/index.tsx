@@ -16,6 +16,7 @@ import Error from "components/common/Error";
 import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { causeStatus } from "interfaces";
+import AccessCode from "components/Cause/Single/AccessCode";
 
 export interface SingleCauseProps {}
 
@@ -67,12 +68,17 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
     </div>
   );
 
+
   return (
     <div className={styles.singleCause}>
       {loading ? (
         <Spinner />
       ) : error ? (
-        <Error status={error.status || 500} message={error.message} />
+        error?.status === 403 || error?.status === 400 ? (
+          <AccessCode slug={slug} error={error} />
+        ) : (
+          <Error status={error.status || 500} message={error.message} />
+        )
       ) : (
         fetched && (
           <div className="d-flex px-md-3 flex-column">
