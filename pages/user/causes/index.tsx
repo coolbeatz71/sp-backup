@@ -15,6 +15,10 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import PrivateComponent from "pages/privateRoute";
 import { USER_CAUSES_PATH } from "helpers/paths";
 import CategoriesBar from "components/common/CategoriesBar";
+import { useMedia } from "react-use";
+import { getAllCategories } from "redux/actions/categories/getAll";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { toggleCategoryBar } from "redux/actions/categories/hide";
 
 const pageTitle: string = "your causes";
 const causesLength: any = 6;
@@ -105,6 +109,7 @@ const renderFeedContainer = (
 const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { push, pathname, asPath } = useRouter();
+  const isMobile = useMedia("(max-width: 768px)");
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -114,9 +119,20 @@ const Causes: React.SFC<{}> = () => {
     ({ cause: { user } }: IRootState) => user,
   );
 
-  const { categories } = useSelector(
+  const { categories, hide } = useSelector(
     ({ categories }: IRootState) => categories,
   );
+
+  const hideCategoryBar = () => {
+    if (!isMobile) {
+      toggleCategoryBar(window.scrollY > 40)(dispatch);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategories()(dispatch);
+    // tslint:disable-next-line: align
+  }, [asPath, dispatch]);
 
   useEffect(() => {
     if (!isLoggedin) push("/");
@@ -124,12 +140,28 @@ const Causes: React.SFC<{}> = () => {
     // tslint:disable-next-line: align
   }, [asPath, dispatch]);
 
+  useEffect(() => {
+    if (!isMobile) {
+      window.addEventListener("scroll", hideCategoryBar);
+    }
+    return () => {
+      window.removeEventListener("scroll", hideCategoryBar);
+    };
+    // tslint:disable-next-line: align
+  }, [isMobile]);
+
   const [causesNumber, setCausesNumber] = useState(causesLength);
 
   return (
     <>
       {fetched && !error && !isEmpty(data) ? (
-        <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
+        <TransitionGroup component={null}>
+          {!hide && (
+            <CSSTransition classNames="category" timeout={300}>
+              <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
+            </CSSTransition>
+          )}
+        </TransitionGroup>
       ) : null}
       <div className={styles.causes}>
         {loading ? (

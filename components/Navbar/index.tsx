@@ -9,13 +9,13 @@ import { IRootState } from "redux/initialStates";
 import { useMedia } from "react-use";
 import logout from "redux/actions/Auth/logout";
 import capitalize from "helpers/capitalize";
-import randmonColor from "randomcolor";
 import abName from "helpers/abName";
 import { USER_CAUSES_PATH, ALL_CAUSES_PATH, PRICING_PATH } from "helpers/paths";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import { Icategories } from "interfaces/categories";
 import SearchInput from "../common/SearchInput/";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import getAvatarBgColor from "helpers/avatarColor";
 
 export interface NavbarProps {
   isLight: boolean;
@@ -28,7 +28,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
 
   const dispatch = useDispatch();
   const { push } = useRouter();
-  const color = randmonColor();
 
   const updateNavbarTheme = () => {
     if (!isMobile && window.scrollY > 500) setLightNavbar(true);
@@ -164,7 +163,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       }
     >
       <TransitionGroup component={null}>
-        {hide && (
+        {hide && (page === USER_CAUSES_PATH || page === ALL_CAUSES_PATH) && (
           <CSSTransition classNames="search" timeout={400}>
             <SearchInput defaultValue={keyword} page={page} />
           </CSSTransition>
@@ -237,7 +236,12 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
                     className={styles.navbar__profile__avatar}
                   />
                 ) : (
-                  <Avatar style={{ backgroundColor: color, marginRight: 5 }}>
+                  <Avatar
+                    style={{
+                      backgroundColor: getAvatarBgColor(avatar),
+                      marginRight: 5,
+                    }}
+                  >
                     {abName(first_name, last_name)}
                   </Avatar>
                 )}
