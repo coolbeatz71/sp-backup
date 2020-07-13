@@ -119,7 +119,7 @@ const Causes: React.SFC<{}> = () => {
     ({ cause: { user } }: IRootState) => user,
   );
 
-  const { categories, hide } = useSelector(
+  const { categories, hide: isCategoryBarHidden } = useSelector(
     ({ categories }: IRootState) => categories,
   );
 
@@ -148,7 +148,7 @@ const Causes: React.SFC<{}> = () => {
       window.removeEventListener("scroll", hideCategoryBar);
     };
     // tslint:disable-next-line: align
-  }, [isMobile]);
+  }, []);
 
   const [causesNumber, setCausesNumber] = useState(causesLength);
 
@@ -156,7 +156,7 @@ const Causes: React.SFC<{}> = () => {
     <>
       {fetched && !error && !isEmpty(data) ? (
         <TransitionGroup component={null}>
-          {!hide && (
+          {!isCategoryBarHidden && (
             <CSSTransition classNames="category" timeout={300}>
               <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
             </CSSTransition>

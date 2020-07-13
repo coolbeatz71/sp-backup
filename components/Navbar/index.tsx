@@ -15,8 +15,9 @@ import { getAllCategories } from "redux/actions/categories/getAll";
 import { Icategories } from "interfaces/categories";
 import SearchInput from "../common/SearchInput/";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import getAvatarBgColor from "helpers/avatarColor";
+import ColorHash from "color-hash";
 
+const color = new ColorHash();
 export interface NavbarProps {
   isLight: boolean;
   page: string;
@@ -48,7 +49,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
     };
 
     // tslint:disable-next-line: align
-  }, [isLight, isMobile]);
+  }, [isLight]);
 
   useEffect(() => {
     getAllCategories()(dispatch);
@@ -62,7 +63,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
     data: { first_name, last_name, avatar },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
-  const { categories, hide } = useSelector(
+  const { categories, hide: isCategoryBarHidden } = useSelector(
     ({ categories }: IRootState) => categories,
   );
 
@@ -163,11 +164,12 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       }
     >
       <TransitionGroup component={null}>
-        {hide && (page === USER_CAUSES_PATH || page === ALL_CAUSES_PATH) && (
-          <CSSTransition classNames="search" timeout={400}>
-            <SearchInput defaultValue={keyword} page={page} />
-          </CSSTransition>
-        )}
+        {isCategoryBarHidden &&
+          (page === USER_CAUSES_PATH || page === ALL_CAUSES_PATH) && (
+            <CSSTransition classNames="search" timeout={400}>
+              <SearchInput defaultValue={keyword} page={page} />
+            </CSSTransition>
+          )}
       </TransitionGroup>
       <Dropdown
         overlayClassName="navbar__menu"
@@ -238,7 +240,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
                 ) : (
                   <Avatar
                     style={{
-                      backgroundColor: getAvatarBgColor(avatar),
+                      backgroundColor: color.hex(`${first_name} ${last_name}`),
                       marginRight: 5,
                     }}
                   >
