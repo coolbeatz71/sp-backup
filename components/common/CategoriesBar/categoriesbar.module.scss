@@ -8,13 +8,14 @@
   left: 0;
   right: 0;
   justify-content: space-between;
-  padding: 1em 4em;
+  padding: 1em 8vw;
   background: $color-primary-light;
 
   @include mediaMd {
     display: flex;
     flex-flow: column;
-    padding: 1em;
+    padding: 0 1.5em;
+    padding-bottom: 1rem;
 
     &__list {
       display: flex;

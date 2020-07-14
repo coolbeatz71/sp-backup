@@ -1,8 +1,9 @@
-.authLayout{
+.authLayout {
   background: #f4fafb;
   display: flex;
   flex-wrap: wrap;
-  padding: 4rem;
+  padding: 6rem 0;
+  margin: 0 8vw;
   .message {
     width: 40%;
     font-weight: bold;
@@ -14,14 +15,16 @@
     justify-content: flex-end;
   }
   @media only screen and (max-width: 768px) {
-    padding: 1rem;
-    .message, .form {
+    padding: 2rem 0;
+    margin: 0 1.5rem;
+    .message,
+    .form {
       padding: 0;
       margin: 0;
       width: 100%;
     }
-    .message{
+    .message {
       margin-bottom: 0.4rem;
     }
-  }  
+  }
 }

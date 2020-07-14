@@ -11,16 +11,16 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 1em 4em;
+    padding: 1em 8vw;
 
     @include mediaMd {
-      padding: 1em;
+      padding: 1.5em;
     }
 
     @include mediaSm {
       flex-flow: column;
       align-items: flex-start;
-      padding: 1em;
+      padding: 1.5em;
     }
 
     &__subTitle {
@@ -30,7 +30,7 @@
   }
 
   &__illustration {
-    padding: 1em 4em;
+    padding: 1em 8vw;
     display: flex;
     justify-content: center;
     img {
@@ -46,6 +46,7 @@
 
       @include mediaMd {
         display: block;
+        padding: 0 1.5rem;
         width: 100vw;
       }
     }
@@ -54,7 +55,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 3rem;
-      padding: 2em 4em;
+      padding: 2em 8vw;
 
       @include mediaMd {
         display: none !important;
@@ -63,7 +64,7 @@
   }
 
   &__footer {
-    padding: 4em 3em 6.5em;
+    padding: 2em 8vw 5em;
     display: flex;
     justify-content: center;
     button {

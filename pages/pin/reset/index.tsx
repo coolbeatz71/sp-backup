@@ -5,7 +5,6 @@ import styles from "./reset.module.scss";
 import AuthLayout from "components/Auth/Layout";
 import { IRootState } from "redux/initialStates";
 import reset from "redux/actions/pin/reset";
-import { removeZero } from "helpers/phoneNumberFormatter";
 
 const PinReset: React.FC<{}> = () => {
   const { push } = useRouter();
@@ -16,7 +15,7 @@ const PinReset: React.FC<{}> = () => {
   );
 
   const handleSubmit = (form: { [key: string]: any }) => {
-    const phone_number = removeZero(form.phone_number);
+    const phone_number = form.phone_number;
     reset({ phone_number })(push, dispatch);
   };
 

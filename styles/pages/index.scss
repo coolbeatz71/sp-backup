@@ -120,7 +120,7 @@
   }
 }
 
-.how-it-works{
+.how-it-works {
   padding: 0 8vw;
 }
 
@@ -157,12 +157,22 @@
 
   .more {
     &__causes {
-      float: right;
       margin-top: 20px;
+      float: right;
+
+      button {
+        display: flex;
+        align-items: center;
+        border: 1px solid rgba(33, 155, 178, 0);
+        padding: 1rem;
+
+        &:hover {
+          border: 1px solid $color-primary !important;
+        }
+      }
 
       @include mediaMd {
-        float: none;
-        margin: 20px 10%;
+        float: left;
         text-align: center;
       }
     }
@@ -172,28 +182,34 @@
 .short__intro {
   background: $color-primary-light url("../../public/short-intro-bg.svg")
     no-repeat center/cover;
-  background-position: 0 20%;
+  background-position: 0 54%;
   display: flex;
   flex-flow: column;
   justify-content: center;
   &--container {
-    margin: 50px 10%;
     position: relative;
-    padding: 30px 0;
+    padding: 3rem 0 1rem 0;
     display: flex;
     flex-flow: column;
     align-items: center;
 
     h1 {
-      font-size: 30px;
-      font-style: normal;
+      text-transform: uppercase;
+      font-size: 32px;
+      font-weight: bold;
+
+      @include mediaMd {
+        margin: 0 1.5rem;
+        text-align: center;
+        font-size: 1.4rem !important;
+      }
     }
   }
   &--video {
-    margin-top: 50px;
+    margin-top: 3rem;
 
     iframe {
-      width: 900px;
+      width: 820px;
       height: 500px;
       border: none;
       border-radius: 5px;
@@ -205,38 +221,39 @@
       }
 
       @include mediaSm {
-        width: 300px !important;
+        width: 350px !important;
+        height: 250px;
       }
-    }
-  }
-
-  &--title {
-    text-transform: uppercase;
-
-    @include mediaMd {
-      font-size: 1rem;
     }
   }
 
   &--button {
     text-align: center;
-    margin-top: 20px;
+    margin: 2rem 0;
 
     button {
-      display: inline-block;
+      font-size: 18px;
+      padding: 1.3rem;
+      display: flex;
+      align-items: center;
+
+      @include mediaSm {
+        font-size: 14px;
+      }
     }
   }
 }
 
 .mission {
   display: flex;
+  background: #219bb2;
   &--with-image {
     img {
       width: 100%;
     }
   }
   @include mediaMd {
-    height: 20vh;
+    height: 25vh;
     &--with-image {
       position: relative;
       height: 100%;
@@ -252,24 +269,12 @@
     flex-basis: 50%;
     $parent: &;
     &:nth-child(2) {
-      background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.2) -279.41%,
-          rgba(117, 194, 208, 0.140049) -50.37%,
-          rgba(25, 154, 177, 0.1) 102.64%
-        ),
-        #219bb2;
-      padding: 40px 5%;
+      padding: 0 1rem;
       color: $color-light;
-      display: grid;
-      place-content: center;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
 
-      @include mediaMd {
-        p {
-          font-size: 0.5rem;
-          font-weight: 100;
-        }
-      }
       #{$parent}--title {
         position: relative;
         margin-top: -1px;
@@ -280,20 +285,71 @@
         }
 
         h2 {
+          font-size: 32px;
+          font-weight: bold;
           color: $color-light;
-          margin-bottom: 0;
+          margin-bottom: 0.5rem;
+
+          @include mediaLg {
+            font-size: 25px;
+          }
         }
         img {
           position: absolute;
-          top: 5px;
-          left: -20px;
-          width: 35px;
-          height: 35px;
+          top: -4px;
+          left: -30px;
+          width: 43px;
+          height: 45px;
+
+          @include mediaLg {
+            width: 2.2rem;
+            height: 2.3rem;
+          }
         }
 
         span {
-          font-size: 0.8rem;
+          font-size: 1rem;
+          font-weight: 500;
           transform: translateY(-20px) !important;
+
+          @include mediaLg {
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      #{$parent}--description {
+        p {
+          font-size: 1.7vw;
+          margin: 0.5rem 0 2rem 0;
+
+          @include mediaMd {
+            margin: 0 0 1em 0;
+            font-size: 2.2vw !important;
+            font-weight: 300;
+          }
+
+          @include mediaLg {
+            font-size: 2vw;
+            margin: 0 0 1.5em 0;
+          }
+        }
+      }
+
+      #{$parent}--button {
+        button {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          padding: 1.2rem;
+          font-weight: 500;
+        }
+
+        @include mediaMd {
+          button {
+            padding: 1em;
+            font-size: 10pt;
+          }
         }
       }
     }

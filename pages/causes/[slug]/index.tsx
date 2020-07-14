@@ -32,7 +32,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
   }
 
   const { loading, data, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single
+    ({ cause: { single } }: IRootState) => single,
   );
 
   const donateButton = (screen?: string) =>
@@ -91,7 +91,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
                     >
                       {getProgressPercentage(
                         data.raised_amount,
-                        data.target_amount
+                        data.target_amount,
                       )}{" "}
                       %
                     </span>
@@ -110,7 +110,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
                     <span className={styles.causeStatus}>
                       {getDaysToGo(
                         data.status,
-                        getCauseRemainingDays(data.end_date)
+                        getCauseRemainingDays(data.end_date),
                       )}
                     </span>
                   </div>
@@ -141,7 +141,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
         .progression {
           width: ${getProgressPercentage(
             data.raised_amount,
-            data.target_amount
+            data.target_amount,
           )}%;
         }
       `}</style>

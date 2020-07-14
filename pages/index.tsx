@@ -67,12 +67,20 @@ const IndexPage = () => {
       </div>
 
       <div className="how-it-works">
-        <SectionTitle title="How It Works"  className="gardening" icon="icons/gardening.svg" />
+        <SectionTitle
+          title="How It Works"
+          className="gardening"
+          icon="icons/gardening.svg"
+        />
         <HowItWorks />
       </div>
 
       <div className="causes">
-        <SectionTitle title="Featured Causes" className="romantic" icon="icons/heart-beat.svg" />
+        <SectionTitle
+          title="Featured Causes"
+          className="romantic"
+          icon="icons/heart-beat.svg"
+        />
         {loading ? (
           <Spinner />
         ) : (
@@ -135,7 +143,11 @@ const IndexPage = () => {
       </div>
 
       <div className="causes">
-        <SectionTitle title="Popular Causes" className="romantic" icon="icons/heart-beat.svg" />
+        <SectionTitle
+          title="Popular Causes"
+          className="romantic"
+          icon="icons/heart-beat.svg"
+        />
         {loading ? (
           <Spinner />
         ) : (
@@ -198,7 +210,11 @@ const IndexPage = () => {
       </div>
 
       <div className="causes">
-        <SectionTitle title="Recent Causes" className="birds" icon="icons/love-birds.svg" />
+        <SectionTitle
+          title="Recent Causes"
+          className="birds"
+          icon="icons/love-birds.svg"
+        />
 
         {loading ? (
           <Spinner />
