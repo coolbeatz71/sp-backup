@@ -14,10 +14,12 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import Mission from "components/common/Mission";
 import { SIGNUP_PATH, ALL_CAUSES_PATH } from "helpers/paths";
+import { useMedia } from "react-use";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   const { push, pathname } = useRouter();
+  const isMobile = useMedia("(max-width: 768px)");
 
   const goToRegister = () => {
     push(SIGNUP_PATH);
@@ -40,14 +42,22 @@ const IndexPage = () => {
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
+  const getStarted = () => {
+    isLoggedin ? push("/causes/create") : goToRegister();
+  };
+
   return (
     <div title="Save Plus" className="index-page">
       <div className="index-container">
         <div className="index__intro">
           <div className="index__intro--info">
-            <h1>Put a Smile on Someone's Face</h1>
-            <Button size="large" className="btn-primary index__intro--button">
-              GET STARTED
+            <h1>Put a Smile on{!isMobile && <br />} Someone's Face</h1>
+            <Button
+              size="large"
+              className="btn-primary index__intro--button"
+              onClick={() => getStarted()}
+            >
+              {isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
             </Button>
           </div>
         </div>

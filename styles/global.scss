@@ -25,6 +25,10 @@ body {
   }
 }
 
+body.ant-scrolling-effect {
+  width: unset !important;
+}
+
 @import "./pages/index.scss";
 
 * {

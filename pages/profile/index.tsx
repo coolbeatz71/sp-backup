@@ -13,7 +13,6 @@ import {
   Modal,
 } from "antd";
 import { RcFile } from "antd/es/upload";
-import randmonColor from "randomcolor";
 import { Input } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
@@ -26,15 +25,17 @@ import Link from "next/link";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 import { LoadingOutlined } from "@ant-design/icons";
+import ColorHash from "color-hash";
 
 export interface ProfileProps {}
+
+const color = new ColorHash();
 
 const { Text } = Typography;
 const antIcon = <LoadingOutlined style={{ fontSize: 18 }} spin />;
 
 const Profile: React.FC<ProfileProps> = () => {
   const [form] = Form.useForm();
-  const color = randmonColor();
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
 
@@ -139,7 +140,14 @@ const Profile: React.FC<ProfileProps> = () => {
                 {data.avatar ? (
                   <img src={data.avatar} alt="avatar" />
                 ) : (
-                  <Avatar style={{ backgroundColor: color }} size="large">
+                  <Avatar
+                    style={{
+                      backgroundColor: color.hex(
+                        `${data.first_name} ${data.last_name}`,
+                      ),
+                    }}
+                    size="large"
+                  >
                     {abName(data.first_name, data.last_name)}
                   </Avatar>
                 )}
