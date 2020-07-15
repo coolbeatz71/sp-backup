@@ -32,11 +32,11 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
           ) : (
             <Avatar
               size="large"
+              className={
+                styles.causeCard__body__header__causeOwner__abNameAvatar
+              }
               style={{
-                marginRight: 5,
-                marginTop: "-20px",
                 backgroundColor: color.hex(names),
-                verticalAlign: "middle",
               }}
             >
               {names && abName(names[0], names[1])}
