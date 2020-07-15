@@ -64,7 +64,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
   const { categories, hide: isCategoryBarHidden } = useSelector(
-    ({ categories }: IRootState) => categories
+    ({ categories }: IRootState) => categories,
   );
 
   const { keyword } = useSelector(({ search }: IRootState) => search);
@@ -90,6 +90,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
           : ALL_CAUSES_PATH;
     }
 
+    if (menuMobileVisible) toggleMenuMobile();
     push(url);
   };
 
@@ -194,6 +195,9 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
           className={
             isLightNavbar ? "ant-dropdown-link" : "ant-dropdown-link-dark"
           }
+          onClick={() => {
+            if (menuMobileVisible) toggleMenuMobile();
+          }}
         >
           Pricing
         </a>
@@ -207,12 +211,22 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
                   ? "btn-light-outline"
                   : "btn-primary-outline"
               }
+              onClick={() => {
+                if (menuMobileVisible) toggleMenuMobile();
+              }}
             >
               SIGN IN
             </Button>
           </Link>
           <Link href="/signup">
-            <Button className="btn-primary">SIGN UP</Button>
+            <Button
+              className="btn-primary"
+              onClick={() => {
+                if (menuMobileVisible) toggleMenuMobile();
+              }}
+            >
+              SIGN UP
+            </Button>
           </Link>
         </>
       ) : (

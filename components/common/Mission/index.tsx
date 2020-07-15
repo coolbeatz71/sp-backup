@@ -20,7 +20,9 @@ const Mission: FC<MissionProps> = ({ isLoggedin, goToRegister }) => {
         </div>
         <div className="mission__item--description">
           <p>
-            We are a platform dedicated to connecting socially impactful causes,
+            We are a platform dedicated to
+            <br /> connecting socially impactful causes,
+            <br />
             conscious people.
           </p>
         </div>

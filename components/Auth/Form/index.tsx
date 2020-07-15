@@ -108,19 +108,23 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </Text>
         {context === "pin-reset" && (
           <Form.Item
-            className="form-group"
+            className="form-group phone-code"
             validateTrigger={["onSubmit", "onBlur"]}
             rules={[
               {
-                len: 10,
+                len: 9,
                 required: true,
-                pattern: /^07[238]/,
-                message: "Telephone format should be 07XXXXXXXX",
+                pattern: /^7[238]/,
+                message: "Telephone format should be 7X XX XX XXX",
               },
             ]}
             name="phone_number"
           >
-            <Input placeholder="Phone Number" maxLength={10} />
+            <Input
+              placeholder="Phone Number"
+              addonBefore="+250"
+              maxLength={9}
+            />
           </Form.Item>
         )}
         {context === "pin-reset-update" && (

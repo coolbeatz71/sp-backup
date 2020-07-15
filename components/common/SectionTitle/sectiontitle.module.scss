@@ -24,21 +24,20 @@
     z-index: -1;
   }
 
-  &__birds{
+  &__birds {
     top: -39px !important;
   }
-  &__romantic{
+  &__romantic {
     left: -10px;
   }
 
-
   @include mediaMd {
-    img{
+    img {
       top: -15px;
       width: 30px;
       height: 30px;
     }
-    &__birds{
+    &__birds {
       top: -19px !important;
     }
   }

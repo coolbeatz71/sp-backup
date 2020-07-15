@@ -13,11 +13,4 @@ const phoneFormatter = (
   return phoneNumber;
 };
 
-export const removeZero = (phoneNumber: string) => {
-  if (phoneNumber.startsWith("0")) {
-    const phone = phoneNumber.replace("0", "");
-    return `250${phone}`;
-  }
-};
-
 export default phoneFormatter;
