@@ -17,9 +17,7 @@ import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { causeStatus } from "interfaces";
 
-export interface SingleCauseProps {}
-
-const SingleCause: React.FC<SingleCauseProps> = () => {
+const SingleCause: React.FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -32,7 +30,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
   }
 
   const { loading, data, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single
+    ({ cause: { single } }: IRootState) => single,
   );
 
   const donateButton = (screen?: string) =>
@@ -61,8 +59,8 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
     >
       <h5>cause Team and Contact</h5>
       You can reach out to on{" "}
-      <a href={`tel:+${phoneFormatter(data.payment_account_number)}`}>
-        {phoneFormatter(data.payment_account_number)}
+      <a href={`tel:+${phoneFormatter(data.phone_number || data.payment_account_number)}`}>
+        {phoneFormatter(data.phone_number || data.payment_account_number)}
       </a>
     </div>
   );
@@ -91,7 +89,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
                     >
                       {getProgressPercentage(
                         data.raised_amount,
-                        data.target_amount
+                        data.target_amount,
                       )}{" "}
                       %
                     </span>
@@ -110,7 +108,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
                     <span className={styles.causeStatus}>
                       {getDaysToGo(
                         data.status,
-                        getCauseRemainingDays(data.end_date)
+                        getCauseRemainingDays(data.end_date),
                       )}
                     </span>
                   </div>
@@ -141,7 +139,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
         .progression {
           width: ${getProgressPercentage(
             data.raised_amount,
-            data.target_amount
+            data.target_amount,
           )}%;
         }
       `}</style>
