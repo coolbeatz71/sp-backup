@@ -66,13 +66,13 @@ const IndexPage = () => {
         </div>
       </div>
 
-      <div className="howitworks__section">
-        <SectionTitle title="How It Works" icon="icons/gardening.png" />
+      <div className="how-it-works">
+        <SectionTitle title="How It Works"  className="gardening" icon="icons/gardening.svg" />
         <HowItWorks />
       </div>
 
       <div className="causes">
-        <SectionTitle title="Featured Causes" icon="icons/heart-beat.png" />
+        <SectionTitle title="Featured Causes" className="romantic" icon="icons/heart-beat.svg" />
         {loading ? (
           <Spinner />
         ) : (
@@ -135,7 +135,7 @@ const IndexPage = () => {
       </div>
 
       <div className="causes">
-        <SectionTitle title="Recent Causes" icon="icons/love-birds.png" />
+        <SectionTitle title="Recent Causes" className="birds" icon="icons/love-birds.svg" />
 
         {loading ? (
           <Spinner />

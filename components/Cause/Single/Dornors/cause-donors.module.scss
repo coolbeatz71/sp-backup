@@ -19,7 +19,7 @@
     margin-bottom: 0.3rem;
     span {
       color: rgba($color: $color-dark, $alpha: 0.9);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
     }
     &__name {
@@ -33,6 +33,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      text-align: right;
     }
   }
   @include mediaMd {

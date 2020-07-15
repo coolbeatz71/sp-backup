@@ -120,12 +120,16 @@
   }
 }
 
+.how-it-works{
+  padding: 0 8vw;
+}
+
 .causes {
   margin: 100px auto;
+  padding: 0 8vw;
   &__grid {
     display: grid;
-    margin-left: 5%;
-
+    gap: 2rem;
     &--mobile {
       display: none;
 
@@ -145,8 +149,6 @@
     }
 
     &--item {
-      margin-right: 85px;
-
       @include mediaMd {
         margin-right: 50px;
       }
@@ -155,7 +157,6 @@
 
   .more {
     &__causes {
-      margin-right: 6%;
       float: right;
       margin-top: 20px;
 
