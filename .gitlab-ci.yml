@@ -7,7 +7,7 @@ deploy-staging:
   image: ubuntu:latest
   stage: deploy
   variables:
-    WORKDIR: /var/www/web.saveplus.io
+    WORKDIR: /var/www/dev.saveplus.io
   only:
     - develop
   before_script:
