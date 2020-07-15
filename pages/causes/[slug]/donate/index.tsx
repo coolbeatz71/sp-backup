@@ -29,6 +29,7 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import normalizeInputNumber from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
+import getTelco from "helpers/getTelco";
 
 export interface DonateCauseProps {}
 
@@ -38,7 +39,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState<donationType>("individual");
-  const [confirmationModal, setConfirmationModal] = useState<boolean>(false);
   const [donationSuccessful, setDonationSuccessful] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -64,18 +64,21 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   };
 
   const { data: cause } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single } }: IRootState) => single
   );
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
-  if (data.phone_number) data.phone_number = phoneFormatter(data.phone_number);
+  if (data.phone_number) {
+    data.phone_number = phoneFormatter(data.phone_number);
+    data.payment_method = getTelco(data.phone_number);
+  }
 
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   let encodedURL = "";
@@ -92,11 +95,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
 
   const handleSubmit = (form: any) => {
     const formattedData = formatData(form);
-    donateCause(slug, formattedData)(
-      setConfirmationModal,
-      setDonationSuccessful,
-      dispatch,
-    );
+    donateCause(slug, formattedData)(setDonationSuccessful, dispatch);
   };
 
   const handleSelect = (option: any) => setSelectedTelco(option);
@@ -129,7 +128,16 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
         <div className={styles.donate__body__form}>
           {donationSuccessful ? (
             <div className={styles.donate__body__form__successful}>
-              <h4>Thank You for donating</h4>
+              <h5>Kindly confirm your Donation</h5>
+              <p className={styles.donate__body__form__successful__subtitle}>
+                Enter your PIN and confirm the payment on your phone number
+              </p>
+              <p className={styles.donate__body__form__successful__subtitle}>
+                +
+                {form.getFieldValue("phone_number") &&
+                  phoneFormatter(form.getFieldValue("phone_number"))}
+              </p>
+              <h4>Thank You</h4>
               <Link href="/">
                 <a>Back Home</a>
               </Link>
@@ -208,7 +216,10 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                   validateMessages={validateMessages}
                   onFinish={handleSubmit}
                   onValuesChange={handleValueChange}
-                  initialValues={{ ...data, type: "individual" }}
+                  initialValues={{
+                    ...data,
+                    type: "individual",
+                  }}
                 >
                   <Text type="danger" className="mb-3 d-block">
                     {error && error.message}
@@ -357,21 +368,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
           )}
         </div>
       </div>
-      <Modal
-        visible={!error?.message && confirmationModal}
-        footer={false}
-        closable={false}
-        maskStyle={{ background: "#000000b3" }}
-      >
-        <div className={styles.donate__confirmationModal}>
-          <h4>Kindly confirm your Donation</h4>
-          <p>
-            Confirm the payment on your phone +
-            {form.getFieldValue("phone_number") &&
-              phoneFormatter(form.getFieldValue("phone_number"))}
-          </p>
-        </div>
-      </Modal>
       <Modal visible={modalVisible} onCancel={handleModalCancel} footer={false}>
         <h6 className="text-center mt-5">
           Make your donation using the USSD Code

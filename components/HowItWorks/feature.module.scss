@@ -6,13 +6,6 @@
   background-color: $color-primary-light;
   min-height: 380px;
 
-  @include mediaMd {
-    display: inline-block;
-    margin-bottom: 30px;
-    margin-left: 30px;
-    margin-right: 20px;
-  }
-
   &__title {
     color: $color-primary;
     font-size: 1rem;
@@ -36,27 +29,42 @@
   }
 
   &__description {
-    font-size: 0.7rem;
+    p {
+      font-size: 16px;
+    }
   }
 
   &__icon {
-    margin: 0 10px auto 10%;
+    margin: 0 20px;
     img {
-      width: 35px;
-      height: 35px;
+      width: 45px;
+      height: 45px;
     }
   }
 
   &__body {
     padding: 20px;
   }
+
+  @include mediaMd {
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-right: 1rem;
+    min-height: 320px;
+    max-height: 380px;
+    &__icon {
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
 }
 
 .featureList {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 3rem;
-  padding: 0 3em;
+  grid-gap: 2rem;
 
   &Mobile {
     display: none;

@@ -1,27 +1,45 @@
 @import "styles/_mixins";
 .sectionTitle {
-  margin: 30px 3%;
+  margin: 30px 0;
   position: relative;
 
   h2 {
     text-transform: uppercase;
-    margin: auto 25px;
-
+    margin: auto;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
+    color: #333;
     @include mediaMd {
-      font-size: 1rem;
+      font-size: 20px;
+      line-height: 25px;
     }
   }
 
   img {
     position: absolute;
-    top: -10px;
-    width: 35px;
-    height: 35px;
-    left: 25px;
+    top: -26px;
+    width: 60px;
+    height: 60px;
     z-index: -1;
+  }
 
-    @include mediaMd {
-      top: -75%;
+  &__birds{
+    top: -39px !important;
+  }
+  &__romantic{
+    left: -10px;
+  }
+
+
+  @include mediaMd {
+    img{
+      top: -15px;
+      width: 30px;
+      height: 30px;
+    }
+    &__birds{
+      top: -19px !important;
     }
   }
 }

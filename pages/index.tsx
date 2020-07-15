@@ -66,13 +66,13 @@ const IndexPage = () => {
         </div>
       </div>
 
-      <div className="howitworks__section">
-        <SectionTitle title="How It Works" icon="icons/gardening.png" />
+      <div className="how-it-works">
+        <SectionTitle title="How It Works"  className="gardening" icon="icons/gardening.svg" />
         <HowItWorks />
       </div>
 
       <div className="causes">
-        <SectionTitle title="Featured Causes" icon="icons/heart-beat.png" />
+        <SectionTitle title="Featured Causes" className="romantic" icon="icons/heart-beat.svg" />
         {loading ? (
           <Spinner />
         ) : (
@@ -135,7 +135,70 @@ const IndexPage = () => {
       </div>
 
       <div className="causes">
-        <SectionTitle title="Recent Causes" icon="icons/love-birds.png" />
+        <SectionTitle title="Popular Causes" className="romantic" icon="icons/heart-beat.svg" />
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <div className="causes__grid--mobile">
+              <Swipeable>
+                {fetched &&
+                  !error &&
+                  data.causes_popular.map((cause: any, index: number) => (
+                    <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
+                      title={cause.name}
+                      description={cause.summary}
+                      cover={cause.image}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
+                      amountRaised={cause.raised_amount}
+                      amountToReach={cause.target_amount}
+                      currency={cause.currency}
+                      status={cause.status}
+                      category={cause.category.title}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
+                      key={index}
+                    />
+                  ))}
+              </Swipeable>
+            </div>
+            <div className="causes__grid causes__grid--lg">
+              {fetched &&
+                !error &&
+                data.causes_popular.map((cause: any, index: number) => (
+                  <div className="causes__grid--item" key={index}>
+                    <CauseCard
+                      pathName={pathname}
+                      slug={cause.slug}
+                      title={cause.name}
+                      description={cause.summary}
+                      cover={cause.image}
+                      owner={getOwnerInfo(cause.user_names, cause.verified)}
+                      amountRaised={cause.raised_amount}
+                      amountToReach={cause.target_amount}
+                      currency={cause.currency}
+                      status={cause.status}
+                      category={cause.category.title}
+                      rating={cause.ratings}
+                      daysToGo={getCauseRemainingDays(cause.end_date)}
+                    />
+                  </div>
+                ))}
+            </div>
+          </>
+        )}
+
+        <div className="more__causes">
+          <Button className="btn-secondary" onClick={goToAllCauses}>
+            DISCOVER MORE CAUSES
+          </Button>
+        </div>
+      </div>
+
+      <div className="causes">
+        <SectionTitle title="Recent Causes" className="birds" icon="icons/love-birds.svg" />
 
         {loading ? (
           <Spinner />

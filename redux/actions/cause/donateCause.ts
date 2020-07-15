@@ -7,14 +7,12 @@ import {
 import { IUnknownObject } from "interfaces/unknownObject";
 
 export default (slug: string | string[], data: IUnknownObject) => (
-  showConfirmationModal: any,
   setDonationToSuccess: any,
   dispatch: any
 ) => {
   dispatch({
     type: DONATE_CAUSE_START,
   });
-  showConfirmationModal(true);
   splApi
     .post(`/causes/${slug}/donations`, data)
     .then((response: any) => {
@@ -22,7 +20,6 @@ export default (slug: string | string[], data: IUnknownObject) => (
         payload: response,
         type: DONATE_CAUSE_SUCCESS,
       });
-      showConfirmationModal(false);
       setDonationToSuccess(true);
     })
     .catch((error: any) => {

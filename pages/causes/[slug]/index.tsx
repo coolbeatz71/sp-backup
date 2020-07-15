@@ -75,7 +75,7 @@ const SingleCause: React.FC<SingleCauseProps> = () => {
         <Error status={error.status || 500} message={error.message} />
       ) : (
         fetched && (
-          <div className="d-flex px-md-3 flex-column">
+          <div className="d-flex flex-column">
             <div className={styles.singleCause__header}>
               <img src={data.image} alt="" />
               <div className={styles.singleCause__header__progress}>

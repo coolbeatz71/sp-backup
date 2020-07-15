@@ -5,19 +5,19 @@ import styles from "./feature.module.scss";
 
 export const features: { icon: any; title: string; description: string }[] = [
   {
-    icon: "icons/beans.png",
+    icon: "icons/beans.svg",
     title: "Sign Up on SAVE Plus",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo tenetur mollitia eum deserunt quis quas nulla fugit voluptatem fuga velit!",
   },
   {
-    icon: "icons/seed.png",
+    icon: "icons/seed.svg",
     title: "Create a Cause and Donate",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo tenetur mollitia eum deserunt quis quas nulla fugit voluptatem fuga velit!",
   },
   {
-    icon: "icons/forest.png",
+    icon: "icons/forest.svg",
     title: "Invite Others to Donate",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo tenetur mollitia eum deserunt quis quas nulla fugit voluptatem fuga velit!",

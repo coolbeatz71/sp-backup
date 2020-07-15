@@ -2,7 +2,7 @@
   "name": "save-plus-web",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next -p 8000",
+    "dev": "next",
     "build": "next build",
     "build:dev": "NODE_ENV=development & next build",
     "start": "next start -p 8000",

@@ -64,7 +64,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
   const { categories, hide: isCategoryBarHidden } = useSelector(
-    ({ categories }: IRootState) => categories,
+    ({ categories }: IRootState) => categories
   );
 
   const { keyword } = useSelector(({ search }: IRootState) => search);
@@ -200,9 +200,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       </Link>
       {!isLoggedin ? (
         <>
-          <Link href="/signup">
-            <Button className="btn-primary">SIGN UP</Button>
-          </Link>
           <Link href="/login">
             <Button
               className={
@@ -213,6 +210,9 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
             >
               SIGN IN
             </Button>
+          </Link>
+          <Link href="/signup">
+            <Button className="btn-primary">SIGN UP</Button>
           </Link>
         </>
       ) : (
