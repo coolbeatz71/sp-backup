@@ -4,13 +4,16 @@ import {
   GET_SINGLE_CAUSE_SUCCESS,
   GET_SINGLE_CAUSE_ERROR,
 } from "redux/action-types/cause/getSingle";
+import { IUnknownObject } from "interfaces/unknownObject";
 
-export default (slug: string | string[]) => (dispatch: any) => {
+export default (slug: string | string[], params?: IUnknownObject) => (dispatch: any) => {
   dispatch({
     type: GET_SINGLE_CAUSE_START,
   });
   splApi
-    .get(`/causes/${slug}`)
+    .get(`/causes/${slug}`, {
+      params,
+    })
     .then((response: any) => {
       dispatch({
         payload: response.data,
