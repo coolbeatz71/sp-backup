@@ -82,6 +82,10 @@
         color: rgba($color: $color-dark, $alpha: 1);
         font-size: 18px;
         font-weight: 300;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        word-break: break-word;
       }
       &__summary {
         h5 {
