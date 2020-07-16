@@ -291,7 +291,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
             </div>
           </>
         ) : (
-          <Success till_number={data.till_number} slug={data.slug} summary={data.summary} />
+          <Success till_number={data.till_number} slug={data.slug} summary={data.name} />
         )}
       </div>
     </div>
