@@ -93,6 +93,10 @@
         font-size: 17px;
       }
     }
+
+    &__right{
+      width: 35%;
+    }
   }
 
   @include mediaMd {

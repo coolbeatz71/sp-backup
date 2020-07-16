@@ -11,7 +11,6 @@ import {
   Col,
   Switch,
   Button,
-  Modal,
   Typography,
   Spin,
 } from "antd";
@@ -22,7 +21,6 @@ import capitalize from "helpers/capitalize";
 import { mobileMoney } from "constants/paymentMethods";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
-import getPlatformUrl from "helpers/getPlatformUrl";
 import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
@@ -30,6 +28,7 @@ import normalizeInputNumber from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
+import Share from "components/common/Share";
 
 export interface DonateCauseProps {}
 
@@ -41,7 +40,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   const [userType, setUserType] = useState<donationType>("individual");
   const [donationSuccessful, setDonationSuccessful] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
   const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const router = useRouter();
@@ -78,11 +76,8 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   if (data.phone_number) {
     data.phone_number = phoneFormatter(data.phone_number);
     data.payment_method = getTelco(data.phone_number);
+    if (selectedTelco === "default") setSelectedTelco(getTelco(data.phone_number) || "default");
   }
-
-  const URL = `${getPlatformUrl()}/causes/${slug}`;
-  let encodedURL = "";
-  if (cause.summary) encodedURL = encodeURI(`${cause.summary} \n\n${URL}`);
 
   const formatData = (data: IUnknownObject) => {
     if (data.email === "") delete data.email;
@@ -115,9 +110,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     rateCause(slug, { rating: nextValue });
   };
 
-  const handleModalCancel = () => {
-    setModalVisible(false);
-  };
 
   return (
     <div className={styles.donate}>
@@ -141,49 +133,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
               <Link href="/">
                 <a>Back Home</a>
               </Link>
-              <div className={styles.donate__body__form__successful__share}>
-                <span>Share</span>
-                <a rel="stylesheet" onClick={() => setModalVisible(true)}>
-                  <img
-                    className="social__share__icon"
-                    src="/icons/smartphone-ussd.svg"
-                    alt=""
-                  />
-                </a>
-                <a
-                  rel="stylesheet"
-                  href={`https://www.facebook.com/sharer/sharer.php?display=page&u=${URL}&quote=${cause.summary}`}
-                  target="_blank"
-                >
-                  <img
-                    className="social__share__icon"
-                    src="/icons/facebook-share.svg"
-                    alt=""
-                  />
-                </a>
-                <a
-                  rel="stylesheet"
-                  href={`https://api.whatsapp.com/send?text=${encodedURL}`}
-                  target="_blank"
-                >
-                  <img
-                    className="social__share__icon"
-                    src="/icons/whatsapp-share.svg"
-                    alt=""
-                  />
-                </a>
-                <a
-                  rel="stylesheet"
-                  href={`http://twitter.com/share?text=${encodedURL}`}
-                  target="_blank"
-                >
-                  <img
-                    className="social__share__icon"
-                    src="/icons/twitter-share.svg"
-                    alt=""
-                  />
-                </a>
-              </div>
+              <Share title={cause.name} slug={slug} tillNumber={cause.till_number} position="center" />
               <div className={styles.donate__body__form__successful__rate}>
                 <span>Rate this cause</span>
                 <ReactStars
@@ -368,12 +318,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
           )}
         </div>
       </div>
-      <Modal visible={modalVisible} onCancel={handleModalCancel} footer={false}>
-        <h6 className="text-center mt-5">
-          Make your donation using the USSD Code
-        </h6>
-        <h6 className="my-4 text-center">{`*777*77*${cause.till_number}#`}</h6>
-      </Modal>
     </div>
   );
 };

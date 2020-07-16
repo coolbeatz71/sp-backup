@@ -1,76 +1,25 @@
-import React, { useState } from "react";
 import Link from "next/link";
 import { useCopyToClipboard } from "react-use";
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import getPlatformUrl from "helpers/getPlatformUrl";
-import { Modal } from "antd";
+import Share from "components/common/Share";
 
 export interface SuccessProps {
   slug: string;
   summary: string;
-  till_number: number;
+  till_number: string;
 }
 
 const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
   const [state, copyToClipboard] = useCopyToClipboard();
-  const [modalVisible, setModalVisible] = useState(false);
   const URL = `${getPlatformUrl()}/causes/${slug}`;
-  const encodedURL = encodeURI(`${summary} \n\n${URL}`);
-
-  const handleModalCancel = () => {
-    setModalVisible(false);
-  };
 
   return (
     <div className="d-flex flex-center flex-column">
       <img src="/success-cause.svg" alt="cause success" />
       <div className="social__share">
         <h6 className="share__cause__tag">SHARE THE CAUSE</h6>
-        <div className="social__share__icons">
-          <a
-            rel="stylesheet"
-            onClick={() => setModalVisible(true)}
-          >
-            <img
-              className="social__share__icon mr-4"
-              src="/icons/smartphone-ussd.svg"
-              alt=""
-            />
-          </a>
-          <a
-            rel="stylesheet"
-            href={`https://www.facebook.com/sharer/sharer.php?display=page&u=${URL}&quote=${summary}`}
-            target="_blank"
-          >
-            <img
-              className="social__share__icon"
-              src="/icons/facebook-share.svg"
-              alt=""
-            />
-          </a>
-          <a
-            rel="stylesheet"
-            href={`https://api.whatsapp.com/send?text=${encodedURL}`}
-            target="_blank"
-          >
-            <img
-              className="social__share__icon mx-4"
-              src="/icons/whatsapp-share.svg"
-              alt=""
-            />
-          </a>
-          <a
-            rel="stylesheet"
-            href={`http://twitter.com/share?text=${encodedURL}`}
-            target="_blank"
-          >
-            <img
-              className="social__share__icon"
-              src="/icons/twitter-share.svg"
-              alt=""
-            />
-          </a>
-        </div>
+        <Share title={summary} tillNumber={till_number} slug={slug} position="center" label={false} />
       </div>
       <Link href="/">
         <a className="text-center my-3 back__home__link">BACK HOME</a>
@@ -89,14 +38,6 @@ const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
           />
         )}
       </div>
-      <Modal
-        visible={modalVisible}
-        onCancel={handleModalCancel}
-        footer={false}
-      >
-        <h6 className="text-center mt-5">People can donate using the USSD Code</h6>
-        <h6 className="my-4 text-center">{`*777*77*${till_number}#`}</h6>
-      </Modal>
       <style jsx>{`
         .share__cause__tag {
           color: #219bb2;

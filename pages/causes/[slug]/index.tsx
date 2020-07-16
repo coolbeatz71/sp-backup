@@ -17,6 +17,8 @@ import CauseDonors from "components/Cause/Single/Dornors";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { causeStatus } from "interfaces";
 import AccessCode from "components/Cause/Single/AccessCode";
+import Share from "components/common/Share";
+import PageHead from "components/common/PageHead";
 
 const SingleCause: React.FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
@@ -80,6 +82,7 @@ const SingleCause: React.FC<{}> = () => {
       ) : (
         fetched && (
           <div className="d-flex flex-column">
+            <PageHead data={data} />
             <div className={styles.singleCause__header}>
               <img src={data.image} alt="" />
               <div className={styles.singleCause__header__progress}>
@@ -135,7 +138,14 @@ const SingleCause: React.FC<{}> = () => {
                 </div>
                 {contactInfo()}
               </div>
-              <CauseDonors slug={slug} />
+              <div className={styles.singleCause__body__right}>
+                <CauseDonors slug={slug} />
+                <Share
+                  title={data.name}
+                  slug={slug}
+                  tillNumber={data.till_number}
+                />
+              </div>
               {contactInfo("mobile")}
             </div>
           </div>
