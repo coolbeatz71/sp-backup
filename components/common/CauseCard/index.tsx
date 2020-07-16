@@ -113,7 +113,7 @@ const CauseCard: FC<CauseCardProps> = ({
 
   return (
     <div className={styles.causeCard}>
-      <div className="cover">
+      <div className={styles.causeCard__cover}>
         <Link href="/causes/[slug]" as={`/causes/${slug}`}>
           <a>
             <img src={cover} alt="" />
@@ -139,11 +139,7 @@ const CauseCard: FC<CauseCardProps> = ({
               </a>
             </Link>
           </div>
-          <p>
-            {truncate(description, {
-              length: 105,
-            })}
-          </p>
+          <p>{description}</p>
         </div>
         <div className={styles.causeCard__body__progress}>
           <div className={styles.causeCard__body__progress__raised}>

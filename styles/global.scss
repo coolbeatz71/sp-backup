@@ -150,7 +150,11 @@ a:hover {
 
 //rating component
 .dv-star-rating {
-  top: -3px;
+  top: -4px;
+
+  @include mediaLg {
+    top: -2px;
+  }
 }
 
 .donate_donate__33jso {
@@ -489,17 +493,17 @@ textarea.ant-input {
   }
 }
 
-.access-code-modal{
-  &__form{
+.access-code-modal {
+  &__form {
     justify-content: center;
-    &__input{
+    &__input {
       text-align: center;
       width: 50px;
       margin: 0 0.6rem;
-      &:hover{
-        border: 1px solid #d9d9d9
+      &:hover {
+        border: 1px solid #d9d9d9;
       }
-      &:focus{
+      &:focus {
         border: 1px solid $color-primary !important;
       }
     }
