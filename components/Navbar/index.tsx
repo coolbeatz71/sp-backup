@@ -10,7 +10,12 @@ import { useMedia } from "react-use";
 import logout from "redux/actions/Auth/logout";
 import capitalize from "helpers/capitalize";
 import abName from "helpers/abName";
-import { USER_CAUSES_PATH, ALL_CAUSES_PATH, PRICING_PATH } from "helpers/paths";
+import {
+  USER_CAUSES_PATH,
+  ALL_CAUSES_PATH,
+  PRICING_PATH,
+  POLICIES_PATH,
+} from "helpers/paths";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import { Icategories } from "interfaces/categories";
 import SearchInput from "../common/SearchInput/";
@@ -32,6 +37,10 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
 
   const updateNavbarTheme = () => {
     if (!isMobile && window.scrollY > 500) setLightNavbar(true);
+    else if (page === POLICIES_PATH && !isMobile && window.scrollY > 350)
+      setLightNavbar(true);
+    else if (page === POLICIES_PATH && isMobile && window.scrollY > 250)
+      setLightNavbar(true);
     else if (isMobile && window.scrollY > 320) setLightNavbar(true);
     else setLightNavbar(isLight);
   };

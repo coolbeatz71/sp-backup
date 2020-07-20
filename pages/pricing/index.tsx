@@ -40,7 +40,7 @@ const pricingPlan = [
   },
 ];
 
-const PricingPage = () => {
+const PricingPage: React.SFC<{}> = () => {
   return (
     <div title="Pricing | Save Plus">
       <div className={styles.pricing__overlay} />
