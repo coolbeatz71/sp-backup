@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./footer.module.scss";
 import isFooterNonApplicable from "helpers/isFooterNonApplicable";
+import { POLICIES_PATH } from "helpers/paths";
 
 const Footer: React.FC<{}> = () => {
   const { pathname } = useRouter();
@@ -21,7 +22,7 @@ const Footer: React.FC<{}> = () => {
           <Link href="#">
             <a>User Agreement</a>
           </Link>
-          <Link href="#">
+          <Link href={POLICIES_PATH}>
             <a>Privacy Policy</a>
           </Link>
         </div>
