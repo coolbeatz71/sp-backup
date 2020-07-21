@@ -129,7 +129,7 @@ a:hover {
 
 .btn-secondary {
   color: $color-primary;
-  background: rgba(33, 155, 178, 0.3);
+  background: #b2e1e9;
   border-radius: 3px;
 }
 
@@ -371,12 +371,22 @@ textarea.ant-input {
 
 .ant-switch-checked {
   background-color: $color-primary;
+
+  .ant-switch-handle {
+    left: 20px;
+  }
 }
 
 .ant-switch {
   margin-top: -0.5rem;
   width: 43.88px;
-  height: 27px;
+  height: 26px;
+
+  .ant-switch-handle::before {
+    width: 22px;
+    height: 22px;
+    border-radius: 40px;
+  }
 }
 
 .ant-switch-loading-icon,
