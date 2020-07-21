@@ -280,6 +280,10 @@ textarea.ant-input {
   }
 }
 
+.ant-input-affix-wrapper > input.ant-input {
+  padding-left: 7px;
+}
+
 .ant-input:focus,
 .ant-input-affix-wrapper-focused {
   border-color: #d9d9d9 !important;

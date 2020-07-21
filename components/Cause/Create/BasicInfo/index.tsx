@@ -37,7 +37,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Cause Name" />
+        <Input placeholder="Cause Name" maxLength={70} hasWordCount />
       </Form.Item>
       <Form.Item
         name="category_id"

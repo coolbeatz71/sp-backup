@@ -10,6 +10,7 @@ export interface IformState {
 }
 
 export const formStateDefaultValue = {
+  name: "",
   payment_account_name: "",
   payment_account_number: "",
   summary: "",

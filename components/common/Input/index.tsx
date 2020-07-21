@@ -8,6 +8,7 @@ const { Password, TextArea: SemanticTextArea } = SemanticInput;
 export interface InputInterface {
   canHaveError?: boolean;
   ref?: any;
+  hasWordCount?: boolean;
 }
 
 const Input: React.FC<InputInterface & InputProps> = (props) => {
@@ -46,6 +47,11 @@ const Input: React.FC<InputInterface & InputProps> = (props) => {
       >
         {props.placeholder}
       </label>
+      {props.hasWordCount && (
+        <span className={`${styles.input__wordsCount}`}>
+          {`${(props.maxLength || 0) - `${props.value}`.length} Words`}
+        </span>
+      )}
     </div>
   );
 };
@@ -125,7 +131,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
       >
         {placeholder}
       </label>
-      <span className={`${styles.input__wordsCount}`}>
+      <span className={`${styles.input__textareaWordsCount}`}>
         {`${(props.maxLength || 0) - `${props.value}`.length} Words`}
       </span>
     </div>
