@@ -14,10 +14,12 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import Mission from "components/common/Mission";
 import { SIGNUP_PATH, ALL_CAUSES_PATH } from "helpers/paths";
+import { useMedia } from "react-use";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   const { push, pathname } = useRouter();
+  const isMobile = useMedia("(max-width: 768px)");
 
   const goToRegister = () => {
     push(SIGNUP_PATH);
@@ -49,7 +51,7 @@ const IndexPage = () => {
       <div className="index-container">
         <div className="index__intro">
           <div className="index__intro--info">
-            <h1>Put a Smile on <br /> Someone's Face</h1>
+            <h1>Put a Smile on {!isMobile && <br />} Someone's Face</h1>
             <Button
               size="large"
               className="btn-primary index__intro--button"

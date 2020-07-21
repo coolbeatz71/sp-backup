@@ -29,7 +29,9 @@ const StopCause: FC<IStopCauseProps> = ({
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading } = useSelector(({ cause: { stop } }: IRootState) => stop);
-  const { loading: LoadingCancel } = useSelector(({ cause: { cancel } }: IRootState) => cancel);
+  const { loading: LoadingCancel } = useSelector(
+    ({ cause: { cancel } }: IRootState) => cancel,
+  );
 
   const handleSubmit = (data: Store) => {
     switch (context) {
@@ -57,7 +59,7 @@ const StopCause: FC<IStopCauseProps> = ({
         return {
           title: "Cancel a Cause",
           subTitle:
-            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to you at the end date you already choose. To Continue Enter Your PIN.",
+            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donours at the end date you already choose. To Continue Enter Your PIN.",
           successMessage: "Cause cancelled",
         };
       default:
@@ -87,7 +89,9 @@ const StopCause: FC<IStopCauseProps> = ({
 
       <div className={styles.stop__modalContent}>
         <h4>
-          {actionSuccessful ? getModalContent()?.successMessage : getModalContent()?.title}
+          {actionSuccessful
+            ? getModalContent()?.successMessage
+            : getModalContent()?.title}
         </h4>
 
         {actionSuccessful ? (
@@ -124,10 +128,7 @@ const StopCause: FC<IStopCauseProps> = ({
                 validateTrigger={["onSubmit", "onBlur"]}
                 name="password"
               >
-                <InputPassword
-                  maxLength={5}
-                  placeholder="PIN"
-                />
+                <InputPassword maxLength={5} placeholder="PIN" />
               </Form.Item>
               <div className="d-flex mb-3">
                 <Button
