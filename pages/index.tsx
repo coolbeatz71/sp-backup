@@ -45,7 +45,7 @@ const IndexPage = () => {
   };
 
   return (
-    <div title="Save Plus" className="index-page">
+    <div className="index-page">
       <div className="index-container">
         <div className="index__intro">
           <div className="index__intro--info">

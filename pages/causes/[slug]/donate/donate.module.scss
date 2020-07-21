@@ -2,7 +2,7 @@
 @import "styles/variables";
 
 .donate {
-  background: $color-primary-light;
+  background: url("/background.svg");
   min-height: calc(100vh - 300px);
   padding-bottom: 2rem;
   display: flex;

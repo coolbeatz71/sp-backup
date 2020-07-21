@@ -11,7 +11,7 @@
     margin: 7px 11px;
     padding: 0 6px;
     color: #444;
-    background: transparent;
+    background: #fff;
     backdrop-filter: blur(50px);
     transition: all 200ms;
     opacity: 0.35;
@@ -28,6 +28,15 @@
   }
 
   &__wordsCount {
+    display: block;
+    text-align: right;
+    margin-bottom: -0.5rem;
+    margin-top: 5px;
+    color: #8c8d8f;
+    position: relative;
+    font-size: 13px;
+  }
+  &__textareaWordsCount {
     display: block;
     text-align: right;
     margin-bottom: -1rem;

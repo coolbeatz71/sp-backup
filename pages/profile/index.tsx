@@ -136,7 +136,7 @@ const Profile: React.FC<ProfileProps> = () => {
               beforeUpload={handleSubmitAvatar}
             >
               <div className={styles.profile__body__form__avatar}>
-                {loading && <Spin indicator={antIcon} />}
+                {loading && <Spin indicator={antIcon} className="mr-3" />}
                 {data.avatar ? (
                   <img src={data.avatar} alt="avatar" />
                 ) : (
@@ -204,13 +204,6 @@ const Profile: React.FC<ProfileProps> = () => {
                 </Col>
               </Row>
               <Form.Item
-                name="email"
-                validateTrigger={["onSubmit", "onBlur"]}
-                rules={[{ min: 2, type: "email" }]}
-              >
-                <Input placeholder="Email (Optional)" />
-              </Form.Item>
-              <Form.Item
                 className="form-group phone-code"
                 validateTrigger={["onSubmit", "onBlur"]}
                 rules={[{ len: 9, required: true }]}
@@ -229,6 +222,13 @@ const Profile: React.FC<ProfileProps> = () => {
                 validateTrigger={["onSubmit", "onBlur"]}
               >
                 <Input placeholder="National ID or Passport Number" />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                validateTrigger={["onSubmit", "onBlur"]}
+                rules={[{ min: 2, type: "email" }]}
+              >
+                <Input placeholder="Email (Optional)" />
               </Form.Item>
               <Button
                 className="btn-primary"
