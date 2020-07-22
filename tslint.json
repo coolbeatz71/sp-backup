@@ -18,14 +18,7 @@
     "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [
-      true, 
-      "debug",
-       "info", 
-       "time", 
-       "timeEnd",
-        "trace"
-      ],
+    "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-construct": true,
     "no-constructor-vars": false,
     "no-debugger": true,
@@ -52,6 +45,15 @@
       "check-else",
       "check-whitespace"
     ],
+    "trailing-comma": [true, {
+      "singleline": "never",
+      "multiline": {
+        "objects": "always",
+        "arrays": "never",
+        "functions": "never",
+        "typeLiterals": "ignore"
+      }
+    }],
     "quotemark": [true, "double", "jsx-double"],
     "radix": true,
     "semicolon": [true, "always"],

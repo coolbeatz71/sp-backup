@@ -1,3 +1,5 @@
+import { authContextType } from "interfaces/authContext";
+
 export interface IauthCurrentUser {
   first_name: string;
   last_name: string;
@@ -14,7 +16,7 @@ export const authCurrentUserDefault = {
   email: "",
 };
 
-export default {
+export const auth: Iauth =  {
   signup: {
     message: {},
     error: {},
@@ -34,6 +36,10 @@ export default {
     message: {},
     error: {},
     loading: false,
+  },
+  showAuthDialog: {
+    state: false,
+    context: "login",
   },
 };
 
@@ -57,5 +63,9 @@ export interface Iauth {
     currentUser: IauthCurrentUser;
     error: any;
     loading: boolean;
+  };
+  showAuthDialog: {
+    state: boolean,
+    context: authContextType,
   };
 }

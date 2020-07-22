@@ -5,9 +5,9 @@ import {
   PIN_RESET_UPDATE_SUCCESS,
 } from "redux/action-types/pin/reset-update";
 import notification from "utils/notification";
-import { LOGIN_PATH } from "./../../../helpers/paths";
+import { changeAuthContext } from "../Auth/showAuthDialog";
 
-export default (data: {}) => (replace: any, dispatch: any) => {
+export default (data: {}) => (dispatch: any) => {
   dispatch({
     type: PIN_RESET_UPDATE_START,
   });
@@ -21,7 +21,7 @@ export default (data: {}) => (replace: any, dispatch: any) => {
         type: PIN_RESET_UPDATE_SUCCESS,
       });
       notification("PIN updated, you can now use it to login");
-      replace(LOGIN_PATH);
+      changeAuthContext("login")(dispatch);
     })
     .catch((error) => {
       dispatch({

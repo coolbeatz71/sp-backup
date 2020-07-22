@@ -33,7 +33,7 @@ export default (
       return {
         ...state,
         reset: {
-          message: payload,
+          data: payload,
           loading: false,
           error: {},
         },

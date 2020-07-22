@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Link from "next/link";
 import styles from "./authForm.module.scss";
 import { Form, Button, Typography, Divider, Row, Col } from "antd";
@@ -9,25 +9,22 @@ import {
   authCurrentUserDefault,
 } from "redux/initialStates/auth";
 import phoneFormatter from "helpers/phoneNumberFormatter";
-import { PIN_RESET_PATH } from "helpers/paths";
+import { authContextType } from "interfaces/authContext";
+import { changeAuthContext } from "redux/actions/Auth/showAuthDialog";
+import { useDispatch } from "react-redux";
 
 const { Text } = Typography;
 
 export interface AuthFormProps {
-  context:
-    | "signup"
-    | "login"
-    | "verify-phone"
-    | "pin-reset"
-    | "pin-reset-update";
+  context: authContextType;
   formState: { error?: string; loading?: boolean; data?: IauthCurrentUser };
   handleSubmit: (form: {}) => void;
 }
 
 type IformAction = {
   suggestionMessage: string;
-  suggestionActionText: string;
-  suggestionActionUrl: string;
+  suggestionActionText: string | ReactElement;
+  handleSuggestionAction?: () => void;
   text: string;
 };
 
@@ -37,16 +34,16 @@ const AuthForm: React.FC<AuthFormProps> = ({
   formState: { error, loading, data = authCurrentUserDefault },
 }) => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const formattedData = {
     ...data,
     phone_number: phoneFormatter(data.phone_number),
   };
 
-  const formAction = (context?: string): IformAction => {
+  const formAction = (context?: authContextType): IformAction => {
     let formAction: IformAction = {
       suggestionMessage: "",
       suggestionActionText: "",
-      suggestionActionUrl: "",
       text: "",
     };
     switch (context) {
@@ -54,32 +51,31 @@ const AuthForm: React.FC<AuthFormProps> = ({
         formAction = {
           suggestionMessage: "Validation Code Expires in: ",
           suggestionActionText: "60 Secs",
-          suggestionActionUrl: "",
           text: "SUBMIT",
         };
         break;
       case "signup":
         formAction = {
-          suggestionMessage: "Got an account ",
-          suggestionActionText: "SIGN IN",
-          suggestionActionUrl: "/login",
+          suggestionMessage: "Got an account? SIGN IN with ",
+          suggestionActionText: <img src="/save-sm-logo.svg" alt="save logo" />,
+          handleSuggestionAction: () => changeAuthContext("login")(dispatch),
           text: "CREATE ACCOUNT",
         };
         break;
       case "login":
         formAction = {
-          suggestionMessage: "New User ",
-          suggestionActionText: "Create Account",
-          suggestionActionUrl: "signup",
+          suggestionMessage: "Don’t have an Account? ",
+          suggestionActionText: "Create",
+          handleSuggestionAction: () => changeAuthContext("signup")(dispatch),
           text: "SIGN IN",
         };
         break;
       case "pin-reset":
       case "pin-reset-update":
         formAction = {
-          suggestionMessage: "Remember PIN: ",
-          suggestionActionText: "SIGN IN",
-          suggestionActionUrl: "/login",
+          suggestionMessage: "Remeber PIN? SIGN IN with ",
+          suggestionActionText: <img src="/save-sm-logo.svg" alt="save logo" />,
+          handleSuggestionAction: () => changeAuthContext("login")(dispatch),
           text: "RESET PIN",
         };
         break;
@@ -272,21 +268,44 @@ const AuthForm: React.FC<AuthFormProps> = ({
             >
               <InputPassword maxLength={5} placeholder="PIN" />
             </Form.Item>
-            <Link href={PIN_RESET_PATH}>
-              <a className={styles.authForm__forgotPin}>Forgot PIN</a>
-            </Link>
           </>
         )}
-        <div className={styles.authForm__actions}>
+        <Button
+          className={`btn-primary ${styles.authForm__submit}`}
+          loading={loading}
+          htmlType="submit"
+          block
+        >
+          {formAction(context).text}
+        </Button>
+        <Divider orientation="center" plain>
+          OR
+        </Divider>
+        <div
+          className={`${styles.authForm__actions} ${
+            context === "login"
+              ? "justify-content-between"
+              : ""
+          }`}
+        >
+          {context === "login" && (
+            <Link href="">
+              <a
+                onClick={() => changeAuthContext("pin-reset")(dispatch)}
+                className={styles.authForm__forgotPin}
+              >
+                Forgot PIN
+              </a>
+            </Link>
+          )}
           <div className={styles.authForm__actions__signin}>
             <span>{formAction(context).suggestionMessage}</span>
-            <Link href={formAction(context).suggestionActionUrl}>
-              {formAction(context).suggestionActionText}
+            <Link href="">
+              <a onClick={formAction(context).handleSuggestionAction}>
+                {formAction(context).suggestionActionText}
+              </a>
             </Link>
           </div>
-          <Button className="btn-primary" loading={loading} htmlType="submit">
-            {formAction(context).text}
-          </Button>
         </div>
       </Form>
       <style jsx={true}>{`

@@ -21,6 +21,8 @@ import { Icategories } from "interfaces/categories";
 import SearchInput from "../common/SearchInput/";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ColorHash from "color-hash";
+import AuthModalContainer from "components/Auth/ModalContainer";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 const color = new ColorHash();
 export interface NavbarProps {
@@ -73,7 +75,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
   const { categories, hide: isCategoryBarHidden } = useSelector(
-    ({ categories }: IRootState) => categories,
+    ({ categories }: IRootState) => categories
   );
 
   const { keyword } = useSelector(({ search }: IRootState) => search);
@@ -213,7 +215,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       </Link>
       {!isLoggedin ? (
         <>
-          <Link href="/login">
             <Button
               className={
                 !isMobile && !isLightNavbar
@@ -222,21 +223,20 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
               }
               onClick={() => {
                 if (menuMobileVisible) toggleMenuMobile();
+                showAuthDialog(true)(dispatch);
               }}
             >
               SIGN IN
             </Button>
-          </Link>
-          <Link href="/signup">
             <Button
               className="btn-primary"
               onClick={() => {
                 if (menuMobileVisible) toggleMenuMobile();
+                showAuthDialog(true, "signup")(dispatch);
               }}
             >
               SIGN UP
             </Button>
-          </Link>
         </>
       ) : (
         <Dropdown
@@ -311,6 +311,7 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       />
 
       <nav className="menu d-md-block d-none">{navItems()}</nav>
+      <AuthModalContainer />
     </div>
   );
 };

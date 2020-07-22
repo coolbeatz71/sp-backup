@@ -5,8 +5,9 @@ import {
   LOGIN_SUCCESS,
 } from "redux/action-types/Auth/login";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
+import showAuthDialog from "./showAuthDialog";
 
-export default (data: {}) => (push: any, dispatch: any) => {
+export default (data: {}) => (dispatch: any) => {
   dispatch({
     type: LOGIN_START,
   });
@@ -28,7 +29,7 @@ export default (data: {}) => (push: any, dispatch: any) => {
         payload,
         type: SET_CURRENT_USER_SUCCESS,
       });
-      push("/");
+      showAuthDialog(false)(dispatch);
     })
     .catch((error) => {
       console.log("here", error);

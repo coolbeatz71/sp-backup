@@ -7,14 +7,14 @@ import CauseCard from "components/common/CauseCard";
 import SectionTitle from "components/common/SectionTitle";
 import HowItWorks from "components/HowItWorks";
 import Spinner from "components/Spinner";
-
 import { getFeed } from "redux/actions/cause/getFeed";
 import { IRootState } from "redux/initialStates";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import Mission from "components/common/Mission";
-import { SIGNUP_PATH, ALL_CAUSES_PATH } from "helpers/paths";
 import { useMedia } from "react-use";
+import { ALL_CAUSES_PATH } from "helpers/paths";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const IndexPage = () => {
   const isMobile = useMedia("(max-width: 768px)");
 
   const goToRegister = () => {
-    push(SIGNUP_PATH);
+    showAuthDialog(true, "signup")(dispatch);
   };
 
   const goToAllCauses = () => {
