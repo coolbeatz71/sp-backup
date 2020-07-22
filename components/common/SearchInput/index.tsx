@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { isEmpty } from "lodash";
 import { Input } from "../Input";
-import { PRIMARY_LIGHT } from "constants/colors";
+import styles from "./searchinput.module.scss";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { getKeyword } from "../../../redux/actions/search/getKeyword";
@@ -44,10 +44,10 @@ const SearchInput: FC<SearchInputProps> = ({ page, defaultValue }) => {
   return (
     <Input
       placeholder="Search"
+      className={styles.searchinput}
       defaultValue={defaultValue}
       onChange={(e) => setSearchKeyword(e.target.value)}
       onKeyPress={(e) => onSearchKeyPress(e)}
-      style={{ backgroundColor: PRIMARY_LIGHT }}
     />
   );
 };
