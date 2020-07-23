@@ -22,7 +22,7 @@ const splApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SPL_API_URL,
   headers: {
     Authorization: token,
-    platform: "save-plus-web",
+    platform: "save_plus_web",
   },
 });
 
@@ -32,7 +32,7 @@ export const saveApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SAVE_API_URL,
   headers: {
     Authorization: token,
-    platform: "save-plus-web",
+    platform: "save_plus_web",
   },
 });
 
