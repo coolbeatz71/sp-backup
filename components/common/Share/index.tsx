@@ -9,16 +9,31 @@ export interface ShareProps {
   tillNumber: string;
   position?: "center";
   label?: boolean;
+  hideSharePopover?: () => void;
 }
 
-const Share: React.FC<ShareProps> = ({ title, slug, tillNumber, position, label = true }) => {
+const Share: React.FC<ShareProps> = ({
+  title,
+  slug,
+  tillNumber,
+  position,
+  label = true,
+  hideSharePopover = () => null,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   const encodedURL = encodeURI(`${title} \n\n${URL}`);
+
   return (
     <div className={`${styles.share} share`}>
       {label && <span>Share</span>}
-      <a rel="stylesheet" onClick={() => setModalVisible(true)}>
+      <a
+        rel="stylesheet"
+        onClick={() => {
+          hideSharePopover();
+          setModalVisible(true);
+        }}
+      >
         <img
           className="social__share__icon"
           src="/icons/smartphone-ussd.svg"
@@ -29,6 +44,7 @@ const Share: React.FC<ShareProps> = ({ title, slug, tillNumber, position, label 
         rel="stylesheet"
         href={`https://www.facebook.com/sharer/sharer.php?display=page&u=${URL}&quote=${title}`}
         target="_blank"
+        onClick={() => hideSharePopover()}
       >
         <img
           className="social__share__icon"
@@ -40,6 +56,7 @@ const Share: React.FC<ShareProps> = ({ title, slug, tillNumber, position, label 
         rel="stylesheet"
         href={`https://api.whatsapp.com/send?text=${encodedURL}`}
         target="_blank"
+        onClick={() => hideSharePopover()}
       >
         <img
           className="social__share__icon"
@@ -51,6 +68,7 @@ const Share: React.FC<ShareProps> = ({ title, slug, tillNumber, position, label 
         rel="stylesheet"
         href={`http://twitter.com/share?text=${encodedURL}`}
         target="_blank"
+        onClick={() => hideSharePopover()}
       >
         <img
           className="social__share__icon"
@@ -58,18 +76,21 @@ const Share: React.FC<ShareProps> = ({ title, slug, tillNumber, position, label 
           alt=""
         />
       </a>
-      <Modal visible={modalVisible} onCancel={() => setModalVisible(false)} footer={false}>
+      <Modal
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={false}
+      >
         <h6 className="text-center mt-5">
           Make your donation using the USSD Code
         </h6>
         <h6 className="my-4 text-center">{`*777*77*${tillNumber}#`}</h6>
       </Modal>
       <style jsx>{`
-        .share{
+        .share {
           justify-content: ${position === "center" && "center"};
         }
-      `}
-      </style>
+      `}</style>
     </div>
   );
 };

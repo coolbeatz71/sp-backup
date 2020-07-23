@@ -94,6 +94,7 @@ const IndexPage = () => {
                       pathName={pathname}
                       slug={cause.slug}
                       title={cause.name}
+                      tillNumber={cause.till_number}
                       description={cause.summary}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
@@ -119,6 +120,7 @@ const IndexPage = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}
@@ -162,6 +164,7 @@ const IndexPage = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}
@@ -186,6 +189,7 @@ const IndexPage = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}
@@ -230,6 +234,7 @@ const IndexPage = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}
@@ -254,6 +259,7 @@ const IndexPage = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}

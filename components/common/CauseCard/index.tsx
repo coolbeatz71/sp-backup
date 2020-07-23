@@ -37,6 +37,7 @@ export interface CauseCardProps {
   owner: { avatar?: string; name?: string; verified?: boolean };
   cover: string;
   title: string;
+  tillNumber: string;
   description: string;
   amountRaised: number | string;
   amountToReach: number | string;
@@ -85,6 +86,7 @@ const CauseCard: FC<CauseCardProps> = ({
   owner: { avatar, name, verified },
   cover,
   title,
+  tillNumber,
   description,
   amountRaised,
   amountToReach,
@@ -165,7 +167,12 @@ const CauseCard: FC<CauseCardProps> = ({
           </div>
         </div>
         {(pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) && (
-          <ExtraInfo rating={rating} />
+          <ExtraInfo
+            slug={slug}
+            title={title}
+            rating={rating}
+            tillNumber={tillNumber}
+          />
         )}
       </div>
       {renderFooter(status, pathName, slug)}

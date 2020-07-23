@@ -355,6 +355,10 @@
           font-size: 18px;
           padding: 1.2rem;
           font-weight: 500;
+
+          &:hover {
+            border-color: #fff;
+          }
         }
 
         @include mediaMd {

@@ -95,6 +95,7 @@ const AllCauses: React.SFC<{}> = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}
@@ -119,6 +120,7 @@ const AllCauses: React.SFC<{}> = () => {
                       slug={cause.slug}
                       title={cause.name}
                       description={cause.summary}
+                      tillNumber={cause.till_number}
                       cover={cause.image}
                       owner={getOwnerInfo(cause.user_names, cause.verified)}
                       amountRaised={cause.raised_amount}

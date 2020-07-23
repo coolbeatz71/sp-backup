@@ -1,8 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+
 import ReactStars from "react-star-rating-component";
 import styles from "../causeCard.module.scss";
+import SocialSharePopover from "../SharePopover";
 
-const ExtraInfo: FC<{ rating: number }> = ({ rating }) => {
+export interface ExtraInfoProps {
+  rating: number;
+  title: string;
+  slug: string;
+  tillNumber: string;
+}
+
+const ExtraInfo: FC<ExtraInfoProps> = ({ slug, title, tillNumber, rating }) => {
+  const [openSharePopover, setOpenSharePopover] = useState(false);
+
   return (
     <div className={styles.causeCard__body__extra}>
       <div className={styles.causeCard__body__extra__ratings}>
@@ -16,12 +27,23 @@ const ExtraInfo: FC<{ rating: number }> = ({ rating }) => {
           emptyStarColor="#ddd"
         />
       </div>
-      <div className={styles.causeCard__body__extra__share}>
-        <span className={styles.causeCard__share__text}>share</span>
-        <span className={styles.causeCard__share}>
-          <img src="/icons/share-icon.svg" alt="" />
-        </span>
-      </div>
+      <SocialSharePopover
+        slug={slug}
+        title={title}
+        tillNumber={tillNumber}
+        visible={openSharePopover}
+        hideSharePopover={() => setOpenSharePopover(false)}
+        handleVisibleChange={(openSharePopover) =>
+          setOpenSharePopover(openSharePopover)
+        }
+      >
+        <div className={styles.causeCard__body__extra__share}>
+          <span className={styles.causeCard__share__text}>share</span>
+          <span className={styles.causeCard__share}>
+            <img src="/icons/share-icon.svg" alt="" />
+          </span>
+        </div>
+      </SocialSharePopover>
     </div>
   );
 };
