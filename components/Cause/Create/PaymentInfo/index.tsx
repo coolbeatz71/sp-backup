@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Select, Switch } from "antd";
 import { Input } from "components/common/Input";
 import { mobileMoney } from "constants/paymentMethods";
+import { IUnknownObject } from "interfaces/unknownObject";
 
 export interface PaymentInfoProps {}
 
 const PaymentInfo: React.FC<PaymentInfoProps> = () => {
   const [isPrivate, setPrivate] = useState<boolean>(false);
-  const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const handleAccess = (isChecked: boolean) => setPrivate(isChecked);
+  const selectRef = useRef<IUnknownObject>({ props: {} });
+  const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const handleSelect = (option: any) => setSelectedTelco(option);
   const phoneNumberValidation: {
     [key: string]: { regex: RegExp; message: string };
@@ -27,6 +29,11 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
     },
   };
 
+  useEffect(() => {
+    if (selectRef.current.props.value)
+      setSelectedTelco(selectRef.current.props.value);
+  }, [selectRef.current.props.value]);
+
   return (
     <div>
       <Form.Item
@@ -34,7 +41,12 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur", "onChange"]}
         rules={[{ required: true }]}
       >
-        <Select placeholder="Select Payment Method" onSelect={handleSelect}>
+        <Select
+          // @ts-ignore
+          ref={selectRef}
+          placeholder="Select Payment Method"
+          onSelect={handleSelect}
+        >
           {mobileMoney.map(({ name, text }) => (
             <Select.Option key={name} value={name}>
               {text}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./createCause.module.scss";
-import { Button, Typography, Form } from "antd";
+import { Button, Typography, Form, Spin } from "antd";
 import BasicInfoForm from "components/Cause/Create/BasicInfo";
 import MedicalInfoForm from "components/Cause/Create/MedicalInfo";
 import DetailedInfoForm from "components/Cause/Create/DetailedInfo";
@@ -18,6 +18,7 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import editCause from "redux/actions/cause/edit";
 import { useRouter } from "next/router";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
+import getTelco from "helpers/getTelco";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -66,6 +67,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   };
 
   const [form] = Form.useForm();
+  const {
+    data: { phone_number },
+  } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const [currentStep, setCurrentStep] = useState(0);
   const [formState, setFormState] = useState(
     editFormState || formStateDefaultValue
@@ -73,6 +77,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
   const [successStep, setSuccessStep] = useState<boolean>(false);
+  const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
 
   const stepsCount = steps.length - 1;
 
@@ -101,6 +106,17 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (phone_number && !formState.payment_account_numbe) {
+      setFormState({
+        ...formStateDefaultValue,
+        payment_method: getTelco(phone_number),
+        payment_account_number: phoneFormatter(phone_number),
+      });
+      setFormDataReadiness(true);
+    }
+  }, [phone_number]);
+
   const formatFlatObject = (data: { [key: string]: any }) => {
     forEach(data, (value, key) => {
       if (key.includes("phone") || key.includes("account_number")) {
@@ -122,7 +138,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount),
+          serializeFormattedNumber(data.target_amount)
         );
         return;
       }
@@ -258,40 +274,50 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
               </div>
             </div>
             <div className={styles.createCause__content__form}>
-              <Form
-                form={form}
-                initialValues={formState}
-                validateMessages={validateMessages}
-                onValuesChange={handleValueChange}
-                onFinish={handleSubmit}
-              >
-                <Text type="danger" className="mb-3 d-block">
-                  {error || errorEdit}
-                </Text>
-                {steps[currentStep].content}
-                <div className={styles.createCause__content__actions}>
-                  {currentStep > 0 && (
-                    <Button className="btn-primary mr-2" onClick={prev}>
-                      PREVIOUS
+              {isFormDataReady ? (
+                <Form
+                  form={form}
+                  initialValues={formState}
+                  validateMessages={validateMessages}
+                  onValuesChange={handleValueChange}
+                  onFinish={handleSubmit}
+                >
+                  <Text type="danger" className="mb-3 d-block">
+                    {error || errorEdit}
+                  </Text>
+                  {steps[currentStep].content}
+                  <div className={styles.createCause__content__actions}>
+                    {currentStep > 0 && (
+                      <Button className="btn-primary mr-2" onClick={prev}>
+                        PREVIOUS
+                      </Button>
+                    )}
+                    <Button
+                      loading={loading || loadingEdit}
+                      className="btn-primary"
+                      htmlType="submit"
+                    >
+                      {currentStep !== stepsCount
+                        ? "CONTINUE"
+                        : editing
+                        ? "EDIT CAUSE"
+                        : "CREATE A CAUSE"}
                     </Button>
-                  )}
-                  <Button
-                    loading={loading || loadingEdit}
-                    className="btn-primary"
-                    htmlType="submit"
-                  >
-                    {currentStep !== stepsCount
-                      ? "CONTINUE"
-                      : editing
-                      ? "EDIT CAUSE"
-                      : "CREATE A CAUSE"}
-                  </Button>
+                  </div>
+                </Form>
+              ) : (
+                <div className="text-center">
+                  <Spin />
                 </div>
-              </Form>
+              )}
             </div>
           </>
         ) : (
-          <Success till_number={data.till_number} slug={data.slug} summary={data.name} />
+          <Success
+            till_number={data.till_number}
+            slug={data.slug}
+            summary={data.name}
+          />
         )}
       </div>
     </div>
