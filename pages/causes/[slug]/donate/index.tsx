@@ -29,6 +29,7 @@ import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
 import Share from "components/common/Share";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 export interface DonateCauseProps {}
 
@@ -106,10 +107,9 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
 
   const handleRating = (nextValue: number) => {
     setRating(nextValue);
-    if (!isLoggedin) return router.push("/login");
+    if (!isLoggedin) return showAuthDialog(true)(dispatch);
     rateCause(slug, { rating: nextValue });
   };
-
 
   return (
     <div className={styles.donate}>

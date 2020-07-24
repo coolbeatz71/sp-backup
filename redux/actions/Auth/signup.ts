@@ -11,8 +11,9 @@ import {
   SET_CURRENT_USER_SUCCESS,
 } from "redux/action-types/user/currentUser";
 import lodash from "lodash";
+import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
 
-export default (data: {}) => (push: any, dispatch: any) => {
+export default (data: {}) => (dispatch: any) => {
   dispatch({
     type: SIGNUP_START,
   });
@@ -32,7 +33,7 @@ export default (data: {}) => (push: any, dispatch: any) => {
         payload,
         type: SET_CURRENT_USER_SUCCESS,
       });
-      push("/");
+      showAuthDialog(false)(dispatch);
     })
     .catch((error) => {
       console.log("here", error);
@@ -44,7 +45,6 @@ export default (data: {}) => (push: any, dispatch: any) => {
 };
 
 export const sendVerificationCode = (data: {}) => (
-  push: any,
   dispatch: any
 ) => {
   dispatch({
@@ -54,7 +54,7 @@ export const sendVerificationCode = (data: {}) => (
   saveApi
     .post("/auth/signup/send_short_code", lodash.pick(data, "phone_number"))
     .then(() => {
-      push("/signup/verify-phone");
+      changeAuthContext("verify-phone")(dispatch);
       dispatch({
         type: SEND_CONFIRMATION_CODE_SUCCESS,
         payload: data,

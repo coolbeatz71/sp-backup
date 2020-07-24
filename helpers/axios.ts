@@ -9,7 +9,7 @@ const errorHandler = (error: any) => {
     console.log("here error", error.response.status);
     if (process.browser) {
       localStorage.removeItem("save-token");
-      window.location.href = "/login";
+      window.location.href = "/";
     }
   }
   const errorResponse: any = error.response

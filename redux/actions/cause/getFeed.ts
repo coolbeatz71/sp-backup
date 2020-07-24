@@ -13,7 +13,7 @@ export const getFeed = () => (dispatch: any) => {
     .get("/causes/feed")
     .then((response: any) => {
       dispatch({
-        payload: response,
+        payload: response.data,
         type: GET_FEED_SUCCESS,
       });
     })

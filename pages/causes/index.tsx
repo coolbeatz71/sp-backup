@@ -13,19 +13,19 @@ import { toggleCategoryBar } from "./../../redux/actions/categories/hide";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
-import { SIGNUP_PATH } from "helpers/paths";
 import { isEmpty } from "lodash";
 import { ALL_CAUSES_PATH } from "../../helpers/paths";
 import { useMedia } from "react-use";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
-  const { push, pathname, asPath } = useRouter();
+  const { pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
 
   const goToRegister = () => {
-    push(SIGNUP_PATH);
+    showAuthDialog(true, "signup")(dispatch);
   };
 
   const hideCategoryBar = () => {

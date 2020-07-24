@@ -1,6 +1,6 @@
 import example, { Iexample } from "./example";
 import user, { Iuser } from "./user";
-import auth, { Iauth } from "./auth";
+import { auth, Iauth } from "./auth";
 import cause, { ICause } from "./cause";
 import categories, { IAllCategories } from "./categories";
 import pin, { IPinReset } from "./pin";
