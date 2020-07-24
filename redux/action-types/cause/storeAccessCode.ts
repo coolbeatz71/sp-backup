@@ -1,0 +1,1 @@
+export const STORE_ACCESS_CODE = "STORE_ACCESS_CODE";

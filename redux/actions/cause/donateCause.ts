@@ -6,7 +6,7 @@ import {
 } from "redux/action-types/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
 
-export default (slug: string | string[], data: IUnknownObject) => (
+export default (slug: string | string[], data: IUnknownObject, params?: IUnknownObject) => (
   setDonationToSuccess: any,
   dispatch: any
 ) => {
@@ -14,7 +14,7 @@ export default (slug: string | string[], data: IUnknownObject) => (
     type: DONATE_CAUSE_START,
   });
   splApi
-    .post(`/causes/${slug}/donations`, data)
+    .post(`/causes/${slug}/donations`, data, { params })
     .then((response: any) => {
       dispatch({
         payload: response,

@@ -68,7 +68,6 @@ const SingleCause: React.FC<{}> = () => {
     </div>
   );
 
-
   return (
     <div className={styles.singleCause}>
       {loading ? (
