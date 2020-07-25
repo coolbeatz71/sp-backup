@@ -5,4 +5,6 @@ const getToken = (): string | null => {
   return null;
 };
 
+export const isLoggedIn = !!getToken();
+
 export default getToken;

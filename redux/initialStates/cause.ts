@@ -28,6 +28,7 @@ export default {
     data: {},
     loading: false,
     error: "",
+    accessCode: "",
   },
   donate: basicReduxStoreDefault,
   stop: {
@@ -59,6 +60,7 @@ export interface ICause {
     data: { [key: string]: any };
     error: any;
     loading: boolean;
+    accessCode: string;
   };
   donate: IBasicReduxStore;
   stop: IBasicReduxStore;

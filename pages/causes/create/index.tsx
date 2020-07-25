@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./createCause.module.scss";
-import { Button, Typography, Form, Spin } from "antd";
+import { Button, Typography, Form, Spin, Tag } from "antd";
 import BasicInfoForm from "components/Cause/Create/BasicInfo";
 import MedicalInfoForm from "components/Cause/Create/MedicalInfo";
 import DetailedInfoForm from "components/Cause/Create/DetailedInfo";
@@ -19,6 +19,7 @@ import editCause from "redux/actions/cause/edit";
 import { useRouter } from "next/router";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import getTelco from "helpers/getTelco";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -107,7 +108,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   }, []);
 
   useEffect(() => {
-    if (phone_number && !formState.payment_account_numbe) {
+    if (!editing && phone_number && !formState.payment_account_number) {
       setFormState({
         ...formStateDefaultValue,
         payment_method: getTelco(phone_number),
@@ -252,6 +253,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
               <div className={styles.createCause__content__header__title}>
                 <Title level={4}>{steps[currentStep].title}</Title>
                 <p>{steps[currentStep].subTitle}</p>
+                {editing && (
+                  <Tag className="mb-2 edit-warning" icon={<ExclamationCircleOutlined />} color="warning">
+                    You can edit this cause only once
+                  </Tag>
+                )}
               </div>
               <div className={styles.createCause__content__header__steps}>
                 {steps.map((step, index) => (
@@ -274,7 +280,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
               </div>
             </div>
             <div className={styles.createCause__content__form}>
-              {isFormDataReady ? (
+              {isFormDataReady || editing ? (
                 <Form
                   form={form}
                   initialValues={formState}

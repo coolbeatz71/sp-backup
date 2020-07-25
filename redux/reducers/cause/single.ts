@@ -5,6 +5,8 @@ import {
   GET_SINGLE_CAUSE_ERROR,
 } from "redux/action-types/cause/getSingle";
 
+import { STORE_ACCESS_CODE } from "redux/action-types/cause/storeAccessCode";
+
 interface Iaction {
   type: string;
   payload: any;
@@ -38,6 +40,14 @@ export default (state: ICause, { type, payload }: Iaction) => {
           ...state.single,
           loading: false,
           error: payload,
+        },
+      };
+    case STORE_ACCESS_CODE:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          accessCode: payload,
         },
       };
     default:
