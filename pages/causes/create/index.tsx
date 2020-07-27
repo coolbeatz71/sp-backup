@@ -43,7 +43,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
     {
       title: "Basic Information",
       subTitle: "Start by giving us the basic information on the Cause",
-      content: <BasicInfoForm />,
+      content: <BasicInfoForm isEditing={editing} />,
     },
     {
       title: "Detailed Information",

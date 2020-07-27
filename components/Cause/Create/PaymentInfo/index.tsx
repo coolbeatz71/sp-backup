@@ -3,6 +3,7 @@ import { Form, Select, Switch } from "antd";
 import { Input } from "components/common/Input";
 import { mobileMoney } from "constants/paymentMethods";
 import { IUnknownObject } from "interfaces/unknownObject";
+import isLocation from "helpers/isLocation";
 
 export interface PaymentInfoProps {}
 
@@ -12,6 +13,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
   const selectRef = useRef<IUnknownObject>({ props: {} });
   const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const handleSelect = (option: any) => setSelectedTelco(option);
+  const isEditing = isLocation(["causes", "edit"]);
   const phoneNumberValidation: {
     [key: string]: { regex: RegExp; message: string };
   } = {
@@ -46,6 +48,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
           ref={selectRef}
           placeholder="Select Payment Method"
           onSelect={handleSelect}
+          disabled={isEditing}
         >
           {mobileMoney.map(({ name, text }) => (
             <Select.Option key={name} value={name}>
@@ -68,6 +71,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
       >
         <Input
           placeholder="Enter Phone Number"
+          disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
         />
@@ -77,7 +81,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Account Name" />
+        <Input placeholder="Account Name" disabled={isEditing} />
       </Form.Item>
       <div className="d-flex">
         <span className="font-weight-bold">Private Cause</span>
@@ -86,7 +90,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
           validateTrigger={["onSubmit", "onBlur"]}
           name="access"
         >
-          <Switch onChange={handleAccess} />
+          <Switch onChange={handleAccess} disabled={isEditing} />
         </Form.Item>
       </div>
       {isPrivate && (

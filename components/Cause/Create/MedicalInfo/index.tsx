@@ -1,10 +1,12 @@
 import React from "react";
 import { Form } from "antd";
 import { Input } from "components/common/Input";
+import isLocation from "helpers/isLocation";
 
 export interface MedicalInfoProps {}
 
 const MedicalInfo: React.FC<MedicalInfoProps> = () => {
+  const isEditing = isLocation(["causes", "edit"]);
   return (
     <div>
       <Form.Item
@@ -12,7 +14,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Name of Hospital" />
+        <Input disabled={isEditing}  placeholder="Name of Hospital" />
       </Form.Item>
       <Form.Item
         className="form-group phone-code"
@@ -28,6 +30,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       >
         <Input
           placeholder="Hospital Phone Number"
+          disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
         />
@@ -38,14 +41,14 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Full Name" />
+        <Input disabled={isEditing} placeholder="Full Name" />
       </Form.Item>
       <Form.Item
         name="next_keen_relationship"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Relationship with person" />
+        <Input disabled={isEditing} placeholder="Relationship with person" />
       </Form.Item>
       <Form.Item
         className="form-group phone-code"
@@ -61,6 +64,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
       >
         <Input
           placeholder="Contact Phone Number"
+          disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
         />

@@ -5,6 +5,7 @@ import { FileImageOutlined } from "@ant-design/icons";
 import splApi from "helpers/axios";
 import { Icategories } from "interfaces/categories";
 import normalizeInputNumber from "helpers/normalizeInputNumber";
+import isLocation from "helpers/isLocation";
 
 export interface BasicInfoProps {}
 
@@ -12,6 +13,7 @@ const { RangePicker } = DatePicker;
 
 const BasicInfo: React.FC<BasicInfoProps> = () => {
   const [categories, setCatories] = useState<Icategories[]>([]);
+  const isEditing = isLocation(["causes", "edit"]);
   useEffect(() => {
     splApi
       .get("/categories")
@@ -37,14 +39,14 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Cause Name" maxLength={70} hasWordCount />
+        <Input disabled={isEditing} placeholder="Cause Name" maxLength={70} hasWordCount />
       </Form.Item>
       <Form.Item
         name="category_id"
         validateTrigger={["onSubmit", "onBlur", "onChange"]}
         rules={[{ required: true }]}
       >
-        <Select placeholder="Category">
+        <Select placeholder="Category" disabled={isEditing}>
           {categories.length > 0 &&
             categories.map(({ id, title }) => (
               <Select.Option key={id} value={id}>
@@ -72,7 +74,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onChange"]}
         rules={[{ required: true }]}
       >
-        <RangePicker className="w-100" />
+        <RangePicker className="w-100" disabled={[isEditing, false]} />
       </Form.Item>
       <div className="mb-3">
         <p className="font-weight-bold">Image</p>
@@ -88,6 +90,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
               beforeUpload={() => false}
               listType="picture"
               multiple={false}
+              disabled={isEditing}
             >
               <p className="ant-upload-drag-icon">
                 <FileImageOutlined />
