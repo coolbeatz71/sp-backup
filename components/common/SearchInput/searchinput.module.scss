@@ -1,6 +1,11 @@
 @import "styles/_variables";
+@import "styles/_mixins";
 
 .searchinput {
   width: 350px;
   background-color: $color-primary-light;
+
+  @include mediaMd {
+    width: 100%;
+  }
 }

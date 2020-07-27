@@ -14,6 +14,7 @@ import OwnerInfo from "./OwnerInfo";
 import StatusInfo from "./StatusInfo";
 import Actions from "./Actions";
 import ExtraInfo from "./ExtraInfo";
+import LazyLoadCover from "./LazyLoadCover";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
@@ -115,13 +116,25 @@ const CauseCard: FC<CauseCardProps> = ({
 
   return (
     <div className={styles.causeCard}>
-      <div className={styles.causeCard__cover}>
-        <Link href="/causes/[slug]" as={`/causes/${slug}`}>
-          <a>
-            <img src={cover} alt="" />
-          </a>
-        </Link>
-      </div>
+      <Link href="/causes/[slug]" as={`/causes/${slug}`}>
+        <div className={styles.causeCard__cover}>
+          <LazyLoadCover context="cause-card">
+            <a>
+              <img
+                alt=""
+                src={
+                  !cover || !cover.match(/\.(jpg|jpeg|png)$/)
+                    ? "/icons/no-img-placeholder.svg"
+                    : cover
+                }
+                onError={(e) =>
+                  (e.currentTarget.src = "/icons/no-img-placeholder.svg")
+                }
+              />
+            </a>
+          </LazyLoadCover>
+        </div>
+      </Link>
       <div className={styles.causeCard__body}>
         <div className={styles.causeCard__body__header}>
           {renderHeaderInfo()}

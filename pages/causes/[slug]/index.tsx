@@ -19,6 +19,7 @@ import { causeStatus } from "interfaces";
 import AccessCode from "components/Cause/Single/AccessCode";
 import Share from "components/common/Share";
 import PageHead from "components/common/PageHead";
+import LazyLoadCover from "components/common/CauseCard/LazyLoadCover";
 
 const SingleCause: React.FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
@@ -62,7 +63,11 @@ const SingleCause: React.FC<{}> = () => {
     >
       <h5>cause Team and Contact</h5>
       You can reach out to on{" "}
-      <a href={`tel:+${phoneFormatter(data.phone_number || data.payment_account_number)}`}>
+      <a
+        href={`tel:+${phoneFormatter(
+          data.phone_number || data.payment_account_number,
+        )}`}
+      >
         {phoneFormatter(data.phone_number || data.payment_account_number)}
       </a>
     </div>
@@ -83,7 +88,21 @@ const SingleCause: React.FC<{}> = () => {
           <div className="d-flex flex-column">
             <PageHead data={data} />
             <div className={styles.singleCause__header}>
-              <img src={data.image} alt="" />
+              <div className={styles.singleCause__header__cover}>
+                <LazyLoadCover context="cause-details">
+                  <img
+                    alt=""
+                    src={
+                      !data.image || !data.image.match(/\.(jpg|jpeg|png)$/)
+                        ? "/icons/no-img-placeholder.svg"
+                        : data.image
+                    }
+                    onError={(e) =>
+                      (e.currentTarget.src = "/icons/no-img-placeholder.svg")
+                    }
+                  />
+                </LazyLoadCover>
+              </div>
               <div className={styles.singleCause__header__progress}>
                 <div
                   className={styles.singleCause__header__progress__container}

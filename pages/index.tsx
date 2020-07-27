@@ -290,10 +290,8 @@ const IndexPage = () => {
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             />
           </div>
-          <div className="short__intro--button">
-            <Button className="btn-primary">
-              Android & iOS App coming soon
-            </Button>
+          <div className="short__intro--soon">
+            Android & iOS App coming soon
           </div>
         </div>
       </div>
