@@ -1,10 +1,12 @@
 import React from "react";
 import { Form } from "antd";
 import { Input } from "components/common/Input";
+import isLocation from "helpers/isLocation";
 
 export interface OrgInformationProps {}
 
 const OrgInformation: React.FC<OrgInformationProps> = () => {
+  const isEditing = isLocation(["causes", "edit"]);
   return (
     <div>
       <Form.Item
@@ -12,21 +14,21 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Name of Organization/NGO" />
+        <Input placeholder="Name of Organization/NGO" disabled={isEditing} />
       </Form.Item>
       <Form.Item
         name="organization_field"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input placeholder="Sector of Organization/NGO" />
+        <Input placeholder="Sector of Organization/NGO" disabled={isEditing} />
       </Form.Item>
       <Form.Item
         name="organization_email"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3, type: "email" }]}
       >
-        <Input placeholder="Official Email Address" />
+        <Input placeholder="Official Email Address" disabled={isEditing} />
       </Form.Item>
       <Form.Item
         className="form-group phone-code"
@@ -42,6 +44,7 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
       >
         <Input
           placeholder="Contact Phone Number"
+          disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
         />
