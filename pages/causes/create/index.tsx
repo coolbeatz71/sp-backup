@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import getTelco from "helpers/getTelco";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import isCauseEditable from "helpers/isCauseEditable";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -254,7 +255,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                 <Title level={4}>{steps[currentStep].title}</Title>
                 <p>{steps[currentStep].subTitle}</p>
                 {editing && (
-                  <Tag className="mb-2 edit-warning" icon={<ExclamationCircleOutlined />} color="warning">
+                  <Tag
+                    className="mb-2 edit-warning"
+                    icon={<ExclamationCircleOutlined />}
+                    color="warning"
+                  >
                     You can edit this cause only once
                   </Tag>
                 )}
@@ -263,7 +268,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                 {steps.map((step, index) => (
                   <div
                     key={step.title}
-                    onClick={() => setCurrentStep(index)}
+                    onClick={() =>  setCurrentStep(index)}
                     onKeyUp={({ keyCode }) => {
                       if (keyCode === 13) setCurrentStep(index);
                     }}
@@ -302,6 +307,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                       loading={loading || loadingEdit}
                       className="btn-primary"
                       htmlType="submit"
+                      disabled={
+                        editing && !isCauseEditable(editFormState.edit_count)
+                      }
                     >
                       {currentStep !== stepsCount
                         ? "CONTINUE"
