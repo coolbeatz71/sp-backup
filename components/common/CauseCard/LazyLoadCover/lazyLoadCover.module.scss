@@ -13,9 +13,34 @@
       background: rgb(233, 233, 233);
       animation: shimmer 2s ease-in-out infinite;
       img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         z-index: 10 !important;
+
+        @include mediaMd {
+          width: 80px;
+          height: 80px;
+        }
+
+        @include mediaSm {
+          width: 80px;
+          height: 80px;
+        }
+      }
+
+      @include mediaLg {
+        height: 190px;
+        max-height: 190px;
+      }
+
+      @include mediaMd {
+        height: 250px;
+        max-height: 250px;
+      }
+
+      @include mediaSm {
+        height: 200px;
+        max-height: 200px;
       }
     }
   }

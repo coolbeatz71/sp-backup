@@ -51,7 +51,6 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
             />
           )}
         </div>
-        <span>by {name} </span>
       </div>
       <div className={`tag ${styles.causeCard__body__header__causeTag}`}>
         {category}

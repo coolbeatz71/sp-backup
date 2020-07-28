@@ -27,6 +27,10 @@
       background: url("../../public/home-abstract-bg.svg");
       background-size: cover;
 
+      @include mediaLg {
+        grid-gap: 2rem;
+      }
+
       @include mediaMd {
         display: none !important;
       }

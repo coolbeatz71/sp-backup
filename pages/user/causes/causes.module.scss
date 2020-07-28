@@ -57,6 +57,10 @@
       grid-gap: 3rem;
       padding: 2em 8vw;
 
+      @include mediaLg {
+        grid-gap: 2rem;
+      }
+
       @include mediaMd {
         display: none !important;
       }
