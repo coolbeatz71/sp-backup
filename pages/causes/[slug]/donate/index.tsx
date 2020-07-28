@@ -72,11 +72,11 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -148,14 +148,18 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
               <div className={styles.donate__body__form__successful}>
                 <h5>Kindly confirm your Donation</h5>
                 <p className={styles.donate__body__form__successful__subtitle}>
-                  Enter your PIN and confirm the payment on your phone number
-                </p>
-                <p className={styles.donate__body__form__successful__subtitle}>
-                  +
+                  Enter your PIN and confirm the payment on your phone number +
                   {form.getFieldValue("phone_number") &&
-                    phoneFormatter(form.getFieldValue("phone_number"))}
+                    phoneFormatter(form.getFieldValue("phone_number"))}{" "}
                 </p>
+
                 <h4>Thank You</h4>
+                <img
+                  className={styles.donate__body__form__successful__confeti}
+                  src="/confeti.gif"
+                  alt=""
+                />
+
                 <Link href="/">
                   <a>Back Home</a>
                 </Link>
@@ -176,9 +180,11 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                     emptyStarColor="#ddd"
                   />
                 </div>
-                <Link href="">
-                  <a>Mobile App on Android & iOS Coming Soon</a>
-                </Link>
+                <div
+                  className={styles.donate__body__form__successful__comingSoon}
+                >
+                  <span>Mobile App on Android & iOS Coming Soon</span>
+                </div>
               </div>
             ) : (
               <>

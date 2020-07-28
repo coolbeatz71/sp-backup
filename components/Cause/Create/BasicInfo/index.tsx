@@ -39,7 +39,12 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input disabled={isEditing} placeholder="Cause Name" maxLength={70} hasWordCount />
+        <Input
+          disabled={isEditing}
+          placeholder="Cause Name"
+          maxLength={70}
+          hasWordCount
+        />
       </Form.Item>
       <Form.Item
         name="category_id"
@@ -67,7 +72,11 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         ]}
         normalize={normalizeInputNumber}
       >
-        <Input placeholder="Cause fundraising target" prefix="RWF" className="prefixed" />
+        <Input
+          placeholder="Cause fundraising target"
+          prefix="RWF"
+          className="prefixed"
+        />
       </Form.Item>
       <Form.Item
         name="duration"
@@ -88,6 +97,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
           >
             <Upload.Dragger
               beforeUpload={() => false}
+              accept="image/x-png,image/jpeg,image/jpg"
               listType="picture"
               multiple={false}
               disabled={isEditing}

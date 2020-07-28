@@ -137,6 +137,11 @@
 .causes {
   margin: 100px auto;
   padding: 0 8vw;
+
+  @include mediaMd {
+    padding: 0 0 0 8vw;
+  }
+
   &__grid {
     display: grid;
     gap: 2rem;
@@ -146,7 +151,6 @@
 
       @include mediaMd {
         display: block;
-        width: 100vw;
       }
     }
 
@@ -239,20 +243,10 @@
     }
   }
 
-  &--button {
+  &--soon {
     text-align: center;
-    margin: 2rem 0;
-
-    button {
-      font-size: 18px;
-      padding: 1.3rem;
-      display: flex;
-      align-items: center;
-
-      @include mediaSm {
-        font-size: 14px;
-      }
-    }
+    margin: 2rem 0 1.5rem 0;
+    color: $color-primary;
   }
 }
 
