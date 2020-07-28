@@ -1,12 +1,13 @@
 import axios from "axios";
 import getToken from "helpers/getToken";
+import { INVALID_TOKEN } from "constants/errorCodes";
 
 const token = getToken();
 
 const responseHandler = (response: any) => response.data;
 const errorHandler = (error: any) => {
-  if (error?.response?.status === 401) {
-    console.log("here error", error.response.status);
+  if (error?.response?.data?.code === INVALID_TOKEN) {
+    console.error("here error", error.response);
     if (process.browser) {
       localStorage.removeItem("save-token");
       window.location.href = "/";

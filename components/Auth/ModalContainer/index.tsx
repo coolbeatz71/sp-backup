@@ -9,6 +9,7 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import reset from "redux/actions/pin/reset";
 import resetUpdate from "redux/actions/pin/reset-update";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import { omitBy } from "lodash";
 
 export interface IAuthModalContainer {}
 
@@ -94,7 +95,8 @@ const AuthModalContainer: React.FC<IAuthModalContainer> = ({
         login(form)(dispatch);
         break;
       case "signup":
-        sendVerificationCode(form)(dispatch);
+        const compactForm = omitBy(form, (input) => input === "");
+        sendVerificationCode(compactForm)(dispatch);
         break;
       case "verify-phone":
         signup({ ...currentUser, ...form })(dispatch);

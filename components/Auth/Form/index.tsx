@@ -12,6 +12,7 @@ import phoneFormatter from "helpers/phoneNumberFormatter";
 import { authContextType } from "interfaces/authContext";
 import { changeAuthContext } from "redux/actions/Auth/showAuthDialog";
 import { useDispatch } from "react-redux";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -49,9 +50,10 @@ const AuthForm: React.FC<AuthFormProps> = ({
     switch (context) {
       case "verify-phone":
         formAction = {
-          suggestionMessage: "Validation Code Expires in: ",
-          suggestionActionText: "60 Secs",
-          text: "SUBMIT",
+          suggestionMessage: "Got an account? SIGN IN with ",
+          suggestionActionText: <img src="/save-sm-logo.svg" alt="save logo" />,
+          handleSuggestionAction: () => changeAuthContext("login")(dispatch),
+          text: "VERIFY",
         };
         break;
       case "signup":
@@ -99,9 +101,14 @@ const AuthForm: React.FC<AuthFormProps> = ({
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >
-        <Text type="danger" className="mb-3 d-block">
-          {error}
-        </Text>
+        {error && (
+          <Text type="danger" className="mb-3 d-block text-center">
+            <span className="d-block">
+              <ExclamationCircleOutlined className="auth-error-message" />
+              {error}
+            </span>
+          </Text>
+        )}
         {context === "pin-reset" && (
           <Form.Item
             className="form-group phone-code"
@@ -156,17 +163,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
               validateTrigger={["onSubmit", "onBlur"]}
               rules={[{ required: true, len: 5 }]}
             >
-              <Input maxLength={5} placeholder="Enter Validation Code" />
+              <Input maxLength={5} placeholder="Enter Verification Code" />
             </Form.Item>
-            <Divider orientation="left" plain={true}>
-              Update Information
-            </Divider>
           </>
         )}
-        {["pin-reset", "pin-reset-update"].includes(context) ? null : [
-            "signup",
-            "verify-phone",
-          ].includes(context) ? (
+        {["pin-reset", "pin-reset-update", "verify-phone"].includes(
+          context
+        ) ? null : ["signup"].includes(context) ? (
           <>
             <Form.Item className={styles.authForm__names}>
               <Row gutter={8}>
@@ -283,9 +286,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </Divider>
         <div
           className={`${styles.authForm__actions} ${
-            context === "login"
-              ? "justify-content-between"
-              : ""
+            context === "login" ? "justify-content-between" : ""
           }`}
         >
           {context === "login" && (

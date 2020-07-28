@@ -7,11 +7,8 @@ import {
   SEND_CONFIRMATION_CODE_SUCCESS,
   SEND_CONFIRMATION_CODE_ERROR,
 } from "redux/action-types/Auth/signup";
-import {
-  SET_CURRENT_USER_SUCCESS,
-} from "redux/action-types/user/currentUser";
 import lodash from "lodash";
-import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
+import { changeAuthContext } from "./showAuthDialog";
 
 export default (data: {}) => (dispatch: any) => {
   dispatch({
@@ -21,19 +18,11 @@ export default (data: {}) => (dispatch: any) => {
   saveApi
     .post("/auth/signup", data)
     .then((response: any) => {
-      const { token } = response.data;
-      localStorage.setItem("save-token", token);
-      splApi.defaults.headers.Authorization = token;
-      const payload = response.data;
       dispatch({
         type: SIGNUP_SUCCESS,
-        payload: "User was sucessfully registered!",
+        payload: response,
       });
-      dispatch({
-        payload,
-        type: SET_CURRENT_USER_SUCCESS,
-      });
-      showAuthDialog(false)(dispatch);
+      changeAuthContext("signup-success")(dispatch);
     })
     .catch((error) => {
       console.log("here", error);
