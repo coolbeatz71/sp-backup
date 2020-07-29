@@ -26,6 +26,7 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 import { LoadingOutlined } from "@ant-design/icons";
 import ColorHash from "color-hash";
+import PrivateComponent from "pages/privateRoute";
 
 export interface ProfileProps {}
 
@@ -266,4 +267,4 @@ const Profile: React.FC<ProfileProps> = () => {
   );
 };
 
-export default Profile;
+export default PrivateComponent(Profile);

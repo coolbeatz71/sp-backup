@@ -2,8 +2,10 @@
 @import "styles/mixins";
 
 .singleCause {
-  background: #f4fafb;
-  min-height: calc(100vh - 300px);
+  background: #f4fafb url("/cause-view.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+
   &__header {
     margin-top: 2rem;
     padding: 0 8vw;
@@ -11,8 +13,7 @@
     &__cover {
       img {
         width: 100%;
-        height: auto;
-        max-height: 500px;
+        max-height: 600px;
         object-fit: cover;
         object-position: center;
         border-radius: 5px;
@@ -21,7 +22,7 @@
     &__progress {
       margin: 0 auto;
       background: #fff;
-      width: 80%;
+      width: 70%;
       position: relative;
       top: -3rem;
       display: flex;
@@ -70,7 +71,8 @@
     width: calc((100% - 16vw) * 0.8);
     display: flex;
     justify-content: space-between;
-    margin-top: -2rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
     &__details {
       width: 60%;
       h5 {

@@ -7,6 +7,7 @@ import { InputPassword } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import change from "redux/actions/pin/change";
+import PrivateComponent from "pages/privateRoute";
 
 const { Text } = Typography;
 
@@ -124,4 +125,4 @@ const ChangePin: React.FC<{}> = () => {
   );
 };
 
-export default ChangePin;
+export default PrivateComponent(ChangePin);
