@@ -23,15 +23,10 @@ const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
+  const isTablet = useMedia("(min-width: 769px) and (max-width: 1174px)");
 
   const goToRegister = () => {
     showAuthDialog(true, "signup")(dispatch);
-  };
-
-  const hideCategoryBar = () => {
-    if (!isMobile) {
-      toggleCategoryBar(window.scrollY > 40)(dispatch);
-    }
   };
 
   const { isLoggedin } = useSelector(
@@ -46,8 +41,14 @@ const AllCauses: React.SFC<{}> = () => {
     ({ cause: { all } }: IRootState) => all,
   );
 
+  const hideCategoryBar = () => {
+    if (!isMobile && !isTablet) {
+      toggleCategoryBar(window.scrollY > 40)(dispatch);
+    }
+  };
+
   useEffect(() => {
-    if (!isMobile) {
+    if (!isMobile && !isTablet) {
       window.addEventListener("scroll", hideCategoryBar);
     }
     return () => {
@@ -104,6 +105,7 @@ const AllCauses: React.SFC<{}> = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
@@ -129,6 +131,7 @@ const AllCauses: React.SFC<{}> = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>

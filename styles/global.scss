@@ -150,16 +150,22 @@ a:hover {
 
 //rating component
 .dv-star-rating {
+  display: flex !important;
+  flex-flow: row-reverse;
+  height: 25px;
   top: -4px;
-
-  @include mediaLg {
-    top: -2px;
-  }
 }
 
 .donate_donate__33jso {
   .dv-star-rating-star {
     margin-right: 0.5rem;
+  }
+}
+
+.ant-popover {
+  z-index: 2;
+  .ant-popover-inner-content {
+    padding: 0.5rem;
   }
 }
 
@@ -280,7 +286,7 @@ textarea.ant-input {
   }
 }
 
-.ant-input-affix-wrapper > input[type=text] {
+.ant-input-affix-wrapper > input[type="text"] {
   padding-left: 7px;
 }
 
@@ -523,33 +529,45 @@ textarea.ant-input {
     }
   }
 }
+
+.navbar_navbar__1QDXy {
+  .searchinput_searchinput__1J7uG {
+    input {
+      background: #fff;
+      padding: 4px 16px;
+    }
+
+    .input_input__label__1H7Jb {
+      background: #fff;
+    }
+  }
+}
 div.searchinput_searchinput__1J7uG {
   .input_input__label__1H7Jb {
     background: rgb(244, 250, 251);
   }
 }
 
-
 // auth modal container
 
-.auth__modal__container{
-  .ant-modal-content{
-    .ant-modal-close{
+.auth__modal__container {
+  .ant-modal-content {
+    .ant-modal-close {
       margin: 0.7rem;
     }
-    .ant-modal-body{
+    .ant-modal-body {
       background: url("/background-modal.svg");
       background-position: center;
       background-repeat: no-repeat;
 
-      .ant-divider-with-text::before, .ant-divider-with-text::after{
+      .ant-divider-with-text::before,
+      .ant-divider-with-text::after {
         border-top-color: rgba($color: #333, $alpha: 0.25);
       }
     }
   }
 }
 
-
-.edit-warning .anticon svg{
+.edit-warning .anticon svg {
   margin-top: -5px;
 }

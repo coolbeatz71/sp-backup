@@ -73,6 +73,7 @@ const renderFeedContainer = (
                   status={cause.status}
                   category={cause.category.title}
                   rating={cause.ratings}
+                  ratersCount={cause.raters_count}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
                   key={index}
                 />
@@ -100,6 +101,7 @@ const renderFeedContainer = (
                   status={cause.status}
                   category={cause.category.title}
                   rating={cause.ratings}
+                  ratersCount={cause.raters_count}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
                 />
               </div>
@@ -112,6 +114,7 @@ const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { push, pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
+  const isTablet = useMedia("(min-width: 769px) and (max-width: 1174px)");
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -126,7 +129,7 @@ const Causes: React.SFC<{}> = () => {
   );
 
   const hideCategoryBar = () => {
-    if (!isMobile) {
+    if (!isTablet && !isMobile) {
       toggleCategoryBar(window.scrollY > 40)(dispatch);
     }
   };
@@ -143,14 +146,14 @@ const Causes: React.SFC<{}> = () => {
   }, [asPath, dispatch]);
 
   useEffect(() => {
-    if (!isMobile) {
+    if (!isTablet && !isMobile) {
       window.addEventListener("scroll", hideCategoryBar);
     }
     return () => {
       window.removeEventListener("scroll", hideCategoryBar);
     };
     // tslint:disable-next-line: align
-  }, []);
+  }, [isLoggedin]);
 
   const [causesNumber, setCausesNumber] = useState(causesLength);
 

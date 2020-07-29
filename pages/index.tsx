@@ -104,6 +104,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
@@ -129,6 +130,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>
@@ -173,6 +175,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
@@ -198,6 +201,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>
@@ -243,6 +247,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
                     />
@@ -268,6 +273,7 @@ const IndexPage = () => {
                       status={cause.status}
                       category={cause.category.title}
                       rating={cause.ratings}
+                      ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                     />
                   </div>

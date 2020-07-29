@@ -46,6 +46,7 @@ export interface CauseCardProps {
   status: string;
   category: string;
   rating: number;
+  ratersCount: string;
   daysToGo?: number | string;
 }
 
@@ -94,6 +95,7 @@ const CauseCard: FC<CauseCardProps> = ({
   currency,
   status,
   rating,
+  ratersCount,
   daysToGo,
   category,
 }) => {
@@ -139,6 +141,11 @@ const CauseCard: FC<CauseCardProps> = ({
         <div className={styles.causeCard__body__header}>
           {renderHeaderInfo()}
         </div>
+        {pathName !== USER_CAUSES_PATH && (
+          <div className={styles.causeCard__body__userName}>
+            <span>by {name} </span>
+          </div>
+        )}
         <div className={styles.causeCard__body__content}>
           {pathName === USER_CAUSES_PATH && (
             <Actions slug={slug} status={status} />
@@ -162,7 +169,7 @@ const CauseCard: FC<CauseCardProps> = ({
               {numberFormatter(amountRaised)} {currency} Raised
             </h5>
             <span className={styles.causeCard__body__progress__percentage}>
-              {progress} %
+              {progress}%
             </span>
           </div>
           <div className={styles.causeCard__body__progress__progressBar}>
@@ -184,6 +191,7 @@ const CauseCard: FC<CauseCardProps> = ({
             slug={slug}
             title={title}
             rating={rating}
+            ratersCount={ratersCount}
             tillNumber={tillNumber}
           />
         )}

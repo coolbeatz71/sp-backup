@@ -1,49 +1,74 @@
 import React, { FC, useState } from "react";
-
 import ReactStars from "react-star-rating-component";
 import styles from "../causeCard.module.scss";
-import SocialSharePopover from "../SharePopover";
+import CausePopover from "../CausePopover";
 
 export interface ExtraInfoProps {
-  rating: number;
-  title: string;
   slug: string;
+  title: string;
+  rating: number;
+  ratersCount: string;
   tillNumber: string;
 }
 
-const ExtraInfo: FC<ExtraInfoProps> = ({ slug, title, tillNumber, rating }) => {
+const ExtraInfo: FC<ExtraInfoProps> = ({
+  slug,
+  title,
+  tillNumber,
+  rating,
+  ratersCount,
+}) => {
+  const [openRatingPopover, setOpenRatingPopover] = useState(false);
   const [openSharePopover, setOpenSharePopover] = useState(false);
 
   return (
     <div className={styles.causeCard__body__extra}>
-      <div className={styles.causeCard__body__extra__ratings}>
-        <span>Rating:</span>
-        <ReactStars
-          starCount={5}
-          value={rating}
-          name="rate1"
-          starColor="#F4A86C"
-          editing={false}
-          emptyStarColor="#ddd"
-        />
-      </div>
-      <SocialSharePopover
+      <CausePopover
+        context="rating-details"
+        rating={rating}
+        ratersCount={ratersCount}
+        visible={openRatingPopover}
+        handleVisibleChange={(openRatingPopover) =>
+          setOpenRatingPopover(openRatingPopover)
+        }
+        hideCausePopover={() => setOpenRatingPopover(false)}
+      >
+        <div
+          role="button"
+          tabIndex={-1}
+          onKeyDown={() => null}
+          onBlur={() => setOpenRatingPopover(false)}
+          className={styles.causeCard__body__extra__ratings}
+        >
+          <span>Rating:</span>
+          <ReactStars
+            starCount={5}
+            value={rating}
+            name="rate1"
+            starColor="#F4A86C"
+            editing={false}
+            emptyStarColor="#ddd"
+          />
+        </div>
+      </CausePopover>
+      <CausePopover
+        context="social-share"
         slug={slug}
         title={title}
         tillNumber={tillNumber}
         visible={openSharePopover}
-        hideSharePopover={() => setOpenSharePopover(false)}
         handleVisibleChange={(openSharePopover) =>
           setOpenSharePopover(openSharePopover)
         }
+        hideCausePopover={() => setOpenSharePopover(false)}
       >
         <div className={styles.causeCard__body__extra__share}>
-          <span className={styles.causeCard__share__text}>share</span>
+          <span className={styles.causeCard__share__text}>Share</span>
           <span className={styles.causeCard__share}>
             <img src="/icons/share-icon.svg" alt="" />
           </span>
         </div>
-      </SocialSharePopover>
+      </CausePopover>
     </div>
   );
 };

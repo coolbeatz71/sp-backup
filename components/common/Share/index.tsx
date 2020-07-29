@@ -9,7 +9,7 @@ export interface ShareProps {
   tillNumber: string;
   position?: "center";
   label?: boolean;
-  hideSharePopover?: () => void;
+  hideCausePopover?: () => void;
 }
 
 const Share: React.FC<ShareProps> = ({
@@ -18,7 +18,7 @@ const Share: React.FC<ShareProps> = ({
   tillNumber,
   position,
   label = true,
-  hideSharePopover = () => null,
+  hideCausePopover = () => null,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const URL = `${getPlatformUrl()}/causes/${slug}`;
@@ -30,7 +30,7 @@ const Share: React.FC<ShareProps> = ({
       <a
         rel="stylesheet"
         onClick={() => {
-          hideSharePopover();
+          hideCausePopover();
           setModalVisible(true);
         }}
       >
@@ -44,7 +44,7 @@ const Share: React.FC<ShareProps> = ({
         rel="stylesheet"
         href={`https://www.facebook.com/sharer/sharer.php?display=page&u=${URL}&quote=${title}`}
         target="_blank"
-        onClick={() => hideSharePopover()}
+        onClick={() => hideCausePopover()}
       >
         <img
           className="social__share__icon"
@@ -56,7 +56,7 @@ const Share: React.FC<ShareProps> = ({
         rel="stylesheet"
         href={`https://api.whatsapp.com/send?text=${encodedURL}`}
         target="_blank"
-        onClick={() => hideSharePopover()}
+        onClick={() => hideCausePopover()}
       >
         <img
           className="social__share__icon"
@@ -68,7 +68,7 @@ const Share: React.FC<ShareProps> = ({
         rel="stylesheet"
         href={`http://twitter.com/share?text=${encodedURL}`}
         target="_blank"
-        onClick={() => hideSharePopover()}
+        onClick={() => hideCausePopover()}
       >
         <img
           className="social__share__icon"
