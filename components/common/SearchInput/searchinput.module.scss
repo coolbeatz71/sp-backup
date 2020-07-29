@@ -2,12 +2,9 @@
 @import "styles/_mixins";
 
 .searchinput {
-  width: 350px;
+  width: 20vw;
   input {
     background-color: $color-primary-light;
-  }
-
-  @include mediaLg {
   }
 
   @include mediaMd {

@@ -6,7 +6,7 @@
   min-height: calc(100vh - (68.5px));
   background: url("/background.svg");
   @include mediaMd {
-    padding-top: 9rem;
+    padding-top: 7rem;
   }
   &__header {
     align-items: center;
@@ -37,6 +37,16 @@
     img {
       margin: auto !important;
       width: 30rem;
+    }
+  }
+
+  &__result {
+    padding: 0;
+    margin: 0;
+
+    @include mediaMd {
+      padding: 0;
+      margin: auto;
     }
   }
 

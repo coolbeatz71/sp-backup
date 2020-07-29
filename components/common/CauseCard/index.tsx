@@ -186,15 +186,15 @@ const CauseCard: FC<CauseCardProps> = ({
             </span>
           </div>
         </div>
-        {(pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) && (
-          <ExtraInfo
-            slug={slug}
-            title={title}
-            rating={rating}
-            ratersCount={ratersCount}
-            tillNumber={tillNumber}
-          />
-        )}
+
+        <ExtraInfo
+          pathName={pathName}
+          slug={slug}
+          title={title}
+          rating={rating}
+          ratersCount={ratersCount}
+          tillNumber={tillNumber}
+        />
       </div>
       {renderFooter(status, pathName, slug)}
       <style jsx>{`

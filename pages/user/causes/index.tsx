@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { IRootState } from "redux/initialStates";
-import { Button } from "antd";
+import { Button, Result } from "antd";
 import Swipeable from "react-swipeable-views";
 import PageTitle from "components/common/PageTitle";
 import styles from "./causes.module.scss";
@@ -23,7 +23,7 @@ import { toggleCategoryBar } from "redux/actions/categories/hide";
 const pageTitle: string = "your causes";
 const causesLength: any = 6;
 
-const renderHeader = (causes: { [key: string]: any }) => (
+const renderHeader = (isMobile: boolean, causes: { [key: string]: any }) => (
   <div className={styles.causes__header}>
     <div>
       <PageTitle title={pageTitle} icon="../icons/social-care.svg" />
@@ -33,13 +33,16 @@ const renderHeader = (causes: { [key: string]: any }) => (
           : "Track all your causes here."}
       </p>
     </div>
-    <Link href="/causes/create">
-      <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
-    </Link>
+    {isMobile && (
+      <Link href="/causes/create">
+        <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
+      </Link>
+    )}
   </div>
 );
 
 const renderFeedContainer = (
+  asPath: string,
   pathName: string,
   causes: { [key: string]: any },
   fetched: boolean,
@@ -47,9 +50,15 @@ const renderFeedContainer = (
   sliceCausesNumber: any,
 ) =>
   fetched && !error && isEmpty(causes.data) ? (
-    <div className={styles.causes__illustration}>
-      <img src="../sitting-reading.svg" />
-    </div>
+    asPath === pathName ? (
+      <div className={styles.causes__illustration}>
+        <img src="../sitting-reading.svg" />
+      </div>
+    ) : (
+      <div className={styles.causes__result}>
+        <Result status="404" title="404" subTitle="Sorry, No cause was found" />
+      </div>
+    )
   ) : (
     <>
       <div className={styles.causes__grid__mobile}>
@@ -114,7 +123,7 @@ const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { push, pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
-  const isTablet = useMedia("(min-width: 769px) and (max-width: 1174px)");
+  const isTablet = useMedia("(min-width: 769px) and (max-width: 1024px)");
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -173,8 +182,15 @@ const Causes: React.SFC<{}> = () => {
           <Spinner />
         ) : (
           <>
-            {renderHeader(data)}
-            {renderFeedContainer(pathname, data, fetched, error, causesNumber)}
+            {renderHeader(isMobile, data)}
+            {renderFeedContainer(
+              asPath,
+              pathname,
+              data,
+              fetched,
+              error,
+              causesNumber,
+            )}
             {!isEmpty(data.data) && data.data.length > causesLength ? (
               <div className={styles.causes__footer}>
                 <div>

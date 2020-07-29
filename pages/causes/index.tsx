@@ -18,12 +18,13 @@ import { ALL_CAUSES_PATH } from "../../helpers/paths";
 import { useMedia } from "react-use";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import { Result } from "antd";
 
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
-  const isTablet = useMedia("(min-width: 769px) and (max-width: 1174px)");
+  const isTablet = useMedia("(min-width: 769px) and (max-width: 1024px)");
 
   const goToRegister = () => {
     showAuthDialog(true, "signup")(dispatch);
@@ -81,8 +82,11 @@ const AllCauses: React.SFC<{}> = () => {
           <Spinner />
         ) : isEmpty(data.data) ? (
           <div className={styles.allCauses__illustration}>
-            <img src="404.png" />
-            <h1>No cause found</h1>
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, No cause was found"
+            />
           </div>
         ) : (
           <>
