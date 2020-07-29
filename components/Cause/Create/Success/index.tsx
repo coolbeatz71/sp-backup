@@ -16,10 +16,20 @@ const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
 
   return (
     <div className="d-flex flex-center flex-column">
-      <img src="/success-cause.svg" alt="cause success" />
+      <img
+        className="success-img"
+        src="/success-cause.gif"
+        alt="cause success"
+      />
       <div className="social__share">
         <h6 className="share__cause__tag">SHARE THE CAUSE</h6>
-        <Share title={summary} tillNumber={till_number} slug={slug} position="center" label={false} />
+        <Share
+          title={summary}
+          tillNumber={till_number}
+          slug={slug}
+          position="center"
+          label={false}
+        />
       </div>
       <Link href="/">
         <a className="text-center my-3 back__home__link">BACK HOME</a>
@@ -39,6 +49,12 @@ const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
         )}
       </div>
       <style jsx>{`
+        .success-img {
+          margin: auto;
+          padding: 1rem 0 0;
+          width: 260px;
+          height: 260px;
+        }
         .share__cause__tag {
           color: #219bb2;
           display: inline-block;
@@ -57,7 +73,6 @@ const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
           align-content: center;
           flex-direction: column;
           margin: 0 auto;
-          width: 50%;
         }
         .social__share__icons {
           display: flex;
