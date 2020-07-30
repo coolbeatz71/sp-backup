@@ -266,6 +266,14 @@ textarea.ant-input {
   }
 }
 
+.anticon-exclamation-circle.auth-error-message {
+  margin: 0 5px;
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  font-size: 12px;
+}
+
 .ant-input-password {
   min-height: 44px;
   border-radius: 5px;
