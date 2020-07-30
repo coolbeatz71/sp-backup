@@ -1,4 +1,4 @@
-import splApi, { saveApi } from "helpers/axios";
+import { saveApi } from "helpers/axios";
 import {
   SIGNUP_START,
   SIGNUP_ERROR,

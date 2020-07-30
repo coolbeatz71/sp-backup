@@ -40,7 +40,7 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
           onBlur={() => setOpenRatingPopover(false)}
           className={styles.causeCard__body__extra__ratings}
         >
-          <span>Rating:</span>
+          <span className={styles.causeCard__body__extra__ratings__label}>Rating:</span>
           <ReactStars
             starCount={5}
             value={rating}
