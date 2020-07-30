@@ -4,10 +4,10 @@
 .container {
   display: flex;
   justify-content: center;
-  background: #f9f9fa;
+  background: $color-light;
 }
 .content {
-  padding: 2.5rem 0 1rem 0;
+  padding: 2rem 0;
 
   @include mediaMd {
     width: 80%;

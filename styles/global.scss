@@ -133,6 +133,22 @@ a:hover {
   border-radius: 3px;
 }
 
+.btn-secondary-outline {
+  color: $color-primary;
+  background: $color-primary-light;
+  border-color: $color-primary;
+  border-radius: 3px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $color-primary;
+    background: #b2e1e9;
+    border-radius: 3px;
+    border-color: unset !important;
+  }
+}
+
 .children-container {
   min-height: calc(100vh - (68.5px + 245px));
 }
@@ -433,25 +449,25 @@ textarea.ant-input {
 }
 
 .dark-navbar {
-  background: #3c3f59 !important;
+  background: $color-primary-light !important;
   transition: background-color 0.5s ease;
 
-  .ant-dropdown-link-dark {
-    color: $color-light !important;
-  }
+  // .ant-dropdown-link-dark {
+  //   color: $color-dark !important;
+  // }
 
-  .btn-light-outline {
-    color: $color-light;
-    background-color: #3c3f59;
-    transition: background-color 0.5s ease;
-    border-radius: 3px;
-    border: 1px solid $color-light;
-    &:hover {
-      background-color: $color-primary;
-      color: $color-light;
-      border: 1px solid $color-primary;
-    }
-  }
+  // .btn-light-outline {
+  //   color: $color-light;
+  //   background-color: #3c3f59;
+  //   transition: background-color 0.5s ease;
+  //   border-radius: 3px;
+  //   border: 1px solid $color-light;
+  //   &:hover {
+  //     background-color: $color-primary;
+  //     color: $color-light;
+  //     border: 1px solid $color-primary;
+  //   }
+  // }
 }
 
 .phone-code {
@@ -493,6 +509,31 @@ textarea.ant-input {
     opacity: 0;
     top: 40px;
     transition: opacity 300ms, top 300ms;
+  }
+}
+
+.navbar_navbar__1QDXy {
+  .create-cause-button-enter {
+    opacity: 0;
+    top: 5px;
+  }
+
+  .create-cause-button-enter-active {
+    position: relative;
+    opacity: 1;
+    top: 0px;
+    transition: opacity 300ms, top 200ms;
+  }
+
+  .create-cause-button-exit {
+    opacity: 1;
+    top: 0px;
+  }
+
+  .create-cause-button-exit-active {
+    opacity: 0;
+    top: 5px;
+    transition: opacity 300ms, top 200ms;
   }
 }
 
@@ -542,17 +583,23 @@ textarea.ant-input {
   .searchinput_searchinput__1J7uG {
     input {
       background: #fff;
-      padding: 4px 16px;
+      padding: 2px 16px;
     }
 
     .input_input__label__1H7Jb {
       background: #fff;
+      top: 0;
     }
   }
 }
 div.searchinput_searchinput__1J7uG {
   .input_input__label__1H7Jb {
+    top: 2px;
     background: rgb(244, 250, 251);
+  }
+
+  input {
+    padding: 4px 16px;
   }
 }
 
@@ -578,4 +625,14 @@ div.searchinput_searchinput__1J7uG {
 
 .edit-warning .anticon svg {
   margin-top: -5px;
+}
+
+.causes_causes__result__3kbt- {
+  .ant-result {
+    padding: 0;
+
+    @include mediaMd {
+      padding-bottom: 1rem;
+    }
+  }
 }
