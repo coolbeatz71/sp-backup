@@ -108,6 +108,7 @@ const AllCauses: React.SFC<{}> = () => {
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
+                      data={cause}
                     />
                   ))}
               </Swipeable>
@@ -133,6 +134,7 @@ const AllCauses: React.SFC<{}> = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      data={cause}
                     />
                   </div>
                 ))}

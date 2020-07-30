@@ -7,14 +7,15 @@ import {
   HOME_PATH,
   USER_CAUSES_PATH,
   ALL_CAUSES_PATH,
-} from "./../../../helpers/paths";
+} from "helpers/paths";
 import { ICauseStatus, causeStatus } from "interfaces/";
-import getProgressPercentage from "./../../../helpers/getProgressPercentage";
+import getProgressPercentage from "helpers/getProgressPercentage";
 import OwnerInfo from "./OwnerInfo";
 import StatusInfo from "./StatusInfo";
 import Actions from "./Actions";
 import ExtraInfo from "./ExtraInfo";
 import LazyLoadCover from "./LazyLoadCover";
+import { IUnknownObject } from "interfaces/unknownObject";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
@@ -48,6 +49,7 @@ export interface CauseCardProps {
   rating: number;
   ratersCount: string;
   daysToGo?: number | string;
+  data: IUnknownObject;
 }
 
 const getDaysToGoMsg = (status: string, daysToGo: any): string => {
@@ -98,6 +100,7 @@ const CauseCard: FC<CauseCardProps> = ({
   ratersCount,
   daysToGo,
   category,
+  data,
 }) => {
   const renderHeaderInfo = () => {
     if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH)
@@ -143,7 +146,7 @@ const CauseCard: FC<CauseCardProps> = ({
         </div>
         {pathName !== USER_CAUSES_PATH && (
           <div className={styles.causeCard__body__userName}>
-            <span>by {name} </span>
+            <span>by {name} {data?.organization_id && `with ${data?.organization?.name}`}  </span>
           </div>
         )}
         <div className={styles.causeCard__body__content}>

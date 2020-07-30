@@ -107,6 +107,7 @@ const IndexPage = () => {
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
+                      data={cause}
                     />
                   ))}
               </Swipeable>
@@ -132,6 +133,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      data={cause}
                     />
                   </div>
                 ))}
@@ -149,8 +151,8 @@ const IndexPage = () => {
       <div className="causes">
         <SectionTitle
           title="Popular Causes"
-          className="romantic"
-          icon="icons/heart-beat.svg"
+          className="popularity"
+          icon="icons/popularity.svg"
         />
         {loading ? (
           <Spinner />
@@ -178,6 +180,7 @@ const IndexPage = () => {
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
+                      data={cause}
                     />
                   ))}
               </Swipeable>
@@ -203,6 +206,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      data={cause}
                     />
                   </div>
                 ))}
@@ -250,6 +254,7 @@ const IndexPage = () => {
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
                       key={index}
+                      data={cause}
                     />
                   ))}
               </Swipeable>
@@ -275,6 +280,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      data={cause}
                     />
                   </div>
                 ))}

@@ -76,6 +76,7 @@ const renderFeedContainer = (
                   ratersCount={cause.raters_count}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
                   key={index}
+                  data={cause}
                 />
               ))}
         </Swipeable>
@@ -103,6 +104,7 @@ const renderFeedContainer = (
                   rating={cause.ratings}
                   ratersCount={cause.raters_count}
                   daysToGo={getCauseRemainingDays(cause.end_date)}
+                  data={cause}
                 />
               </div>
             ))}

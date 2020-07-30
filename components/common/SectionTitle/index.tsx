@@ -12,7 +12,12 @@ const SectionTitle: React.FC<TitleProps> = (props: IUnknownObject) => {
   return (
     <div className={styles.sectionTitle}>
       <h2>{props.title}</h2>
-      <img src={props.icon} className={styles[`sectionTitle__${props.className}`]} alt={props.title} />
+      <img
+        src={props.icon}
+        className={styles[`sectionTitle__${props.className}`]}
+        alt={props.title}
+      />
+      {props.title === "Featured Causes" && <h5>Editors Pick</h5>}
     </div>
   );
 };

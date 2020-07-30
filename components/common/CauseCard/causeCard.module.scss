@@ -61,6 +61,7 @@
 
     &__text {
       color: $color-primary;
+      font-size: 12px !important;
     }
 
     img {
@@ -259,12 +260,17 @@
       }
       &__ratings {
         display: flex;
+        &__label{
+          font-size: 14px !important;
+        }
         span {
           margin-right: 5px;
         }
-
+        label {
+          margin-right: 0.3rem;
+        }
         i {
-          margin-right: 3px;
+          font-size: 14px;
         }
 
         @include mediaLg {

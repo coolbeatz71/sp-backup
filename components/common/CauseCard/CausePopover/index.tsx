@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from "react";
 import { Popover } from "antd";
 import ReactStars from "react-star-rating-component";
 import Share from "components/common/Share";
-import shortenLargeNumber from "../../../../helpers/shortenLargeNumber";
+import shortenLargeNumber from "helpers/shortenLargeNumber";
 import styles from "./causePopover.module.scss";
 
 export interface CausePopoverProps {
