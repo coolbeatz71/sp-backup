@@ -108,11 +108,11 @@
     }
 
     @include mediaMd {
-      flex-grow: 0;
       img {
         width: 100%;
         display: block;
         position: relative;
+        height: auto;
       }
     }
 
