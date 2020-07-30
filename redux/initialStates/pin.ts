@@ -11,6 +11,12 @@ export default {
     message: {},
     loading: false,
   },
+  change: {
+    data: {},
+    error: {},
+    message: {},
+    loading: false,
+  },
 };
 
 export interface IPinReset {
@@ -21,6 +27,12 @@ export interface IPinReset {
     error: any;
   };
   reset_update: {
+    data: { [key: string]: any };
+    message: {};
+    loading: boolean;
+    error: any;
+  };
+  change: {
     data: { [key: string]: any };
     message: {};
     loading: boolean;

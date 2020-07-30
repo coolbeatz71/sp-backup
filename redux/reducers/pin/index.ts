@@ -1,5 +1,6 @@
 import initialState from "redux/initialStates";
 import reset from "./reset";
+import change from "./change";
 import resetUpdate from "./reset-update";
 
 export default (
@@ -8,5 +9,6 @@ export default (
 ) => ({
   ...state,
   ...reset(state, action),
+  ...change(state, action),
   ...resetUpdate(state, action),
 });

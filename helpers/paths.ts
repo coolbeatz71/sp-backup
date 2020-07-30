@@ -8,3 +8,4 @@ export const PIN_RESET_UPDATE_PATH = "/pin/reset/update";
 export const PRICING_PATH = "/pricing";
 export const POLICIES_PATH = "/policies";
 export const CREATE_CAUSE_PATH = "/causes/create";
+export const CHANGE_PIN_PATH = "/pin/change";
