@@ -11,6 +11,7 @@ import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
 import Error from "components/common/Error";
 import notification from "utils/notification";
+import PrivateComponent from "pages/privateRoute";
 
 export interface EditCauseProps {}
 
@@ -21,11 +22,11 @@ const EditCause: React.FC<EditCauseProps> = () => {
   const { slug } = router.query;
 
   const { data, loading, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single
+    ({ cause: { single } }: IRootState) => single,
   );
 
   const { data: currentUser } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -105,4 +106,4 @@ const EditCause: React.FC<EditCauseProps> = () => {
   );
 };
 
-export default EditCause;
+export default PrivateComponent(EditCause);

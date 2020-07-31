@@ -74,7 +74,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const [currentStep, setCurrentStep] = useState(0);
   const [formState, setFormState] = useState(
-    editFormState || formStateDefaultValue
+    editFormState || formStateDefaultValue,
   );
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
@@ -84,11 +84,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const stepsCount = steps.length - 1;
 
   const { loading, data, error } = useSelector(
-    ({ cause: { create } }: IRootState) => create
+    ({ cause: { create } }: IRootState) => create,
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit
+    ({ cause: { edit } }: IRootState) => edit,
   );
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount)
+          serializeFormattedNumber(data.target_amount),
         );
         return;
       }
@@ -170,7 +170,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const getTouchedFields = (values: IUnknownObject) => {
     const touchedKeys = Object.keys(values).filter((key) =>
-      form.isFieldTouched(key)
+      form.isFieldTouched(key),
     );
     const touchedFields = pick(values, touchedKeys);
     return touchedFields;
@@ -268,7 +268,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                 {steps.map((step, index) => (
                   <div
                     key={step.title}
-                    onClick={() =>  setCurrentStep(index)}
+                    onClick={() => setCurrentStep(index)}
                     onKeyUp={({ keyCode }) => {
                       if (keyCode === 13) setCurrentStep(index);
                     }}

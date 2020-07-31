@@ -4,7 +4,9 @@
 .causes {
   padding-top: 6rem;
   min-height: calc(100vh - (68.5px));
-  background: url("/background.svg");
+  background: $color-primary-light url("/background.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
   @include mediaMd {
     padding-top: 7rem;
   }

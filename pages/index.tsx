@@ -35,11 +35,11 @@ const IndexPage = () => {
   }, [dispatch]);
 
   const { data, loading, fetched, error } = useSelector(
-    ({ cause: { feed } }: IRootState) => feed,
+    ({ cause: { feed } }: IRootState) => feed
   );
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const getStarted = () => {

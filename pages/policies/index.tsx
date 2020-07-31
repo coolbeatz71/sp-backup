@@ -62,17 +62,21 @@ lorem ipsum' will uncover many web sites still in their infancy. `,
 
 const PoliciesPage: React.SFC<{}> = () => {
   return (
-    <div title="policies | Save Plus">
+    <div>
       <div className={styles.policies__overlay} />
       <div className={styles.policies__container}>
         <div className={styles.policies__container__header}>
-          <h1>Our Terms and Policies</h1>
-          <div className={styles.policies__container__header__desc}>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since
-            </p>
+          <div className={styles.policies__container__header__content}>
+            <div>
+              <h1>Our Terms and Policies</h1>
+            </div>
+            <div className={styles.policies__container__header__desc}>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since
+              </p>
+            </div>
           </div>
         </div>
         <div className={styles.policies__container__terms}>

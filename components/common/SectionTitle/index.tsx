@@ -17,7 +17,6 @@ const SectionTitle: React.FC<TitleProps> = (props: IUnknownObject) => {
         className={styles[`sectionTitle__${props.className}`]}
         alt={props.title}
       />
-      {props.title === "Featured Causes" && <h5>Editors Pick</h5>}
     </div>
   );
 };
