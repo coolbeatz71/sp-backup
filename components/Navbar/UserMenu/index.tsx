@@ -3,7 +3,7 @@ import capitalize from "helpers/capitalize";
 import logout from "redux/actions/Auth/logout";
 import { Menu } from "antd";
 import Link from "next/link";
-import { USER_CAUSES_PATH } from "helpers/paths";
+import { USER_CAUSES_PATH, CHANGE_PIN_PATH } from "helpers/paths";
 import { Dispatch } from "redux";
 
 const UserMenu = (
@@ -35,13 +35,21 @@ const UserMenu = (
         </Link>
       </Menu.Item>
       <Menu.Divider />
+
       <Menu.Item>
         <Link href={USER_CAUSES_PATH}>
           <a>My Causes</a>
         </Link>
       </Menu.Item>
-
       <Menu.Divider />
+
+      <Menu.Item>
+        <Link href={CHANGE_PIN_PATH}>
+          <a>Change PIN</a>
+        </Link>
+      </Menu.Item>
+      <Menu.Divider />
+
       <Menu.Item
         className="navbar__menu__logout"
         onClick={() => logout(push, dispatch)}
