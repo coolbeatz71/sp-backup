@@ -3,11 +3,7 @@ import styles from "./causeCard.module.scss";
 import Link from "next/link";
 import { truncate } from "lodash";
 import numberFormatter from "helpers/numberFormater";
-import {
-  HOME_PATH,
-  USER_CAUSES_PATH,
-  ALL_CAUSES_PATH,
-} from "helpers/paths";
+import { HOME_PATH, USER_CAUSES_PATH, ALL_CAUSES_PATH } from "helpers/paths";
 import { ICauseStatus, causeStatus } from "interfaces/";
 import getProgressPercentage from "helpers/getProgressPercentage";
 import OwnerInfo from "./OwnerInfo";
@@ -146,7 +142,10 @@ const CauseCard: FC<CauseCardProps> = ({
         </div>
         {pathName !== USER_CAUSES_PATH && (
           <div className={styles.causeCard__body__userName}>
-            <span>by {name} {data?.organization_id && `with ${data?.organization?.name}`}  </span>
+            <span>
+              by {name}{" "}
+              {data?.organization_id && `with ${data?.organization?.name}`}{" "}
+            </span>
           </div>
         )}
         <div className={styles.causeCard__body__content}>
@@ -197,6 +196,7 @@ const CauseCard: FC<CauseCardProps> = ({
           rating={rating}
           ratersCount={ratersCount}
           tillNumber={tillNumber}
+          status={status}
         />
       </div>
       {renderFooter(status, pathName, slug)}

@@ -12,13 +12,12 @@ export enum ActionType {
 }
 
 const isUncancellable = (status: string): boolean =>
-  status === causeStatus.cancelled;
+  status !== causeStatus.active && status !== causeStatus.stopped;
 
 const isUnstoppable = (status: string): boolean =>
-  status !== causeStatus.active && status !== causeStatus.cancelled;
+  status !== causeStatus.active;
 
-const isUneditable = (status: string) =>
-  status !== causeStatus.active && status !== causeStatus.stopped;
+const isUneditable = (status: string) => status !== causeStatus.active;
 
 const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
   const [causeModal, setCauseModal] = useState<{
@@ -44,7 +43,11 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
     <Menu>
       <Menu.Item>
         <Link href="/causes/[slug]/edit" as={`/causes/${slug}/edit`}>
-          <Button type="link" disabled={isUneditable(status)} className="m-0 p-0 h-25">
+          <Button
+            type="link"
+            disabled={isUneditable(status)}
+            className="m-0 p-0 h-25"
+          >
             Edit Cause
           </Button>
         </Link>
@@ -76,7 +79,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
   return (
     <div className={styles.causeCard__body__content__actionIcon}>
       <Dropdown
-        overlayClassName="navbar__menu causeCard-menu"
+        overlayClassName="causeCard__menu"
         overlay={actionMenu}
         trigger={["click"]}
         placement="bottomRight"
