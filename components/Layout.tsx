@@ -8,7 +8,7 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { IRootState } from "redux/initialStates";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/router";
-import { PRICING_PATH, POLICIES_PATH } from "helpers/paths";
+import { PRICING_PATH, POLICIES_PATH, HOME_PATH } from "helpers/paths";
 
 type Props = {
   title?: string;
@@ -24,7 +24,10 @@ const Layout: React.FunctionComponent<Props> = ({
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
-  const isLight = pathname !== PRICING_PATH && pathname !== POLICIES_PATH;
+  const isLight =
+    pathname !== PRICING_PATH &&
+    pathname !== POLICIES_PATH &&
+    pathname !== HOME_PATH;
 
   useEffect(() => {
     if (!loading && isLoggedin && isEmpty(data)) {

@@ -179,6 +179,7 @@ const NavItems: FC<NavbarItemsProps> = ({
                     style={{
                       backgroundColor: color.hex(`${first_name} ${last_name}`),
                       marginRight: 5,
+                      marginTop: -5,
                     }}
                   >
                     {abName(first_name, last_name)}

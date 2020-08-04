@@ -5,8 +5,9 @@ import {
   PIN_CHANGE_SUCCESS,
 } from "redux/action-types/pin/change";
 import notification from "utils/notification";
+import { HOME_PATH } from "helpers/paths";
 
-export default (data: { [key: string]: any }) => (dispatch: any) => {
+export default (push: any, data: { [key: string]: any }) => (dispatch: any) => {
   dispatch({
     type: PIN_CHANGE_START,
   });
@@ -19,7 +20,8 @@ export default (data: { [key: string]: any }) => (dispatch: any) => {
         payload,
         type: PIN_CHANGE_SUCCESS,
       });
-      notification("PIN succesfully updated");
+      notification(response.message);
+      push(HOME_PATH);
     })
     .catch((error) => {
       dispatch({

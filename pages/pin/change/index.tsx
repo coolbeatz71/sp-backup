@@ -1,19 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
+import styles from "./change.module.scss";
 import { isEmpty } from "lodash";
 import { useSelector, useDispatch } from "react-redux";
-import styles from "./change.module.scss";
 import { Form, Button, Typography } from "antd";
 import { InputPassword } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import change from "redux/actions/pin/change";
 import PrivateComponent from "pages/privateRoute";
+import { useRouter } from "next/router";
 
 const { Text } = Typography;
 
-const ChangePin: React.FC<{}> = () => {
+const ChangePin: FC<{}> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const { push } = useRouter();
 
   const { loading, error } = useSelector(
     ({ pin: { change } }: IRootState) => change,
@@ -26,7 +28,7 @@ const ChangePin: React.FC<{}> = () => {
       old_password: data.old_password,
       new_password: data.new_password,
     };
-    change(formData)(dispatch);
+    change(push, formData)(dispatch);
   };
 
   return (

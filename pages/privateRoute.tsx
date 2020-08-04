@@ -3,7 +3,6 @@ import Router from "next/router";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { HOME_PATH } from "helpers/paths";
-import IndexPage from "pages";
 
 const PrivateComponent = (Component: FC<any> | SFC<any>) => {
   return () => {
@@ -16,7 +15,7 @@ const PrivateComponent = (Component: FC<any> | SFC<any>) => {
       // tslint:disable-next-line: align
     }, [isLoggedin]);
 
-    return isLoggedin ? <Component /> : <IndexPage />;
+    return <Component />;
   };
 };
 

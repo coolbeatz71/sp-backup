@@ -1,4 +1,4 @@
-import { POLICIES_PATH } from "./paths";
+import { POLICIES_PATH, HOME_PATH, PRICING_PATH } from "./paths";
 
 const updateNavbarTheme = (
   isMobile: boolean,
@@ -6,12 +6,13 @@ const updateNavbarTheme = (
   page: string,
   setLightNavbar: (bool: boolean) => any,
 ) => {
-  if (!isMobile && window.scrollY > 500) setLightNavbar(true);
+  console.log("window.scrollY :>> ", window.scrollY);
+  if (page === PRICING_PATH && !isMobile && window.scrollY > 500)
+    setLightNavbar(true);
   else if (page === POLICIES_PATH && !isMobile && window.scrollY > 350)
     setLightNavbar(true);
-  else if (page === POLICIES_PATH && isMobile && window.scrollY > 250)
+  else if (page === HOME_PATH && !isMobile && window.scrollY > 700)
     setLightNavbar(true);
-  else if (isMobile && window.scrollY > 320) setLightNavbar(true);
   else setLightNavbar(isLight);
 };
 
