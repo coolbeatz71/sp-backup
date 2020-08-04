@@ -158,11 +158,13 @@ const SingleCause: React.FC<{}> = () => {
               </div>
               <div className={styles.singleCause__body__right}>
                 <CauseDonors slug={slug} />
-                <Share
-                  title={data.name}
-                  slug={slug}
-                  tillNumber={data.till_number}
-                />
+                {data.status === causeStatus.active && (
+                  <Share
+                    title={data.name}
+                    slug={slug}
+                    tillNumber={data.till_number}
+                  />
+                )}
               </div>
               {contactInfo("mobile")}
             </div>
