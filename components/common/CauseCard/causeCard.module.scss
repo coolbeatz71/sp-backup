@@ -92,11 +92,11 @@
         .top {
           display: flex;
           #{$grandParent}__avatar {
-            margin-top: -30px;
             width: 60px;
             height: 60px;
+            margin-top: -45px;
             border: 2px solid #fff;
-            border-radius: 25px;
+            border-radius: 60px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
           }
@@ -260,7 +260,7 @@
       }
       &__ratings {
         display: flex;
-        &__label{
+        &__label {
           font-size: 14px !important;
         }
         span {

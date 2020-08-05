@@ -12,6 +12,8 @@ import Actions from "./Actions";
 import ExtraInfo from "./ExtraInfo";
 import LazyLoadCover from "./LazyLoadCover";
 import { IUnknownObject } from "interfaces/unknownObject";
+import { useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
@@ -32,7 +34,7 @@ const canDonateMsg: ICauseStatus = {
 export interface CauseCardProps {
   pathName: string;
   slug: string;
-  owner: { avatar?: string; name?: string; verified?: boolean };
+  owner: { userAvatar?: string; name?: string; verified?: boolean };
   cover: string;
   title: string;
   tillNumber: string;
@@ -83,7 +85,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
 const CauseCard: FC<CauseCardProps> = ({
   pathName,
   slug,
-  owner: { avatar, name, verified },
+  owner: { userAvatar: avatar, name, verified },
   cover,
   title,
   tillNumber,
@@ -98,6 +100,30 @@ const CauseCard: FC<CauseCardProps> = ({
   category,
   data,
 }) => {
+  const { data: pauseCauseData, loading: pauseCauseLoading } = useSelector(
+    ({ cause: { pause } }: IRootState) => pause,
+  );
+
+  const { data: cancelCauseData, loading: cancelCauseLoading } = useSelector(
+    ({ cause: { cancel } }: IRootState) => cancel,
+  );
+
+  const getCauseStatus = () => {
+    if (!pauseCauseLoading && pauseCauseData.status === 200) {
+      return pauseCauseData.data.slug === slug
+        ? pauseCauseData.data.status
+        : status;
+    }
+
+    if (!cancelCauseLoading && cancelCauseData.status === 200) {
+      return cancelCauseData.data.slug === slug
+        ? causeStatus.cancelled
+        : status;
+    }
+
+    return status;
+  };
+
   const renderHeaderInfo = () => {
     if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH)
       return (
@@ -109,7 +135,8 @@ const CauseCard: FC<CauseCardProps> = ({
         />
       );
 
-    if (pathName === USER_CAUSES_PATH) return <StatusInfo status={status} />;
+    if (pathName === USER_CAUSES_PATH)
+      return <StatusInfo status={getCauseStatus()} />;
   };
 
   const progress = getProgressPercentage(amountRaised, amountToReach);
@@ -150,7 +177,7 @@ const CauseCard: FC<CauseCardProps> = ({
         )}
         <div className={styles.causeCard__body__content}>
           {pathName === USER_CAUSES_PATH && (
-            <Actions slug={slug} status={status} />
+            <Actions slug={slug} status={getCauseStatus()} />
           )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>
@@ -184,7 +211,7 @@ const CauseCard: FC<CauseCardProps> = ({
               {numberFormatter(amountToReach)} {currency} Goal
             </h5>
             <span className={styles.causeStatus}>
-              {getDaysToGoMsg(status, daysToGo)}
+              {getDaysToGoMsg(getCauseStatus(), daysToGo)}
             </span>
           </div>
         </div>
@@ -196,10 +223,10 @@ const CauseCard: FC<CauseCardProps> = ({
           rating={rating}
           ratersCount={ratersCount}
           tillNumber={tillNumber}
-          status={status}
+          status={getCauseStatus()}
         />
       </div>
-      {renderFooter(status, pathName, slug)}
+      {renderFooter(getCauseStatus(), pathName, slug)}
       <style jsx>{`
         .progression {
           width: ${progressBar}%;

@@ -3,12 +3,14 @@
   position: relative;
 
   &__title {
+    position: relative;
     text-transform: capitalize;
     font-size: 20pt;
     font-weight: bold;
     font-style: normal;
     line-height: 48px;
     margin: 0;
+    z-index: 1;
     @include mediaMd {
       font-size: 18pt;
     }
@@ -20,7 +22,6 @@
     width: 42px;
     height: 42px;
     left: 2px;
-    z-index: -1;
 
     @include mediaMd {
       top: -35%;

@@ -2,8 +2,8 @@ import React, { FC, useState } from "react";
 import Link from "next/link";
 import { USER_CAUSES_PATH } from "helpers/paths";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Button, Modal } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { Form, Button, Modal, Typography } from "antd";
+import { CloseOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import styles from "./actionModal.module.scss";
 import { IRootState } from "redux/initialStates";
 import { validateMessages } from "constants/validationMessages";
@@ -12,6 +12,8 @@ import pauseCause from "redux/actions/cause/pauseCause";
 import { Store } from "antd/lib/form/interface";
 import { ActionType } from "..";
 import cancelCause from "redux/actions/cause/cancelCause";
+
+const { Text } = Typography;
 
 interface IPauseCauseProps {
   slug: string;
@@ -28,10 +30,23 @@ const PauseCause: FC<IPauseCauseProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
-  const { loading } = useSelector(({ cause: { pause } }: IRootState) => pause);
-  const { loading: LoadingCancel } = useSelector(
+  const { loading: loadingPause, error: errorPause } = useSelector(
+    ({ cause: { pause } }: IRootState) => pause,
+  );
+  const { loading: loadingCancel, error: errorCancel } = useSelector(
     ({ cause: { cancel } }: IRootState) => cancel,
   );
+
+  const handleModalClose = () => {
+    dispatch({ type: "RESET_CANCEL_ERROR" });
+    dispatch({ type: "RESET_PAUSE_ERROR" });
+    closeModal();
+  };
+
+  const goBackHome = () => {
+    closeModal();
+    location.reload();
+  };
 
   const handleSubmit = (data: Store) => {
     switch (context) {
@@ -59,7 +74,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
         return {
           title: "Cancel a Cause",
           subTitle:
-            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donours at the end date you already choose. To Continue Enter Your PIN.",
+            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donours at the end date you already choose.",
           successMessage: "Cause cancelled",
         };
       default:
@@ -82,7 +97,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
         <div className={styles.pause__modalHeader}>
           <CloseOutlined
             className={styles.pause__modalHeader__icon}
-            onClick={closeModal}
+            onClick={handleModalClose}
           />
         </div>
       )}
@@ -98,7 +113,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
           <div className={styles.pause__modalContent__successful}>
             <img src="/success-pause.gif" alt="pause success" />
             <Link href={USER_CAUSES_PATH}>
-              <a onClick={closeModal}>Back Home</a>
+              <a onClick={goBackHome}>Back Home</a>
             </Link>
           </div>
         ) : (
@@ -106,9 +121,18 @@ const PauseCause: FC<IPauseCauseProps> = ({
             <p className={styles.pause__modalContent__subTitle}>
               {getModalContent()?.subTitle}
             </p>
-            <p className={styles.pause__modalContent__continue}>
-              To Continue Enter Your PIN
-            </p>
+            {errorPause || errorCancel ? (
+              <Text type="danger" className="mb-3 d-block text-center">
+                <span className="d-block">
+                  <ExclamationCircleOutlined className="auth-error-message" />
+                  {errorPause || errorCancel}
+                </span>
+              </Text>
+            ) : (
+              <p className={styles.pause__modalContent__continue}>
+                To Continue Enter Your PIN
+              </p>
+            )}
 
             <Form
               onFinish={handleSubmit}
@@ -133,7 +157,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
               <div className="d-flex mb-3">
                 <Button
                   htmlType="submit"
-                  loading={loading || LoadingCancel}
+                  loading={loadingPause || loadingCancel}
                   className="btn-primary ml-auto text-uppercase"
                 >
                   {context}

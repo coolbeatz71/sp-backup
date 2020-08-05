@@ -1,0 +1,49 @@
+@import "styles/_mixins";
+@import "styles/_variables";
+
+.error {
+  color: $color-dark;
+  background: #f4fafb;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    margin: 2rem 0 4rem 0;
+    font-weight: bold;
+    color: #3c3f59;
+  }
+
+  .illustration {
+    margin: 4rem;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 60%;
+    }
+  }
+
+  @include mediaMd {
+    padding: 1rem 1.5rem;
+    .illustration {
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @include mediaLg {
+    .illustration {
+      width: 100%;
+
+      img {
+        width: 80%;
+      }
+    }
+  }
+}

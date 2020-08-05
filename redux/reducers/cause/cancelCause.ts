@@ -3,6 +3,7 @@ import {
   CANCEL_CAUSE_START,
   CANCEL_CAUSE_SUCCESS,
   CANCEL_CAUSE_ERROR,
+  RESET_CANCEL_ERROR,
 } from "redux/action-types/cause/cancelCause";
 
 interface IAction {
@@ -38,6 +39,15 @@ export default (state: ICause, { type, payload }: IAction) => {
           ...state.cancel,
           loading: false,
           error: payload,
+        },
+      };
+    case RESET_CANCEL_ERROR:
+      return {
+        ...state,
+        cancel: {
+          ...state.cancel,
+          loading: false,
+          error: null,
         },
       };
     default:
