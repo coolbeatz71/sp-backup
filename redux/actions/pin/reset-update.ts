@@ -20,7 +20,7 @@ export default (data: {}) => (dispatch: any) => {
         payload,
         type: PIN_RESET_UPDATE_SUCCESS,
       });
-      notification("PIN updated, you can now use it to login");
+      notification(response.message);
       changeAuthContext("login")(dispatch);
     })
     .catch((error) => {
