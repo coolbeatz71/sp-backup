@@ -7,15 +7,14 @@ import { causeStatus } from "interfaces";
 import Link from "next/link";
 
 export enum ActionType {
-  stop = "stop",
+  pause = "pause",
   cancel = "cancel",
 }
 
 const isUncancellable = (status: string): boolean =>
-  status !== causeStatus.active && status !== causeStatus.stopped;
+  status !== causeStatus.active && status !== causeStatus.paused;
 
-const isUnstoppable = (status: string): boolean =>
-  status !== causeStatus.active;
+const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
 const isUneditable = (status: string) => status !== causeStatus.active;
 
@@ -27,13 +26,12 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
 
   const handleAction = (type: ActionType) => {
     switch (type) {
-      case ActionType.stop:
+      case ActionType.pause:
         setCauseModal({ isVisible: true, context: type });
         break;
       case ActionType.cancel:
         setCauseModal({ isVisible: true, context: type });
         break;
-
       default:
         break;
     }
@@ -54,14 +52,14 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
       </Menu.Item>
       <Menu.Divider />
 
-      {status === causeStatus.stopped ? (
-        <Menu.Item>Reactivate Cause</Menu.Item>
+      {status === causeStatus.paused ? (
+        <Menu.Item>Resume Cause</Menu.Item>
       ) : (
         <Menu.Item
-          onClick={() => handleAction(ActionType.stop)}
-          disabled={isUnstoppable(status)}
+          onClick={() => handleAction(ActionType.pause)}
+          disabled={isUnpausable(status)}
         >
-          Stop Cause
+          Pause Cause
         </Menu.Item>
       )}
       <Menu.Divider />

@@ -15,7 +15,7 @@ import { IUnknownObject } from "interfaces/unknownObject";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
-  stopped: causeStatus.stopped,
+  paused: causeStatus.paused,
   closed: causeStatus.closed,
   completed: causeStatus.completed,
   cancelled: causeStatus.cancelled,
@@ -23,7 +23,7 @@ const daysToGoStatus: ICauseStatus = {
 
 const canDonateMsg: ICauseStatus = {
   active: "Make a Donation",
-  stopped: "This cause has been Stopped",
+  paused: "This cause has been Paused",
   closed: "This cause has been Closed",
   completed: "This cause has been completed",
   cancelled: "This cause has been cancelled",
