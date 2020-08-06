@@ -1,33 +1,33 @@
 import splApi from "helpers/axios";
 import {
-  STOP_CAUSE_START,
-  STOP_CAUSE_SUCCESS,
-  STOP_CAUSE_ERROR,
-} from "redux/action-types/cause/stopCause";
+  PAUSE_CAUSE_START,
+  PAUSE_CAUSE_SUCCESS,
+  PAUSE_CAUSE_ERROR,
+} from "redux/action-types/cause/pauseCause";
 import notification from "utils/notification";
 import errorFormatter from "helpers/errorFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
 
 export default (slug: string | string[], data: IUnknownObject) => (
-  setStoppingToSuccess: any,
+  setPausingToSuccess: any,
   dispatch: any,
 ) => {
   dispatch({
-    type: STOP_CAUSE_START,
+    type: PAUSE_CAUSE_START,
   });
   splApi
-    .put(`/causes/${slug}/stop`, data)
+    .put(`/causes/${slug}/pause`, data)
     .then((response: any) => {
       dispatch({
         payload: response,
-        type: STOP_CAUSE_SUCCESS,
+        type: PAUSE_CAUSE_SUCCESS,
       });
-      setStoppingToSuccess(true);
+      setPausingToSuccess(true);
     })
     .catch((error: any) => {
       if (error.message) notification(errorFormatter(error.message), "error");
       dispatch({
-        type: STOP_CAUSE_ERROR,
+        type: PAUSE_CAUSE_ERROR,
         payload: error,
       });
     });

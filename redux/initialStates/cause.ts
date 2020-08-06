@@ -1,4 +1,7 @@
-import { IBasicReduxStore, basicReduxStoreDefault } from "interfaces/reduxStore";
+import {
+  IBasicReduxStore,
+  basicReduxStoreDefault,
+} from "interfaces/reduxStore";
 
 export default {
   all: {
@@ -31,7 +34,7 @@ export default {
     accessCode: "",
   },
   donate: basicReduxStoreDefault,
-  stop: {
+  pause: {
     data: {},
     loading: false,
     error: "",
@@ -63,7 +66,7 @@ export interface ICause {
     accessCode: string;
   };
   donate: IBasicReduxStore;
-  stop: IBasicReduxStore;
+  pause: IBasicReduxStore;
   edit: IBasicReduxStore;
   cancel: IBasicReduxStore;
 }

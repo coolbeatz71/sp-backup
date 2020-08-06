@@ -1,9 +1,9 @@
 import { ICause } from "redux/initialStates/cause";
 import {
-  STOP_CAUSE_START,
-  STOP_CAUSE_SUCCESS,
-  STOP_CAUSE_ERROR,
-} from "redux/action-types/cause/stopCause";
+  PAUSE_CAUSE_START,
+  PAUSE_CAUSE_SUCCESS,
+  PAUSE_CAUSE_ERROR,
+} from "redux/action-types/cause/pauseCause";
 
 interface IAction {
   type: string;
@@ -12,30 +12,30 @@ interface IAction {
 
 export default (state: ICause, { type, payload }: IAction) => {
   switch (type) {
-    case STOP_CAUSE_START:
+    case PAUSE_CAUSE_START:
       return {
         ...state,
-        stop: {
-          ...state.stop,
+        pause: {
+          ...state.pause,
           loading: true,
           error: null,
         },
       };
-    case STOP_CAUSE_SUCCESS:
+    case PAUSE_CAUSE_SUCCESS:
       return {
         ...state,
-        stop: {
-          ...state.stop,
+        pause: {
+          ...state.pause,
           loading: false,
           data: payload,
           error: null,
         },
       };
-    case STOP_CAUSE_ERROR:
+    case PAUSE_CAUSE_ERROR:
       return {
         ...state,
-        stop: {
-          ...state.stop,
+        pause: {
+          ...state.pause,
           loading: false,
           error: payload,
         },

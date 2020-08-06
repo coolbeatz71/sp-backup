@@ -8,19 +8,19 @@ import styles from "./actionModal.module.scss";
 import { IRootState } from "redux/initialStates";
 import { validateMessages } from "constants/validationMessages";
 import { InputPassword } from "components/common/Input";
-import stopCause from "redux/actions/cause/stopCause";
+import pauseCause from "redux/actions/cause/pauseCause";
 import { Store } from "antd/lib/form/interface";
 import { ActionType } from "..";
 import cancelCause from "redux/actions/cause/cancelCause";
 
-interface IStopCauseProps {
+interface IPauseCauseProps {
   slug: string;
   visible: boolean;
   context?: ActionType | "";
   closeModal: () => void;
 }
 
-const StopCause: FC<IStopCauseProps> = ({
+const PauseCause: FC<IPauseCauseProps> = ({
   slug,
   visible,
   context,
@@ -28,15 +28,15 @@ const StopCause: FC<IStopCauseProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
-  const { loading } = useSelector(({ cause: { stop } }: IRootState) => stop);
+  const { loading } = useSelector(({ cause: { pause } }: IRootState) => pause);
   const { loading: LoadingCancel } = useSelector(
     ({ cause: { cancel } }: IRootState) => cancel,
   );
 
   const handleSubmit = (data: Store) => {
     switch (context) {
-      case ActionType.stop:
-        stopCause(slug, data)(setActionSuccessful, dispatch);
+      case ActionType.pause:
+        pauseCause(slug, data)(setActionSuccessful, dispatch);
         break;
       case ActionType.cancel:
         cancelCause(slug, data)(setActionSuccessful, dispatch);
@@ -48,12 +48,12 @@ const StopCause: FC<IStopCauseProps> = ({
 
   const getModalContent = () => {
     switch (context) {
-      case ActionType.stop:
+      case ActionType.pause:
         return {
-          title: "Stop a Cause",
+          title: "Pause a Cause",
           subTitle:
-            "By stopping this cause, donours will not be able to donate money for it again, already donated money will be remitted to you at the end date you already choose.",
-          successMessage: "Cause stopped",
+            "By pausing this cause, donours will not be able to donate money for it again, already donated money will be remitted to you at the end date you already choose.",
+          successMessage: "Cause paused",
         };
       case ActionType.cancel:
         return {
@@ -79,15 +79,15 @@ const StopCause: FC<IStopCauseProps> = ({
       maskStyle={{ background: "#000000b3" }}
     >
       {!actionSuccessful && (
-        <div className={styles.stop__modalHeader}>
+        <div className={styles.pause__modalHeader}>
           <CloseOutlined
-            className={styles.stop__modalHeader__icon}
+            className={styles.pause__modalHeader__icon}
             onClick={closeModal}
           />
         </div>
       )}
 
-      <div className={styles.stop__modalContent}>
+      <div className={styles.pause__modalContent}>
         <h4>
           {actionSuccessful
             ? getModalContent()?.successMessage
@@ -95,25 +95,25 @@ const StopCause: FC<IStopCauseProps> = ({
         </h4>
 
         {actionSuccessful ? (
-          <div className={styles.stop__modalContent__successful}>
-            <img src="/success-stop.gif" alt="stop success" />
+          <div className={styles.pause__modalContent__successful}>
+            <img src="/success-pause.gif" alt="pause success" />
             <Link href={USER_CAUSES_PATH}>
               <a onClick={closeModal}>Back Home</a>
             </Link>
           </div>
         ) : (
           <>
-            <p className={styles.stop__modalContent__subTitle}>
+            <p className={styles.pause__modalContent__subTitle}>
               {getModalContent()?.subTitle}
             </p>
-            <p className={styles.stop__modalContent__continue}>
+            <p className={styles.pause__modalContent__continue}>
               To Continue Enter Your PIN
             </p>
 
             <Form
               onFinish={handleSubmit}
               validateMessages={validateMessages}
-              className={styles.stop__modalContent__form}
+              className={styles.pause__modalContent__form}
             >
               <Form.Item
                 className="form-group"
@@ -147,4 +147,4 @@ const StopCause: FC<IStopCauseProps> = ({
   );
 };
 
-export default StopCause;
+export default PauseCause;

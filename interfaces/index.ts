@@ -1,7 +1,7 @@
 export enum causeStatus {
   active = "active",
   closed = "closed",
-  stopped = "stopped",
+  paused = "paused",
   completed = "completed",
   cancelled = "canceled",
   canceled = "canceled",
@@ -9,7 +9,7 @@ export enum causeStatus {
 
 export interface ICauseStatus {
   active: string;
-  stopped: string;
+  paused: string;
   closed: string;
   completed: string;
   cancelled: string;
