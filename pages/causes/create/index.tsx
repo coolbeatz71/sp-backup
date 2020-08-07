@@ -309,7 +309,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                   {steps[currentStep].content}
                   <div className={styles.createCause__content__actions}>
                     {currentStep > 0 && (
-                      <Button className="btn-primary mr-2" onClick={prev}>
+                      <Button className="btn-primary-outline mr-2" onClick={prev}>
                         PREVIOUS
                       </Button>
                     )}
