@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Select, DatePicker, Upload } from "antd";
+import moment from "moment";
 import { Input } from "components/common/Input";
 import { FileImageOutlined } from "@ant-design/icons";
 import splApi from "helpers/axios";
@@ -30,6 +31,10 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
       return e;
     }
     return e && e.fileList;
+  };
+
+  const disabledDate = (current: any) => {
+    return current && current < moment().startOf("day");
   };
 
   return (
@@ -83,7 +88,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onChange"]}
         rules={[{ required: true }]}
       >
-        <RangePicker className="w-100" disabled={[isEditing, false]} />
+        <RangePicker disabledDate={disabledDate} className="w-100" disabled={[isEditing, false]} />
       </Form.Item>
       <div className="mb-3">
         <p className="font-weight-bold">Image</p>
