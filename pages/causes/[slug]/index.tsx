@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { Button } from "antd";
 import formatNumber from "helpers/numberFormater";
 import { getDaysToGo } from "helpers/causeDaysToGo";
 import getSingle from "redux/actions/cause/getSingle";
-import { useMedia } from "react-use";
+import { useMedia, useWindowScroll } from "react-use";
 import { IRootState } from "redux/initialStates";
 import Spinner from "components/Spinner";
 import getProgressPercentage from "helpers/getProgressPercentage";
@@ -27,14 +27,20 @@ const SingleCause: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const { slug } = router.query;
   const isMobile = useMedia("(max-width: 768px)");
+  const progressBarRef = useRef<HTMLDivElement>();
+  const { y } = useWindowScroll();
 
   if (slug && !fetched) {
     getSingle(slug)(dispatch);
     setFetched(true);
   }
 
+  const scrollVisible = () =>
+    // @ts-ignore
+    y >= progressBarRef.current?.offsetTop;
+
   const { loading, data, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single } }: IRootState) => single
   );
 
   const donateButton = (screen?: string) =>
@@ -65,7 +71,7 @@ const SingleCause: React.FC<{}> = () => {
       You can reach out to on{" "}
       <a
         href={`tel:+${phoneFormatter(
-          data.phone_number || data.payment_account_number,
+          data.phone_number || data.payment_account_number
         )}`}
       >
         {phoneFormatter(data.phone_number || data.payment_account_number)}
@@ -103,7 +109,11 @@ const SingleCause: React.FC<{}> = () => {
                   />
                 </LazyLoadCover>
               </div>
-              <div className={styles.singleCause__header__progress}>
+              <div
+                className={styles.singleCause__header__progress}
+                // @ts-ignore
+                ref={progressBarRef}
+              >
                 <div
                   className={styles.singleCause__header__progress__container}
                 >
@@ -116,7 +126,7 @@ const SingleCause: React.FC<{}> = () => {
                     >
                       {getProgressPercentage(
                         data.raised_amount,
-                        data.target_amount,
+                        data.target_amount
                       )}{" "}
                       %
                     </span>
@@ -135,7 +145,7 @@ const SingleCause: React.FC<{}> = () => {
                     <span className={styles.causeStatus}>
                       {getDaysToGo(
                         data.status,
-                        getCauseRemainingDays(data.end_date),
+                        getCauseRemainingDays(data.end_date)
                       )}
                     </span>
                   </div>
@@ -158,6 +168,53 @@ const SingleCause: React.FC<{}> = () => {
               </div>
               <div className={styles.singleCause__body__right}>
                 <CauseDonors slug={slug} />
+                <div
+                  className={`${styles.singleCause__header__progress} ${
+                    styles.singleCause__header__progressSide
+                  } ${scrollVisible() ? "show-side-progress" : ""}`}
+                >
+                  {}
+                  <div
+                    className={styles.singleCause__header__progress__container}
+                  >
+                    <div
+                      className={styles.singleCause__header__progress__raised}
+                    >
+                      <h5>{formatNumber(data.raised_amount)} RWF Raised</h5>
+                      <span
+                        className={
+                          styles.singleCause__header__progress__percentage
+                        }
+                      >
+                        {getProgressPercentage(
+                          data.raised_amount,
+                          data.target_amount
+                        )}{" "}
+                        %
+                      </span>
+                    </div>
+                    <div
+                      className={
+                        styles.singleCause__header__progress__progressBar
+                      }
+                    >
+                      <div
+                        className={`progression ${styles.singleCause__header__progress__progression}`}
+                      />
+                    </div>
+                    <div className={styles.singleCause__header__progress__goal}>
+                      <h5>{formatNumber(data.target_amount)} RWF Goal</h5>
+                      <span className={styles.causeStatus}>
+                        {getDaysToGo(
+                          data.status,
+                          getCauseRemainingDays(data.end_date)
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  {donateButton()}
+                  {donateButton("mobile")}
+                </div>
                 {data.status === causeStatus.active && (
                   <Share
                     title={data.name}
@@ -175,7 +232,7 @@ const SingleCause: React.FC<{}> = () => {
         .progression {
           width: ${getProgressPercentage(
             data.raised_amount,
-            data.target_amount,
+            data.target_amount
           )}%;
         }
       `}</style>
