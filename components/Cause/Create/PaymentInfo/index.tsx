@@ -30,14 +30,6 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
           maxLength={9}
         />
       </Form.Item>
-
-      <Form.Item
-        name="payment_account_name"
-        validateTrigger={["onSubmit", "onBlur"]}
-        rules={[{ required: true, min: 3 }]}
-      >
-        <Input placeholder="Account Name" disabled={isEditing} />
-      </Form.Item>
       <div className="d-flex">
         <span className="font-weight-bold">Private Cause</span>
         <Form.Item
