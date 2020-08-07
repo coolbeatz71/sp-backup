@@ -70,11 +70,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const [form] = Form.useForm();
   const {
-    data: { phone_number },
+    data: { phone_number, ...userData },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const [currentStep, setCurrentStep] = useState(0);
   const [formState, setFormState] = useState(
-    editFormState || formStateDefaultValue,
+    editFormState || formStateDefaultValue
   );
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
@@ -84,11 +84,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const stepsCount = steps.length - 1;
 
   const { loading, data, error } = useSelector(
-    ({ cause: { create } }: IRootState) => create,
+    ({ cause: { create } }: IRootState) => create
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit,
+    ({ cause: { edit } }: IRootState) => edit
   );
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount),
+          serializeFormattedNumber(data.target_amount)
         );
         return;
       }
@@ -170,7 +170,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const getTouchedFields = (values: IUnknownObject) => {
     const touchedKeys = Object.keys(values).filter((key) =>
-      form.isFieldTouched(key),
+      form.isFieldTouched(key)
     );
     const touchedFields = pick(values, touchedKeys);
     return touchedFields;
@@ -254,7 +254,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
               <div className={styles.createCause__content__header__title}>
                 <Title level={4}>{steps[currentStep].title}</Title>
                 <p>{steps[currentStep].subTitle}</p>
-                {editing && (
+                {editing ? (
                   <Tag
                     className="mb-2 edit-warning"
                     icon={<ExclamationCircleOutlined />}
@@ -262,6 +262,16 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                   >
                     You can edit this cause only once
                   </Tag>
+                ) : (
+                  !userData.avatar && (
+                    <Tag
+                      className="mb-2 edit-warning"
+                      icon={<ExclamationCircleOutlined />}
+                      color="warning"
+                    >
+                      You need to update your profile picture first
+                    </Tag>
+                  )
                 )}
               </div>
               <div className={styles.createCause__content__header__steps}>
@@ -308,7 +318,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                       className="btn-primary"
                       htmlType="submit"
                       disabled={
-                        editing && !isCauseEditable(editFormState.edit_count)
+                        (editing &&
+                          !isCauseEditable(editFormState.edit_count)) ||
+                        !userData.avatar
                       }
                     >
                       {currentStep !== stepsCount
