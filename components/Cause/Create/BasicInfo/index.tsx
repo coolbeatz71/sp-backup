@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Form, Select, DatePicker, Upload } from "antd";
 import moment from "moment";
 import { Input } from "components/common/Input";
-import { FileImageOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 import splApi from "helpers/axios";
 import { Icategories } from "interfaces/categories";
 import normalizeInputNumber from "helpers/normalizeInputNumber";
 import isLocation from "helpers/isLocation";
+import ImgCrop from "antd-img-crop";
+import { setCroppedImage } from "redux/actions/cause/create";
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
 
 export interface BasicInfoProps {}
 
 const { RangePicker } = DatePicker;
 
 const BasicInfo: React.FC<BasicInfoProps> = () => {
+  const dispatch = useDispatch();
   const [categories, setCatories] = useState<Icategories[]>([]);
+  const [uploadLoading, setUploadLoading] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState("");
   const isEditing = isLocation(["causes", "edit"]);
   useEffect(() => {
     splApi
@@ -26,11 +33,36 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
       });
   }, []);
 
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
+  const { data } = useSelector(({ cause: { single } }: IRootState) => single);
+
+  const { croppedImage } = useSelector(
+    ({ cause: { create } }: IRootState) => create
+  );
+
+  useEffect(() => {
+    if (isEditing) setImageUrl(data.image);
+  }, [data.image]);
+
+  useEffect(() => {
+    if (croppedImage[0]?.status === "done") {
+      setUploadLoading(false);
+      getBase64(croppedImage[0]?.originFileObj, (imageUrl: any) => {
+        setImageUrl(imageUrl);
+      });
     }
-    return e && e.fileList;
+  }, [croppedImage]);
+
+  function getBase64(img: any, callback: any) {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  const handleChange = (info: any) => {
+    if (info.file.status === "uploading") {
+      return setUploadLoading(true);
+    }
+    setCroppedImage([info.file])(dispatch);
   };
 
   const disabledDate = (current: any) => {
@@ -88,29 +120,42 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onChange"]}
         rules={[{ required: true }]}
       >
-        <RangePicker disabledDate={disabledDate} className="w-100" disabled={[isEditing, false]} />
+        <RangePicker
+          disabledDate={disabledDate}
+          className="w-100"
+          disabled={[isEditing, false]}
+        />
       </Form.Item>
       <div className="mb-3">
         <p className="font-weight-bold">Image</p>
         <Form.Item>
           <Form.Item
             name="image"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
+            valuePropName={imageUrl}
             noStyle
             rules={[{ required: true }]}
           >
-            <Upload.Dragger
-              beforeUpload={() => false}
-              accept="image/x-png,image/jpeg,image/jpg"
-              listType="picture"
-              multiple={false}
-              disabled={isEditing}
-            >
-              <p className="ant-upload-drag-icon">
-                <FileImageOutlined />
-              </p>
-            </Upload.Dragger>
+            <ImgCrop modalTitle="Crop Image" rotate aspect={16 / 9}>
+              <Upload
+                accept="image/x-png,image/jpeg,image/jpg"
+                listType="picture-card"
+                onChange={handleChange}
+                multiple={false}
+                showUploadList={false}
+                className="cause-image-uploader"
+                disabled={isEditing}
+              >
+                <div className="cause-image-uploader__container">
+                  {imageUrl && <img src={imageUrl} alt="cause cover" />}
+                  <div className="upload-action">
+                    {uploadLoading && <LoadingOutlined />}
+                    <div className="ant-upload-text">
+                      Choose Image to upload
+                    </div>
+                  </div>
+                </div>
+              </Upload>
+            </ImgCrop>
           </Form.Item>
         </Form.Item>
       </div>

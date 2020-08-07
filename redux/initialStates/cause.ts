@@ -2,6 +2,7 @@ import {
   IBasicReduxStore,
   basicReduxStoreDefault,
 } from "interfaces/reduxStore";
+import { UploadFile } from "antd/es/upload/interface";
 
 export default {
   all: {
@@ -24,6 +25,7 @@ export default {
   },
   create: {
     data: {},
+    croppedImage: [],
     loading: false,
     error: "",
   },
@@ -56,6 +58,7 @@ export interface ICause {
   user: ICauseFeed;
   create: {
     data: { [key: string]: any };
+    croppedImage: UploadFile[];
     error: string;
     loading: boolean;
   };
