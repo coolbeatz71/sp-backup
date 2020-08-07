@@ -6,7 +6,6 @@ const updateNavbarTheme = (
   page: string,
   setLightNavbar: (bool: boolean) => any,
 ) => {
-  console.log("window.scrollY :>> ", window.scrollY);
   if (page === PRICING_PATH && !isMobile && window.scrollY > 500)
     setLightNavbar(true);
   else if (page === POLICIES_PATH && !isMobile && window.scrollY > 350)

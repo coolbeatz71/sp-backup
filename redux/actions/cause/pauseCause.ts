@@ -4,7 +4,6 @@ import {
   PAUSE_CAUSE_SUCCESS,
   PAUSE_CAUSE_ERROR,
 } from "redux/action-types/cause/pauseCause";
-import notification from "utils/notification";
 import errorFormatter from "helpers/errorFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
 
@@ -25,10 +24,11 @@ export default (slug: string | string[], data: IUnknownObject) => (
       setPausingToSuccess(true);
     })
     .catch((error: any) => {
-      if (error.message) notification(errorFormatter(error.message), "error");
+      let payload;
+      if (error.message) payload = errorFormatter(error.message);
       dispatch({
+        payload,
         type: PAUSE_CAUSE_ERROR,
-        payload: error,
       });
     });
 };

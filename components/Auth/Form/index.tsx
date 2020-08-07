@@ -168,7 +168,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </>
         )}
         {["pin-reset", "pin-reset-update", "verify-phone"].includes(
-          context
+          context,
         ) ? null : ["signup"].includes(context) ? (
           <>
             <Form.Item className={styles.authForm__names}>

@@ -102,7 +102,11 @@ const AllCauses: React.SFC<{}> = () => {
                       description={cause.summary}
                       tillNumber={cause.till_number}
                       cover={cause.image}
-                      owner={getOwnerInfo(cause.user_names, cause.verified)}
+                      owner={getOwnerInfo(
+                        cause.user_names,
+                        cause.verified,
+                        cause.user_avatar,
+                      )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
                       currency={cause.currency}
@@ -129,7 +133,11 @@ const AllCauses: React.SFC<{}> = () => {
                       description={cause.summary}
                       tillNumber={cause.till_number}
                       cover={cause.image}
-                      owner={getOwnerInfo(cause.user_names, cause.verified)}
+                      owner={getOwnerInfo(
+                        cause.user_names,
+                        cause.verified,
+                        cause.user_avatar,
+                      )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
                       currency={cause.currency}

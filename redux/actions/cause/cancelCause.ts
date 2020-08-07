@@ -4,9 +4,8 @@ import {
   CANCEL_CAUSE_SUCCESS,
   CANCEL_CAUSE_ERROR,
 } from "redux/action-types/cause/cancelCause";
-import notification from "utils/notification";
-import errorFormatter from "helpers/errorFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
+import errorFormatter from "helpers/errorFormatter";
 
 export default (slug: string | string[], data: IUnknownObject) => (
   setActionSuccessful: any,
@@ -25,10 +24,11 @@ export default (slug: string | string[], data: IUnknownObject) => (
       setActionSuccessful(true);
     })
     .catch((error: any) => {
-      if (error.message) notification(errorFormatter(error.message), "error");
+      let payload;
+      if (error.message) payload = errorFormatter(error.message);
       dispatch({
+        payload,
         type: CANCEL_CAUSE_ERROR,
-        payload: error,
       });
     });
 };
