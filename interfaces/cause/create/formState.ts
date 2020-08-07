@@ -1,6 +1,5 @@
 export interface IformState {
   payment_method?: string;
-  payment_account_name?: string;
   payment_account_number?: string;
   summary?: string;
   description?: string;
@@ -11,7 +10,6 @@ export interface IformState {
 
 export const formStateDefaultValue = {
   name: "",
-  payment_account_name: "",
   payment_account_number: "",
   summary: "",
   description: "",
