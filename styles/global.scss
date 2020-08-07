@@ -490,6 +490,16 @@ textarea.ant-input {
     background-color: white !important;
     padding: 0 15px;
   }
+  
+  input + span.ant-input-group-addon{
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    img{
+      height: 20px;
+      width: auto;
+    }
+  }
 
   .input_input__label__1H7Jb {
     left: 66px !important;

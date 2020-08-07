@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Form, Select, Switch } from "antd";
-import { Input } from "components/common/Input";
-import { mobileMoney } from "constants/paymentMethods";
-import { IUnknownObject } from "interfaces/unknownObject";
+import React, { useState } from "react";
+import { Form, Switch } from "antd";
+import { Input, InputPhoneNumber } from "components/common/Input";
 import isLocation from "helpers/isLocation";
 
 export interface PaymentInfoProps {}
@@ -10,72 +8,29 @@ export interface PaymentInfoProps {}
 const PaymentInfo: React.FC<PaymentInfoProps> = () => {
   const [isPrivate, setPrivate] = useState<boolean>(false);
   const handleAccess = (isChecked: boolean) => setPrivate(isChecked);
-  const selectRef = useRef<IUnknownObject>({ props: {} });
-  const [selectedTelco, setSelectedTelco] = useState<string>("default");
-  const handleSelect = (option: any) => setSelectedTelco(option);
   const isEditing = isLocation(["causes", "edit"]);
-  const phoneNumberValidation: {
-    [key: string]: { regex: RegExp; message: string };
-  } = {
-    default: {
-      regex: /$^/,
-      message: "You should first select payment method",
-    },
-    MTN_Rwanda: {
-      regex: /^78/,
-      message: "Phone number should be a valid Mtn number",
-    },
-    Airtel_Rwanda: {
-      regex: /^7[23]/,
-      message: "Phone number should be a valid Airtel number",
-    },
-  };
-
-  useEffect(() => {
-    if (selectRef.current.props.value)
-      setSelectedTelco(selectRef.current.props.value);
-  }, [selectRef.current.props.value]);
 
   return (
     <div>
       <Form.Item
-        name="payment_method"
-        validateTrigger={["onSubmit", "onBlur", "onChange"]}
-        rules={[{ required: true }]}
-      >
-        <Select
-          // @ts-ignore
-          ref={selectRef}
-          placeholder="Select Payment Method"
-          onSelect={handleSelect}
-          disabled={isEditing}
-        >
-          {mobileMoney.map(({ name, text }) => (
-            <Select.Option key={name} value={name}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        className="form-group phone-code"
+        className="form-group"
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
-          { len: 9, required: true },
+          { required: true },
           {
-            pattern: phoneNumberValidation[selectedTelco].regex,
-            message: phoneNumberValidation[selectedTelco].message,
+            pattern: /^7[238]\d{7}/,
+            message: "Should be a valid phone number",
           },
         ]}
         name="payment_account_number"
       >
-        <Input
+        <InputPhoneNumber
           placeholder="Enter Phone Number"
           disabled={isEditing}
-          addonBefore="+250"
           maxLength={9}
         />
       </Form.Item>
+
       <Form.Item
         name="payment_account_name"
         validateTrigger={["onSubmit", "onBlur"]}

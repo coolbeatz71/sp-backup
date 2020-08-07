@@ -6,10 +6,9 @@ import ReactStars from "react-star-rating-component";
 import styles from "./donate.module.scss";
 import { Form, Select, Row, Col, Switch, Button, Typography, Spin } from "antd";
 import { validateMessages } from "constants/validationMessages";
-import { Input } from "components/common/Input";
+import { Input, InputPhoneNumber } from "components/common/Input";
 import donationTypes, { donationType } from "constants/donationTypes";
 import capitalize from "helpers/capitalize";
-import { mobileMoney } from "constants/paymentMethods";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
 import rateCause from "redux/actions/cause/rateCause";
@@ -42,22 +41,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   const [fetched, setFetched] = useState(false);
   const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
   const { slug } = router.query;
-  const phoneNumberValidation: {
-    [key: string]: { regex: RegExp; message: string };
-  } = {
-    default: {
-      regex: /$^/,
-      message: "You should first select payment method",
-    },
-    MTN_Rwanda: {
-      regex: /^78/,
-      message: "Phone number should be a valid Mtn number",
-    },
-    Airtel_Rwanda: {
-      regex: /^7[23]/,
-      message: "Phone number should be a valid Airtel number",
-    },
-  };
 
   const {
     data: cause,
@@ -97,6 +80,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
       ...data,
       amount: serializeFormattedNumber(data.amount),
       phone_number: phoneFormatter(data.phone_number),
+      payment_method: getTelco(data.phone_number),
     };
   };
 
@@ -107,8 +91,6 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
       dispatch
     );
   };
-
-  const handleSelect = (option: any) => setSelectedTelco(option);
 
   const handleValueChange = (changedField: any) => {
     if (Object.keys(changedField)[0] === "type") {
@@ -286,35 +268,18 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                         )
                       )}
                       <Form.Item
-                        name="payment_method"
-                        validateTrigger={["onSubmit", "onBlur", "onChange"]}
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          placeholder="Select Donation Method"
-                          onSelect={handleSelect}
-                        >
-                          {mobileMoney.map(({ name, text }) => (
-                            <Select.Option key={name} value={name}>
-                              {capitalize(text)}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
                         className="form-group phone-code"
                         validateTrigger={["onSubmit", "onBlur"]}
                         rules={[
-                          { len: 9, required: true },
+                          { required: true },
                           {
-                            pattern: phoneNumberValidation[selectedTelco].regex,
-                            message:
-                              phoneNumberValidation[selectedTelco].message,
+                            pattern: /^7[238]\d{7}/,
+                            message: "Should be a valid phone number",
                           },
                         ]}
                         name="phone_number"
                       >
-                        <Input
+                        <InputPhoneNumber
                           placeholder="Phone Number"
                           addonBefore="+250"
                           maxLength={9}
