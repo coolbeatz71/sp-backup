@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Switch } from "antd";
-import { Input, InputPhoneNumber } from "components/common/Input";
+import { InputPhoneNumber } from "components/common/Input";
 import isLocation from "helpers/isLocation";
 
 export interface PaymentInfoProps {}
