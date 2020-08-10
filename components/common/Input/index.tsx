@@ -65,7 +65,7 @@ const InputPhoneNumber: React.FC<InputInterface & InputProps> = (props) => {
   const [phoneTelcoIcon, setPhoneTelco] = useState("default");
 
   const setTelcoIcon = (value: any) => {
-    if (value.match(/^7[23]/)) return setPhoneTelco("/icons/airtel.jpg");
+    if (value.match(/^7[23]/)) return setPhoneTelco("/icons/airtel-logo.png");
     if (value.startsWith("78")) return setPhoneTelco("/icons/mtn.png");
     setPhoneTelco("default");
   };
