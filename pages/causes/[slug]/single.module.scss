@@ -5,6 +5,7 @@
   background: #f4fafb url("/cause-view.svg");
   background-size: 100%;
   background-repeat: no-repeat;
+  min-height: calc(100vh - (350px));
 
   &__header {
     margin-top: 2rem;
@@ -67,7 +68,7 @@
       }
     }
 
-    &__progressSide{
+    &__progressSide {
       width: 100%;
       padding: 1rem;
       position: initial;
@@ -160,7 +161,7 @@
           width: 100%;
         }
       }
-      &__progressSide{
+      &__progressSide {
         width: 100%;
       }
       button {
