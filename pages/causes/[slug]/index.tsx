@@ -35,7 +35,7 @@ const SingleCause: React.FC<{}> = () => {
     setFetched(true);
   }
 
-  const scrollVisible = () =>
+  const isTopProgressBarVisible = () =>
     // @ts-ignore
     y >= progressBarRef.current?.offsetTop;
 
@@ -171,9 +171,8 @@ const SingleCause: React.FC<{}> = () => {
                 <div
                   className={`${styles.singleCause__header__progress} ${
                     styles.singleCause__header__progressSide
-                  } ${scrollVisible() ? "show-side-progress" : ""}`}
+                  } ${isTopProgressBarVisible() ? "show-side-progress" : ""}`}
                 >
-                  {}
                   <div
                     className={styles.singleCause__header__progress__container}
                   >
