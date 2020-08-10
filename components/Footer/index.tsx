@@ -27,13 +27,13 @@ const Footer: React.FC<{}> = () => {
           </Link>
         </div>
         <div className={styles.socialMedia}>
-          <a href="#">
+          <a href="https://twitter.com/SavePlusHQ"  target="_blank">
             <img src="/twitter-icon.svg" alt="" />
           </a>
-          <a href="#">
+          <a href="https://www.instagram.com/saveplus.hq/" target="_blank">
             <img src="/ig-icon.svg" alt="" />
           </a>
-          <a href="#">
+          <a href="https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr" target="_blank">
             <img src="/facebook-icon.svg" alt="" />
           </a>
         </div>

@@ -77,7 +77,7 @@ const IndexPage = () => {
 
       <div className="causes">
         <SectionTitle
-          title="Featured Causes"
+          title="Sponsored Causes"
           className="romantic"
           icon="icons/heart-beat.svg"
         />

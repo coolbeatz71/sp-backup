@@ -49,9 +49,8 @@ const PricingPage: React.SFC<{}> = () => {
           <h1>Simple Plans For Everyone!</h1>
           <div className={styles.pricing__container__header__desc}>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since
+              We have a flexible plan for fit for everyone. Our pricing method
+              is simple and transparent to everyone.
             </p>
           </div>
         </div>
