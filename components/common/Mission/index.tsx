@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Button } from "antd";
+import { useMedia } from "react-use";
 
 export interface MissionProps {
   isLoggedin: boolean;
@@ -7,6 +8,7 @@ export interface MissionProps {
 }
 
 const Mission: FC<MissionProps> = ({ isLoggedin, goToRegister }) => {
+  const isMobile = useMedia("(max-width: 768px)");
   return (
     <div className="mission">
       <div className="mission__item mission--with-image">
@@ -20,10 +22,9 @@ const Mission: FC<MissionProps> = ({ isLoggedin, goToRegister }) => {
         </div>
         <div className="mission__item--description">
           <p>
-            We are a platform dedicated to
-            <br /> connecting socially impactful causes,
-            <br />
-            conscious people.
+            We are a platform that connects socially
+            {!isMobile && <br />} impactful causes with caring people
+            {!isMobile && <br />} to create impacts that make a difference.
           </p>
         </div>
         {!isLoggedin && (

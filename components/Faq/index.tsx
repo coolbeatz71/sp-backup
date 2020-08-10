@@ -6,51 +6,31 @@ const Panel = Collapse.Panel;
 const questions = [
   {
     title: "Donation Process",
-    description: `It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-    page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy.
-
-    It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-    page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy. `,
+    description: `You can donate for a cause by clicking on the donate button on the cause and entering the amount you want to donate and othet neccessary information that is needed. You can choose to donate as an individual or as an organization, also we allow you to choose to donate anonymously ie your name will not be publish on the page as a donor. But note that anonymous donatation is only available for individual donations.`,
   },
   {
     title: "How secure is the payment",
-    description: `It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-     page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy.
-
-    It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-     page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy. `,
+    description: `Our payment method is very secure and you are assured that your payment information is protected. We do not store your card or any of your payment information. Be assured that your donation will be directed to the appropriate beneficiary of the cause. We also apply two-factor authentication across the platform.`,
   },
   {
     title: "How often can I donate",
-    description: `It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-     page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy.
-
-    It is a long established fact that a reader will be distracted by the readable content of a
-    page when looking at its layout. The point of using Lorem Ipsum is that it has a
-    more-or-less normal distribution of letters, as opposed to using 'Content here, content
-    here', making it look like readable English. Many desktop publishing packages and web
-     page editors now use Lorem Ipsum as their default model text, and a search for '
-    lorem ipsum' will uncover many web sites still in their infancy. `,
+    description: `You can donate as often as you like for a cause or different cause, we do not limit your donations for any cause as long as the cause is active and open for donations. `,
+  },
+  {
+    title: "Can I cancel a cause?",
+    description: `Yes, a cause can be canceled at any point in time. The creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
+  },
+  {
+    title: "Is Save Plus accessible outside of Rwanda?",
+    description: `Currently, Save Plus is only accessible in Rwanda and will be rolled out to other countries in the near future.`,
+  },
+  {
+    title: "Does Save Plus accept bank transfers or Visa Cards?",
+    description: `At the moment we're only accepting payments from MTN Mobile Money and Airtel Money. Soon, we'll start accepting other payment methods (Bank transfers, Visa payment, PayPal, etc.)`,
+  },
+  {
+    title: "What's the connection between Save Plus and Save?",
+    description: `Save Plus and Save are sister products and are owned by the same company. You can sign in to both products with the same credentials seamlessly or have an account with only one product.  `,
   },
 ];
 
