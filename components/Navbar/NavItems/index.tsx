@@ -136,7 +136,7 @@ const NavItems: FC<NavbarItemsProps> = ({
       {!isLoggedin ? (
         <>
           <Button
-            className="btn-primary-outline"
+            className="btn-secondary-outline"
             onClick={() => {
               if (menuMobileVisible) toggleMenuMobile();
               showAuthDialog(true)(dispatch);

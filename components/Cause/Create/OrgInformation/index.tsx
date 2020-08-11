@@ -37,13 +37,13 @@ const OrgInformation: React.FC<OrgInformationProps> = () => {
           { len: 9, required: true },
           {
             pattern: /^7[238]/,
-            message: "Phone number format should be valid",
+            message: "Telephone format should be 7X XX XX XXX",
           },
         ]}
         name="organization_phone_number"
       >
         <Input
-          placeholder="Contact Phone Number"
+          placeholder="Contact Phone Number (7X...)"
           disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
