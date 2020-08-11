@@ -12,10 +12,13 @@ const Footer: React.FC<{}> = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className="footer-header">
-          <img src="/logo.svg" className={styles.logo} alt="footer logo" />
+          <img src="/logo-beta.svg" className={styles.logo} alt="footer logo" />
           <span className={styles.labelCopyright}>copyright© 2020 exuus</span>
         </div>
         <div className={styles.links}>
+          <Link href="">
+            <a href="https://getsave.io/" target="_blank">Save</a>
+          </Link>
           <Link href="#">
             <a>Blog</a>
           </Link>
@@ -35,6 +38,9 @@ const Footer: React.FC<{}> = () => {
           </a>
           <a href="https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr" target="_blank">
             <img src="/facebook-icon.svg" alt="" />
+          </a>
+          <a href="#" target="_blank">
+            <img src="/youtube-icon.svg" alt="" />
           </a>
         </div>
         <div className={styles.contact}>
