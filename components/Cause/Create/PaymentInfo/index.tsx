@@ -25,7 +25,7 @@ const PaymentInfo: React.FC<PaymentInfoProps> = () => {
         name="payment_account_number"
       >
         <InputPhoneNumber
-          placeholder="Enter Phone Number"
+          placeholder="Enter Phone Number (7X...)"
           disabled={isEditing}
           maxLength={9}
         />

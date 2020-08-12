@@ -193,18 +193,20 @@ const Causes: React.SFC<{}> = () => {
               error,
               causesNumber,
             )}
-            {!isEmpty(data.data) && data.data.length > causesLength ? (
-              <div className={styles.causes__footer}>
-                <div>
-                  <Button
-                    className="btn-primary-outline"
-                    onClick={() => setCausesNumber(undefined)}
-                  >
-                    VIEW ALL CAUSES
-                  </Button>
+            {causesNumber &&
+              !isEmpty(data.data) &&
+              data.data.length > causesNumber && (
+                <div className={styles.causes__footer}>
+                  <div>
+                    <Button
+                      className="btn-primary-outline"
+                      onClick={() => setCausesNumber(undefined)}
+                    >
+                      VIEW ALL CAUSES
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              )}
           </>
         )}
       </div>

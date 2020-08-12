@@ -124,7 +124,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             name="phone_number"
           >
             <Input
-              placeholder="Phone Number"
+              placeholder="Phone Number (7XXX)"
               addonBefore="+250"
               maxLength={9}
             />
@@ -200,13 +200,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
                 { len: 9, required: true },
                 {
                   pattern: /^7[238]/,
-                  message: "Phone number format should be valid",
+                  message: "Telephone format should be 7X XX XX XXX",
                 },
               ]}
               name="phone_number"
             >
               <Input
-                placeholder="Phone Number"
+                placeholder="Phone Number (7XXX)"
                 addonBefore="+250"
                 maxLength={9}
                 disabled={context === "verify-phone"}
@@ -245,13 +245,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
                 { len: 9, required: true },
                 {
                   pattern: /^7[238]/,
-                  message: "Phone number format should be valid",
+                  message: "Telephone format should be 7X XX XX XXX",
                 },
               ]}
               name="phone_number"
             >
               <Input
-                placeholder="Phone Number"
+                placeholder="Phone Number (7XXX)"
                 addonBefore="+250"
                 maxLength={9}
               />

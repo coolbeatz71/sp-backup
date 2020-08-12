@@ -14,7 +14,7 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[{ required: true, min: 3 }]}
       >
-        <Input disabled={isEditing}  placeholder="Name of Hospital" />
+        <Input disabled={isEditing} placeholder="Name of Hospital" />
       </Form.Item>
       <Form.Item
         className="form-group phone-code"
@@ -23,13 +23,13 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
           { len: 9, required: true },
           {
             pattern: /^7[238]/,
-            message: "Phone number format should be valid",
+            message: "Telephone format should be 7X XX XX XXX",
           },
         ]}
         name="institution_phone_number"
       >
         <Input
-          placeholder="Hospital Phone Number"
+          placeholder="Hospital Phone Number (7X...)"
           disabled={isEditing}
           addonBefore="+250"
           maxLength={9}
@@ -57,13 +57,13 @@ const MedicalInfo: React.FC<MedicalInfoProps> = () => {
           { len: 9, required: true },
           {
             pattern: /^7[238]/,
-            message: "Phone number format should be valid",
+            message: "Telephone format should be 7X XX XX XXX",
           },
         ]}
         name="next_keen_phone_number"
       >
         <Input
-          placeholder="Contact Phone Number"
+          placeholder="Contact Phone Number (7X...)"
           disabled={isEditing}
           addonBefore="+250"
           maxLength={9}

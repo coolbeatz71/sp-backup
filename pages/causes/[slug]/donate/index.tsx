@@ -55,11 +55,11 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -274,13 +274,13 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                           { required: true },
                           {
                             pattern: /^7[238]\d{7}/,
-                            message: "Should be a valid phone number",
+                            message: "Telephone format should be 7X XX XX XXX",
                           },
                         ]}
                         name="phone_number"
                       >
                         <InputPhoneNumber
-                          placeholder="Phone Number"
+                          placeholder="Phone Number (7XXX)"
                           addonBefore="+250"
                           maxLength={9}
                         />
