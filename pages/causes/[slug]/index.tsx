@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./single.module.scss";
-import { Button } from "antd";
+import { Button, Skeleton } from "antd";
+import ReactPlayer from "react-player/lazy";
 import formatNumber from "helpers/numberFormater";
 import { getDaysToGo } from "helpers/causeDaysToGo";
 import getSingle from "redux/actions/cause/getSingle";
@@ -29,6 +30,7 @@ const SingleCause: React.FC<{}> = () => {
   const isMobile = useMedia("(max-width: 768px)");
   const progressBarRef = useRef<HTMLDivElement>();
   const { y } = useWindowScroll();
+  const [isVideoPlayerReady, setVideoPlayerReadiness] = useState(false);
 
   if (slug && !fetched) {
     getSingle(slug)(dispatch);
@@ -160,6 +162,22 @@ const SingleCause: React.FC<{}> = () => {
                   <h5>{data.name}</h5>
                   <p>{data.summary}</p>
                 </div>
+                {data.video && (
+                  <>
+                    {!isVideoPlayerReady && <Skeleton active />}
+                    <div
+                      className={styles.singleCause__body__details__video}
+                      style={{ display: isVideoPlayerReady ? "block" : "none" }}
+                    >
+                      <ReactPlayer
+                        url={data.video}
+                        width="100%"
+                        controls
+                        onReady={() => setVideoPlayerReadiness(true)}
+                      />
+                    </div>
+                  </>
+                )}
                 <div className={styles.singleCause__body__details__description}>
                   <h5>Use of funds</h5>
                   <p>{data.description}</p>
