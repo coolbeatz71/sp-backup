@@ -21,6 +21,7 @@ import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import getTelco from "helpers/getTelco";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import isCauseEditable from "helpers/isCauseEditable";
+import Link from "next/link";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -73,8 +74,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
     data: { phone_number, ...userData },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const [currentStep, setCurrentStep] = useState(0);
+  const [submitCount, setSubmitCount] = useState(0);
   const [formState, setFormState] = useState(
-    editFormState || formStateDefaultValue,
+    editFormState || formStateDefaultValue
   );
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
@@ -84,11 +86,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const stepsCount = steps.length - 1;
 
   const { loading, data, error } = useSelector(
-    ({ cause: { create } }: IRootState) => create,
+    ({ cause: { create } }: IRootState) => create
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit,
+    ({ cause: { edit } }: IRootState) => edit
   );
 
   useEffect(() => {
@@ -140,7 +142,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount),
+          serializeFormattedNumber(data.target_amount)
         );
         return;
       }
@@ -170,7 +172,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const getTouchedFields = (values: IUnknownObject) => {
     const touchedKeys = Object.keys(values).filter((key) =>
-      form.isFieldTouched(key),
+      form.isFieldTouched(key)
     );
     const touchedFields = pick(values, touchedKeys);
     return touchedFields;
@@ -200,6 +202,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
     } else {
       const current = currentStep + 1;
       setCurrentStep(current);
+      setSubmitCount(submitCount + 1);
     }
   };
 
@@ -236,6 +239,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const prev = () => {
     const current = currentStep - 1;
     setCurrentStep(current);
+    setSubmitCount(submitCount - 1);
   };
 
   return (
@@ -269,7 +273,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                       icon={<ExclamationCircleOutlined />}
                       color="warning"
                     >
-                      You need to update your profile picture first
+                      <Link href="/profile">
+                        <a>You need to update your profile picture first</a>
+                      </Link>
                     </Tag>
                   )
                 )}
@@ -323,7 +329,8 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
                       disabled={
                         (editing &&
                           !isCauseEditable(editFormState.edit_count)) ||
-                        !userData.avatar
+                        !userData.avatar ||
+                        (currentStep === 2 && submitCount < 2)
                       }
                     >
                       {currentStep !== stepsCount
