@@ -7,14 +7,11 @@ import { getAllCategories } from "../../redux/actions/categories/getAll";
 import Mission from "components/common/Mission";
 import CategoriesBar from "components/common/CategoriesBar";
 import { getAllCauses } from "./../../redux/actions/cause/getAll";
-import { toggleCategoryBar } from "./../../redux/actions/categories/hide";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import { isEmpty } from "lodash";
 import { ALL_CAUSES_PATH } from "../../helpers/paths";
-import { useMedia } from "react-use";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import { Result } from "antd";
 import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
@@ -22,8 +19,6 @@ import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { pathname, asPath } = useRouter();
-  const isMobile = useMedia("(max-width: 768px)");
-  const isTablet = useMedia("(min-width: 769px) and (max-width: 1024px)");
 
   const goToRegister = () => {
     showAuthDialog(true, "signup")(dispatch);
@@ -33,29 +28,13 @@ const AllCauses: React.SFC<{}> = () => {
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
-  const { categories, hide: isCategoryBarHidden } = useSelector(
+  const { categories } = useSelector(
     ({ categories }: IRootState) => categories,
   );
 
   const { data, loading, fetched, error } = useSelector(
     ({ cause: { all } }: IRootState) => all,
   );
-
-  const hideCategoryBar = () => {
-    if (!isMobile && !isTablet) {
-      toggleCategoryBar(window.scrollY > 40)(dispatch);
-    }
-  };
-
-  useEffect(() => {
-    if (!isMobile && !isTablet) {
-      window.addEventListener("scroll", hideCategoryBar);
-    }
-    return () => {
-      window.removeEventListener("scroll", hideCategoryBar);
-    };
-    // tslint:disable-next-line: align
-  }, []);
 
   useEffect(() => {
     getAllCategories()(dispatch);
@@ -69,13 +48,7 @@ const AllCauses: React.SFC<{}> = () => {
 
   return (
     <>
-      <TransitionGroup component={null}>
-        {!isCategoryBarHidden && (
-          <CSSTransition classNames="category" timeout={300}>
-            <CategoriesBar page={ALL_CAUSES_PATH} categories={categories} />
-          </CSSTransition>
-        )}
-      </TransitionGroup>
+      <CategoriesBar page={ALL_CAUSES_PATH} categories={categories} />
       <div className={styles.allCauses}>
         {categories.loading || loading ? (
           <div className={styles.allCauses__grid}>

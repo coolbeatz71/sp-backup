@@ -1,12 +1,6 @@
 import React, { FC } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import {
-  USER_CAUSES_PATH,
-  ALL_CAUSES_PATH,
-  CREATE_CAUSE_PATH,
-  PRICING_PATH,
-} from "helpers/paths";
-import SearchInput from "components/common/SearchInput";
+import { CREATE_CAUSE_PATH, PRICING_PATH } from "helpers/paths";
 import { Button, Dropdown, Menu, Spin, Avatar } from "antd";
 import Link from "next/link";
 import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -26,7 +20,6 @@ const color = new ColorHash();
 
 export interface NavbarItemsProps {
   page: string;
-  keyword: string;
   isMobile: boolean;
   menuMobileVisible: boolean;
   isCreateCauseButton: boolean;
@@ -35,7 +28,6 @@ export interface NavbarItemsProps {
 
 const NavItems: FC<NavbarItemsProps> = ({
   page,
-  keyword,
   isMobile,
   menuMobileVisible,
   isCreateCauseButton,
@@ -52,7 +44,7 @@ const NavItems: FC<NavbarItemsProps> = ({
     data: { first_name, last_name, avatar },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
-  const { categories, hide: isCategoryBarHidden } = useSelector(
+  const { categories } = useSelector(
     ({ categories }: IRootState) => categories,
   );
   const { data, fetched, error } = categories;
@@ -87,14 +79,6 @@ const NavItems: FC<NavbarItemsProps> = ({
         isMobile ? styles.navbar__menuMobile : styles.navbar__menuNonMobile
       }
     >
-      <TransitionGroup component={null}>
-        {isCategoryBarHidden &&
-          (page === USER_CAUSES_PATH || page === ALL_CAUSES_PATH) && (
-            <CSSTransition classNames="search" timeout={400}>
-              <SearchInput defaultValue={keyword} page={page} />
-            </CSSTransition>
-          )}
-      </TransitionGroup>
       <TransitionGroup component={null}>
         {isLoggedin && page !== CREATE_CAUSE_PATH && isCreateCauseButton && (
           <CSSTransition classNames="create-cause-button" timeout={400}>

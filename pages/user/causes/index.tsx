@@ -15,8 +15,6 @@ import { USER_CAUSES_PATH } from "helpers/paths";
 import CategoriesBar from "components/common/CategoriesBar";
 import { useMedia } from "react-use";
 import { getAllCategories } from "redux/actions/categories/getAll";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { toggleCategoryBar } from "redux/actions/categories/hide";
 import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 
 const pageTitle: string = "your causes";
@@ -93,7 +91,7 @@ const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
   const { push, pathname, asPath } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
-  const isTablet = useMedia("(min-width: 769px) and (max-width: 1024px)");
+  const [causesNumber, setCausesNumber] = useState(causesLength);
 
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -103,50 +101,22 @@ const Causes: React.SFC<{}> = () => {
     ({ cause: { user } }: IRootState) => user,
   );
 
-  const { categories, hide: isCategoryBarHidden } = useSelector(
+  const { categories } = useSelector(
     ({ categories }: IRootState) => categories,
   );
-
-  const hideCategoryBar = () => {
-    if (!isTablet && !isMobile) {
-      toggleCategoryBar(window.scrollY > 40)(dispatch);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategories()(dispatch);
-    // tslint:disable-next-line: align
-  }, [asPath, dispatch]);
 
   useEffect(() => {
     if (!isLoggedin) push("/");
     getUserCauses(asPath)(dispatch);
+    getAllCategories()(dispatch);
     // tslint:disable-next-line: align
   }, [asPath, dispatch]);
 
-  useEffect(() => {
-    if (!isTablet && !isMobile) {
-      window.addEventListener("scroll", hideCategoryBar);
-    }
-    return () => {
-      window.removeEventListener("scroll", hideCategoryBar);
-    };
-    // tslint:disable-next-line: align
-  }, [isLoggedin]);
-
-  const [causesNumber, setCausesNumber] = useState(causesLength);
-
   return (
     <>
-      {fetched && !error && !isEmpty(data) ? (
-        <TransitionGroup component={null}>
-          {!isCategoryBarHidden && (
-            <CSSTransition classNames="category" timeout={300}>
-              <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
-            </CSSTransition>
-          )}
-        </TransitionGroup>
-      ) : null}
+      {fetched && !error && !isEmpty(data) && (
+        <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
+      )}
       <div className={styles.causes}>
         {renderHeader(isMobile, data)}
         {loading ? (

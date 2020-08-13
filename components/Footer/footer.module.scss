@@ -10,10 +10,9 @@
   padding: 2rem 0;
 
   @include mediaMd {
-    width: 80%;
-
+    width: 100%;
     img.logo {
-      width: 30%;
+      width: 40%;
       display: block;
     }
   }

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "components/Navbar/navbar.module.scss";
 import Link from "next/link";
 import { Modal } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-import { IRootState } from "redux/initialStates";
 import { useMedia } from "react-use";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import useNavbarScroll from "../../hooks/useNavbarScroll";
@@ -25,7 +24,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
     page,
   );
   const [menuMobileVisible, setMenuMobileVisible] = useState(false);
-  const { keyword } = useSelector(({ search }: IRootState) => search);
   const toggleMenuMobile = () => setMenuMobileVisible(!menuMobileVisible);
 
   useEffect(() => {
@@ -43,7 +41,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       >
         <NavItems
           page={page}
-          keyword={keyword}
           isMobile={isMobile}
           menuMobileVisible={menuMobileVisible}
           isCreateCauseButton={isCreateCauseButton}
@@ -66,7 +63,6 @@ const Navbar: React.SFC<NavbarProps> = ({ isLight, page }) => {
       <nav className="menu d-md-block d-none">
         <NavItems
           page={page}
-          keyword={keyword}
           isMobile={isMobile}
           menuMobileVisible={menuMobileVisible}
           isCreateCauseButton={isCreateCauseButton}
