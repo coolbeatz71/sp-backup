@@ -39,6 +39,9 @@
     img {
       margin: auto !important;
       width: 30rem;
+      @include mediaMd {
+        width: 100%;
+      }
     }
   }
 
@@ -54,28 +57,17 @@
 
   &__grid {
     display: grid;
-    &__mobile {
-      display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+    padding: 2em 8vw;
 
-      @include mediaMd {
-        display: block;
-        padding: 0 0 0 1.5rem;
-      }
+    @include mediaLg {
+      grid-gap: 2rem;
     }
 
-    &__lg {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 3rem;
-      padding: 2em 8vw;
-
-      @include mediaLg {
-        grid-gap: 2rem;
-      }
-
-      @include mediaMd {
-        display: none !important;
-      }
+    @include mediaMd {
+      display: block !important;
+      padding: 0 1.5rem;
     }
   }
 

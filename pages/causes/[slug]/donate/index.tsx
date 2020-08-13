@@ -23,7 +23,6 @@ import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
 import AccessCode from "components/Cause/Single/AccessCode";
 import Error from "components/common/Error";
-import Spinner from "components/Spinner";
 
 export interface DonateCauseProps {}
 
@@ -110,7 +109,9 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   return (
     <div className={styles.donate}>
       {loadingCause ? (
-        <Spinner />
+        <div className={styles.donate__spinner}>
+          <Spin size="large" tip="Loading..." />
+        </div>
       ) : errorCause && !accessCode ? (
         errorCause?.status === 403 || errorCause?.status === 400 ? (
           <AccessCode slug={slug} error={errorCause} />

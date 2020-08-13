@@ -5,7 +5,7 @@
   background: #f4fafb url("/cause-view.svg");
   background-size: 100%;
   background-repeat: no-repeat;
-  min-height: calc(100vh - (350px));
+  min-height: 100vh;
 
   &__header {
     margin-top: 2rem;
@@ -115,7 +115,7 @@
           font-weight: 700;
         }
       }
-      &__video{
+      &__video {
         margin: 1rem 0;
       }
       &__contact {

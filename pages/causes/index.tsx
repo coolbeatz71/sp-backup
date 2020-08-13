@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import Swipeable from "react-swipeable-views";
 import styles from "./causes.module.scss";
 import { getAllCategories } from "../../redux/actions/categories/getAll";
-import Spinner from "components/Spinner";
 import Mission from "components/common/Mission";
 import CategoriesBar from "components/common/CategoriesBar";
 import { getAllCauses } from "./../../redux/actions/cause/getAll";
@@ -19,6 +17,7 @@ import { useMedia } from "react-use";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import { Result } from "antd";
+import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 
 const AllCauses: React.SFC<{}> = () => {
   const dispatch = useDispatch();
@@ -79,7 +78,13 @@ const AllCauses: React.SFC<{}> = () => {
       </TransitionGroup>
       <div className={styles.allCauses}>
         {categories.loading || loading ? (
-          <Spinner />
+          <div className={styles.allCauses__grid}>
+            {[...Array(6)].map((index) => (
+              <div key={index}>
+                <CauseCardSkeleton />
+              </div>
+            ))}
+          </div>
         ) : isEmpty(data.data) ? (
           <div className={styles.allCauses__illustration}>
             <Result
@@ -89,69 +94,36 @@ const AllCauses: React.SFC<{}> = () => {
             />
           </div>
         ) : (
-          <>
-            <div className={styles.allCauses__grid__mobile}>
-              <Swipeable>
-                {fetched &&
-                  !error &&
-                  data.data.map((cause: any, index: number) => (
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      key={index}
-                      data={cause}
-                    />
-                  ))}
-              </Swipeable>
-            </div>
-            <div className={styles.allCauses__grid__lg}>
-              {fetched &&
-                !error &&
-                data.data.map((cause: any, index: number) => (
-                  <div className={styles.allCauses__grid__item} key={index}>
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      data={cause}
-                    />
-                  </div>
-                ))}
-            </div>
-          </>
+          <div className={styles.allCauses__grid}>
+            {fetched &&
+              !error &&
+              data.data.map((cause: any, index: number) => (
+                <div key={index}>
+                  <CauseCard
+                    pathName={pathname}
+                    slug={cause.slug}
+                    title={cause.name}
+                    description={cause.summary}
+                    tillNumber={cause.till_number}
+                    cover={cause.image}
+                    owner={getOwnerInfo(
+                      cause.user_names,
+                      cause.verified,
+                      cause.user_avatar,
+                    )}
+                    amountRaised={cause.raised_amount}
+                    amountToReach={cause.target_amount}
+                    currency={cause.currency}
+                    status={cause.status}
+                    category={cause.category.title}
+                    rating={cause.ratings}
+                    ratersCount={cause.raters_count}
+                    daysToGo={getCauseRemainingDays(cause.end_date)}
+                    data={cause}
+                  />
+                </div>
+              ))}
+          </div>
         )}
       </div>
       <div>

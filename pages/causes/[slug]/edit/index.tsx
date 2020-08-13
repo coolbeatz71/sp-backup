@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import moment from "moment";
 import { isEmpty, forEach } from "lodash";
-import Spinner from "components/Spinner";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
+import styles from "../../create/createCause.module.scss";
 import Error from "components/common/Error";
 import notification from "utils/notification";
 import PrivateComponent from "pages/privateRoute";
+import { Spin } from "antd";
 
 export interface EditCauseProps {}
 
@@ -94,15 +95,19 @@ const EditCause: React.FC<EditCauseProps> = () => {
   const formattedData = formatData();
 
   return (
-    <div>
+    <>
       {loading ? (
-        <Spinner />
+        <div className={styles.createCause}>
+          <div className={styles.createCause__spinner}>
+            <Spin size="large" tip="Loading..." />
+          </div>
+        </div>
       ) : error ? (
         <Error status={error.status || 500} message={error.message} />
       ) : (
         <CreateCause editFormState={formattedData} slug={slug} />
       )}
-    </div>
+    </>
   );
 };
 
