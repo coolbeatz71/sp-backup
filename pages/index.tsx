@@ -6,7 +6,6 @@ import Swipeable from "react-swipeable-views";
 import CauseCard from "components/common/CauseCard";
 import SectionTitle from "components/common/SectionTitle";
 import HowItWorks from "components/HowItWorks";
-import Spinner from "components/Spinner";
 import { getFeed } from "redux/actions/cause/getFeed";
 import { IRootState } from "redux/initialStates";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
@@ -15,6 +14,7 @@ import Mission from "components/common/Mission";
 import { useMedia } from "react-use";
 import { ALL_CAUSES_PATH } from "helpers/paths";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,13 @@ const IndexPage = () => {
           icon="icons/heart-beat.svg"
         />
         {loading ? (
-          <Spinner />
+          <div className="causes__grid causes__grid--lg">
+            {[...Array(3)].map((index) => (
+              <div className="causes__grid--item" key={index}>
+                <CauseCardSkeleton />
+              </div>
+            ))}
+          </div>
         ) : (
           <>
             <div className="causes__grid--mobile">
@@ -150,9 +156,11 @@ const IndexPage = () => {
         )}
 
         <div className="more__causes">
-          <Button className="btn-secondary" onClick={goToAllCauses}>
-            DISCOVER MORE CAUSES
-          </Button>
+          {fetched && (
+            <Button className="btn-secondary" onClick={goToAllCauses}>
+              DISCOVER MORE CAUSES
+            </Button>
+          )}
         </div>
       </div>
 
@@ -163,7 +171,13 @@ const IndexPage = () => {
           icon="icons/popularity.svg"
         />
         {loading ? (
-          <Spinner />
+          <div className="causes__grid causes__grid--lg">
+            {[...Array(3)].map((index) => (
+              <div className="causes__grid--item" key={index}>
+                <CauseCardSkeleton />
+              </div>
+            ))}
+          </div>
         ) : (
           <>
             <div className="causes__grid--mobile">
@@ -231,9 +245,11 @@ const IndexPage = () => {
         )}
 
         <div className="more__causes">
-          <Button className="btn-secondary" onClick={goToAllCauses}>
-            DISCOVER MORE CAUSES
-          </Button>
+          {fetched && (
+            <Button className="btn-secondary" onClick={goToAllCauses}>
+              DISCOVER MORE CAUSES
+            </Button>
+          )}
         </div>
       </div>
 
@@ -245,7 +261,13 @@ const IndexPage = () => {
         />
 
         {loading ? (
-          <Spinner />
+          <div className="causes__grid causes__grid--lg">
+            {[...Array(3)].map((index) => (
+              <div className="causes__grid--item" key={index}>
+                <CauseCardSkeleton />
+              </div>
+            ))}
+          </div>
         ) : (
           <>
             <div className="causes__grid--mobile">
@@ -312,9 +334,11 @@ const IndexPage = () => {
           </>
         )}
         <div className="more__causes">
-          <Button className="btn-secondary" onClick={goToAllCauses}>
-            DISCOVER MORE CAUSES
-          </Button>
+          {fetched && (
+            <Button className="btn-secondary" onClick={goToAllCauses}>
+              DISCOVER MORE CAUSES
+            </Button>
+          )}
         </div>
       </div>
       <div className="short__intro">

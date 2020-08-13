@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { IRootState } from "redux/initialStates";
 import { Button, Result } from "antd";
-import Swipeable from "react-swipeable-views";
 import PageTitle from "components/common/PageTitle";
 import styles from "./causes.module.scss";
 import { isEmpty } from "lodash";
 import { getUserCauses } from "redux/actions/cause/getUserCauses";
-import Spinner from "components/Spinner";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import PrivateComponent from "pages/privateRoute";
@@ -19,6 +17,7 @@ import { useMedia } from "react-use";
 import { getAllCategories } from "redux/actions/categories/getAll";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { toggleCategoryBar } from "redux/actions/categories/hide";
+import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 
 const pageTitle: string = "your causes";
 const causesLength: any = 6;
@@ -60,65 +59,34 @@ const renderFeedContainer = (
       </div>
     )
   ) : (
-    <>
-      <div className={styles.causes__grid__mobile}>
-        <Swipeable>
-          {fetched &&
-            !error &&
-            causes.data
-              .slice(0, sliceCausesNumber)
-              .map((cause: any, index: number) => (
-                <CauseCard
-                  pathName={pathName}
-                  slug={cause.slug}
-                  title={cause.name}
-                  description={cause.summary}
-                  tillNumber={cause.till_number}
-                  cover={cause.image}
-                  owner={{}}
-                  amountRaised={cause.raised_amount}
-                  amountToReach={cause.target_amount}
-                  currency={cause.currency}
-                  status={cause.status}
-                  category={cause.category.title}
-                  rating={cause.ratings}
-                  ratersCount={cause.raters_count}
-                  daysToGo={getCauseRemainingDays(cause.end_date)}
-                  key={index}
-                  data={cause}
-                />
-              ))}
-        </Swipeable>
-      </div>
-      <div className={styles.causes__grid__lg}>
-        {fetched &&
-          !error &&
-          causes.data
-            .slice(0, sliceCausesNumber)
-            .map((cause: any, index: number) => (
-              <div className={styles.causes__grid__item} key={index}>
-                <CauseCard
-                  pathName={pathName}
-                  slug={cause.slug}
-                  title={cause.name}
-                  description={cause.summary}
-                  tillNumber={cause.till_number}
-                  cover={cause.image}
-                  owner={{}}
-                  amountRaised={cause.raised_amount}
-                  amountToReach={cause.target_amount}
-                  currency={cause.currency}
-                  status={cause.status}
-                  category={cause.category.title}
-                  rating={cause.ratings}
-                  ratersCount={cause.raters_count}
-                  daysToGo={getCauseRemainingDays(cause.end_date)}
-                  data={cause}
-                />
-              </div>
-            ))}
-      </div>
-    </>
+    <div className={styles.causes__grid}>
+      {fetched &&
+        !error &&
+        causes.data
+          .slice(0, sliceCausesNumber)
+          .map((cause: any, index: number) => (
+            <div key={index}>
+              <CauseCard
+                pathName={pathName}
+                slug={cause.slug}
+                title={cause.name}
+                description={cause.summary}
+                tillNumber={cause.till_number}
+                cover={cause.image}
+                owner={{}}
+                amountRaised={cause.raised_amount}
+                amountToReach={cause.target_amount}
+                currency={cause.currency}
+                status={cause.status}
+                category={cause.category.title}
+                rating={cause.ratings}
+                ratersCount={cause.raters_count}
+                daysToGo={getCauseRemainingDays(cause.end_date)}
+                data={cause}
+              />
+            </div>
+          ))}
+    </div>
   );
 
 const Causes: React.SFC<{}> = () => {
@@ -180,11 +148,17 @@ const Causes: React.SFC<{}> = () => {
         </TransitionGroup>
       ) : null}
       <div className={styles.causes}>
+        {renderHeader(isMobile, data)}
         {loading ? (
-          <Spinner />
+          <div className={styles.causes__grid}>
+            {[...Array(6)].map((index) => (
+              <div key={index}>
+                <CauseCardSkeleton />
+              </div>
+            ))}
+          </div>
         ) : (
           <>
-            {renderHeader(isMobile, data)}
             {renderFeedContainer(
               asPath,
               pathname,

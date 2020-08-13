@@ -6,7 +6,21 @@
   background-repeat: no-repeat;
   background-size: 100%;
   padding: 2rem 1rem;
-  min-height: calc(100vh - (78px + 261px));
+  min-height: 100vh;
+
+  &__spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    div {
+      color: $color-primary;
+    }
+  }
   &__title {
     font-size: 28px;
     font-weight: 600;
