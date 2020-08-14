@@ -40,6 +40,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const dispatch = useDispatch();
   const { push } = useRouter();
   const editing = !!editFormState;
+  const [form] = Form.useForm();
   const defaultSteps: Isteps[] = [
     {
       title: "Basic Information",
@@ -68,8 +69,6 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
     subTitle: "",
     content: <MedicalInfoForm />,
   };
-
-  const [form] = Form.useForm();
   const {
     data: { phone_number, ...userData },
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
@@ -85,8 +84,8 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const stepsCount = steps.length - 1;
 
-  const { loading, data, error } = useSelector(
-    ({ cause: { create } }: IRootState) => create
+  const { loading, data, error, croppedImage } = useSelector(
+    ({ cause: { create } }: IRootState) => create,
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
@@ -120,6 +119,10 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       setFormDataReadiness(true);
     }
   }, [phone_number]);
+
+  useEffect(() => {
+    if (croppedImage[0]?.name)  form.setFieldsValue({ image: croppedImage });
+  }, [croppedImage])
 
   const formatFlatObject = (data: { [key: string]: any }) => {
     forEach(data, (value, key) => {

@@ -11,7 +11,6 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import styles from "../../create/createCause.module.scss";
 import Error from "components/common/Error";
 import notification from "utils/notification";
-import PrivateComponent from "pages/privateRoute";
 import { Spin } from "antd";
 
 export interface EditCauseProps {}
@@ -111,4 +110,4 @@ const EditCause: React.FC<EditCauseProps> = () => {
   );
 };
 
-export default PrivateComponent(EditCause);
+export default EditCause;
