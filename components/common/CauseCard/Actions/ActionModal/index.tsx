@@ -12,6 +12,10 @@ import pauseCause from "redux/actions/cause/pauseCause";
 import { Store } from "antd/lib/form/interface";
 import { ActionType } from "..";
 import cancelCause from "redux/actions/cause/cancelCause";
+import { RESET_CANCEL_ERROR } from "redux/action-types/cause/cancelCause";
+import { RESET_PAUSE_ERROR } from "redux/action-types/cause/pauseCause";
+import { RESET_RESUME_ERROR } from "redux/action-types/cause/resumeCause";
+import resumeCause from "redux/actions/cause/resumeCause";
 
 const { Text } = Typography;
 
@@ -36,11 +40,16 @@ const PauseCause: FC<IPauseCauseProps> = ({
   const { loading: loadingCancel, error: errorCancel } = useSelector(
     ({ cause: { cancel } }: IRootState) => cancel,
   );
+  const { loading: loadingResume, error: errorResume } = useSelector(
+    ({ cause: { resume } }: IRootState) => resume,
+  );
 
   const handleModalClose = () => {
-    dispatch({ type: "RESET_CANCEL_ERROR" });
-    dispatch({ type: "RESET_PAUSE_ERROR" });
     closeModal();
+    dispatch({ type: RESET_CANCEL_ERROR });
+    dispatch({ type: RESET_PAUSE_ERROR });
+    dispatch({ type: RESET_RESUME_ERROR });
+    setActionSuccessful(false);
   };
 
   const goBackHome = () => {
@@ -55,6 +64,9 @@ const PauseCause: FC<IPauseCauseProps> = ({
         break;
       case ActionType.cancel:
         cancelCause(slug, data)(setActionSuccessful, dispatch);
+        break;
+      case ActionType.resume:
+        resumeCause(slug, data)(setActionSuccessful, dispatch);
         break;
       default:
         break;
@@ -76,6 +88,12 @@ const PauseCause: FC<IPauseCauseProps> = ({
           subTitle:
             "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donours at the end date you already choose.",
           successMessage: "Cause cancelled",
+        };
+      case ActionType.resume:
+        return {
+          title: "Resume a Cause",
+          subTitle: "Are you sure to resume this cause?",
+          successMessage: "Cause resumed",
         };
       default:
         return {
@@ -111,7 +129,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
 
         {actionSuccessful ? (
           <div className={styles.pause__modalContent__successful}>
-            <img src="/success-pause.gif" alt="pause success" />
+            <img src="/success-action.gif" alt="pause success" />
             <Link href={USER_CAUSES_PATH}>
               <a onClick={goBackHome}>Back Home</a>
             </Link>
@@ -121,11 +139,11 @@ const PauseCause: FC<IPauseCauseProps> = ({
             <p className={styles.pause__modalContent__subTitle}>
               {getModalContent()?.subTitle}
             </p>
-            {errorPause || errorCancel ? (
+            {errorPause || errorCancel || errorResume ? (
               <Text type="danger" className="mb-3 d-block text-center">
                 <span className="d-block">
                   <ExclamationCircleOutlined className="auth-error-message" />
-                  {errorPause || errorCancel}
+                  {errorPause || errorCancel || errorResume}
                 </span>
               </Text>
             ) : (
@@ -157,7 +175,7 @@ const PauseCause: FC<IPauseCauseProps> = ({
               <div className="d-flex mb-3">
                 <Button
                   htmlType="submit"
-                  loading={loadingPause || loadingCancel}
+                  loading={loadingPause || loadingCancel || loadingResume}
                   className="btn-primary ml-auto text-uppercase"
                 >
                   {context}

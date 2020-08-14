@@ -9,6 +9,7 @@ import Link from "next/link";
 export enum ActionType {
   pause = "pause",
   cancel = "cancel",
+  resume = "resume",
 }
 
 const isUncancellable = (status: string): boolean =>
@@ -32,6 +33,9 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
       case ActionType.cancel:
         setCauseModal({ isVisible: true, context: type });
         break;
+      case ActionType.resume:
+        setCauseModal({ isVisible: true, context: type });
+        break;
       default:
         break;
     }
@@ -53,7 +57,9 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
       <Menu.Divider />
 
       {status === causeStatus.paused ? (
-        <Menu.Item>Resume Cause</Menu.Item>
+        <Menu.Item onClick={() => handleAction(ActionType.resume)}>
+          Resume Cause
+        </Menu.Item>
       ) : (
         <Menu.Item
           onClick={() => handleAction(ActionType.pause)}

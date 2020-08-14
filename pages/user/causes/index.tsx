@@ -52,40 +52,40 @@ const renderFeedContainer = (
         <img src="../sitting-reading.svg" />
       </div>
     ) : (
-      <div className={styles.causes__result}>
-        <Result status="404" title="404" subTitle="Sorry, No cause was found" />
-      </div>
-    )
+        <div className={styles.causes__result}>
+          <Result status="404" title="404" subTitle="Sorry, No cause was found" />
+        </div>
+      )
   ) : (
-    <div className={styles.causes__grid}>
-      {fetched &&
-        !error &&
-        causes.data
-          .slice(0, sliceCausesNumber)
-          .map((cause: any, index: number) => (
-            <div key={index}>
-              <CauseCard
-                pathName={pathName}
-                slug={cause.slug}
-                title={cause.name}
-                description={cause.summary}
-                tillNumber={cause.till_number}
-                cover={cause.image}
-                owner={{}}
-                amountRaised={cause.raised_amount}
-                amountToReach={cause.target_amount}
-                currency={cause.currency}
-                status={cause.status}
-                category={cause.category.title}
-                rating={cause.ratings}
-                ratersCount={cause.raters_count}
-                daysToGo={getCauseRemainingDays(cause.end_date)}
-                data={cause}
-              />
-            </div>
-          ))}
-    </div>
-  );
+      <div className={styles.causes__grid}>
+        {fetched &&
+          !error &&
+          causes.data
+            .slice(0, sliceCausesNumber)
+            .map((cause: any, index: number) => (
+              <div key={index}>
+                <CauseCard
+                  pathName={pathName}
+                  slug={cause.slug}
+                  title={cause.name}
+                  description={cause.summary}
+                  tillNumber={cause.till_number}
+                  cover={cause.image}
+                  owner={{}}
+                  amountRaised={cause.raised_amount}
+                  amountToReach={cause.target_amount}
+                  currency={cause.currency}
+                  status={cause.status}
+                  category={cause.category.title}
+                  rating={cause.ratings}
+                  ratersCount={cause.raters_count}
+                  daysToGo={getCauseRemainingDays(cause.end_date)}
+                  data={cause}
+                />
+              </div>
+            ))}
+      </div>
+    );
 
 const Causes: React.SFC<{}> = () => {
   const dispatch = useDispatch();
@@ -121,38 +121,38 @@ const Causes: React.SFC<{}> = () => {
         {renderHeader(isMobile, data)}
         {loading ? (
           <div className={styles.causes__grid}>
-            {[...Array(6)].map((index) => (
+            {[...Array(3)].map((_values, index) => (
               <div key={index}>
                 <CauseCardSkeleton />
               </div>
             ))}
           </div>
         ) : (
-          <>
-            {renderFeedContainer(
-              asPath,
-              pathname,
-              data,
-              fetched,
-              error,
-              causesNumber,
-            )}
-            {causesNumber &&
-              !isEmpty(data.data) &&
-              data.data.length > causesNumber && (
-                <div className={styles.causes__footer}>
-                  <div>
-                    <Button
-                      className="btn-primary-outline"
-                      onClick={() => setCausesNumber(undefined)}
-                    >
-                      VIEW ALL CAUSES
-                    </Button>
-                  </div>
-                </div>
+            <>
+              {renderFeedContainer(
+                asPath,
+                pathname,
+                data,
+                fetched,
+                error,
+                causesNumber,
               )}
-          </>
-        )}
+              {causesNumber &&
+                !isEmpty(data.data) &&
+                data.data.length > causesNumber && (
+                  <div className={styles.causes__footer}>
+                    <div>
+                      <Button
+                        className="btn-primary-outline"
+                        onClick={() => setCausesNumber(undefined)}
+                      >
+                        VIEW ALL CAUSES
+                    </Button>
+                    </div>
+                  </div>
+                )}
+            </>
+          )}
       </div>
     </>
   );

@@ -34,13 +34,10 @@ export default {
     accessCode: "",
   },
   donate: basicReduxStoreDefault,
-  pause: {
-    data: {},
-    loading: false,
-    error: "",
-  },
+  pause: basicReduxStoreDefault,
   edit: basicReduxStoreDefault,
   cancel: basicReduxStoreDefault,
+  resume: basicReduxStoreDefault,
 };
 
 export interface ICauseFeed {
@@ -69,4 +66,5 @@ export interface ICause {
   pause: IBasicReduxStore;
   edit: IBasicReduxStore;
   cancel: IBasicReduxStore;
+  resume: IBasicReduxStore;
 }
