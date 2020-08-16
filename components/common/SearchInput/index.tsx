@@ -1,30 +1,33 @@
 import React, { FC, useState, useEffect } from "react";
 import { isEmpty } from "lodash";
-import { Input } from "../Input";
 import styles from "./searchinput.module.scss";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { getKeyword } from "../../../redux/actions/search/getKeyword";
+import { Form, Input } from "antd";
+import { FormInstance } from "antd/lib/form/Form";
 
 export interface SearchInputProps {
   page: string;
-  defaultValue: string;
+  formRef: FormInstance;
 }
 
-const SearchInput: FC<SearchInputProps> = ({ page, defaultValue }) => {
-  let url: string;
-  const { push } = useRouter();
+const SearchInput: FC<SearchInputProps> = ({ formRef, page }) => {
+  let url: {};
+  const { push, pathname, query } = useRouter();
   const dispatch = useDispatch();
-  const [searchKeyword, setSearchKeyword] = useState(defaultValue);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   useEffect(() => {
     getKeyword(searchKeyword)(dispatch);
     const delayTimer = setTimeout(() => {
-      if (
-        !isEmpty(searchKeyword.trim()) &&
-        searchKeyword.trim() !== defaultValue.trim()
-      ) {
-        push(`${page}?search=${searchKeyword}`);
+      if (!isEmpty(searchKeyword.trim())) {
+        url = {
+          pathname,
+          query: { ...query, search: searchKeyword },
+        };
+
+        push(url);
       }
       // tslint:disable-next-line: align
     }, 3000);
@@ -33,22 +36,39 @@ const SearchInput: FC<SearchInputProps> = ({ page, defaultValue }) => {
     // tslint:disable-next-line: align
   }, [dispatch, searchKeyword]);
 
-  const onSearchKeyPress = (e: any) => {
-    const keyword = e.target.value;
+  const onSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const keyword = e.currentTarget.value;
     if (e.key === "Enter") {
-      url = !isEmpty(keyword.trim()) ? `${page}?search=${keyword}` : page;
+      if (isEmpty(keyword.trim())) {
+        delete query.search;
+        url = {
+          pathname,
+          query: { ...query },
+        };
+      } else {
+        url = {
+          pathname: page,
+          query: { ...query, search: keyword },
+        };
+      }
+
       push(url);
     }
   };
 
   return (
-    <Input
-      placeholder="Search"
-      className={styles.searchinput}
-      defaultValue={defaultValue}
-      onChange={(e) => setSearchKeyword(e.target.value)}
-      onKeyPress={(e) => onSearchKeyPress(e)}
-    />
+    <Form form={formRef}>
+      <Form.Item name="search_input">
+        <div className="input_input__16Q5e searchinput_searchinput__1J7uG">
+          <Input
+            placeholder="Search"
+            className={styles.searchinput}
+            onKeyPress={(e) => onSearchKeyPress(e)}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+        </div>
+      </Form.Item>
+    </Form>
   );
 };
 

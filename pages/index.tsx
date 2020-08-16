@@ -83,77 +83,77 @@ const IndexPage = () => {
         />
         {loading ? (
           <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((index) => (
+            {[...Array(3)].map((_values, index) => (
               <div className="causes__grid--item" key={index}>
                 <CauseCardSkeleton />
               </div>
             ))}
           </div>
         ) : (
-          <>
-            <div className="causes__grid--mobile">
-              <Swipeable>
+            <>
+              <div className="causes__grid--mobile">
+                <Swipeable>
+                  {fetched &&
+                    !error &&
+                    data.causes_featured.map((cause: any, index: number) => (
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        tillNumber={cause.till_number}
+                        description={cause.summary}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        key={index}
+                        data={cause}
+                      />
+                    ))}
+                </Swipeable>
+              </div>
+              <div className="causes__grid causes__grid--lg">
                 {fetched &&
                   !error &&
                   data.causes_featured.map((cause: any, index: number) => (
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      tillNumber={cause.till_number}
-                      description={cause.summary}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      key={index}
-                      data={cause}
-                    />
+                    <div className="causes__grid--item" key={index}>
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        description={cause.summary}
+                        tillNumber={cause.till_number}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        data={cause}
+                      />
+                    </div>
                   ))}
-              </Swipeable>
-            </div>
-            <div className="causes__grid causes__grid--lg">
-              {fetched &&
-                !error &&
-                data.causes_featured.map((cause: any, index: number) => (
-                  <div className="causes__grid--item" key={index}>
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      data={cause}
-                    />
-                  </div>
-                ))}
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
 
         <div className="more__causes">
           {fetched && (
@@ -172,77 +172,77 @@ const IndexPage = () => {
         />
         {loading ? (
           <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((index) => (
+            {[...Array(3)].map((_values, index) => (
               <div className="causes__grid--item" key={index}>
                 <CauseCardSkeleton />
               </div>
             ))}
           </div>
         ) : (
-          <>
-            <div className="causes__grid--mobile">
-              <Swipeable>
+            <>
+              <div className="causes__grid--mobile">
+                <Swipeable>
+                  {fetched &&
+                    !error &&
+                    data.causes_popular.map((cause: any, index: number) => (
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        description={cause.summary}
+                        tillNumber={cause.till_number}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        key={index}
+                        data={cause}
+                      />
+                    ))}
+                </Swipeable>
+              </div>
+              <div className="causes__grid causes__grid--lg">
                 {fetched &&
                   !error &&
                   data.causes_popular.map((cause: any, index: number) => (
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      key={index}
-                      data={cause}
-                    />
+                    <div className="causes__grid--item" key={index}>
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        description={cause.summary}
+                        tillNumber={cause.till_number}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        data={cause}
+                      />
+                    </div>
                   ))}
-              </Swipeable>
-            </div>
-            <div className="causes__grid causes__grid--lg">
-              {fetched &&
-                !error &&
-                data.causes_popular.map((cause: any, index: number) => (
-                  <div className="causes__grid--item" key={index}>
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      data={cause}
-                    />
-                  </div>
-                ))}
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
 
         <div className="more__causes">
           {fetched && (
@@ -262,77 +262,77 @@ const IndexPage = () => {
 
         {loading ? (
           <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((index) => (
+            {[...Array(3)].map((_values, index) => (
               <div className="causes__grid--item" key={index}>
                 <CauseCardSkeleton />
               </div>
             ))}
           </div>
         ) : (
-          <>
-            <div className="causes__grid--mobile">
-              <Swipeable>
+            <>
+              <div className="causes__grid--mobile">
+                <Swipeable>
+                  {fetched &&
+                    !error &&
+                    data.causes_recents.map((cause: any, index: number) => (
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        description={cause.summary}
+                        tillNumber={cause.till_number}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        key={index}
+                        data={cause}
+                      />
+                    ))}
+                </Swipeable>
+              </div>
+              <div className="causes__grid causes__grid--lg">
                 {fetched &&
                   !error &&
                   data.causes_recents.map((cause: any, index: number) => (
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      key={index}
-                      data={cause}
-                    />
+                    <div className="causes__grid--item" key={index}>
+                      <CauseCard
+                        pathName={pathname}
+                        slug={cause.slug}
+                        title={cause.name}
+                        description={cause.summary}
+                        tillNumber={cause.till_number}
+                        cover={cause.image}
+                        owner={getOwnerInfo(
+                          cause.user_names,
+                          cause.verified,
+                          cause.user_avatar,
+                        )}
+                        amountRaised={cause.raised_amount}
+                        amountToReach={cause.target_amount}
+                        currency={cause.currency}
+                        status={cause.status}
+                        category={cause.category.title}
+                        rating={cause.ratings}
+                        ratersCount={cause.raters_count}
+                        daysToGo={getCauseRemainingDays(cause.end_date)}
+                        data={cause}
+                      />
+                    </div>
                   ))}
-              </Swipeable>
-            </div>
-            <div className="causes__grid causes__grid--lg">
-              {fetched &&
-                !error &&
-                data.causes_recents.map((cause: any, index: number) => (
-                  <div className="causes__grid--item" key={index}>
-                    <CauseCard
-                      pathName={pathname}
-                      slug={cause.slug}
-                      title={cause.name}
-                      description={cause.summary}
-                      tillNumber={cause.till_number}
-                      cover={cause.image}
-                      owner={getOwnerInfo(
-                        cause.user_names,
-                        cause.verified,
-                        cause.user_avatar,
-                      )}
-                      amountRaised={cause.raised_amount}
-                      amountToReach={cause.target_amount}
-                      currency={cause.currency}
-                      status={cause.status}
-                      category={cause.category.title}
-                      rating={cause.ratings}
-                      ratersCount={cause.raters_count}
-                      daysToGo={getCauseRemainingDays(cause.end_date)}
-                      data={cause}
-                    />
-                  </div>
-                ))}
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
         <div className="more__causes">
           {fetched && (
             <Button className="btn-secondary" onClick={goToAllCauses}>

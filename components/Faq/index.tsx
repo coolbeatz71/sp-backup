@@ -18,7 +18,7 @@ const questions = [
   },
   {
     title: "Can I cancel a cause?",
-    description: `Yes, a cause can be canceled at any point in time. The creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
+    description: `Yes, a cause can be cancelled at any point in time. The creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
   },
   {
     title: "Is Save Plus accessible outside of Rwanda?",

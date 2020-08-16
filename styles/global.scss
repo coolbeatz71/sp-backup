@@ -1,5 +1,7 @@
 @import "./_variables";
 @import "./mixins";
+@import "./global/filterDropdown";
+@import "./global/skeleton";
 
 html,
 body {
@@ -498,23 +500,6 @@ textarea.ant-input {
 .dark-navbar {
   background: $color-primary-light !important;
   transition: background-color 0.5s ease;
-
-  // .ant-dropdown-link-dark {
-  //   color: $color-dark !important;
-  // }
-
-  // .btn-light-outline {
-  //   color: $color-light;
-  //   background-color: #3c3f59;
-  //   transition: background-color 0.5s ease;
-  //   border-radius: 3px;
-  //   border: 1px solid $color-light;
-  //   &:hover {
-  //     background-color: $color-primary;
-  //     color: $color-light;
-  //     border: 1px solid $color-primary;
-  //   }
-  // }
 }
 
 .phone-code {
@@ -586,11 +571,19 @@ textarea.ant-input {
   }
 }
 
+.categoriesbar_categoriesBar__1Or7P {
+
+  .ant-form-item {
+    margin: 0;
+  }
+}
+
 div.searchinput_searchinput__1J7uG {
   .input_input__label__1H7Jb {
     top: 2px;
     background: rgb(244, 250, 251);
   }
+
 
   input {
     padding: 4px 16px;
@@ -676,66 +669,5 @@ div.searchinput_searchinput__1J7uG {
   }
   100% {
     opacity: 1;
-  }
-}
-
-// Skeleton
-.skeleton_skeleton__causeCard__3ADmw {
-  .ant-skeleton-avatar-circle {
-    width: 60px;
-    height: 60px;
-  }
-
-  .ant-skeleton-button {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px 5px 0 0;
-  }
-}
-.skeleton_skeleton__causeCard__3ADmw > :first-child {
-  width: 100%;
-  height: 280px;
-  max-height: 280px;
-  margin-bottom: 1rem;
-
-  @include mediaLg {
-    height: 190px;
-    max-height: 190px;
-  }
-
-  @include mediaMd {
-    height: 250px;
-    max-height: 250px;
-  }
-
-  @include mediaSm {
-    height: 200px;
-    max-height: 200px;
-  }
-}
-
-.skeleton_skeleton__singleCause__d-Qwt {
-  padding: 0 8vw;
-  width: 100%;
-  .ant-skeleton-button {
-    margin-top: 2rem;
-    width: 100%;
-    height: 600px;
-    max-height: 600px;
-    border-radius: 5px;
-  }
-
-  @include mediaMd {
-    padding: 0;
-    .ant-skeleton-button {
-      border-radius: unset;
-      width: 100%;
-      height: 240px;
-    }
-
-    .ant-skeleton-content {
-      width: 100%;
-      padding: 0 1rem;
-    }
   }
 }

@@ -1,10 +1,10 @@
 export enum causeStatus {
+  pending = "pending",
   active = "active",
   closed = "closed",
   paused = "paused",
   completed = "completed",
-  cancelled = "canceled",
-  canceled = "canceled",
+  cancelled = "cancelled",
 }
 
 export interface ICauseStatus {
