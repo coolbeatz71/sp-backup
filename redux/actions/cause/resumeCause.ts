@@ -1,9 +1,9 @@
 import splApi from "helpers/axios";
 import {
-  PAUSE_CAUSE_START,
-  PAUSE_CAUSE_SUCCESS,
-  PAUSE_CAUSE_ERROR,
-} from "redux/action-types/cause/pauseCause";
+  RESUME_CAUSE_START,
+  RESUME_CAUSE_SUCCESS,
+  RESUME_CAUSE_ERROR,
+} from "redux/action-types/cause/resumeCause";
 import errorFormatter from "helpers/errorFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
 
@@ -12,14 +12,14 @@ export default (slug: string | string[], data: IUnknownObject) => (
   dispatch: any,
 ) => {
   dispatch({
-    type: PAUSE_CAUSE_START,
+    type: RESUME_CAUSE_START,
   });
   splApi
-    .put(`/causes/${slug}/pause`, data)
+    .put(`/causes/${slug}/activate`, data)
     .then((response: any) => {
       dispatch({
         payload: response,
-        type: PAUSE_CAUSE_SUCCESS,
+        type: RESUME_CAUSE_SUCCESS,
       });
       setActionToSuccess(true);
     })
@@ -28,7 +28,7 @@ export default (slug: string | string[], data: IUnknownObject) => (
       if (error.message) payload = errorFormatter(error.message);
       dispatch({
         payload,
-        type: PAUSE_CAUSE_ERROR,
+        type: RESUME_CAUSE_ERROR,
       });
     });
 };

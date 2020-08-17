@@ -1,0 +1,4 @@
+export const RESUME_CAUSE_START: string = "RESUME_CAUSE_START";
+export const RESUME_CAUSE_SUCCESS: string = "RESUME_CAUSE_SUCCESS";
+export const RESUME_CAUSE_ERROR: string = "RESUME_CAUSE_ERROR";
+export const RESET_RESUME_ERROR: string = "RESET_RESUME_ERROR";

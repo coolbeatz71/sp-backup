@@ -108,6 +108,10 @@ const CauseCard: FC<CauseCardProps> = ({
     ({ cause: { cancel } }: IRootState) => cancel,
   );
 
+  const { data: resumeCauseData, loading: resumeCauseLoading } = useSelector(
+    ({ cause: { resume } }: IRootState) => resume,
+  );
+
   const getCauseStatus = () => {
     if (!pauseCauseLoading && pauseCauseData.status === 200) {
       return pauseCauseData.data.slug === slug
@@ -118,6 +122,12 @@ const CauseCard: FC<CauseCardProps> = ({
     if (!cancelCauseLoading && cancelCauseData.status === 200) {
       return cancelCauseData.data.slug === slug
         ? causeStatus.cancelled
+        : status;
+    }
+
+    if (!resumeCauseLoading && resumeCauseData.status === 200) {
+      return resumeCauseData.data.slug === slug
+        ? resumeCauseData.data.status
         : status;
     }
 

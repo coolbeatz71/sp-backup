@@ -8,6 +8,7 @@ import donateCause from "./donateCause";
 import pauseCause from "./pauseCause";
 import edit from "./edit";
 import cancelCause from "./cancelCause";
+import resumeCause from "./resumeCause";
 
 export default (
   state = initialState.cause,
@@ -24,5 +25,6 @@ export default (
     ...pauseCause(state, action),
     ...edit(state, action),
     ...cancelCause(state, action),
+    ...resumeCause(state, action),
   };
 };
