@@ -51,13 +51,12 @@ const Input: React.FC<InputInterface & InputProps> = (props) => {
       </label>
       {props.hasWordCount && (
         <span className={`${styles.input__wordsCount}`}>
-          {`${(props.maxLength || 0) - `${props.value}`.length} Words`}
+          {`${(props.maxLength || 0) - `${props.value}`.length} Characters`}
         </span>
       )}
     </div>
   );
 };
-
 
 const InputPhoneNumber: React.FC<InputInterface & InputProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
@@ -120,7 +119,7 @@ const InputPhoneNumber: React.FC<InputInterface & InputProps> = (props) => {
       </label>
       {props.hasWordCount && (
         <span className={`${styles.input__wordsCount}`}>
-          {`${(props.maxLength || 0) - `${props.value}`.length} Words`}
+          {`${(props.maxLength || 0) - `${props.value}`.length} Characters`}
         </span>
       )}
     </div>
@@ -203,7 +202,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
         {placeholder}
       </label>
       <span className={`${styles.input__textareaWordsCount}`}>
-        {`${(props.maxLength || 0) - `${props.value}`.length} Words`}
+        {`${(props.maxLength || 0) - `${props.value}`.length} Characters`}
       </span>
     </div>
   );

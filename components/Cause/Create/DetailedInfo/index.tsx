@@ -31,16 +31,14 @@ const DetailedInfo: React.FC<DetailedInfoProps> = () => {
               if (!value || ReactPlayer.canPlay(value)) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                "Should be a valid video url"
-              );
+              return Promise.reject("Should be a valid video url");
             },
-          })
+          }),
         ]}
       >
         <Input
           disabled={isEditing}
-          placeholder="Video url"
+          placeholder="Video link (Optional)"
           suffix={
             <img
               src="/icons/play-video.svg"
