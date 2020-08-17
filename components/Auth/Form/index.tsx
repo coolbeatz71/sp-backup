@@ -146,13 +146,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "New password must be number of 5 digits",
+                  message: "New PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
               name="new_password"
             >
-              <InputPassword maxLength={5} placeholder="New password" />
+              <InputPassword maxLength={5} placeholder="New PIN" />
             </Form.Item>
           </>
         )}
@@ -168,7 +168,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </>
         )}
         {["pin-reset", "pin-reset-update", "verify-phone"].includes(
-          context,
+          context
         ) ? null : ["signup"].includes(context) ? (
           <>
             <Form.Item className={styles.authForm__names}>
@@ -219,7 +219,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "Password must be number of 5 digits",
+                  message: "PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
@@ -263,7 +263,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "Password must be number of 5 digits",
+                  message: "PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
