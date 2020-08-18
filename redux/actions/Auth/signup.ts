@@ -1,4 +1,4 @@
-import { saveApi } from "helpers/axios";
+import splApi, { saveApi } from "helpers/axios";
 import {
   SIGNUP_START,
   SIGNUP_ERROR,
@@ -8,7 +8,8 @@ import {
   SEND_CONFIRMATION_CODE_ERROR,
 } from "redux/action-types/Auth/signup";
 import lodash from "lodash";
-import { changeAuthContext } from "./showAuthDialog";
+import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
+import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 
 export default (data: {}) => (dispatch: any) => {
   dispatch({
@@ -18,11 +19,22 @@ export default (data: {}) => (dispatch: any) => {
   saveApi
     .post("/auth/signup", data)
     .then((response: any) => {
+      let { token } = response.data;
+      token = `JWT ${token}`;
+      localStorage.setItem("save-token", token);
+      splApi.defaults.headers.Authorization = token;
+      saveApi.defaults.headers.Authorization = token;
+      const payload = response.data;
       dispatch({
         type: SIGNUP_SUCCESS,
         payload: response,
       });
-      changeAuthContext("signup-success")(dispatch);
+      dispatch({
+        payload,
+        type: SET_CURRENT_USER_SUCCESS,
+      });
+
+      showAuthDialog(false)(dispatch);
     })
     .catch((error) => {
       console.log("here", error);
@@ -33,9 +45,7 @@ export default (data: {}) => (dispatch: any) => {
     });
 };
 
-export const sendVerificationCode = (data: {}) => (
-  dispatch: any
-) => {
+export const sendVerificationCode = (data: {}) => (dispatch: any) => {
   dispatch({
     type: SEND_CONFIRMATION_CODE_START,
   });
