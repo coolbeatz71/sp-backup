@@ -50,7 +50,7 @@ const AllCauses: React.SFC<{}> = () => {
     <>
       <CategoriesBar page={ALL_CAUSES_PATH} categories={categories} />
       <div className={styles.allCauses}>
-        {categories.loading || loading ? (
+        {categories.loading || (loading && !fetched) ? (
           <div className={styles.allCauses__grid}>
             {[...Array(6)].map((_values, index) => (
               <div key={index}>
@@ -67,37 +67,37 @@ const AllCauses: React.SFC<{}> = () => {
             />
           </div>
         ) : (
-              <div className={styles.allCauses__grid}>
-                {fetched &&
-                  !error &&
-                  data.data.map((cause: any, index: number) => (
-                    <div key={index}>
-                      <CauseCard
-                        pathName={pathname}
-                        slug={cause.slug}
-                        title={cause.name}
-                        description={cause.summary}
-                        tillNumber={cause.till_number}
-                        cover={cause.image}
-                        owner={getOwnerInfo(
-                          cause.user_names,
-                          cause.verified,
-                          cause.user_avatar,
-                        )}
-                        amountRaised={cause.raised_amount}
-                        amountToReach={cause.target_amount}
-                        currency={cause.currency}
-                        status={cause.status}
-                        category={cause.category.title}
-                        rating={cause.ratings}
-                        ratersCount={cause.raters_count}
-                        daysToGo={getCauseRemainingDays(cause.end_date)}
-                        data={cause}
-                      />
-                    </div>
-                  ))}
-              </div>
-            )}
+          <div className={styles.allCauses__grid}>
+            {fetched &&
+              !error &&
+              data.data.map((cause: any, index: number) => (
+                <div key={index}>
+                  <CauseCard
+                    pathName={pathname}
+                    slug={cause.slug}
+                    title={cause.name}
+                    description={cause.summary}
+                    tillNumber={cause.till_number}
+                    cover={cause.image}
+                    owner={getOwnerInfo(
+                      cause.user_names,
+                      cause.verified,
+                      cause.user_avatar,
+                    )}
+                    amountRaised={cause.raised_amount}
+                    amountToReach={cause.target_amount}
+                    currency={cause.currency}
+                    status={cause.status}
+                    category={cause.category.title}
+                    rating={cause.ratings}
+                    ratersCount={cause.raters_count}
+                    daysToGo={getCauseRemainingDays(cause.end_date)}
+                    data={cause}
+                  />
+                </div>
+              ))}
+          </div>
+        )}
       </div>
       <div>
         <Mission isLoggedin={isLoggedin} goToRegister={goToRegister} />

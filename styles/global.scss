@@ -281,15 +281,15 @@ textarea.ant-input {
   background: rgba(33, 155, 178, 0.1) !important;
 }
 
-.cause-image-uploader{
-  .ant-upload{
+.cause-image-uploader {
+  .ant-upload {
     width: 100%;
     height: 150px;
-    span.ant-upload{
+    span.ant-upload {
       padding: 0;
     }
   }
-  &__container{
+  &__container {
     height: 100%;
     background-color: $color-primary-light;
     background-repeat: no-repeat;
@@ -299,13 +299,17 @@ textarea.ant-input {
     justify-content: center;
     align-items: center;
     position: relative;
-    .upload-action{
-      background-color: rgba($color: #aaa, $alpha: 0.2);
+    .upload-action {
+      background-color: rgba($color: #fff, $alpha: 0.8);
       padding: 0 8px;
       position: absolute;
       top: 45%;
+
+      &:hover {
+        background-color: $color-light;
+      }
     }
-    img{
+    img {
       width: 100%;
       height: auto;
     }
@@ -445,6 +449,7 @@ textarea.ant-input {
 .react-swipeable-view-container {
   div[data-swipeable] {
     width: 85% !important;
+    margin-right: 1.5rem;
   }
 }
 
@@ -597,11 +602,10 @@ div.searchinput_searchinput__1J7uG {
     .ant-modal-close {
       margin: 0.7rem;
     }
+    background: $color-light url("/background-modal.svg");
+    background-position: center;
+    background-repeat: no-repeat;
     .ant-modal-body {
-      background: url("/background-modal.svg");
-      background-position: center;
-      background-repeat: no-repeat;
-
       .ant-divider-with-text::before,
       .ant-divider-with-text::after {
         border-top-color: rgba($color: #333, $alpha: 0.25);

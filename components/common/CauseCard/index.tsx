@@ -12,13 +12,10 @@ import Actions from "./Actions";
 import ExtraInfo from "./ExtraInfo";
 import LazyLoadCover from "./LazyLoadCover";
 import { IUnknownObject } from "interfaces/unknownObject";
-import { useSelector } from "react-redux";
-import { IRootState } from "redux/initialStates";
 
 const daysToGoStatus: ICauseStatus = {
   active: causeStatus.active,
   paused: causeStatus.paused,
-  closed: causeStatus.closed,
   completed: causeStatus.completed,
   cancelled: causeStatus.cancelled,
 };
@@ -26,7 +23,6 @@ const daysToGoStatus: ICauseStatus = {
 const canDonateMsg: ICauseStatus = {
   active: "Make a Donation",
   paused: "This cause has been Paused",
-  closed: "This cause has been Closed",
   completed: "This cause has been completed",
   cancelled: "This cause has been cancelled",
 };
@@ -65,7 +61,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
             <a>{canDonateMsg[status]}</a>
           </Link>
         ) : (
-          <p>{canDonateMsg[status] || canDonateMsg.closed}</p>
+          <p>{canDonateMsg[status]}</p>
         )}
       </div>
     );
@@ -100,40 +96,6 @@ const CauseCard: FC<CauseCardProps> = ({
   category,
   data,
 }) => {
-  const { data: pauseCauseData, loading: pauseCauseLoading } = useSelector(
-    ({ cause: { pause } }: IRootState) => pause,
-  );
-
-  const { data: cancelCauseData, loading: cancelCauseLoading } = useSelector(
-    ({ cause: { cancel } }: IRootState) => cancel,
-  );
-
-  const { data: resumeCauseData, loading: resumeCauseLoading } = useSelector(
-    ({ cause: { resume } }: IRootState) => resume,
-  );
-
-  const getCauseStatus = () => {
-    if (!pauseCauseLoading && pauseCauseData.status === 200) {
-      return pauseCauseData.data.slug === slug
-        ? pauseCauseData.data.status
-        : status;
-    }
-
-    if (!cancelCauseLoading && cancelCauseData.status === 200) {
-      return cancelCauseData.data.slug === slug
-        ? causeStatus.cancelled
-        : status;
-    }
-
-    if (!resumeCauseLoading && resumeCauseData.status === 200) {
-      return resumeCauseData.data.slug === slug
-        ? resumeCauseData.data.status
-        : status;
-    }
-
-    return status;
-  };
-
   const renderHeaderInfo = () => {
     if (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH)
       return (
@@ -145,8 +107,7 @@ const CauseCard: FC<CauseCardProps> = ({
         />
       );
 
-    if (pathName === USER_CAUSES_PATH)
-      return <StatusInfo status={getCauseStatus()} />;
+    if (pathName === USER_CAUSES_PATH) return <StatusInfo status={status} />;
   };
 
   const progress = getProgressPercentage(amountRaised, amountToReach);
@@ -187,7 +148,7 @@ const CauseCard: FC<CauseCardProps> = ({
         )}
         <div className={styles.causeCard__body__content}>
           {pathName === USER_CAUSES_PATH && (
-            <Actions slug={slug} status={getCauseStatus()} />
+            <Actions slug={slug} status={status} />
           )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>
@@ -221,7 +182,7 @@ const CauseCard: FC<CauseCardProps> = ({
               {numberFormatter(amountToReach)} {currency} Goal
             </h5>
             <span className={styles.causeStatus}>
-              {getDaysToGoMsg(getCauseStatus(), daysToGo)}
+              {getDaysToGoMsg(status, daysToGo)}
             </span>
           </div>
         </div>
@@ -233,10 +194,10 @@ const CauseCard: FC<CauseCardProps> = ({
           rating={rating}
           ratersCount={ratersCount}
           tillNumber={tillNumber}
-          status={getCauseStatus()}
+          status={status}
         />
       </div>
-      {renderFooter(getCauseStatus(), pathName, slug)}
+      {renderFooter(status, pathName, slug)}
       <style jsx>{`
         .progression {
           width: ${progressBar}%;

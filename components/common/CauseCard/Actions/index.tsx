@@ -26,19 +26,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
   }>({ isVisible: false, context: "" });
 
   const handleAction = (type: ActionType) => {
-    switch (type) {
-      case ActionType.pause:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      case ActionType.cancel:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      case ActionType.resume:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      default:
-        break;
-    }
+    setCauseModal({ isVisible: true, context: type });
   };
 
   const actionMenu = (

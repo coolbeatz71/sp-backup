@@ -46,15 +46,21 @@ const PauseCause: FC<IPauseCauseProps> = ({
 
   const handleModalClose = () => {
     closeModal();
-    dispatch({ type: RESET_CANCEL_ERROR });
-    dispatch({ type: RESET_PAUSE_ERROR });
-    dispatch({ type: RESET_RESUME_ERROR });
     setActionSuccessful(false);
-  };
 
-  const goBackHome = () => {
-    closeModal();
-    location.reload();
+    switch (context) {
+      case ActionType.pause:
+        dispatch({ type: RESET_PAUSE_ERROR });
+        break;
+      case ActionType.cancel:
+        dispatch({ type: RESET_CANCEL_ERROR });
+        break;
+      case ActionType.resume:
+        dispatch({ type: RESET_RESUME_ERROR });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = (data: Store) => {
@@ -111,14 +117,12 @@ const PauseCause: FC<IPauseCauseProps> = ({
       destroyOnClose={true}
       maskStyle={{ background: "#000000b3" }}
     >
-      {!actionSuccessful && (
-        <div className={styles.pause__modalHeader}>
-          <CloseOutlined
-            className={styles.pause__modalHeader__icon}
-            onClick={handleModalClose}
-          />
-        </div>
-      )}
+      <div className={styles.pause__modalHeader}>
+        <CloseOutlined
+          className={styles.pause__modalHeader__icon}
+          onClick={handleModalClose}
+        />
+      </div>
 
       <div className={styles.pause__modalContent}>
         <h4>
@@ -130,9 +134,6 @@ const PauseCause: FC<IPauseCauseProps> = ({
         {actionSuccessful ? (
           <div className={styles.pause__modalContent__successful}>
             <img src="/success-action.gif" alt="pause success" />
-            <Link href={USER_CAUSES_PATH}>
-              <a onClick={goBackHome}>Back Home</a>
-            </Link>
           </div>
         ) : (
           <>
