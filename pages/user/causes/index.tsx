@@ -106,17 +106,19 @@ const Causes: React.SFC<{}> = () => {
   );
 
   useEffect(() => {
+    getAllCategories()(dispatch);
+    // tslint:disable-next-line: align
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!isLoggedin) push("/");
     getUserCauses(asPath)(dispatch);
-    getAllCategories()(dispatch);
     // tslint:disable-next-line: align
   }, [asPath, dispatch]);
 
   return (
     <>
-      {fetched && !error && !isEmpty(data) && (
-        <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
-      )}
+      <CategoriesBar page={USER_CAUSES_PATH} categories={categories} />
       <div className={styles.causes}>
         {renderHeader(isMobile, data)}
         {loading ? (

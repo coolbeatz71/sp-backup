@@ -1,12 +1,14 @@
 import React, { FC } from "react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Icategories } from "./../../../interfaces/categories";
-import { IRootState } from "redux/initialStates";
 import styles from "./categoriesbar.module.scss";
 import SearchInput from "../SearchInput";
 import { Spin } from "antd";
+import { useForm } from "antd/lib/form/Form";
 import { LoadingOutlined } from "@ant-design/icons";
+import { getKeyword } from "redux/actions/search/getKeyword";
+import FilterDropdown from "../FilterDropdown";
 
 export interface CategoriesBarProps {
   categories: { [key: string]: any };
@@ -14,20 +16,28 @@ export interface CategoriesBarProps {
 }
 
 const CategoriesBar: FC<CategoriesBarProps> = ({ categories, page }) => {
-  let url: string;
-  const { query, push } = useRouter();
+  let url: {};
+  const [form] = useForm();
+  const dispatch = useDispatch();
+  const { push, pathname, query } = useRouter();
   const { category_id } = query;
   const { data, fetched, error, loading } = categories;
 
   const onCategoryClick = (categoryId?: number): void => {
-    url =
-      categoryId && typeof categoryId === "number"
-        ? `${page}?category_id=${categoryId}`
-        : page;
+    delete query.search;
+    getKeyword("")(dispatch);
+    if (typeof categoryId === "number") {
+      form.resetFields(["search_input"]);
+      url = {
+        pathname,
+        query: { ...query, category_id: categoryId },
+      };
+    } else {
+      url = { pathname };
+    }
+
     push(url);
   };
-
-  const { keyword } = useSelector(({ search }: IRootState) => search);
 
   return (
     <div className={styles.categoriesBar}>
@@ -65,7 +75,10 @@ const CategoriesBar: FC<CategoriesBarProps> = ({ categories, page }) => {
           </>
         )}
       </div>
-      <SearchInput defaultValue={keyword} page={page} />
+      <div className={styles.categoriesBar__filterSearch}>
+        <FilterDropdown page={page} />
+        <SearchInput formRef={form} page={page} />
+      </div>
     </div>
   );
 };
