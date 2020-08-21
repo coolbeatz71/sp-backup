@@ -18,6 +18,7 @@ export default (
         currentUser: {
           ...state.currentUser,
           loading: true,
+          fetched: false,
           error: {},
         },
       };
@@ -28,6 +29,7 @@ export default (
           ...state.currentUser,
           error: payload,
           loading: false,
+          fetched: true,
         },
       };
     case SET_CURRENT_USER_SUCCESS:
@@ -37,6 +39,7 @@ export default (
           isLoggedin: !!getToken(),
           data: payload,
           loading: false,
+          fetched: true,
           error: {},
         },
       };

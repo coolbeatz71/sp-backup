@@ -75,7 +75,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [submitCount, setSubmitCount] = useState(0);
   const [formState, setFormState] = useState(
-    editFormState || formStateDefaultValue
+    editFormState || formStateDefaultValue,
   );
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
@@ -89,7 +89,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit
+    ({ cause: { edit } }: IRootState) => edit,
   );
 
   useEffect(() => {
@@ -121,8 +121,8 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   }, [phone_number]);
 
   useEffect(() => {
-    if (croppedImage[0]?.name)  form.setFieldsValue({ image: croppedImage });
-  }, [croppedImage])
+    if (croppedImage[0]?.name) form.setFieldsValue({ image: croppedImage });
+  }, [croppedImage]);
 
   const formatFlatObject = (data: { [key: string]: any }) => {
     forEach(data, (value, key) => {
@@ -145,7 +145,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount)
+          serializeFormattedNumber(data.target_amount),
         );
         return;
       }
@@ -175,7 +175,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
 
   const getTouchedFields = (values: IUnknownObject) => {
     const touchedKeys = Object.keys(values).filter((key) =>
-      form.isFieldTouched(key)
+      form.isFieldTouched(key),
     );
     const touchedFields = pick(values, touchedKeys);
     return touchedFields;

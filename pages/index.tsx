@@ -12,7 +12,7 @@ import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import { getOwnerInfo } from "helpers/getOwnerInfo";
 import Mission from "components/common/Mission";
 import { useMedia } from "react-use";
-import { ALL_CAUSES_PATH } from "helpers/paths";
+import { ALL_CAUSES_PATH, CREATE_CAUSE_PATH } from "helpers/paths";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
 
@@ -31,7 +31,7 @@ const IndexPage = () => {
 
   const goToAllCauses = ({ feedType }: CauseLinkProp = {}) => {
     push(
-      feedType ? `${ALL_CAUSES_PATH}?feed_type=${feedType}` : ALL_CAUSES_PATH
+      feedType ? `${ALL_CAUSES_PATH}?feed_type=${feedType}` : ALL_CAUSES_PATH,
     );
   };
 
@@ -41,15 +41,15 @@ const IndexPage = () => {
   }, [dispatch]);
 
   const { data, loading, fetched, error } = useSelector(
-    ({ cause: { feed } }: IRootState) => feed
+    ({ cause: { feed } }: IRootState) => feed,
   );
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   const getStarted = () => {
-    isLoggedin ? push("/causes/create") : goToRegister();
+    isLoggedin ? push(CREATE_CAUSE_PATH) : goToRegister();
   };
 
   return (
@@ -76,7 +76,7 @@ const IndexPage = () => {
         <SectionTitle
           title="How It Works"
           className="gardening"
-          icon="icons/gardening.svg"
+          icon="/icons/gardening.svg"
         />
         <HowItWorks />
       </div>
@@ -85,7 +85,7 @@ const IndexPage = () => {
         <SectionTitle
           title="Sponsored Causes"
           className="romantic"
-          icon="icons/heart-beat.svg"
+          icon="/icons/heart-beat.svg"
         />
         {loading && !fetched ? (
           <div className="causes__grid causes__grid--lg">
@@ -112,7 +112,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -143,7 +143,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -177,7 +177,7 @@ const IndexPage = () => {
         <SectionTitle
           title="Popular Causes"
           className="popularity"
-          icon="icons/popularity.svg"
+          icon="/icons/popularity.svg"
         />
         {loading && !fetched ? (
           <div className="causes__grid causes__grid--lg">
@@ -204,7 +204,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -235,7 +235,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -269,7 +269,7 @@ const IndexPage = () => {
         <SectionTitle
           title="Recent Causes"
           className="birds"
-          icon="icons/love-birds.svg"
+          icon="/icons/love-birds.svg"
         />
 
         {loading && !fetched ? (
@@ -297,7 +297,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -328,7 +328,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar
+                        cause.user_avatar,
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}

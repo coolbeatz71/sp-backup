@@ -10,8 +10,7 @@ import { isEmpty } from "lodash";
 import { getUserCauses } from "redux/actions/cause/getUserCauses";
 import CauseCard from "components/common/CauseCard";
 import getCauseRemainingDays from "helpers/getCauseRemainingDays";
-import PrivateComponent from "pages/privateRoute";
-import { USER_CAUSES_PATH } from "helpers/paths";
+import { USER_CAUSES_PATH, CREATE_CAUSE_PATH } from "helpers/paths";
 import CategoriesBar from "components/common/CategoriesBar";
 import { useMedia } from "react-use";
 import { getAllCategories } from "redux/actions/categories/getAll";
@@ -31,7 +30,7 @@ const renderHeader = (isMobile: boolean, causes: { [key: string]: any }) => (
       </p>
     </div>
     {isMobile && (
-      <Link href="/causes/create">
+      <Link href={CREATE_CAUSE_PATH}>
         <Button className="btn-primary-outline">CREATE A NEW CAUSE</Button>
       </Link>
     )}
@@ -160,4 +159,4 @@ const Causes: React.SFC<{}> = () => {
   );
 };
 
-export default PrivateComponent(Causes);
+export default Causes;
