@@ -25,8 +25,14 @@ const IndexPage = () => {
     showAuthDialog(true, "signup")(dispatch);
   };
 
-  const goToAllCauses = () => {
-    push(ALL_CAUSES_PATH);
+  interface CauseLinkProp {
+    feedType?: string;
+  }
+
+  const goToAllCauses = ({ feedType }: CauseLinkProp = {}) => {
+    push(
+      feedType ? `${ALL_CAUSES_PATH}?feed_type=${feedType}` : ALL_CAUSES_PATH
+    );
   };
 
   useEffect(() => {
@@ -35,11 +41,11 @@ const IndexPage = () => {
   }, [dispatch]);
 
   const { data, loading, fetched, error } = useSelector(
-    ({ cause: { feed } }: IRootState) => feed,
+    ({ cause: { feed } }: IRootState) => feed
   );
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const getStarted = () => {
@@ -106,7 +112,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -137,7 +143,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -157,7 +163,10 @@ const IndexPage = () => {
 
         <div className="more__causes">
           {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
+            <Button
+              className="btn-secondary"
+              onClick={() => goToAllCauses({ feedType: "sponsored" })}
+            >
               DISCOVER MORE CAUSES
             </Button>
           )}
@@ -195,7 +204,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -226,7 +235,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -246,7 +255,10 @@ const IndexPage = () => {
 
         <div className="more__causes">
           {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
+            <Button
+              className="btn-secondary"
+              onClick={() => goToAllCauses({ feedType: "popular" })}
+            >
               DISCOVER MORE CAUSES
             </Button>
           )}
@@ -285,7 +297,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -316,7 +328,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -335,7 +347,7 @@ const IndexPage = () => {
         )}
         <div className="more__causes">
           {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
+            <Button className="btn-secondary" onClick={() => goToAllCauses()}>
               DISCOVER MORE CAUSES
             </Button>
           )}
