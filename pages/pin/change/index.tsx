@@ -63,7 +63,7 @@ const ChangePin: FC<{}> = () => {
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "Old passsword must be number of 5 digits",
+                  message: "Old PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
@@ -79,7 +79,7 @@ const ChangePin: FC<{}> = () => {
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "New password must be number of 5 digits",
+                  message: "New PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
@@ -94,7 +94,7 @@ const ChangePin: FC<{}> = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please, confirm the password",
+                  message: "Please, confirm the New PIN",
                 },
                 ({ getFieldValue }) => ({
                   validator({}, value) {

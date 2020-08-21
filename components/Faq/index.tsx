@@ -1,11 +1,17 @@
 import React, { FC } from "react";
 import { Collapse } from "antd";
+import styles from "./faq.module.scss";
 
 const Panel = Collapse.Panel;
 
 const questions = [
   {
-    title: "Donation Process",
+    title: "What is Save Plus Bill?",
+    description: `Save Plus Bill is a unique six digit bill number that's associated to a cause on Save plus. This bill is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
+    saveplus.io</a> or our USSD code *777*77*Save Plus Bill*Amount#.`,
+  },
+  {
+    title: "What's the donation process like?",
     description: `You can donate for a cause by clicking on the donate button on the cause and entering the amount you want to donate and othet neccessary information that is needed. You can choose to donate as an individual or as an organization, also we allow you to choose to donate anonymously ie your name will not be publish on the page as a donor. But note that anonymous donatation is only available for individual donations.`,
   },
   {
@@ -72,8 +78,12 @@ const Faq: FC<{}> = () => {
       expandIconPosition="right"
     >
       {questions.map((item, index) => (
-        <Panel header={item.title} key={index}>
-          <p>{item.description}</p>
+        <Panel header={item.title} key={index} className={styles.faq}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: item.description,
+            }}
+          />
         </Panel>
       ))}
     </Collapse>

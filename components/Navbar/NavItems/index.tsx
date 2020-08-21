@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { CREATE_CAUSE_PATH, PRICING_PATH } from "helpers/paths";
+import { CREATE_CAUSE_PATH, PRICING_PATH, HOME_PATH } from "helpers/paths";
 import { Button, Dropdown, Menu, Spin, Avatar } from "antd";
 import Link from "next/link";
 import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -79,6 +79,18 @@ const NavItems: FC<NavbarItemsProps> = ({
         isMobile ? styles.navbar__menuMobile : styles.navbar__menuNonMobile
       }
     >
+      {page !== HOME_PATH && (
+        <Link href={HOME_PATH}>
+          <a
+            className="ant-dropdown-link"
+            onClick={() => {
+              if (menuMobileVisible) toggleMenuMobile();
+            }}
+          >
+            Home
+          </a>
+        </Link>
+      )}
       <TransitionGroup component={null}>
         {isLoggedin && page !== CREATE_CAUSE_PATH && isCreateCauseButton && (
           <CSSTransition classNames="create-cause-button" timeout={400}>

@@ -36,7 +36,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
   const { data } = useSelector(({ cause: { single } }: IRootState) => single);
 
   const { croppedImage } = useSelector(
-    ({ cause: { create } }: IRootState) => create
+    ({ cause: { create } }: IRootState) => create,
   );
 
   useEffect(() => {
@@ -150,7 +150,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
                   <div className="upload-action">
                     {uploadLoading && <LoadingOutlined />}
                     <div className="ant-upload-text">
-                      Choose Image to upload
+                      Choose Cause Image here
                     </div>
                   </div>
                 </div>
