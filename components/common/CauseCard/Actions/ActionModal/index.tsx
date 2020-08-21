@@ -1,6 +1,4 @@
 import React, { FC, useState } from "react";
-import Link from "next/link";
-import { USER_CAUSES_PATH } from "helpers/paths";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Modal, Typography } from "antd";
 import { CloseOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
@@ -35,13 +33,13 @@ const PauseCause: FC<IPauseCauseProps> = ({
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
-    ({ cause: { pause } }: IRootState) => pause,
+    ({ cause: { pause } }: IRootState) => pause
   );
   const { loading: loadingCancel, error: errorCancel } = useSelector(
-    ({ cause: { cancel } }: IRootState) => cancel,
+    ({ cause: { cancel } }: IRootState) => cancel
   );
   const { loading: loadingResume, error: errorResume } = useSelector(
-    ({ cause: { resume } }: IRootState) => resume,
+    ({ cause: { resume } }: IRootState) => resume
   );
 
   const handleModalClose = () => {
