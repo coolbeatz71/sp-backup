@@ -92,6 +92,7 @@ const AllCauses: React.SFC<{}> = () => {
                     rating={cause.ratings}
                     ratersCount={cause.raters_count}
                     daysToGo={getCauseRemainingDays(cause.end_date)}
+                    sponsored={cause.sponsored}
                     data={cause}
                   />
                 </div>

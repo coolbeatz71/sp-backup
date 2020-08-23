@@ -122,6 +122,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       key={index}
                       data={cause}
                     />
@@ -153,6 +154,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       data={cause}
                     />
                   </div>
@@ -214,6 +216,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       key={index}
                       data={cause}
                     />
@@ -245,6 +248,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       data={cause}
                     />
                   </div>
@@ -307,6 +311,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       key={index}
                       data={cause}
                     />
@@ -338,6 +343,7 @@ const IndexPage = () => {
                       rating={cause.ratings}
                       ratersCount={cause.raters_count}
                       daysToGo={getCauseRemainingDays(cause.end_date)}
+                      sponsored={cause.sponsored}
                       data={cause}
                     />
                   </div>

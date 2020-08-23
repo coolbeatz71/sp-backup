@@ -1,12 +1,21 @@
 import React, { FC, useState } from "react";
-import { Dropdown, Menu, Button } from "antd";
+import { Dropdown, Menu, Button, Badge } from "antd";
+import { isEmpty } from "lodash";
 import { MoreOutlined } from "@ant-design/icons";
 import styles from "../causeCard.module.scss";
 import ActionModal from "./ActionModal";
 import { causeStatus } from "interfaces";
 import Link from "next/link";
 
+export interface ActionProps {
+  slug: string;
+  status: string;
+  access?: string;
+  plainAccessCode?: string;
+}
+
 export enum ActionType {
+  accessCode = "accessCode",
   pause = "pause",
   cancel = "cancel",
   resume = "resume",
@@ -19,18 +28,30 @@ const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
 const isUneditable = (status: string) => status !== causeStatus.active;
 
-const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
+const Action: FC<ActionProps> = ({
+  slug,
+  status,
+  access = "public",
+  plainAccessCode = "",
+}) => {
   const [causeModal, setCauseModal] = useState<{
     isVisible: boolean;
     context?: ActionType | "";
+    plainAccessCode?: string;
   }>({ isVisible: false, context: "" });
 
-  const handleAction = (type: ActionType) => {
-    setCauseModal({ isVisible: true, context: type });
+  const handleAction = (type: ActionType, plainAccessCode: string = "") => {
+    setCauseModal({ plainAccessCode, isVisible: true, context: type });
   };
 
   const actionMenu = (
     <Menu>
+      {access === "private" && plainAccessCode && (
+        <Menu.Item onClick={() => handleAction(ActionType.accessCode)}>
+          View Access Code
+        </Menu.Item>
+      )}
+      {access === "private" && <Menu.Divider />}
       <Menu.Item>
         <Link href="/causes/[slug]/edit" as={`/causes/${slug}/edit`}>
           <Button
@@ -59,7 +80,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
       <Menu.Divider />
 
       <Menu.Item
-        className={styles.causeCard__body__content__actionIcon__cancel}
+        className={styles.causeCard__body__content__head__actionIcon__cancel}
         onClick={() => handleAction(ActionType.cancel)}
         disabled={isUncancellable(status)}
       >
@@ -69,25 +90,33 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
   );
 
   return (
-    <div className={styles.causeCard__body__content__actionIcon}>
-      <Dropdown
-        overlayClassName="causeCard__menu"
-        overlay={actionMenu}
-        trigger={["click"]}
-        placement="bottomRight"
-      >
-        <MoreOutlined
-          className={styles.causeCard__body__content__actionIcon__icon}
+    <div className={styles.causeCard__body__content__head}>
+      {access === "private" && (
+        <div className={styles.causeCard__body__content__head__private}>
+          <Badge color="#e150fd" text="Private" />
+        </div>
+      )}
+      <div className={styles.causeCard__body__content__head__actionIcon}>
+        <Dropdown
+          overlayClassName="causeCard__menu"
+          overlay={actionMenu}
+          trigger={["click"]}
+          placement="bottomRight"
+        >
+          <MoreOutlined
+            className={styles.causeCard__body__content__head__actionIcon__icon}
+          />
+        </Dropdown>
+        <ActionModal
+          slug={slug}
+          plainAccessCode={plainAccessCode}
+          visible={causeModal.isVisible}
+          context={causeModal.context}
+          closeModal={() => setCauseModal({ isVisible: false })}
         />
-      </Dropdown>
-      <ActionModal
-        slug={slug}
-        visible={causeModal.isVisible}
-        context={causeModal.context}
-        closeModal={() => setCauseModal({ isVisible: false })}
-      />
+      </div>
     </div>
   );
 };
 
-export default ActionIcon;
+export default Action;

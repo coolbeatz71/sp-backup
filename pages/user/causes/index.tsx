@@ -79,6 +79,9 @@ const renderFeedContainer = (
                 rating={cause.ratings}
                 ratersCount={cause.raters_count}
                 daysToGo={getCauseRemainingDays(cause.end_date)}
+                sponsored={cause.sponsored}
+                access={cause.access}
+                plainAccessCode={cause.plain_access_code}
                 data={cause}
               />
             </div>
