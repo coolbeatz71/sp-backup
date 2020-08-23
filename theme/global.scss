@@ -1,0 +1,51 @@
+@import "../styles/dimensions.scss";
+
+* {
+  text-rendering: geometricPrecision;
+}
+[data-aspect-ratio] > img {
+  object-fit: cover;
+  pointer-events: none;
+}
+
+[data-aspect-ratio] {
+  display: block;
+  position: relative;
+}
+[data-aspect-ratio]::before {
+  height: 0;
+  content: "";
+  display: block;
+  padding-bottom: calc(100% / (1600 / 900));
+}
+[data-aspect-ratio] > * {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+}
+
+[data-floating-image] {
+  position: relative;
+}
+
+[data-floating-image]:after {
+  content: " ";
+  height: 40px;
+  width: 40px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+[data-content-padding] {
+  padding: $padding $content-padding;
+  @media screen and (max-width: #{$mobile-size}) {
+    padding: $padding;
+  }
+}

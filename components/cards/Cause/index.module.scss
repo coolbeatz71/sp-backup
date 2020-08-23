@@ -1,0 +1,106 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/dimensions.scss";
+
+.card {
+  background-color: rgba($black, 0.03);
+  &__cover {
+    &__placeholder {
+      background-color: rgba($primary, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      & > h1 {
+        margin-bottom: 0px;
+        color: rgba(0, 0, 0, 0.1);
+      }
+      & > span {
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.3);
+      }
+      [class~="ant-spin"] {
+        opacity: 0.3;
+      }
+    }
+    img {
+      opacity: 1;
+      &:not([class~="loaded"]) {
+        opacity: 0;
+      }
+    }
+  }
+  [class~="ant-card-body"] {
+    padding: $padding $padding 0px $padding;
+    position: relative;
+  }
+  &__type {
+    position: absolute;
+    top: -10px;
+    right: $padding;
+    sup {
+      border-radius: 4px;
+      background-color: $primary;
+    }
+  }
+  &__avatar {
+    position: absolute;
+    left: $padding;
+    top: -48px;
+  }
+  &__verified {
+    display: block;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    line-height: 24px;
+    color: $primary;
+    font-size: 20px;
+    position: absolute;
+    top: -12px;
+    left: calc(#{$padding} + 72px);
+  }
+  &__title {
+    padding-right: $padding;
+    h4 {
+      font-size: 18px !important;
+      font-weight: 600 !important;
+    }
+  }
+  &__summary {
+    font-size: 13px;
+    height: 40px;
+  }
+  &__progress {
+    margin-bottom: 1em;
+    [class~="ant-typography-secondary"] {
+      font-size: 10px;
+    }
+    &__item {
+      position: relative;
+      height: 8px;
+      background-color: $white;
+      border: solid 1px rgba($black, 0.1);
+      border-radius: 4px;
+      margin: 4px 0px;
+      overflow: hidden;
+      &__inner {
+        position: absolute;
+        height: 6px;
+        left: 0px;
+        top: 0px;
+        background-color: $primary;
+      }
+    }
+  }
+  &__share {
+    padding-right: 0px;
+  }
+  &__donate {
+    margin: 8px 0px;
+  }
+  [class~="ant-divider"] {
+    width: calc(100% + (#{$padding} * 2));
+    margin-left: -$padding;
+    margin-bottom: 0px;
+  }
+}

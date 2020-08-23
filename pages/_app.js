@@ -1,11 +1,12 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "antd/dist/antd.css";
-import "styles/global.scss";
-import Layout from "../components/Layout";
+
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
+import { withRedux } from "helpers/with-redux-store";
+
+import "theme/index.css";
+import "theme/global.scss";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => {
@@ -17,10 +18,8 @@ Router.events.on("routeChangeComplete", () => {
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
-}
+const MyApp = ({ Component, pageProps }) => {
+  return <Component {...pageProps} />;
+};
+
+export default withRedux(MyApp);

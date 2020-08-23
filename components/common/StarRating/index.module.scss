@@ -1,0 +1,16 @@
+@import "../../../styles/colors.scss";
+.stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 22px;
+  span {
+    margin-right: 4px;
+  }
+  [data-color="not-filled"] {
+    color: rgba(0, 0, 0, 0.1);
+  }
+  [data-color="filled"] {
+    color: $yellow;
+  }
+}

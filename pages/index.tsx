@@ -1,4 +1,14 @@
 import React, { useEffect } from "react";
+
+import { Row, Col } from "antd";
+
+import Jumbotron from "components/home/Jumbotron";
+import Video from "components/home/Video";
+import Cause from "components/cards/Cause";
+
+/**
+ * Old
+ */
 import { Button } from "antd";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +25,8 @@ import { useMedia } from "react-use";
 import { ALL_CAUSES_PATH } from "helpers/paths";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
+
+import LayoutWrapper from "components/LayoutWrapper";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
@@ -47,49 +59,50 @@ const IndexPage = () => {
   };
 
   return (
-    <div className="index-page">
-      <div className="index-container">
-        <div className="index__intro">
-          <div className="index__intro--info">
-            <h1>Put a Smile on {!isMobile && <br />} Someone's Face</h1>
-            <Button
-              size="large"
-              className="btn-primary index__intro--button"
-              onClick={() => getStarted()}
-            >
-              {isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
-            </Button>
+    <LayoutWrapper title="Home" isHome>
+      <div className="index-page">
+        <div className="index-container">
+          <div className="index__intro">
+            <div className="index__intro--info">
+              <h1>Put a Smile on {!isMobile && <br />} Someone's Face</h1>
+              <Button
+                size="large"
+                className="btn-primary index__intro--button"
+                onClick={() => getStarted()}
+              >
+                {isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
+              </Button>
+            </div>
+          </div>
+          <div className="index__landing__picture">
+            <img src="icons/landing-image.png" alt="" />
           </div>
         </div>
-        <div className="index__landing__picture">
-          <img src="icons/landing-image.png" alt="" />
+
+        <div className="how-it-works">
+          <SectionTitle
+            title="How It Works"
+            className="gardening"
+            icon="icons/gardening.svg"
+          />
+          <HowItWorks />
         </div>
-      </div>
 
-      <div className="how-it-works">
-        <SectionTitle
-          title="How It Works"
-          className="gardening"
-          icon="icons/gardening.svg"
-        />
-        <HowItWorks />
-      </div>
-
-      <div className="causes">
-        <SectionTitle
-          title="Sponsored Causes"
-          className="romantic"
-          icon="icons/heart-beat.svg"
-        />
-        {loading ? (
-          <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((_values, index) => (
-              <div className="causes__grid--item" key={index}>
-                <CauseCardSkeleton />
-              </div>
-            ))}
-          </div>
-        ) : (
+        <div className="causes">
+          <SectionTitle
+            title="Sponsored Causes"
+            className="romantic"
+            icon="icons/heart-beat.svg"
+          />
+          {loading ? (
+            <div className="causes__grid causes__grid--lg">
+              {[...Array(3)].map((_values, index) => (
+                <div className="causes__grid--item" key={index}>
+                  <CauseCardSkeleton />
+                </div>
+              ))}
+            </div>
+          ) : (
             <>
               <div className="causes__grid--mobile">
                 <Swipeable>
@@ -155,30 +168,30 @@ const IndexPage = () => {
             </>
           )}
 
-        <div className="more__causes">
-          {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
-              DISCOVER MORE CAUSES
-            </Button>
-          )}
-        </div>
-      </div>
-
-      <div className="causes">
-        <SectionTitle
-          title="Popular Causes"
-          className="popularity"
-          icon="icons/popularity.svg"
-        />
-        {loading ? (
-          <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((_values, index) => (
-              <div className="causes__grid--item" key={index}>
-                <CauseCardSkeleton />
-              </div>
-            ))}
+          <div className="more__causes">
+            {fetched && (
+              <Button className="btn-secondary" onClick={goToAllCauses}>
+                DISCOVER MORE CAUSES
+              </Button>
+            )}
           </div>
-        ) : (
+        </div>
+
+        <div className="causes">
+          <SectionTitle
+            title="Popular Causes"
+            className="popularity"
+            icon="icons/popularity.svg"
+          />
+          {loading ? (
+            <div className="causes__grid causes__grid--lg">
+              {[...Array(3)].map((_values, index) => (
+                <div className="causes__grid--item" key={index}>
+                  <CauseCardSkeleton />
+                </div>
+              ))}
+            </div>
+          ) : (
             <>
               <div className="causes__grid--mobile">
                 <Swipeable>
@@ -244,31 +257,31 @@ const IndexPage = () => {
             </>
           )}
 
-        <div className="more__causes">
-          {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
-              DISCOVER MORE CAUSES
-            </Button>
-          )}
-        </div>
-      </div>
-
-      <div className="causes">
-        <SectionTitle
-          title="Recent Causes"
-          className="birds"
-          icon="icons/love-birds.svg"
-        />
-
-        {loading ? (
-          <div className="causes__grid causes__grid--lg">
-            {[...Array(3)].map((_values, index) => (
-              <div className="causes__grid--item" key={index}>
-                <CauseCardSkeleton />
-              </div>
-            ))}
+          <div className="more__causes">
+            {fetched && (
+              <Button className="btn-secondary" onClick={goToAllCauses}>
+                DISCOVER MORE CAUSES
+              </Button>
+            )}
           </div>
-        ) : (
+        </div>
+
+        <div className="causes">
+          <SectionTitle
+            title="Recent Causes"
+            className="birds"
+            icon="icons/love-birds.svg"
+          />
+
+          {loading ? (
+            <div className="causes__grid causes__grid--lg">
+              {[...Array(3)].map((_values, index) => (
+                <div className="causes__grid--item" key={index}>
+                  <CauseCardSkeleton />
+                </div>
+              ))}
+            </div>
+          ) : (
             <>
               <div className="causes__grid--mobile">
                 <Swipeable>
@@ -333,30 +346,29 @@ const IndexPage = () => {
               </div>
             </>
           )}
-        <div className="more__causes">
-          {fetched && (
-            <Button className="btn-secondary" onClick={goToAllCauses}>
-              DISCOVER MORE CAUSES
-            </Button>
-          )}
-        </div>
-      </div>
-      <div className="short__intro">
-        <div className="short__intro--container">
-          <h1 className="short__intro--title">Short video on Save Plus</h1>
-          <div className="short__intro--video">
-            <iframe
-              src="https://www.youtube.com/embed/3_SusAjQjnw"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            />
-          </div>
-          <div className="short__intro--soon">
-            Android & iOS App coming soon
+          <div className="more__causes">
+            {fetched && (
+              <Button className="btn-secondary" onClick={goToAllCauses}>
+                DISCOVER MORE CAUSES
+              </Button>
+            )}
           </div>
         </div>
       </div>
-      <Mission isLoggedin={isLoggedin} goToRegister={goToRegister} />
-    </div>
+      <div data-content-padding>
+        <Row gutter={[24, 24]}>
+          {fetched &&
+            !error &&
+            data.causes_recents.map((cause: any, index: number) => (
+              <Col span={8} key={index}>
+                <Cause cause={cause} />
+              </Col>
+            ))}
+        </Row>
+      </div>
+      <Video />
+      <Jumbotron />
+    </LayoutWrapper>
   );
 };
 

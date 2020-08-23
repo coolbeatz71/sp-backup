@@ -1,0 +1,95 @@
+@import "../../styles/dimensions.scss";
+@import "../../styles/colors.scss";
+
+.layout {
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  overflow-y: auto;
+  &__header {
+    transition: all 1s;
+    background-color: $primary-ultra-light;
+    position: fixed;
+    width: 100vw;
+    height: $header-height;
+    z-index: 99;
+    line-height: normal;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px $content-padding;
+    &[data-scroll="scrolled"],
+    &[data-scroll="over"] {
+      -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+    }
+    &[data-scroll="over"] {
+      background-color: $white;
+    }
+    &__row {
+      width: 100%;
+      &__menu {
+        & > li {
+          height: $header-height;
+          line-height: $header-height;
+        }
+      }
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      height: $mobile-header-height;
+      padding: 0px $mobile-content-padding;
+    }
+  }
+  &__content {
+    background-color: $white !important;
+    margin-top: $header-height;
+    @media screen and (max-width: #{$mobile-size}) {
+      margin-top: $mobile-header-height;
+    }
+  }
+  &__footer {
+    background-color: $white !important;
+    background-color: $white;
+    padding: $padding $content-padding;
+    [class~="footer-item"] {
+      text-align: center;
+      [class~="logo"] {
+        width: 180px;
+        height: auto;
+      }
+      [class~="copy"] {
+        margin-top: calc(#{$padding} * 0.5);
+        margin-bottom: calc(#{$padding} * 0.2);
+      }
+      [class~="ant-menu-horizontal"] {
+        text-align: center;
+        border-bottom-color: transparent;
+      }
+      [class~="ant-btn-text"] {
+        width: 48px;
+        > span {
+          font-size: 20px;
+          transition: all 0.3s;
+        }
+        &:hover {
+          [class~="twitter"] {
+            color: $twitter;
+          }
+          [class~="instagram"] {
+            color: $instagram;
+          }
+          [class~="facebook"] {
+            color: $facebook;
+          }
+          [class~="youtube"] {
+            color: $youtube;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      padding: $padding $mobile-content-padding;
+    }
+  }
+}

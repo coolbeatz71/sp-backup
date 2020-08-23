@@ -1,0 +1,18 @@
+@import "../../../styles/colors.scss";
+.share {
+  &__ussd {
+    color: $primary;
+    &__text {
+      text-align: center;
+    }
+  }
+  &__facebook {
+    color: #3b5998;
+  }
+  &__whatsapp {
+    color: #7ad06d;
+  }
+  &__twitter {
+    color: #03a9f4;
+  }
+}
