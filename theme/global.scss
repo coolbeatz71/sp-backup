@@ -1,7 +1,7 @@
 @import "../styles/dimensions.scss";
 
 * {
-  text-rendering: geometricPrecision;
+  text-rendering: optimizeSpeed;
 }
 [data-aspect-ratio] > img {
   object-fit: cover;
@@ -47,5 +47,38 @@
   padding: $padding $content-padding;
   @media screen and (max-width: #{$mobile-size}) {
     padding: $padding;
+  }
+  &[data-content-section] {
+    padding: $padding 0px;
+    @media screen and (max-width: #{$mobile-size}) {
+      padding: $padding 0px;
+    }
+    [data-section] {
+      [data-section-title] {
+        margin-left: $content-padding;
+        margin-right: $content-padding;
+        @media screen and (max-width: #{$mobile-size}) {
+          margin-left: $padding;
+          margin-right: $padding;
+        }
+      }
+      [data-section-scroll] {
+        max-width: 100vw;
+        overflow: hidden;
+        @media screen and (max-width: #{$scroll-break}) {
+          overflow-x: auto;
+        }
+        [data-section-row] {
+          min-width: calc(#{$scroll-break} + (#{$content-padding} * 2));
+          padding-left: $content-padding;
+          padding-right: $content-padding;
+          @media screen and (max-width: #{$mobile-size}) {
+            min-width: calc(#{$scroll-break} + (#{$padding} * 2));
+            padding-left: $padding;
+            padding-right: $padding;
+          }
+        }
+      }
+    }
   }
 }

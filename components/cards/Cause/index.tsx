@@ -56,8 +56,6 @@ const Cause: React.FC<Props> = ({ cause }) => {
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
-  console.log(cause);
-
   const percentage =
     (100 / (cause.target_amount * 1)) * (cause.raised_amount * 1);
   const notEnded = moment().isBefore(moment(cause.end_date));

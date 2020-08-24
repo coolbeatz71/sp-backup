@@ -9,6 +9,7 @@ interface Props {
   value: number;
   count?: number;
   text?: string;
+  noAction?: boolean;
   onMouseEnter?: (e: React.MouseEvent) => void;
   onMouseLeave?: (e: React.MouseEvent) => void;
   onFocus?: (e: React.FocusEvent) => void;
@@ -39,9 +40,14 @@ const Stars: React.FC<Props> = ({
   </div>
 );
 
-const StarRating: React.FC<Props> = ({ value, count = 0 }) => {
+const StarRating: React.FC<Props> = ({
+  value,
+  count = 0,
+  noAction = false,
+}) => {
+  const Wrap = noAction ? React.Fragment : Popover;
   return (
-    <Popover
+    <Wrap
       trigger="hover"
       placement="topLeft"
       content={
@@ -57,8 +63,8 @@ const StarRating: React.FC<Props> = ({ value, count = 0 }) => {
         </>
       }
     >
-      <Stars value={value} text="Rating:" />
-    </Popover>
+      <Stars value={value} text={noAction ? "" : "Rating:"} />
+    </Wrap>
   );
 };
 

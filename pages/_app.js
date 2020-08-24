@@ -4,6 +4,8 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
 import { withRedux } from "helpers/with-redux-store";
+import getInitialProps from "helpers/getInitialProps";
+import Context from "helpers/context";
 
 import "theme/index.css";
 import "theme/global.scss";
@@ -18,8 +20,14 @@ Router.events.on("routeChangeComplete", () => {
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 
-const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+const MyApp = ({ Component, pageProps, svpProps }) => {
+  return (
+    <Context.Provider value={{ svpProps }}>
+      <Component {...pageProps} svpProps={svpProps} />
+    </Context.Provider>
+  );
 };
+
+MyApp.getInitialProps = getInitialProps;
 
 export default withRedux(MyApp);
