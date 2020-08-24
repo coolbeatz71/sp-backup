@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { Dropdown, Menu, Button, Badge } from "antd";
-import { isEmpty } from "lodash";
 import { MoreOutlined } from "@ant-design/icons";
 import styles from "../causeCard.module.scss";
 import ActionModal from "./ActionModal";
