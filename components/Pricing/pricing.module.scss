@@ -11,13 +11,6 @@
   display: flex;
   flex-flow: column;
 
-  @include mediaMd {
-    margin: 0;
-    width: 100%;
-    padding: 1rem 0;
-    padding-bottom: 0;
-  }
-
   &__container {
     padding: 1rem 0;
     display: flex;
@@ -29,13 +22,8 @@
       &__plan {
         margin: 0 3rem;
         display: flex;
-        justify-content: center;
         flex-flow: column;
-        text-align: left;
-
-        @include mediaMd {
-          margin: 0 2rem;
-        }
+        text-align: center;
 
         h1 {
           text-transform: uppercase;
@@ -55,8 +43,29 @@
           color: $color-dark;
           font-size: 12px;
           margin-bottom: 0;
+        }
+      }
+    }
+  }
 
-          @include mediaMd {
+  @include mediaMd {
+    margin: 0;
+    width: 100%;
+    padding: 1rem 0;
+    padding-bottom: 0;
+
+    &__container {
+      flex-flow: column;
+
+      &__sections {
+        flex-flow: column;
+        align-items: center;
+        &__plan {
+          align-items: center;
+          text-align: center;
+          margin: 0 2rem;
+
+          p {
             font-size: 10px;
           }
         }
