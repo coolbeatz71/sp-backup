@@ -90,14 +90,18 @@ a:hover {
 }
 
 .ant-collapse-borderless {
-  background-color: $color-light;
+  background-color: rgba($color: $color-light, $alpha: 0.3);
 }
 
 .ant-collapse-header {
   font-size: 13pt;
-  text-align: justify;
+  text-align: left;
   padding: 12px 0 !important;
   padding-right: 0 !important;
+
+  @include mediaMd {
+    font-size: 9pt;
+  }
 
   .ant-collapse-arrow {
     right: 0 !important;

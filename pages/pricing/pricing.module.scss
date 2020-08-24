@@ -16,7 +16,7 @@
   }
 
   &__overlayBottom {
-    z-index: -1;
+    z-index: -2;
     padding: 0;
     position: absolute;
     width: 100%;
@@ -24,8 +24,9 @@
     height: 100%;
     overflow-y: visible;
     background-image: url("/pricing-bg.svg");
-    background-size: 50vw 100vh;
-    background-repeat: repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   &__container {
@@ -36,6 +37,7 @@
     &__header {
       color: $color-dark;
       padding: 5rem;
+      padding-bottom: 1.2rem;
       h1 {
         font-size: 25pt;
         font-weight: bold;
@@ -49,7 +51,7 @@
       }
     }
 
-    &__cards {
+    &__card {
       display: flex;
       flex-flow: column;
 
@@ -59,28 +61,6 @@
 
       @include mediaXL {
         padding: 2em 21vw;
-      }
-
-      &__grid {
-        display: grid;
-        &__mobile {
-          display: none;
-
-          @include mediaMd {
-            display: block;
-            overflow: hidden;
-          }
-        }
-
-        &__lg {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-gap: 1rem;
-
-          @include mediaMd {
-            display: none !important;
-          }
-        }
       }
     }
 
@@ -112,7 +92,7 @@
           width: 55%;
         }
       }
-      &__cards {
+      &__card {
         margin-top: 1rem;
         width: 100%;
       }
@@ -133,7 +113,7 @@
         }
       }
 
-      &__cards {
+      &__card {
         width: 100%;
       }
 

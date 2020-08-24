@@ -1,26 +1,71 @@
 import * as React from "react";
+import { Divider, Button } from "antd";
 import Plan from "./Plan";
 import styles from "./pricing.module.scss";
+import { IRootState } from "redux/initialStates";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { CREATE_CAUSE_PATH } from "helpers/paths";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
-import { getPlanFee, getIcon, getColor } from "../../helpers/pricingHelper";
+const pricingPlan = [
+  {
+    price: "free",
+    subtitle: "For cashout above 30 days",
+    description: `Lorem ipsum dolor sit amet, consec
+    tetuer adipiscing elit. Aenean
+    Lorem ipsum dolor sit amet, consec`,
+  },
+  {
+    price: "2%",
+    subtitle: "For cashout below 30 days",
+    description: `Lorem ipsum dolor sit amet, consec
+    tetuer adipiscing elit. Aenean
+    Lorem ipsum dolor sit amet, consec`,
+  },
+];
 
-export interface PricingCardProps {
-  plan: string;
-  description: string[];
-}
+const PricingCard: React.FC<{}> = ({}) => {
+  const { push } = useRouter();
+  const dispatch = useDispatch();
+  const { isLoggedin } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
 
-const PricingCard: React.FC<PricingCardProps> = ({ plan, description }) => {
+  const onClick = () => {
+    isLoggedin
+      ? push(CREATE_CAUSE_PATH)
+      : showAuthDialog(true, "signup")(dispatch);
+  };
+
   return (
     <div className={styles.pricingCard}>
-      <Plan icon={getIcon(plan)} title={plan} color={getColor(plan)} />
-      <div className={styles.pricingCard__details}>
-        <h2 className={styles.pricingCard__details__fee}>{getPlanFee(plan)}</h2>
-        <hr className={styles.pricingCard__hr} />
-        <div className={styles.pricingCard__details__description}>
-          {description.map((desc, index) => (
-            <p key={index}>{desc}</p>
-          ))}
-        </div>
+      <div className={styles.pricingCard__container}>
+        {pricingPlan.map((item, index) => (
+          <div key={index} className={styles.pricingCard__container__sections}>
+            <Plan
+              price={item.price}
+              subtitle={item.subtitle}
+              description={item.description}
+            />
+            {index === 0 && (
+              <Divider
+                type="vertical"
+                style={{
+                  height: "100%",
+                }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+      <div>
+        <Button
+          className="btn-secondary-outline px-4 mb-4"
+          onClick={() => onClick()}
+        >
+          {isLoggedin ? "Create a cause" : "Get Started"}
+        </Button>
       </div>
     </div>
   );

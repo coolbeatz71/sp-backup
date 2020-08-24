@@ -1,4 +1,10 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
 .faq {
+  @include mediaMd {
+    font-size: 10px !important;
+  }
   a {
     text-decoration: underline;
     color: #1890ff;
