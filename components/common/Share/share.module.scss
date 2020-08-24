@@ -1,10 +1,11 @@
-.share{
+.share {
   display: flex;
   margin: 1.5rem 0;
-  span{
+  align-items: baseline;
+  text-align: center;
+  span {
     font-size: 14px;
     font-weight: 600;
-    margin-top: 5px;
   }
   & > * {
     margin: 0 0.6rem !important;

@@ -43,6 +43,9 @@ export interface CauseCardProps {
   rating: number;
   ratersCount: string;
   daysToGo?: number | string;
+  sponsored: boolean;
+  access?: string;
+  plainAccessCode?: string;
   data: IUnknownObject;
 }
 
@@ -93,6 +96,9 @@ const CauseCard: FC<CauseCardProps> = ({
   rating,
   ratersCount,
   daysToGo,
+  sponsored,
+  access = "public",
+  plainAccessCode = "",
   category,
   data,
 }) => {
@@ -117,6 +123,12 @@ const CauseCard: FC<CauseCardProps> = ({
     <div className={styles.causeCard}>
       <Link href="/causes/[slug]" as={`/causes/${slug}`}>
         <div className={styles.causeCard__cover}>
+          {sponsored && (
+            <span className={styles.causeCard__cover__sponsorTag}>
+              Sponsored
+            </span>
+          )}
+
           <LazyLoadCover context="cause-card">
             <a>
               <img
@@ -148,7 +160,12 @@ const CauseCard: FC<CauseCardProps> = ({
         )}
         <div className={styles.causeCard__body__content}>
           {pathName === USER_CAUSES_PATH && (
-            <Actions slug={slug} status={status} />
+            <Actions
+              slug={slug}
+              status={status}
+              access={access}
+              plainAccessCode={plainAccessCode}
+            />
           )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>
@@ -161,6 +178,7 @@ const CauseCard: FC<CauseCardProps> = ({
               </a>
             </Link>
           </div>
+
           <p>{description}</p>
         </div>
         <div className={styles.causeCard__body__progress}>

@@ -193,6 +193,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
         : { ...formState, ...values };
       const formattedData = groupData(formatFlatObject(finalData));
       const form = new FormData();
+
+      if (!formattedData.video) delete formattedData.video;
+
       Object.keys(formattedData).forEach((key) => {
         const value =
           key === "image" || typeof formattedData[key] === "string"
@@ -200,6 +203,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
             : JSON.stringify(formattedData[key]);
         form.append(key, value);
       });
+
       if (editing) return editCause(form, slug)(push, dispatch);
       createCause(form)(dispatch, setSuccessStep);
     } else {

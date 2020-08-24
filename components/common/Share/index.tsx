@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import styles from "./share.module.scss";
+import { useCopyToClipboard } from "react-use";
 import { Modal } from "antd";
 import getPlatformUrl from "helpers/getPlatformUrl";
+import { useRouter } from "next/router";
+import { CREATE_CAUSE_PATH } from "helpers/paths";
+import notification from "utils/notification";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 
 export interface ShareProps {
   title: string;
@@ -10,6 +15,7 @@ export interface ShareProps {
   position?: "center";
   label?: boolean;
   hideCausePopover?: () => void;
+  visible?: boolean;
 }
 
 const Share: React.FC<ShareProps> = ({
@@ -19,14 +25,42 @@ const Share: React.FC<ShareProps> = ({
   position,
   label = true,
   hideCausePopover = () => null,
+  visible = false,
 }) => {
+  const [isVisible, setVisible] = useState(visible);
+  const [state, copyToClipboard] = useCopyToClipboard();
   const [modalVisible, setModalVisible] = useState(false);
+  const { pathname } = useRouter();
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   const encodedURL = encodeURI(`${title} \n\n${URL}`);
 
   return (
     <div className={`${styles.share} share`}>
       {label && <span>Share</span>}
+      {pathname !== CREATE_CAUSE_PATH && (
+        <a rel="stylesheet">
+          {isVisible || !state.value ? (
+            <img
+              className="social__share__icon"
+              src="/icons/share-url.svg"
+              onClick={() => {
+                copyToClipboard(URL);
+                notification("Cause link copied", "success", "top-center");
+                setVisible(false);
+              }}
+              alt="copy url"
+            />
+          ) : (
+            !isVisible &&
+            state.value && (
+              <CheckCircleTwoTone
+                style={{ fontSize: 22 }}
+                twoToneColor="#52c41a"
+              />
+            )
+          )}
+        </a>
+      )}
       <a
         rel="stylesheet"
         onClick={() => {
@@ -81,10 +115,12 @@ const Share: React.FC<ShareProps> = ({
         onCancel={() => setModalVisible(false)}
         footer={false}
       >
-        <h6 className="text-center mt-5">
+        <h6 className="mt-4 text-center">Save plus Bill for this cause is</h6>
+        <h6 className="text-center">{tillNumber}</h6>
+        <h6 className="text-center mt-4">
           Make your donation using the USSD Code
         </h6>
-        <h6 className="my-4 text-center">{`*777*77*${tillNumber}#`}</h6>
+        <h6 className="mb-4 text-center">{`*777*77*Save plus Bill*Donation#`}</h6>
       </Modal>
       <style jsx>{`
         .share {
