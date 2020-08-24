@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HOME_PATH } from "helpers/paths";
+import { HOME_PATH, PRICING_PATH } from "helpers/paths";
 import updateNavbarTheme from "helpers/updateNavbarTheme";
 
 const useNavbarScroll = (isLight: boolean, isMobile: boolean, page: string) => {
@@ -11,7 +11,10 @@ const useNavbarScroll = (isLight: boolean, isMobile: boolean, page: string) => {
   };
 
   const hideCreateCauseButton = () => {
-    setCreateCauseButton(page === HOME_PATH && window.scrollY > 400);
+    setCreateCauseButton(
+      (page === HOME_PATH && window.scrollY > 400) ||
+        (page === PRICING_PATH && window.scrollY > 520),
+    );
   };
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const useNavbarScroll = (isLight: boolean, isMobile: boolean, page: string) => {
       setLightNavbar(true);
     }
 
-    if (!isMobile && page === HOME_PATH) {
+    if (!isMobile && (page === HOME_PATH || page === PRICING_PATH)) {
       setCreateCauseButton(false);
       window.addEventListener("scroll", hideCreateCauseButton);
     } else {

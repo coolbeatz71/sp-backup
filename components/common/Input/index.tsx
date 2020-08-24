@@ -201,7 +201,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
       >
         {placeholder}
       </label>
-      <span className={`${styles.input__textareaWordsCount}`}>
+      <span className={`${styles.input__wordsCount}`}>
         {`${(props.maxLength || 0) - `${props.value}`.length} Characters`}
       </span>
     </div>
