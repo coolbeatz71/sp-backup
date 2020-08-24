@@ -31,7 +31,7 @@ const IndexPage = () => {
 
   const goToAllCauses = ({ feedType }: CauseLinkProp = {}) => {
     push(
-      feedType ? `${ALL_CAUSES_PATH}?feed_type=${feedType}` : ALL_CAUSES_PATH,
+      feedType ? `${ALL_CAUSES_PATH}?feed_type=${feedType}` : ALL_CAUSES_PATH
     );
   };
 
@@ -41,11 +41,11 @@ const IndexPage = () => {
   }, [dispatch]);
 
   const { data, loading, fetched, error } = useSelector(
-    ({ cause: { feed } }: IRootState) => feed,
+    ({ cause: { feed } }: IRootState) => feed
   );
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const getStarted = () => {
@@ -112,7 +112,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -144,7 +144,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -206,7 +206,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -238,7 +238,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -301,7 +301,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
@@ -333,7 +333,7 @@ const IndexPage = () => {
                       owner={getOwnerInfo(
                         cause.user_names,
                         cause.verified,
-                        cause.user_avatar,
+                        cause.user_avatar
                       )}
                       amountRaised={cause.raised_amount}
                       amountToReach={cause.target_amount}
