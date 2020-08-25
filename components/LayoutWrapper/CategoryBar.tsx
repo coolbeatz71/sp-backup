@@ -9,12 +9,13 @@ import capitalize from "helpers/capitalize";
 
 interface Props {
   categories: CatType[];
+  baseUrl?: string;
 }
 
 const feed_types = ["popular", "sponsored"];
 const statuses = ["active", "pending", "paused", "cancelled", "completed"];
 
-const CategoryBar: React.FC<Props> = ({ categories }) => {
+const CategoryBar: React.FC<Props> = ({ categories, baseUrl = "/causes" }) => {
   const router = useRouter();
 
   const [search, setSearch] = React.useState<any>(router.query?.search || "");
@@ -31,16 +32,16 @@ const CategoryBar: React.FC<Props> = ({ categories }) => {
 
   const [visible, setVisible] = React.useState(false);
 
-  const category_id: any = router.query?.category_id || "/causes";
+  const category_id: any = router.query?.category_id || baseUrl;
 
   const navigate = (data: { [key: string]: any } = {}) => {
     const query: { [key: string]: any } = {};
 
-    if (!["/causes", "", undefined, null].includes(category_id)) {
+    if (![baseUrl, "", undefined, null].includes(category_id)) {
       query.category_id = category_id;
     }
 
-    if (!["/causes", "", undefined, null].includes(search)) {
+    if (![baseUrl, "", undefined, null].includes(search)) {
       query.search = search;
     }
 
@@ -53,7 +54,7 @@ const CategoryBar: React.FC<Props> = ({ categories }) => {
     }
 
     Object.keys(data).map((key) => {
-      if (["/causes", "", undefined, null].includes(data[key])) {
+      if ([baseUrl, "", undefined, null].includes(data[key])) {
         delete query[key];
       } else {
         query[key] = data[key];
@@ -65,7 +66,7 @@ const CategoryBar: React.FC<Props> = ({ categories }) => {
 
     router.push({
       query,
-      pathname: "/causes",
+      pathname: baseUrl,
     });
   };
 
@@ -79,7 +80,7 @@ const CategoryBar: React.FC<Props> = ({ categories }) => {
             navigate({ category_id: key });
           }}
         >
-          <Menu.Item key="/causes">All</Menu.Item>
+          <Menu.Item key={baseUrl}>All</Menu.Item>
           {categories.map(({ id, title }) => (
             <Menu.Item key={id}>{title}</Menu.Item>
           ))}

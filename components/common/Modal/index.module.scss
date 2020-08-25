@@ -1,6 +1,23 @@
 @import "../../../styles/dimensions.scss";
 
-.modal {
+.modal_icon {
+  [class~="ant-modal-content"] {
+    padding-top: 160px;
+  }
+  &__icon {
+    height: 120px;
+    width: auto;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.modal,
+.modal_icon {
   [class~="ant-modal-content"] {
     min-width: calc(#{$modal-padding} * 8);
     background-image: url(/images/circle.svg), url(/images/circle.svg),

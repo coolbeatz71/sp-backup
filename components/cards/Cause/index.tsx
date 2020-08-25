@@ -20,10 +20,14 @@ import {
 import Link from "next/link";
 import numeral from "numeral";
 import moment from "moment";
+import { useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
 
 import CustomIcon from "components/common/CustomIcon";
 
 import styles from "./index.module.scss";
+import capitalize from "helpers/capitalize";
+import colors from "helpers/cause-type-colors";
 
 interface Props {
   cause: { [key: string]: any };
@@ -35,15 +39,26 @@ const donateMsg: { [key: string]: string } = {
   closed: "This cause has been Closed",
   completed: "This cause has been completed",
   cancelled: "This cause has been cancelled",
+  myCause: "View Cause Detail",
 };
 
 interface FooterCoverProps {
   slug: string;
   active: boolean;
   children: React.ReactElement;
+  myCause: boolean;
 }
-const FooterCover: React.FC<FooterCoverProps> = ({ slug, active, children }) =>
-  active ? (
+const FooterCover: React.FC<FooterCoverProps> = ({
+  slug,
+  active,
+  children,
+  myCause,
+}) =>
+  myCause ? (
+    <Link href="/causes/[slug]" as={`/causes/${slug}`}>
+      <a>{children}</a>
+    </Link>
+  ) : active ? (
     <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
       <a>{children}</a>
     </Link>
@@ -56,9 +71,17 @@ const Cause: React.FC<Props> = ({ cause }) => {
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
+  const user = useSelector((state: IRootState) => state.user);
+
   const percentage =
     (100 / (cause.target_amount * 1)) * (cause.raised_amount * 1);
   const notEnded = moment().isBefore(moment(cause.end_date));
+
+  const myCause =
+    user.currentUser.isLoggedin &&
+    cause.user_id * 1 === user.currentUser.data?.id * 1;
+
+  console.log(cause);
 
   return (
     <AntdCard
@@ -98,18 +121,36 @@ const Cause: React.FC<Props> = ({ cause }) => {
                 }}
               />
             )}
+            {cause.sponsored && (
+              <Badge
+                count="Sponsored"
+                className={styles.card__cover__sponsored}
+              />
+            )}
           </a>
         </Link>
       }
     >
       <Badge className={styles.card__type} count={cause.category.title} />
-      <Avatar className={styles.card__avatar} src={cause.user_avatar} size={64}>
-        {cause.user_names
-          ?.split(" ")
-          .map((n: string) => n && n.charAt(0).toUpperCase())}
-      </Avatar>
-      <div className={styles.card__verified}>
-        <CustomIcon type="verified" />
+      {!myCause && (
+        <Avatar
+          className={styles.card__avatar}
+          src={cause.user_avatar}
+          size={64}
+        >
+          {cause.user_names
+            ?.split(" ")
+            .map((n: string) => n && n.charAt(0).toUpperCase())}
+        </Avatar>
+      )}
+      <div className={styles.card__verified} data-my-cause={myCause}>
+        {myCause && (
+          <Badge
+            count={capitalize(cause.status)}
+            style={{ backgroundColor: colors[cause.status] }}
+          />
+        )}
+        {cause.verified && <CustomIcon type="verified" />}
       </div>
       <Row gutter={[0, 10]} className={styles.card__user__row} align="middle">
         <Col>
@@ -198,7 +239,11 @@ const Cause: React.FC<Props> = ({ cause }) => {
         </Col>
       </Row>
       <Divider />
-      <FooterCover slug={cause.slug} active={cause.status === "active"}>
+      <FooterCover
+        slug={cause.slug}
+        active={cause.status === "active"}
+        myCause={myCause}
+      >
         <Button type="text" block className={styles.card__donate}>
           <Typography.Text
             underline
@@ -206,7 +251,7 @@ const Cause: React.FC<Props> = ({ cause }) => {
             ellipsis
             type={cause.status !== "active" ? "secondary" : undefined}
           >
-            {donateMsg[cause.status]}
+            {donateMsg[myCause ? "myCause" : cause.status]}
           </Typography.Text>
         </Button>
       </FooterCover>

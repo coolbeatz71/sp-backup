@@ -42,15 +42,19 @@ interface Props {
   isCategory?: boolean;
   isCreate?: boolean;
   noFooter?: boolean;
+  isForm?: boolean;
   title?: string;
+  baseUrl?: string;
 }
 
 const LayoutWrapper: React.FC<Props> = ({
+  baseUrl,
   title,
   isHome = false,
   isCategory = false,
   isCreate = false,
   noFooter = false,
+  isForm = false,
   children,
 }) => {
   const { svpProps } = React.useContext(Context);
@@ -124,7 +128,7 @@ const LayoutWrapper: React.FC<Props> = ({
                       type="primary"
                       ghost
                       onClick={() => router.push("/causes/create")}
-                      data-create-button={isCategory ? "over" : scrolled}
+                      data-create-button={!isHome ? "over" : scrolled}
                     >
                       Create a cause
                     </Button>
@@ -245,7 +249,10 @@ const LayoutWrapper: React.FC<Props> = ({
               data-row-category
             >
               <Col span={24}>
-                <CategoryBar categories={svpProps.categories} />
+                <CategoryBar
+                  categories={svpProps.categories}
+                  baseUrl={baseUrl}
+                />
               </Col>
             </Row>
           )}
@@ -279,6 +286,7 @@ const LayoutWrapper: React.FC<Props> = ({
         <Content
           className={styles.layout__content}
           data-is-category={isCategory}
+          data-is-form={isForm}
         >
           {children}
         </Content>

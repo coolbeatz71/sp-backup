@@ -9,6 +9,8 @@ interface Props {
   title: string | string[];
   trigger?: React.ReactElement;
   visible?: boolean;
+  titleLevel?: 1 | 2 | 3 | 4;
+  icon?: string;
   onVisible?: () => void;
   onCancel?: () => void;
   children: string | string[] | React.ReactElement | React.ReactElement[];
@@ -18,6 +20,8 @@ const Modal: React.FC<Props> = ({
   title,
   trigger,
   visible: vs = false,
+  titleLevel = 2,
+  icon,
   onVisible = () => {
     //
   },
@@ -26,7 +30,6 @@ const Modal: React.FC<Props> = ({
   },
   children,
 }) => {
-  console.log(vs);
   const [visible, setVisible] = React.useState(vs);
 
   React.useEffect(() => {
@@ -45,12 +48,12 @@ const Modal: React.FC<Props> = ({
       <AntdModal
         destroyOnClose
         title={
-          <Typography.Title level={2} ellipsis>
+          <Typography.Title level={titleLevel} ellipsis>
             {title}
           </Typography.Title>
         }
         visible={visible}
-        className={styles.modal}
+        className={styles[icon ? "modal_icon" : "modal"]}
         footer={null}
         onCancel={() => {
           setVisible(false);
@@ -60,6 +63,7 @@ const Modal: React.FC<Props> = ({
         <Head>
           <title>{title} | Save Plus</title>
         </Head>
+        {icon && <img src={icon} className={styles.modal_icon__icon} />}
         {children}
       </AntdModal>
     </>

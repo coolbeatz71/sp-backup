@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./profile.module.scss";
 import {
@@ -10,39 +10,36 @@ import {
   Spin,
   Avatar,
   Typography,
-  Modal,
+  Card,
+  Progress,
+  Input,
+  Alert,
+  Badge,
 } from "antd";
+import { CameraOutlined } from "@ant-design/icons";
+import StackedLabel from "components/common/StackedLabel";
 import { RcFile } from "antd/es/upload";
-import { Input } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { isEmpty } from "lodash";
 import abName from "helpers/abName";
 import updateProfile from "redux/actions/user/updateProfile";
-import getCurrentUser from "redux/actions/user/getCurrentUser";
 import Link from "next/link";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
-import { LoadingOutlined } from "@ant-design/icons";
 import ColorHash from "color-hash";
 import PrivateComponent from "pages/privateRoute";
+import Modal from "components/common/Modal";
 
-export interface ProfileProps {}
+import LayoutWrapper from "components/LayoutWrapper";
 
 const color = new ColorHash();
 
-const { Text } = Typography;
-const antIcon = <LoadingOutlined style={{ fontSize: 18 }} spin />;
-
-const Profile: React.FC<ProfileProps> = () => {
+const Profile: React.FC<{}> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    getCurrentUser(dispatch);
-  }, []);
 
   const { data, loading: dataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -110,160 +107,169 @@ const Profile: React.FC<ProfileProps> = () => {
   };
 
   return (
-    <div className={styles.profile}>
-      <div className={styles.profile__header}>
-        <div className={styles.profile__header__title}>
-          <img src="/icons/social-care.svg" alt="" />
-          <h4>Your Profile</h4>
-        </div>
-        <p>
-          Make modifications to your profile information and also fill in other
-          relevant information
-        </p>
-      </div>
-      <div className={styles.profile__body}>
-        <div className={styles.profile__body__form}>
-          <div className="d-flex justify-content-between">
-            <div className="title-left">
-              <h5 className={styles.profile__body__form__title}>
-                Update your personal details
-              </h5>
-            </div>
-            <Upload
-              name="avatar"
-              accept="image/x-png,image/jpeg,image/jpg"
-              showUploadList={false}
-              multiple={false}
-              beforeUpload={handleSubmitAvatar}
-            >
-              <div className={styles.profile__body__form__avatar}>
-                {loading && <Spin indicator={antIcon} className="mr-3" />}
-                {data.avatar ? (
-                  <img src={data.avatar} alt="avatar" />
-                ) : (
-                  <Avatar
-                    style={{
-                      backgroundColor: color.hex(
-                        `${data.first_name} ${data.last_name}`,
-                      ),
-                    }}
-                    size="large"
-                  >
-                    {abName(data.first_name, data.last_name)}
-                  </Avatar>
-                )}
-                <div className={styles.profile__body__form__avatar__pen}>
-                  <img
-                    src="/icons/camera.png"
-                    alt="avatar"
-                    className={styles.navbar__profile__avatar}
-                  />
-                </div>
-              </div>
-            </Upload>
-          </div>
-          <div className={styles.profile__body__form__progress}>
-            <p>Your profile is {calculatePercentage()}% complete</p>
-            <div className="progress__bar" />
-            <div className={styles.profile__body__form__progress__progressBar}>
-              <div
-                className={`progression ${styles.profile__body__form__progress__progressBar__progression}`}
+    <LayoutWrapper
+      noFooter
+      isForm
+      title={`${data.first_name || "Profile"} ${data.last_name || ""}`}
+    >
+      <div data-content-padding className={styles.profile}>
+        <Row>
+          <Col
+            lg={{ span: 10, offset: 7 }}
+            md={{ span: 16, offset: 4 }}
+            sm={{ span: 24, offset: 0 }}
+          >
+            <div className={styles.profile__title}>
+              <img
+                src="/images/family-love.svg"
+                className={styles.profile__title__icon}
               />
+              <Typography.Title level={2}>Your Profile</Typography.Title>
+              <Typography.Paragraph strong>
+                Make modifications to your profile information
+                <br />
+                and also fill in other relevant information
+              </Typography.Paragraph>
             </div>
-          </div>
-          {dataLoading || isEmpty(data) ? (
-            <Spin />
-          ) : (
-            <Form
-              form={form}
-              initialValues={formattedData()}
-              validateMessages={validateMessages}
-              onFinish={onSubmit}
-            >
-              <Text type="danger" className="mb-3 d-block">
-                {error}
-              </Text>
-
-              <Row gutter={8}>
-                <Col span={12}>
-                  <Form.Item
-                    name="first_name"
-                    rules={[{ required: true, min: 3 }]}
-                    validateTrigger={["onSubmit", "onBlur"]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
+            <Card loading={dataLoading || isEmpty(data)}>
+              <Row align="middle">
+                <Col flex={1}>
+                  <Typography.Title level={4}>
+                    Update your personal details
+                  </Typography.Title>
+                  <Typography.Text>
+                    Your profile is {calculatePercentage()}% complete
+                  </Typography.Text>
                 </Col>
-                <Col span={12}>
-                  <Form.Item
-                    name="last_name"
-                    validateTrigger={["onSubmit", "onBlur"]}
-                    rules={[{ required: true, min: 3 }]}
+                <Col>
+                  <Upload
+                    name="avatar"
+                    accept="image/x-png,image/jpeg,image/jpg"
+                    showUploadList={false}
+                    multiple={false}
+                    beforeUpload={handleSubmitAvatar}
                   >
-                    <Input placeholder="Last Name" />
-                  </Form.Item>
+                    <Spin spinning={loading}>
+                      <Badge
+                        count={<CameraOutlined />}
+                        className={styles.profile__badge}
+                      >
+                        <Avatar
+                          style={{
+                            backgroundColor: color.hex(
+                              `${data.first_name} ${data.last_name}`,
+                            ),
+                          }}
+                          src={data.avatar}
+                          size={56}
+                        >
+                          {abName(data.first_name, data.last_name)}
+                        </Avatar>
+                      </Badge>
+                    </Spin>
+                  </Upload>
                 </Col>
               </Row>
-              <Form.Item
-                className="form-group phone-code"
-                validateTrigger={["onSubmit", "onBlur"]}
-                rules={[{ len: 9, required: true }]}
-                name="phone_number"
+              <Row gutter={[0, 24]}>
+                <Col flex={1}>
+                  <Progress
+                    percent={calculatePercentage()}
+                    showInfo={false}
+                    strokeColor="#219bb2"
+                  />
+                </Col>
+              </Row>
+              <Form
+                form={form}
+                initialValues={formattedData()}
+                validateMessages={validateMessages}
+                onFinish={onSubmit}
               >
-                <Input
-                  placeholder="Phone Number"
-                  addonBefore="+250"
-                  maxLength={9}
-                  disabled={true}
-                />
-              </Form.Item>
-              <Form.Item
-                name="id_number"
-                rules={[{ required: true, pattern: /^[A-Za-z0-9-]{7,20}/ }]}
-                validateTrigger={["onSubmit", "onBlur"]}
-              >
-                <Input placeholder="National ID or Passport Number" />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                validateTrigger={["onSubmit", "onBlur"]}
-                rules={[{ min: 2, type: "email" }]}
-              >
-                <Input placeholder="Email (Optional)" />
-              </Form.Item>
-              <Button
-                className="btn-primary"
-                loading={loading}
-                htmlType="submit"
-              >
-                UPDATE
-              </Button>
-            </Form>
-          )}
-        </div>
+                {error && (
+                  <Form.Item>
+                    <Alert message={error} type="error" showIcon />
+                  </Form.Item>
+                )}
+                <Row gutter={24}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="first_name"
+                      rules={[{ required: true, min: 3 }]}
+                      validateTrigger={["onSubmit", "onBlur"]}
+                    >
+                      <StackedLabel label="First Name" required>
+                        <Input disabled={loading} />
+                      </StackedLabel>
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="last_name"
+                      validateTrigger={["onSubmit", "onBlur"]}
+                      rules={[{ required: true, min: 3 }]}
+                    >
+                      <StackedLabel label="Last Name" required>
+                        <Input disabled={loading} />
+                      </StackedLabel>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Form.Item
+                  className="form-group phone-code"
+                  validateTrigger={["onSubmit", "onBlur"]}
+                  rules={[{ len: 9, required: true }]}
+                  name="phone_number"
+                >
+                  <StackedLabel label="Phone Number" phone="+250" required>
+                    <Input disabled={true} />
+                  </StackedLabel>
+                </Form.Item>
+                <Form.Item
+                  name="id_number"
+                  rules={[{ required: true, pattern: /^[A-Za-z0-9-]{7,20}/ }]}
+                  validateTrigger={["onSubmit", "onBlur"]}
+                >
+                  <StackedLabel label="National ID or Passport Number" required>
+                    <Input disabled={loading} />
+                  </StackedLabel>
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  validateTrigger={["onSubmit", "onBlur"]}
+                  rules={[{ min: 2, type: "email" }]}
+                >
+                  <StackedLabel label="Email">
+                    <Input disabled={loading} />
+                  </StackedLabel>
+                </Form.Item>
+                <Row justify="end">
+                  <Col>
+                    <Button type="primary" loading={loading} htmlType="submit">
+                      UPDATE
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
       </div>
       <Modal
+        title="Thank You!"
+        icon="/images/balloons.svg"
         visible={successModal}
         onCancel={() => setSuccessModal(false)}
-        footer={false}
       >
         <div className={styles.profile__success}>
-          <img src="/balloons.svg" alt="balloons success" />
-          <h5>Thank you! Your Profile has been updated</h5>
+          <Typography.Title level={3}>
+            Your Profile has been updated!
+          </Typography.Title>
           <Link href="/">
             <a>Go Back Home</a>
           </Link>
         </div>
       </Modal>
-      <style jsx>{`
-        .progression {
-          width: ${calculatePercentage()}%;
-        }
-        .title-left {
-          width: 75%;
-        }
-      `}</style>
-    </div>
+    </LayoutWrapper>
   );
 };
 

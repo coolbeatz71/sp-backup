@@ -34,6 +34,7 @@ interface Props {
   error: string | null;
   data: any[];
   howItWorks?: boolean;
+  myCauses?: boolean;
 }
 
 const Section: React.FC<Props> = ({
@@ -43,12 +44,13 @@ const Section: React.FC<Props> = ({
   error,
   data,
   howItWorks = false,
+  myCauses = false,
 }) => {
   return error ? (
     <div />
   ) : (
     <div data-section className={styles.section}>
-      {(!fetched || data.length !== 0 || howItWorks) && (
+      {(!fetched || data.length !== 0 || howItWorks || myCauses) && (
         <div
           data-section-title
           className={styles.section__title}
@@ -56,6 +58,11 @@ const Section: React.FC<Props> = ({
         >
           <Typography.Title level={2}>{title}</Typography.Title>
         </div>
+      )}
+      {myCauses && (
+        <Typography.Title level={4}>
+          Track all your causes here
+        </Typography.Title>
       )}
       {howItWorks && (
         <div data-section-scroll>

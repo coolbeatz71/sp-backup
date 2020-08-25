@@ -28,6 +28,18 @@
         opacity: 0;
       }
     }
+    &__sponsored {
+      position: absolute;
+      top: $padding;
+      left: auto;
+      right: $padding;
+      width: 80px;
+      sup {
+        border-radius: 4px;
+        box-shadow: none;
+        background-color: $success;
+      }
+    }
   }
   [class~="ant-card-body"] {
     padding: $padding $padding 0px $padding;
@@ -39,6 +51,7 @@
     right: $padding;
     sup {
       border-radius: 4px;
+      box-shadow: none;
       background-color: $primary;
     }
   }
@@ -48,16 +61,25 @@
     top: -48px;
   }
   &__verified {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     height: 24px;
-    width: 24px;
-    text-align: center;
-    line-height: 24px;
     color: $primary;
     font-size: 20px;
     position: absolute;
     top: -12px;
     left: calc(#{$padding} + 72px);
+    &[data-my-cause="true"] {
+      left: $padding;
+      [class~="ant-badge"] {
+        margin-right: calc(#{$padding} / 2);
+        sup {
+          border-radius: 4px;
+          box-shadow: none;
+        }
+      }
+    }
   }
   &__user {
     margin-bottom: 0px !important;

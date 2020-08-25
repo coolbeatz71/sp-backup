@@ -94,3 +94,10 @@
     top: $mobile-header-height;
   }
 }
+
+#nprogress {
+  .spinner {
+    display: none !important;
+    opacity: 0 !important;
+  }
+}
