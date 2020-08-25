@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-interface CatType {
+export interface CatType {
   id: number;
   title: string;
 }
 
-interface SvpType {
+export interface SvpType {
   error: string | null;
   categories: CatType[];
 }

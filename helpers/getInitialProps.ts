@@ -19,7 +19,6 @@ const getInitialProps = async ({ Component, ctx }: { [key: string]: any }) => {
     const _categories = await splApi.get("/categories");
     categories = _categories.data;
   } catch (exc) {
-    console.log(exc);
     error = exc.message;
   }
 

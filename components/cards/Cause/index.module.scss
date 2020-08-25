@@ -2,7 +2,7 @@
 @import "../../../styles/dimensions.scss";
 
 .card {
-  background-color: rgba($black, 0.03);
+  background-color: $light-gray;
   &__cover {
     &__placeholder {
       background-color: rgba($primary, 0.1);
@@ -58,6 +58,12 @@
     position: absolute;
     top: -12px;
     left: calc(#{$padding} + 72px);
+  }
+  &__user {
+    margin-bottom: 0px !important;
+    &__row {
+      height: 54px;
+    }
   }
   &__title {
     padding-right: $padding;

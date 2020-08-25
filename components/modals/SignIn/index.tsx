@@ -1,8 +1,27 @@
 import React from "react";
-import { Form, Input, Row, Col, Button, Divider, Typography } from "antd";
+import {
+  Form,
+  Input,
+  Row,
+  Col,
+  Button,
+  Divider,
+  Typography,
+  message,
+  Alert,
+} from "antd";
+
+import login from "redux/actions/Auth/login";
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
+import { changeAuthContext } from "redux/actions/Auth/showAuthDialog";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
+
+import { normalize } from "dev-rw-phone";
+import formPinValidator from "utils/validators/form-pin-validator";
+import formPhoneValidator from "utils/validators/form-phone-validator";
 
 import styles from "./index.module.scss";
 
@@ -31,11 +50,29 @@ const SignIn: React.FC<Props> = ({
     //
   },
 }) => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = React.useState(vs);
+
+  const {
+    loading,
+    error: { message: error = null },
+  } = useSelector(({ auth: { login } }: IRootState) => login);
 
   React.useEffect(() => {
     if (visible !== vs) setVisible(vs);
   }, [vs]);
+
+  const user = useSelector((state: IRootState) => state.user);
+
+  React.useEffect(() => {
+    if (visible && user.currentUser.isLoggedin) {
+      message.success(
+        `Signed in as ${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`,
+      );
+      setVisible(false);
+      onCancel();
+    }
+  }, [user.currentUser.isLoggedin, visible]);
 
   return (
     <Modal
@@ -45,30 +82,42 @@ const SignIn: React.FC<Props> = ({
       onVisible={() => {
         setVisible(true);
         onVisible();
+        changeAuthContext("login")(dispatch);
       }}
       onCancel={() => {
         setVisible(false);
         onCancel();
       }}
     >
-      <Form className={styles.sign_in}>
-        <Form.Item name="phone_number">
+      <Form
+        className={styles.sign_in}
+        validateTrigger={["onFinish"]}
+        onFinish={(form) => {
+          login({ ...form, phone_number: normalize(form.phone_number) })(
+            dispatch,
+          );
+        }}
+      >
+        <Form.Item
+          name="phone_number"
+          rules={formPhoneValidator("Phone Number")}
+        >
           <StackedLabel label="Phone Number" phone="+250" required>
-            <Input autoComplete="phone_number" type="tel" />
+            <Input autoComplete="phone_number" type="tel" disabled={loading} />
           </StackedLabel>
         </Form.Item>
-        <Form.Item name="password">
+        <Form.Item name="password" rules={formPinValidator("PIN")}>
           <StackedLabel label="PIN" required>
-            <Input.Password autoComplete="password" />
+            <Input.Password autoComplete="password" disabled={loading} />
           </StackedLabel>
         </Form.Item>
-        <Form.Item name="email">
-          <StackedLabel label="Email Address">
-            <Input type="email" autoComplete="email" />
-          </StackedLabel>
-        </Form.Item>
+        {error && (
+          <Form.Item>
+            <Alert message={error} type="error" showIcon />
+          </Form.Item>
+        )}
         <Form.Item>
-          <Button type="primary" block htmlType="submit">
+          <Button type="primary" block htmlType="submit" loading={loading}>
             SIGN IN
           </Button>
           <Divider>OR</Divider>
@@ -82,6 +131,7 @@ const SignIn: React.FC<Props> = ({
                   onCancel();
                   resetPin();
                 }}
+                disabled={loading}
               >
                 Forgot PIN?&nbsp;
                 <Typography.Text underline>Reset</Typography.Text>
@@ -96,6 +146,7 @@ const SignIn: React.FC<Props> = ({
                   onCancel();
                   signUp();
                 }}
+                disabled={loading}
               >
                 Don't have an account?&nbsp;
                 <Typography.Text underline>Create</Typography.Text>

@@ -111,10 +111,24 @@ const Cause: React.FC<Props> = ({ cause }) => {
       <div className={styles.card__verified}>
         <CustomIcon type="verified" />
       </div>
-      <Typography.Paragraph ellipsis={{ rows: 1 }}>
-        by {cause.user_names}
-        {cause.organization ? ` and ${cause.organization.name}` : ""}
-      </Typography.Paragraph>
+      <Row gutter={[0, 10]} className={styles.card__user__row} align="middle">
+        <Col>
+          <Typography.Paragraph
+            ellipsis={{ rows: 1 }}
+            className={styles.card__user}
+          >
+            by {cause.user_names}
+          </Typography.Paragraph>
+          {cause.organization && (
+            <Typography.Paragraph
+              ellipsis={{ rows: 1 }}
+              className={styles.card__user}
+            >
+              with {cause.organization.name}
+            </Typography.Paragraph>
+          )}
+        </Col>
+      </Row>
       <Link href="/causes/[slug]" as={`/causes/${"asd"}`}>
         <a>
           <div className={styles.card__title}>

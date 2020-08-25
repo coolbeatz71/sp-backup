@@ -1,7 +1,5 @@
 import React from "react";
 import { Row, Col, Typography, Button, Grid } from "antd";
-
-import styles from "./index.module.scss";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
@@ -9,7 +7,13 @@ import SignUp from "components/modals/SignUp";
 import SignIn from "components/modals/SignIn";
 import ResetPin from "components/modals/ResetPin";
 
-const Jumbotron = () => {
+import styles from "./index.module.scss";
+
+interface Props {
+  hideSignedIn?: boolean;
+}
+
+const Jumbotron: React.FC<Props> = ({ hideSignedIn = false }) => {
   const screens = Grid.useBreakpoint();
 
   const [signUp, setSignUp] = React.useState(false);
@@ -18,7 +22,9 @@ const Jumbotron = () => {
 
   const user = useSelector((state: IRootState) => state.user);
 
-  return (
+  return hideSignedIn && user.currentUser.isLoggedin ? (
+    <div />
+  ) : (
     <Row className={styles.jumbo} gutter={24} align="middle">
       <Col md={12} xs={24} className={styles.jumbo__image}>
         {` `}
