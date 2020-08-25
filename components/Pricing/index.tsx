@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { CREATE_CAUSE_PATH } from "helpers/paths";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import { useMedia } from "react-use";
 
 const pricingPlan = [
   {
@@ -28,6 +29,8 @@ const pricingPlan = [
 const PricingCard: React.FC<{}> = ({}) => {
   const { push } = useRouter();
   const dispatch = useDispatch();
+  const isMobile = useMedia("(max-width: 768px)");
+
   const { isLoggedin } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
@@ -50,9 +53,13 @@ const PricingCard: React.FC<{}> = ({}) => {
             />
             {index === 0 && (
               <Divider
-                type="vertical"
+                type={isMobile ? "horizontal" : "vertical"}
+                className={isMobile ? "my-4 mx-5" : ""}
                 style={{
+                  width: isMobile ? "40%" : "initial",
+                  minWidth: isMobile ? "0" : "initial",
                   height: "100%",
+                  margin: 0,
                 }}
               />
             )}
