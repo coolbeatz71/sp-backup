@@ -22,6 +22,7 @@ import getTelco from "helpers/getTelco";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import isCauseEditable from "helpers/isCauseEditable";
 import Link from "next/link";
+import { CLEAR_CROPPED_IMAGE } from "redux/action-types/cause/create";
 
 export interface CreateCauseProps {
   editFormState: IUnknownObject;
@@ -106,7 +107,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
         steps.splice(indexToInsert, 0, orgInformation);
         setSteps([...steps]);
       }
-    }
+    } else if (croppedImage) dispatch({ type: CLEAR_CROPPED_IMAGE });
   }, []);
 
   useEffect(() => {
@@ -121,7 +122,9 @@ const CreateCause: React.FC<CreateCauseProps> = ({ editFormState, slug }) => {
   }, [phone_number]);
 
   useEffect(() => {
-    if (croppedImage[0]?.name) form.setFieldsValue({ image: croppedImage });
+    if (croppedImage && croppedImage[0]?.name) {
+      form.setFieldsValue({ image: croppedImage });
+    }
   }, [croppedImage]);
 
   const formatFlatObject = (data: { [key: string]: any }) => {

@@ -10,6 +10,14 @@
   padding-bottom: 1.2rem;
   display: flex;
   flex-flow: column;
+  color: $color-primary;
+
+  &__header {
+    p {
+      margin-top: 0.5rem;
+      font-size: 12px;
+    }
+  }
 
   &__container {
     padding: 1rem 0;
@@ -23,12 +31,12 @@
         margin: 0 3rem;
         display: flex;
         flex-flow: column;
-        text-align: center;
+        text-align: left;
 
         h1 {
           text-transform: uppercase;
           margin-bottom: 0.5rem;
-          color: $color-dark;
+          color: rgba($color: $color-dark, $alpha: 0.8);
           font-weight: 600;
           font-size: 41px;
         }
@@ -54,6 +62,10 @@
     padding: 1rem 0;
     padding-bottom: 0;
 
+    &__header {
+      padding: 0 1rem;
+    }
+
     &__container {
       flex-flow: column;
 
@@ -64,10 +76,6 @@
           align-items: center;
           text-align: center;
           margin: 0 2rem;
-
-          p {
-            font-size: 10px;
-          }
         }
       }
     }
