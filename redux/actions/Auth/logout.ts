@@ -18,6 +18,7 @@ export default (push: any, dispatch: any) => {
     .then(() => {
       localStorage.removeItem("save-token");
       splApi.defaults.headers.Authorization = "";
+      saveApi.defaults.headers.Authorization = "";
       const payload = {};
       dispatch({
         type: LOGOUT_SUCCESS,
