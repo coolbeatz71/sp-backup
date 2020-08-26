@@ -39,16 +39,19 @@ const Profile: React.FC<ProfileProps> = () => {
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
 
-  useEffect(() => {
-    getCurrentUser(dispatch);
-  }, []);
-
-  const { data, loading: dataLoading } = useSelector(
+  const { isLoggedin, data, loading: dataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
   const { loading, error } = useSelector(
     ({ user: { updateProfile } }: IRootState) => updateProfile,
   );
+
+  useEffect(() => {
+    if (!dataLoading && isLoggedin && isEmpty(data)) {
+      getCurrentUser(dispatch);
+    }
+    // tslint:disable-next-line: align
+  }, []);
 
   const onSubmit = (form: any) => {
     const formattedData: { [key: string]: any } = {
