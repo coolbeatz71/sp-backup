@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { CREATE_CAUSE_PATH } from "helpers/paths";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import { useMedia } from "react-use";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const pricingPlan = [
   {
@@ -43,6 +44,14 @@ const PricingCard: React.FC<{}> = ({}) => {
 
   return (
     <div className={styles.pricingCard}>
+      <div className={styles.pricingCard__header}>
+        <InfoCircleOutlined />
+        <p>
+          This pricing structure will start to apply on the 1st January 2021
+          <br />
+          Enjoy the free beta trial period.
+        </p>
+      </div>
       <div className={styles.pricingCard__container}>
         {pricingPlan.map((item, index) => (
           <div key={index} className={styles.pricingCard__container__sections}>
@@ -56,7 +65,7 @@ const PricingCard: React.FC<{}> = ({}) => {
                 type={isMobile ? "horizontal" : "vertical"}
                 className={isMobile ? "my-4 mx-5" : ""}
                 style={{
-                  width: isMobile ? "40%" : "initial",
+                  width: isMobile ? "40%" : "3px",
                   minWidth: isMobile ? "0" : "initial",
                   height: "100%",
                   margin: 0,
