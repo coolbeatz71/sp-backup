@@ -54,11 +54,11 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -300,7 +300,7 @@ const DonateCause: React.FC<DonateCauseProps> = () => {
                           validateTrigger={["onSubmit", "onBlur"]}
                           name="anonymous"
                         >
-                          <Switch />
+                          <Switch disabled={userType === "organization"} />
                         </Form.Item>
                       </div>
                       {isAnonymous && (
