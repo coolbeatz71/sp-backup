@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRedux } from "helpers/with-redux-store";
-import { Spin } from "antd";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/router";
 import Header from "components/common/header";
@@ -24,7 +23,7 @@ const Layout: React.FunctionComponent<Props> = ({
   const { pathname } = useRouter();
   const [childComponent] = useProtectedRoute(pathname, children);
 
-  const { isLoggedin, loading, data, fetched } = useSelector(
+  const { isLoggedin, loading, data } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
@@ -43,41 +42,9 @@ const Layout: React.FunctionComponent<Props> = ({
   return (
     <>
       <Header title={title} />
-      {loading && !fetched && pathname !== HOME_PATH ? (
-        <div className="parent-container">
-          <div className="spinner">
-            <Spin size="large" tip="Loading..." />
-          </div>
-        </div>
-      ) : (
-        <div>
-          <Navbar isLight={isLight} page={pathname} />
-          <div className="children-container">{childComponent}</div>
-          <Footer />
-        </div>
-      )}
-      <style jsx={true}>
-        {`
-          .parent-container {
-            position: absolute;
-            background: #f4fafb;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-          }
-          .parent-container .spinner {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            width: 80px;
-            height: 80px;
-          }
-        `}
-      </style>
+      <Navbar isLight={isLight} page={pathname} />
+      <div className="children-container">{childComponent}</div>
+      <Footer />
     </>
   );
 };
