@@ -38,7 +38,6 @@ const CausePopover: FC<CausePopoverProps> = ({
         tillNumber={tillNumber}
         label={false}
         hideCausePopover={hideCausePopover}
-        visible={visible}
       />
     </div>
   );
@@ -77,7 +76,6 @@ const CausePopover: FC<CausePopoverProps> = ({
   return (
     <Popover
       visible={visible}
-      destroyTooltipOnHide={true}
       onVisibleChange={handleVisibleChange}
       trigger={context === "social-share" ? "click" : "hover"}
       placement={context === "social-share" ? "topRight" : "topLeft"}
