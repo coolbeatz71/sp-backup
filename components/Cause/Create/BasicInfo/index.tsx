@@ -36,7 +36,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
   const { data } = useSelector(({ cause: { single } }: IRootState) => single);
 
   const { croppedImage } = useSelector(
-    ({ cause: { create } }: IRootState) => create
+    ({ cause: { create } }: IRootState) => create,
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
   }, [data.image]);
 
   useEffect(() => {
-    if (croppedImage[0]?.status === "done") {
+    if (croppedImage && croppedImage[0]?.status === "done") {
       setUploadLoading(false);
       getBase64(croppedImage[0]?.originFileObj, (imageUrl: any) => {
         setImageUrl(imageUrl);
@@ -150,7 +150,9 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
                   <div className="upload-action">
                     {uploadLoading && <LoadingOutlined />}
                     <div className="ant-upload-text">
-                      Choose Image to upload
+                      {imageUrl
+                        ? "Replace Cause Image"
+                        : "Choose Cause Image here"}
                     </div>
                   </div>
                 </div>

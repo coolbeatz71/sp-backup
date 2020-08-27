@@ -26,12 +26,13 @@ const DetailedInfo: React.FC<DetailedInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur"]}
         rules={[
           { max: 1000 },
+          { type: "url", message: "Should be a valid Url" },
           () => ({
             validator(_, value) {
               if (!value || ReactPlayer.canPlay(value)) {
                 return Promise.resolve();
               }
-              return Promise.reject("Should be a valid video url");
+              return Promise.reject("Video url not supported");
             },
           }),
         ]}

@@ -9,9 +9,6 @@ const getCauseTagColor = (status: string) => {
     case causeStatus.cancelled:
       return SECONDARY;
 
-    case causeStatus.closed:
-      return WARNING;
-
     case causeStatus.completed:
       return PRIMARY;
 

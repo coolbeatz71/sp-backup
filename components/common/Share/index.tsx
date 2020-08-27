@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import styles from "./share.module.scss";
+import { useCopyToClipboard } from "react-use";
 import { Modal } from "antd";
 import getPlatformUrl from "helpers/getPlatformUrl";
+import { useRouter } from "next/router";
+import { CREATE_CAUSE_PATH } from "helpers/paths";
+import notification from "utils/notification";
+import { CheckOutlined } from "@ant-design/icons";
+import { SUCCESS } from "constants/colors";
 
 export interface ShareProps {
   title: string;
@@ -20,13 +26,40 @@ const Share: React.FC<ShareProps> = ({
   label = true,
   hideCausePopover = () => null,
 }) => {
+  const { pathname } = useRouter();
+  const [copy, setCopy] = useState(true);
+  const [, copyToClipboard] = useCopyToClipboard();
   const [modalVisible, setModalVisible] = useState(false);
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   const encodedURL = encodeURI(`${title} \n\n${URL}`);
 
+  const onCopyClick = () => {
+    copyToClipboard(URL);
+    setCopy(false);
+    notification("Cause link copied", "success", "top-center");
+    setTimeout(() => {
+      setCopy(true);
+      // tslint:disable-next-line: align
+    }, 4000);
+  };
+
   return (
     <div className={`${styles.share} share`}>
       {label && <span>Share</span>}
+      {pathname !== CREATE_CAUSE_PATH && (
+        <a rel="stylesheet">
+          {copy ? (
+            <img
+              className="social__share__icon"
+              src="/icons/share-url.svg"
+              onClick={() => onCopyClick()}
+              alt="copy url"
+            />
+          ) : (
+            <CheckOutlined style={{ fontSize: 23, color: SUCCESS }} />
+          )}
+        </a>
+      )}
       <a
         rel="stylesheet"
         onClick={() => {
@@ -81,10 +114,12 @@ const Share: React.FC<ShareProps> = ({
         onCancel={() => setModalVisible(false)}
         footer={false}
       >
-        <h6 className="text-center mt-5">
+        <h6 className="mt-4 text-center">Save plus Bill for this cause is</h6>
+        <h6 className="text-center">{tillNumber}</h6>
+        <h6 className="text-center mt-4">
           Make your donation using the USSD Code
         </h6>
-        <h6 className="my-4 text-center">{`*777*77*${tillNumber}#`}</h6>
+        <h6 className="mb-4 text-center">{`*777*77*Save plus Bill*Donation#`}</h6>
       </Modal>
       <style jsx>{`
         .share {

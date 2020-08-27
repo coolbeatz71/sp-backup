@@ -2,80 +2,82 @@
 @import "styles/_mixins";
 
 .pricingCard {
+  border-radius: 8px;
   background: $color-light;
-  position: relative;
-  padding: 20px;
-  margin: auto 0;
-  border: 1px solid #3c3f5931;
-  border-radius: 6px;
+  width: 80%;
+  margin: auto;
+  padding: 2rem 0;
+  padding-bottom: 1.2rem;
+  display: flex;
+  flex-flow: column;
+  color: $color-primary;
+
+  &__header {
+    p {
+      margin-top: 0.5rem;
+      font-size: 12px;
+    }
+  }
+
+  &__container {
+    padding: 1rem 0;
+    display: flex;
+    padding-bottom: 1.5rem;
+    margin: auto;
+
+    &__sections {
+      display: flex;
+      &__plan {
+        margin: 0 3rem;
+        display: flex;
+        flex-flow: column;
+        text-align: left;
+
+        h1 {
+          text-transform: uppercase;
+          margin-bottom: 0.5rem;
+          color: rgba($color: $color-dark, $alpha: 0.8);
+          font-weight: 600;
+          font-size: 41px;
+        }
+
+        h6 {
+          font-size: 10px;
+          color: $color-primary;
+          margin-bottom: 1.5rem;
+        }
+
+        p {
+          color: $color-dark;
+          font-size: 12px;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 
   @include mediaMd {
     margin: 0;
-    margin-right: 0.5rem;
-  }
-
-  &__details {
-    text-align: center;
-    min-height: 300px;
-    display: grid;
-    place-content: center;
-    margin-top: 0.5rem;
-
-    &__fee {
-      margin-top: 3.5rem;
-      text-transform: uppercase;
-      font-size: 20pt;
-      color: lighten($color-dark, 25%);
-
-      @include mediaMd {
-        margin-top: 4.5rem;
-      }
-    }
-
-    &__description {
-      padding: 1rem;
-      font-size: 0.7rem;
-      text-align: justify;
-    }
-  }
-
-  &__hr {
-    border: 0.4px solid lighten($color-dark, 50%);
     width: 100%;
-  }
-}
+    padding: 1rem 0;
+    padding-bottom: 0;
 
-.pricing {
-  &__plan {
-    position: absolute;
-    width: 60%;
-    top: -15%;
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem;
-    left: 20%;
-    right: 20%;
-    text-align: center;
-    border-radius: 8px;
-    &__title {
-      text-transform: uppercase;
-      h2 {
-        padding-top: 0.8rem;
-        color: $color-light;
-        font-weight: bold;
-        font-size: 0.9rem !important;
+    &__header {
+      padding: 0 1rem;
+    }
+
+    &__container {
+      flex-flow: column;
+
+      &__sections {
+        flex-flow: column;
+        align-items: center;
+        &__plan {
+          align-items: center;
+          text-align: center;
+          margin: 0 2rem;
+        }
       }
-    }
-
-    &__icon {
-      display: inline-block;
-    }
-  }
-
-  @include mediaMd {
-    &__plan {
-      position: absolute;
-      top: -10%;
     }
   }
 }

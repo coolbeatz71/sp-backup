@@ -1,6 +1,4 @@
 import React, { FC, useState } from "react";
-import Link from "next/link";
-import { USER_CAUSES_PATH } from "helpers/paths";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Modal, Typography } from "antd";
 import { CloseOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
@@ -19,15 +17,17 @@ import resumeCause from "redux/actions/cause/resumeCause";
 
 const { Text } = Typography;
 
-interface IPauseCauseProps {
+interface IActionModalProps {
   slug: string;
+  plainAccessCode?: string;
   visible: boolean;
   context?: ActionType | "";
   closeModal: () => void;
 }
 
-const PauseCause: FC<IPauseCauseProps> = ({
+const ActionModal: FC<IActionModalProps> = ({
   slug,
+  plainAccessCode = "",
   visible,
   context,
   closeModal,
@@ -46,15 +46,21 @@ const PauseCause: FC<IPauseCauseProps> = ({
 
   const handleModalClose = () => {
     closeModal();
-    dispatch({ type: RESET_CANCEL_ERROR });
-    dispatch({ type: RESET_PAUSE_ERROR });
-    dispatch({ type: RESET_RESUME_ERROR });
     setActionSuccessful(false);
-  };
 
-  const goBackHome = () => {
-    closeModal();
-    location.reload();
+    switch (context) {
+      case ActionType.pause:
+        dispatch({ type: RESET_PAUSE_ERROR });
+        break;
+      case ActionType.cancel:
+        dispatch({ type: RESET_CANCEL_ERROR });
+        break;
+      case ActionType.resume:
+        dispatch({ type: RESET_RESUME_ERROR });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = (data: Store) => {
@@ -79,14 +85,14 @@ const PauseCause: FC<IPauseCauseProps> = ({
         return {
           title: "Pause a Cause",
           subTitle:
-            "By pausing this cause, donours will not be able to donate money for it again, already donated money will be remitted to you at the end date you already choose.",
+            "By pausing this cause, donors will not be able to donate money for it again, already donated money will be remitted to you at the end date you already choose.",
           successMessage: "Cause paused",
         };
       case ActionType.cancel:
         return {
           title: "Cancel a Cause",
           subTitle:
-            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donours at the end date you already choose.",
+            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donors at the end date you already choose.",
           successMessage: "Cause cancelled",
         };
       case ActionType.resume:
@@ -94,6 +100,11 @@ const PauseCause: FC<IPauseCauseProps> = ({
           title: "Resume a Cause",
           subTitle: "Are you sure to resume this cause?",
           successMessage: "Cause resumed",
+        };
+      case ActionType.accessCode:
+        return {
+          title: "",
+          subTitle: `The access code for this cause is </br> <strong>${plainAccessCode}</strong>`,
         };
       default:
         return {
@@ -111,14 +122,12 @@ const PauseCause: FC<IPauseCauseProps> = ({
       destroyOnClose={true}
       maskStyle={{ background: "#000000b3" }}
     >
-      {!actionSuccessful && (
-        <div className={styles.pause__modalHeader}>
-          <CloseOutlined
-            className={styles.pause__modalHeader__icon}
-            onClick={handleModalClose}
-          />
-        </div>
-      )}
+      <div className={styles.pause__modalHeader}>
+        <CloseOutlined
+          className={styles.pause__modalHeader__icon}
+          onClick={handleModalClose}
+        />
+      </div>
 
       <div className={styles.pause__modalContent}>
         <h4>
@@ -130,15 +139,16 @@ const PauseCause: FC<IPauseCauseProps> = ({
         {actionSuccessful ? (
           <div className={styles.pause__modalContent__successful}>
             <img src="/success-action.gif" alt="pause success" />
-            <Link href={USER_CAUSES_PATH}>
-              <a onClick={goBackHome}>Back Home</a>
-            </Link>
           </div>
         ) : (
           <>
-            <p className={styles.pause__modalContent__subTitle}>
-              {getModalContent()?.subTitle}
-            </p>
+            <p
+              className={styles.pause__modalContent__subTitle}
+              dangerouslySetInnerHTML={{
+                __html: getModalContent()?.subTitle,
+              }}
+            />
+
             {errorPause || errorCancel || errorResume ? (
               <Text type="danger" className="mb-3 d-block text-center">
                 <span className="d-block">
@@ -147,41 +157,45 @@ const PauseCause: FC<IPauseCauseProps> = ({
                 </span>
               </Text>
             ) : (
-              <p className={styles.pause__modalContent__continue}>
-                To Continue Enter Your PIN
-              </p>
+              context !== ActionType.accessCode && (
+                <p className={styles.pause__modalContent__continue}>
+                  To Continue Enter Your PIN
+                </p>
+              )
             )}
 
-            <Form
-              onFinish={handleSubmit}
-              validateMessages={validateMessages}
-              className={styles.pause__modalContent__form}
-            >
-              <Form.Item
-                className="form-group"
-                rules={[
-                  {
-                    len: 5,
-                    required: true,
-                    pattern: /^[0-9]{5}$/,
-                    message: "Pin must be number of 5 digits",
-                  },
-                ]}
-                validateTrigger={["onSubmit", "onBlur"]}
-                name="password"
+            {context !== ActionType.accessCode && (
+              <Form
+                onFinish={handleSubmit}
+                validateMessages={validateMessages}
+                className={styles.pause__modalContent__form}
               >
-                <InputPassword maxLength={5} placeholder="PIN" />
-              </Form.Item>
-              <div className="d-flex mb-3">
-                <Button
-                  htmlType="submit"
-                  loading={loadingPause || loadingCancel || loadingResume}
-                  className="btn-primary ml-auto text-uppercase"
+                <Form.Item
+                  className="form-group"
+                  rules={[
+                    {
+                      len: 5,
+                      required: true,
+                      pattern: /^[0-9]{5}$/,
+                      message: "Pin must be number of 5 digits",
+                    },
+                  ]}
+                  validateTrigger={["onSubmit", "onBlur"]}
+                  name="password"
                 >
-                  {context}
-                </Button>
-              </div>
-            </Form>
+                  <InputPassword maxLength={5} placeholder="PIN" />
+                </Form.Item>
+                <div className="d-flex mb-3">
+                  <Button
+                    htmlType="submit"
+                    loading={loadingPause || loadingCancel || loadingResume}
+                    className="btn-primary ml-auto text-uppercase"
+                  >
+                    {context}
+                  </Button>
+                </div>
+              </Form>
+            )}
           </>
         )}
       </div>
@@ -189,4 +203,4 @@ const PauseCause: FC<IPauseCauseProps> = ({
   );
 };
 
-export default PauseCause;
+export default ActionModal;

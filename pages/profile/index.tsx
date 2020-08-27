@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./profile.module.scss";
 import {
@@ -18,6 +18,7 @@ import {
 } from "antd";
 import { CameraOutlined } from "@ant-design/icons";
 import StackedLabel from "components/common/StackedLabel";
+import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { RcFile } from "antd/es/upload";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
@@ -29,7 +30,6 @@ import Link from "next/link";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 import ColorHash from "color-hash";
-import PrivateComponent from "pages/privateRoute";
 import Modal from "components/common/Modal";
 
 import LayoutWrapper from "components/LayoutWrapper";
@@ -41,12 +41,19 @@ const Profile: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
 
-  const { data, loading: dataLoading } = useSelector(
+  const { isLoggedin, data, loading: dataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
   const { loading, error } = useSelector(
     ({ user: { updateProfile } }: IRootState) => updateProfile,
   );
+
+  useEffect(() => {
+    if (!dataLoading && isLoggedin && isEmpty(data)) {
+      getCurrentUser(dispatch);
+    }
+    // tslint:disable-next-line: align
+  }, []);
 
   const onSubmit = (form: any) => {
     const formattedData: { [key: string]: any } = {
@@ -273,4 +280,4 @@ const Profile: React.FC<{}> = () => {
   );
 };
 
-export default PrivateComponent(Profile);
+export default Profile;

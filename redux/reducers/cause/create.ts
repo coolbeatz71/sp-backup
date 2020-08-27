@@ -4,6 +4,7 @@ import {
   CREATE_CAUSE_SUCCESS,
   CREATE_CAUSE_ERROR,
   SET_CROPPED_IMAGE,
+  CLEAR_CROPPED_IMAGE,
 } from "redux/action-types/cause/create";
 
 interface Iaction {
@@ -47,6 +48,14 @@ export default (state: ICause, { type, payload }: Iaction) => {
         create: {
           ...state.create,
           croppedImage: payload,
+        },
+      };
+    case CLEAR_CROPPED_IMAGE:
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          croppedImage: null,
         },
       };
     default:

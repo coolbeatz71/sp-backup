@@ -132,6 +132,10 @@
 
 .how-it-works {
   padding: 0 8vw;
+
+  @include mediaMd {
+    padding: 0 0 0 8vw;
+  }
 }
 
 .causes {
@@ -140,6 +144,8 @@
 
   @include mediaMd {
     padding: 0 0 0 8vw;
+    margin: 8rem auto 6.5rem;
+    margin-top: 0;
   }
 
   &__grid {
@@ -204,6 +210,10 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+
+  @include mediaMd {
+    margin-top: 6rem;
+  }
   &--container {
     position: relative;
     padding: 3rem 0 1rem 0;

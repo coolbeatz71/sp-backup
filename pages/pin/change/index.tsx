@@ -7,7 +7,6 @@ import { InputPassword } from "components/common/Input";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import change from "redux/actions/pin/change";
-import PrivateComponent from "pages/privateRoute";
 import { useRouter } from "next/router";
 
 const { Text } = Typography;
@@ -63,7 +62,7 @@ const ChangePin: FC<{}> = () => {
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "Old passsword must be number of 5 digits",
+                  message: "Old PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
@@ -79,7 +78,7 @@ const ChangePin: FC<{}> = () => {
                   len: 5,
                   required: true,
                   pattern: /^[0-9]{5}$/,
-                  message: "New password must be number of 5 digits",
+                  message: "New PIN must be number of 5 digits",
                 },
               ]}
               validateTrigger={["onSubmit", "onBlur"]}
@@ -94,7 +93,7 @@ const ChangePin: FC<{}> = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please, confirm the password",
+                  message: "Please, confirm the New PIN",
                 },
                 ({ getFieldValue }) => ({
                   validator({}, value) {
@@ -127,4 +126,4 @@ const ChangePin: FC<{}> = () => {
   );
 };
 
-export default PrivateComponent(ChangePin);
+export default ChangePin;

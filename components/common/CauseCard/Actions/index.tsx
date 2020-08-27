@@ -1,12 +1,20 @@
 import React, { FC, useState } from "react";
-import { Dropdown, Menu, Button } from "antd";
+import { Dropdown, Menu, Button, Badge } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import styles from "../causeCard.module.scss";
 import ActionModal from "./ActionModal";
 import { causeStatus } from "interfaces";
 import Link from "next/link";
 
+export interface ActionProps {
+  slug: string;
+  status: string;
+  access?: string;
+  plainAccessCode?: string;
+}
+
 export enum ActionType {
+  accessCode = "accessCode",
   pause = "pause",
   cancel = "cancel",
   resume = "resume",
@@ -19,34 +27,30 @@ const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
 const isUneditable = (status: string) => status !== causeStatus.active;
 
-const ActionIcon: FC<{ slug: string; status: string; viewing?: boolean }> = ({
+const Action: FC<ActionProps> = ({
   slug,
   status,
-  viewing = false,
+  access = "public",
+  plainAccessCode = "",
 }) => {
   const [causeModal, setCauseModal] = useState<{
     isVisible: boolean;
     context?: ActionType | "";
+    plainAccessCode?: string;
   }>({ isVisible: false, context: "" });
 
-  const handleAction = (type: ActionType) => {
-    switch (type) {
-      case ActionType.pause:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      case ActionType.cancel:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      case ActionType.resume:
-        setCauseModal({ isVisible: true, context: type });
-        break;
-      default:
-        break;
-    }
+  const handleAction = (type: ActionType, plainAccessCode: string = "") => {
+    setCauseModal({ plainAccessCode, isVisible: true, context: type });
   };
 
   const actionMenu = (
     <Menu>
+      {access === "private" && plainAccessCode && (
+        <Menu.Item onClick={() => handleAction(ActionType.accessCode)}>
+          View Access Code
+        </Menu.Item>
+      )}
+      {access === "private" && <Menu.Divider />}
       <Menu.Item>
         <Link href="/causes/[slug]/edit" as={`/causes/${slug}/edit`}>
           <Button
@@ -75,7 +79,7 @@ const ActionIcon: FC<{ slug: string; status: string; viewing?: boolean }> = ({
       <Menu.Divider />
 
       <Menu.Item
-        className={styles.causeCard__body__content__actionIcon__cancel}
+        className={styles.causeCard__body__content__head__actionIcon__cancel}
         onClick={() => handleAction(ActionType.cancel)}
         disabled={isUncancellable(status)}
       >
@@ -85,23 +89,33 @@ const ActionIcon: FC<{ slug: string; status: string; viewing?: boolean }> = ({
   );
 
   return (
-    <div className={styles.causeCard__body__content__actionIcon}>
-      <Dropdown
-        overlayClassName="causeCard__menu"
-        overlay={actionMenu}
-        trigger={["click"]}
-        placement="bottomRight"
-      >
-        <Button type={viewing ? "dashed" : "text"} icon={<MoreOutlined />} />
-      </Dropdown>
-      <ActionModal
-        slug={slug}
-        visible={causeModal.isVisible}
-        context={causeModal.context}
-        closeModal={() => setCauseModal({ isVisible: false })}
-      />
+    <div className={styles.causeCard__body__content__head}>
+      {access === "private" && (
+        <div className={styles.causeCard__body__content__head__private}>
+          <Badge color="#e150fd" text="Private" />
+        </div>
+      )}
+      <div className={styles.causeCard__body__content__head__actionIcon}>
+        <Dropdown
+          overlayClassName="causeCard__menu"
+          overlay={actionMenu}
+          trigger={["click"]}
+          placement="bottomRight"
+        >
+          <MoreOutlined
+            className={styles.causeCard__body__content__head__actionIcon__icon}
+          />
+        </Dropdown>
+        <ActionModal
+          slug={slug}
+          plainAccessCode={plainAccessCode}
+          visible={causeModal.isVisible}
+          context={causeModal.context}
+          closeModal={() => setCauseModal({ isVisible: false })}
+        />
+      </div>
     </div>
   );
 };
 
-export default ActionIcon;
+export default Action;

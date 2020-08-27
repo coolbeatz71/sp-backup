@@ -11,7 +11,7 @@
     line-height: 48px;
     color: #333;
     @include mediaMd {
-      font-size: 20px;
+      font-size: 25px;
       line-height: 25px;
     }
   }
@@ -31,11 +31,11 @@
     left: -10px;
   }
 
-  &__popularity{
+  &__popularity {
     top: -37px !important;
   }
 
-  h5{
+  h5 {
     font-size: 20px;
     font-weight: 500;
     margin-top: 0.3rem;
@@ -44,11 +44,17 @@
   @include mediaMd {
     img {
       top: -15px;
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
     }
-    &__birds {
-      top: -19px !important;
+    &__birds,
+    &__popularity {
+      top: -29px !important;
+    }
+
+    &__romantic,
+    &__gardening {
+      top: -20px !important;
     }
   }
 }

@@ -3,7 +3,11 @@ import capitalize from "helpers/capitalize";
 import logout from "redux/actions/Auth/logout";
 import { Menu } from "antd";
 import Link from "next/link";
-import { USER_CAUSES_PATH, CHANGE_PIN_PATH } from "helpers/paths";
+import {
+  USER_CAUSES_PATH,
+  CHANGE_PIN_PATH,
+  CREATE_CAUSE_PATH,
+} from "helpers/paths";
 import { Dispatch } from "redux";
 
 const UserMenu = (
@@ -30,7 +34,7 @@ const UserMenu = (
       <Menu.Divider />
 
       <Menu.Item>
-        <Link href="/causes/create">
+        <Link href={CREATE_CAUSE_PATH}>
           <a>New Cause</a>
         </Link>
       </Menu.Item>

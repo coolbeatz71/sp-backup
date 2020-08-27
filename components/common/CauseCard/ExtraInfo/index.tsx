@@ -2,7 +2,6 @@ import React, { FC, useState, useRef } from "react";
 import ReactStars from "react-star-rating-component";
 import styles from "../causeCard.module.scss";
 import CausePopover from "../CausePopover";
-import { HOME_PATH, ALL_CAUSES_PATH } from "helpers/paths";
 import { causeStatus } from "interfaces";
 import useHideRatingPopover from "hooks/useHideRatingPopover";
 
@@ -22,7 +21,6 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
   tillNumber,
   rating,
   ratersCount,
-  pathName,
   status,
 }) => {
   const wrapperRef = useRef(null);
@@ -60,27 +58,26 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
           />
         </div>
       </CausePopover>
-      {status === causeStatus.active &&
-        (pathName === HOME_PATH || pathName === ALL_CAUSES_PATH) && (
-          <CausePopover
-            context="social-share"
-            slug={slug}
-            title={title}
-            tillNumber={tillNumber}
-            visible={openSharePopover}
-            handleVisibleChange={(openSharePopover) =>
-              setOpenSharePopover(openSharePopover)
-            }
-            hideCausePopover={() => setOpenSharePopover(false)}
-          >
-            <div className={styles.causeCard__body__extra__share}>
-              <span className={styles.causeCard__share__text}>Share</span>
-              <span className={styles.causeCard__share}>
-                <img src="/icons/share-icon.svg" alt="" />
-              </span>
-            </div>
-          </CausePopover>
-        )}
+      {status === causeStatus.active && (
+        <CausePopover
+          context="social-share"
+          slug={slug}
+          title={title}
+          tillNumber={tillNumber}
+          visible={openSharePopover}
+          handleVisibleChange={(openSharePopover) =>
+            setOpenSharePopover(openSharePopover)
+          }
+          hideCausePopover={() => setOpenSharePopover(false)}
+        >
+          <div className={styles.causeCard__body__extra__share}>
+            <span className={styles.causeCard__share__text}>Share</span>
+            <span className={styles.causeCard__share}>
+              <img src="/icons/share-icon.svg" alt="" />
+            </span>
+          </div>
+        </CausePopover>
+      )}
     </div>
   );
 };

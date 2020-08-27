@@ -5,6 +5,7 @@ export default {
     isLoggedin: !!getToken(),
     data: {},
     loading: false,
+    fetched: false,
     error: {},
   },
   updateProfile: {
@@ -18,6 +19,7 @@ export interface Iuser {
     isLoggedin: boolean;
     data: { [key: string]: any };
     loading: boolean;
+    fetched: boolean;
     error: any;
   };
   updateProfile: {
