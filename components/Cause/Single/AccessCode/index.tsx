@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Input, Typography, Row, Col, Alert } from "antd";
+import { Input, Typography, Row, Col } from "antd";
 import { IUnknownObject } from "interfaces/unknownObject";
 import getSingle from "redux/actions/cause/getSingle";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,6 @@ export interface AccessCodeProps {
   slug: string | string[];
   error?: any;
 }
-
-const { Text } = Typography;
 
 const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
   const dispatch = useDispatch();

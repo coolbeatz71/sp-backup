@@ -12,12 +12,17 @@ import CustomIcon from "components/common/CustomIcon";
 interface Props {
   categories: CatType[];
   baseUrl?: string;
+  scrolled: string;
 }
 
 const feed_types = ["popular", "sponsored"];
 const statuses = ["active", "pending", "paused", "cancelled", "completed"];
 
-const CategoryBar: React.FC<Props> = ({ categories, baseUrl = "/causes" }) => {
+const CategoryBar: React.FC<Props> = ({
+  categories,
+  baseUrl = "/causes",
+  scrolled,
+}) => {
   const router = useRouter();
 
   const [search, setSearch] = React.useState<any>(router.query?.search || "");
@@ -186,7 +191,7 @@ const CategoryBar: React.FC<Props> = ({ categories, baseUrl = "/causes" }) => {
           trigger={["click"]}
         >
           <Button
-            size={}
+            size={scrolled !== "" ? "small" : "middle"}
             type="primary"
             icon={<CustomIcon type="config" />}
             ghost={feed_type.length === 0 && status.length === 0}
@@ -195,7 +200,7 @@ const CategoryBar: React.FC<Props> = ({ categories, baseUrl = "/causes" }) => {
       </Col>
       <Col>
         <Input
-          size={}
+          size={scrolled !== "" ? "small" : "middle"}
           placeholder="Search"
           prefix={<SearchOutlined />}
           allowClear

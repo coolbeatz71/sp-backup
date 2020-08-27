@@ -5,7 +5,13 @@ import StackedLabel from "components/common/StackedLabel";
 
 // import { cancelCause, clear } from "redux/reducers/cancelCause";
 
-const { cancelCause, clear } = {};
+const cancelCause = (sl: string, pa: string) => {
+  console.log(sl, pa);
+};
+
+const clear = () => {
+  //
+};
 
 interface Props {
   record: { [key: string]: any };

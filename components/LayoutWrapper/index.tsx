@@ -257,6 +257,7 @@ const LayoutWrapper: React.FC<Props> = ({
                 <CategoryBar
                   categories={svpProps.categories}
                   baseUrl={baseUrl}
+                  scrolled={scrolled}
                 />
               </Col>
             </Row>

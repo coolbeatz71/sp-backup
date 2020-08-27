@@ -5,7 +5,13 @@ import StackedLabel from "components/common/StackedLabel";
 
 // import { pauseCause, clear } from "redux/reducers/pauseCause";
 
-const { pauseCause, clear } = {};
+const pauseCause = (sl: string, pa: string, st: boolean) => {
+  console.log(sl, pa, st);
+};
+
+const clear = () => {
+  //
+};
 
 interface Props {
   record: { [key: string]: any };

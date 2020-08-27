@@ -18,7 +18,7 @@ const IndexPage = () => {
     getFeed()(dispatch);
   }, [dispatch]);
 
-  const { data, loading, fetched, error } = useSelector(
+  const { data, /*loading,*/ fetched, error } = useSelector(
     ({ cause: { feed } }: IRootState) => feed,
   );
 

@@ -69,12 +69,7 @@ const FooterCover: React.FC<FooterCoverProps> = ({
     children
   );
 
-const Cause: React.FC<Props> = ({
-  cause,
-  reload = () => {
-    //
-  },
-}) => {
+const Cause: React.FC<Props> = ({ cause }) => {
   const [imageStatus, setImageStatus] = React.useState(
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
