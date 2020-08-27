@@ -57,12 +57,11 @@ const SearchInput: FC<SearchInputProps> = ({ formRef, page }) => {
   };
 
   return (
-    <Form form={formRef}>
+    <Form form={formRef} className={styles.searchinput}>
       <Form.Item name="search_input">
         <div className="input_input__16Q5e searchinput_searchinput__1J7uG">
           <Input
             placeholder="Search"
-            className={styles.searchinput}
             onKeyPress={(e) => onSearchKeyPress(e)}
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
