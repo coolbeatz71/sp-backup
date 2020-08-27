@@ -17,6 +17,7 @@ import cancelled from "./svg/cancelled";
 import save from "./svg/save";
 import verified from "./svg/verified";
 import ussd from "./svg/ussd";
+import config from "./svg/config";
 
 const icons: { [key: string]: any } = {
   dashboard,
@@ -32,6 +33,7 @@ const icons: { [key: string]: any } = {
   save,
   verified,
   ussd,
+  config,
   "sign-out": signOut,
 };
 

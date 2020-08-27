@@ -1,0 +1,27 @@
+@import "../../../styles/colors.scss";
+
+.dashboard {
+  &__content {
+    &__primary_title {
+      &,
+      div[class="ant-card-meta-title"] {
+        color: $primary !important;
+      }
+    }
+    &__sidebar {
+      margin-top: 24px;
+      &__item {
+        margin-top: 8px;
+        [class="ant-col"] {
+          > div {
+            margin-bottom: 0px !important;
+          }
+        }
+      }
+      &__more {
+        margin-top: 8px;
+        text-align: right;
+      }
+    }
+  }
+}

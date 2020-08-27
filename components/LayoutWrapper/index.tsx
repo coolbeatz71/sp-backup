@@ -28,6 +28,7 @@ import SignIn from "components/modals/SignIn";
 import ResetPin from "components/modals/ResetPin";
 
 import CategoryBar from "./CategoryBar";
+import Link from "next/link";
 
 const { Header, Footer, Content } = Layout;
 
@@ -115,10 +116,14 @@ const LayoutWrapper: React.FC<Props> = ({
             className={styles.layout__header__row}
           >
             <Col>
-              <img
-                src="/images/logo-beta.svg"
-                className={styles.layout__header__row__logo}
-              />
+              <Link href="/">
+                <a>
+                  <img
+                    src="/images/logo-beta.svg"
+                    className={styles.layout__header__row__logo}
+                  />
+                </a>
+              </Link>
             </Col>
             <Col>
               <Row gutter={24} align="middle">

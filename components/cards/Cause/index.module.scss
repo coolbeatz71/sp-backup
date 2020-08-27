@@ -93,6 +93,17 @@
       font-size: 18px !important;
       font-weight: 600 !important;
     }
+    &[data-my-cause="true"] {
+      position: relative;
+      [class~="ant-btn"] {
+        position: absolute;
+        right: -15px;
+        top: -3px;
+        span {
+          font-size: 24px;
+        }
+      }
+    }
   }
   &__summary {
     font-size: 13px;

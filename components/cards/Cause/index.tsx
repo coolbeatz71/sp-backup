@@ -23,6 +23,8 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
+import Actions from "components/common/CauseCard/Actions";
+
 import CustomIcon from "components/common/CustomIcon";
 
 import styles from "./index.module.scss";
@@ -31,6 +33,7 @@ import colors from "helpers/cause-type-colors";
 
 interface Props {
   cause: { [key: string]: any };
+  reload?: () => void;
 }
 
 const donateMsg: { [key: string]: string } = {
@@ -66,7 +69,12 @@ const FooterCover: React.FC<FooterCoverProps> = ({
     children
   );
 
-const Cause: React.FC<Props> = ({ cause }) => {
+const Cause: React.FC<Props> = ({
+  cause,
+  reload = () => {
+    //
+  },
+}) => {
   const [imageStatus, setImageStatus] = React.useState(
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
@@ -80,8 +88,6 @@ const Cause: React.FC<Props> = ({ cause }) => {
   const myCause =
     user.currentUser.isLoggedin &&
     cause.user_id * 1 === user.currentUser.data?.id * 1;
-
-  console.log(cause);
 
   return (
     <AntdCard
@@ -170,13 +176,18 @@ const Cause: React.FC<Props> = ({ cause }) => {
           )}
         </Col>
       </Row>
-      <Link href="/causes/[slug]" as={`/causes/${"asd"}`}>
-        <a>
-          <div className={styles.card__title}>
+      <div className={styles.card__title} data-my-cause={myCause}>
+        <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+          <a>
             <Typography.Title level={4} ellipsis>
               {cause.name}
             </Typography.Title>
-          </div>
+          </a>
+        </Link>
+        {myCause && <Actions slug={cause.slug} status={cause.status} />}
+      </div>
+      <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+        <a>
           <Typography.Paragraph
             className={styles.card__summary}
             ellipsis={{ rows: 2 }}

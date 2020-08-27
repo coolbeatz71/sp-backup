@@ -1,5 +1,5 @@
 import React from "react";
-import { Popover, Button, Typography } from "antd";
+import { Popover, Button, Typography, Row, Col } from "antd";
 import {
   TwitterOutlined,
   WhatsAppOutlined,
@@ -12,10 +12,11 @@ import Modal from "components/common/Modal";
 import styles from "./index.module.scss";
 
 interface Props {
-  children: React.ReactElement;
+  children?: React.ReactElement;
   slug: string;
   code: string;
   title: string;
+  standalone?: boolean;
 }
 
 interface LinkProps {
@@ -50,64 +51,78 @@ const Link: React.FC<LinkProps> = ({ type, title, slug, children }) => {
   );
 };
 
-const SharePopover: React.FC<Props> = ({ children, slug, code, title }) => {
+const SharePopover: React.FC<Props> = ({
+  children,
+  slug,
+  code,
+  title,
+  standalone = false,
+}) => {
   const [visible, setVisible] = React.useState(false);
-  return (
+
+  const share = (
+    <div>
+      <Modal
+        title="USSD Code"
+        onVisible={() => setVisible(false)}
+        trigger={
+          <Button
+            className={styles.share__ussd}
+            size="large"
+            type="text"
+            icon={<CustomIcon type="ussd" />}
+          />
+        }
+      >
+        <div className={styles.share__ussd__text}>
+          <Typography.Title level={4}>
+            Make your donation using the USSD Code
+          </Typography.Title>
+          <Typography.Title level={4} copyable>
+            *777*77*{code}#
+          </Typography.Title>
+        </div>
+      </Modal>
+      <Link slug={slug} title={title} type="facebook">
+        <Button
+          className={styles.share__facebook}
+          size="large"
+          type="text"
+          icon={<FacebookFilled />}
+        />
+      </Link>
+      <Link slug={slug} title={title} type="whatsapp">
+        <Button
+          className={styles.share__whatsapp}
+          size="large"
+          type="text"
+          icon={<WhatsAppOutlined />}
+        />
+      </Link>
+      <Link slug={slug} title={title} type="twitter">
+        <Button
+          className={styles.share__twitter}
+          size="large"
+          type="text"
+          icon={<TwitterOutlined />}
+        />
+      </Link>
+    </div>
+  );
+
+  return standalone ? (
+    <Row align="middle" gutter={24}>
+      <Col>Share</Col>
+      <Col>{share}</Col>
+    </Row>
+  ) : (
     <Popover
       className={styles.share}
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
       trigger="click"
       placement="topRight"
-      content={
-        <div>
-          <Modal
-            title="USSD Code"
-            onVisible={() => setVisible(false)}
-            trigger={
-              <Button
-                className={styles.share__ussd}
-                size="large"
-                type="text"
-                icon={<CustomIcon type="ussd" />}
-              />
-            }
-          >
-            <div className={styles.share__ussd__text}>
-              <Typography.Title level={4}>
-                Make your donation using the USSD Code
-              </Typography.Title>
-              <Typography.Title level={4} copyable>
-                *777*77*{code}#
-              </Typography.Title>
-            </div>
-          </Modal>
-          <Link slug={slug} title={title} type="facebook">
-            <Button
-              className={styles.share__facebook}
-              size="large"
-              type="text"
-              icon={<FacebookFilled />}
-            />
-          </Link>
-          <Link slug={slug} title={title} type="whatsapp">
-            <Button
-              className={styles.share__whatsapp}
-              size="large"
-              type="text"
-              icon={<WhatsAppOutlined />}
-            />
-          </Link>
-          <Link slug={slug} title={title} type="twitter">
-            <Button
-              className={styles.share__twitter}
-              size="large"
-              type="text"
-              icon={<TwitterOutlined />}
-            />
-          </Link>
-        </div>
-      }
+      content={share}
     >
       {children}
     </Popover>

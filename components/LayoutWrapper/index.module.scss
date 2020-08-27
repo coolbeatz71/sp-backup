@@ -101,7 +101,7 @@
     background-color: $white !important;
     margin-top: $header-height;
     &[data-is-form="true"] {
-      background-color: $primary-ultra-light;
+      background-color: $primary-ultra-light !important;
       background-image: url(/images/background.svg);
       background-repeat: no-repeat;
       background-size: 100%;

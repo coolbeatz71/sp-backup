@@ -2,10 +2,12 @@ import React from "react";
 
 import { Row, Col, Menu, Input, Dropdown, Button, Checkbox } from "antd";
 import { useRouter } from "next/router";
-import { SearchOutlined, ControlOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
+
+import CustomIcon from "components/common/CustomIcon";
 
 interface Props {
   categories: CatType[];
@@ -183,11 +185,17 @@ const CategoryBar: React.FC<Props> = ({ categories, baseUrl = "/causes" }) => {
           }
           trigger={["click"]}
         >
-          <Button type="primary" icon={<ControlOutlined />} ghost />
+          <Button
+            size={}
+            type="primary"
+            icon={<CustomIcon type="config" />}
+            ghost={feed_type.length === 0 && status.length === 0}
+          />
         </Dropdown>
       </Col>
       <Col>
         <Input
+          size={}
           placeholder="Search"
           prefix={<SearchOutlined />}
           allowClear

@@ -19,7 +19,11 @@ const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
 const isUneditable = (status: string) => status !== causeStatus.active;
 
-const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
+const ActionIcon: FC<{ slug: string; status: string; viewing?: boolean }> = ({
+  slug,
+  status,
+  viewing = false,
+}) => {
   const [causeModal, setCauseModal] = useState<{
     isVisible: boolean;
     context?: ActionType | "";
@@ -88,9 +92,7 @@ const ActionIcon: FC<{ slug: string; status: string }> = ({ slug, status }) => {
         trigger={["click"]}
         placement="bottomRight"
       >
-        <MoreOutlined
-          className={styles.causeCard__body__content__actionIcon__icon}
-        />
+        <Button type={viewing ? "dashed" : "text"} icon={<MoreOutlined />} />
       </Dropdown>
       <ActionModal
         slug={slug}
