@@ -12,8 +12,8 @@ const PricingPage: React.SFC<{}> = () => {
           <h1>Simple Plans For Everyone!</h1>
           <div className={styles.pricing__container__header__desc}>
             <p>
-              We have a flexible plan for fit for everyone. Our pricing method
-              is simple and transparent to everyone.
+              We have a flexible plan that fits everyone. We've made sure that
+              our pricing structure is simple and transparent.
             </p>
           </div>
         </div>

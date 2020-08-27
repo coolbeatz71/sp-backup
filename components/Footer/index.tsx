@@ -17,7 +17,9 @@ const Footer: React.FC<{}> = () => {
         </div>
         <div className={styles.links}>
           <Link href="">
-            <a href="https://getsave.io/" target="_blank">Save</a>
+            <a href="https://getsave.io/" target="_blank">
+              Save
+            </a>
           </Link>
           <Link href="#">
             <a>Blog</a>
@@ -30,22 +32,28 @@ const Footer: React.FC<{}> = () => {
           </Link>
         </div>
         <div className={styles.socialMedia}>
-          <a href="https://twitter.com/SavePlusHQ"  target="_blank">
+          <a href="https://twitter.com/SavePlusHQ" target="_blank">
             <img src="/twitter-icon.svg" alt="" />
           </a>
           <a href="https://www.instagram.com/saveplus.hq/" target="_blank">
             <img src="/ig-icon.svg" alt="" />
           </a>
-          <a href="https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr" target="_blank">
+          <a
+            href="https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr"
+            target="_blank"
+          >
             <img src="/facebook-icon.svg" alt="" />
           </a>
-          <a href="#" target="_blank">
+          <a
+            href="https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5"
+            target="_blank"
+          >
             <img src="/youtube-icon.svg" alt="" />
           </a>
         </div>
         <div className={styles.contact}>
           <span>Contact us at </span>
-          <a href="mailto:support@Saveplus.io?subject=Support from Our Site">
+          <a href="mailto:support@saveplus.io?subject=Support from Our Site">
             support@Saveplus.io
           </a>
         </div>
