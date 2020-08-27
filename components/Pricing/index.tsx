@@ -14,16 +14,13 @@ const pricingPlan = [
   {
     price: "free",
     subtitle: "For cashout above 30 days",
-    description: `Lorem ipsum dolor sit amet, consec
-    tetuer adipiscing elit. Aenean
-    Lorem ipsum dolor sit amet, consec`,
+    description: `For causes whose duration period is greater than 30 days. Note that cash-out only happens when the cause ends.`,
   },
   {
     price: "2%",
     subtitle: "For cashout below 30 days",
-    description: `Lorem ipsum dolor sit amet, consec
-    tetuer adipiscing elit. Aenean
-    Lorem ipsum dolor sit amet, consec`,
+    description: `For causes whose duration period is
+     below 30 days. A 2% fee applies while the remainder is remitted to the cause creator.`,
   },
 ];
 
@@ -33,7 +30,7 @@ const PricingCard: React.FC<{}> = ({}) => {
   const isMobile = useMedia("(max-width: 768px)");
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const onClick = () => {
