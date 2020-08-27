@@ -6,7 +6,8 @@ import getPlatformUrl from "helpers/getPlatformUrl";
 import { useRouter } from "next/router";
 import { CREATE_CAUSE_PATH } from "helpers/paths";
 import notification from "utils/notification";
-import { CheckCircleTwoTone } from "@ant-design/icons";
+import { CheckOutlined } from "@ant-design/icons";
+import { SUCCESS } from "constants/colors";
 
 export interface ShareProps {
   title: string;
@@ -15,7 +16,6 @@ export interface ShareProps {
   position?: "center";
   label?: boolean;
   hideCausePopover?: () => void;
-  visible?: boolean;
 }
 
 const Share: React.FC<ShareProps> = ({
@@ -25,39 +25,38 @@ const Share: React.FC<ShareProps> = ({
   position,
   label = true,
   hideCausePopover = () => null,
-  visible = false,
 }) => {
-  const [isVisible, setVisible] = useState(visible);
-  const [state, copyToClipboard] = useCopyToClipboard();
-  const [modalVisible, setModalVisible] = useState(false);
   const { pathname } = useRouter();
+  const [copy, setCopy] = useState(true);
+  const [, copyToClipboard] = useCopyToClipboard();
+  const [modalVisible, setModalVisible] = useState(false);
   const URL = `${getPlatformUrl()}/causes/${slug}`;
   const encodedURL = encodeURI(`${title} \n\n${URL}`);
+
+  const onCopyClick = () => {
+    copyToClipboard(URL);
+    setCopy(false);
+    notification("Cause link copied", "success", "top-center");
+    setTimeout(() => {
+      setCopy(true);
+      // tslint:disable-next-line: align
+    }, 4000);
+  };
 
   return (
     <div className={`${styles.share} share`}>
       {label && <span>Share</span>}
       {pathname !== CREATE_CAUSE_PATH && (
         <a rel="stylesheet">
-          {isVisible || !state.value ? (
+          {copy ? (
             <img
               className="social__share__icon"
               src="/icons/share-url.svg"
-              onClick={() => {
-                copyToClipboard(URL);
-                notification("Cause link copied", "success", "top-center");
-                setVisible(false);
-              }}
+              onClick={() => onCopyClick()}
               alt="copy url"
             />
           ) : (
-            !isVisible &&
-            state.value && (
-              <CheckCircleTwoTone
-                style={{ fontSize: 22 }}
-                twoToneColor="#52c41a"
-              />
-            )
+            <CheckOutlined style={{ fontSize: 23, color: SUCCESS }} />
           )}
         </a>
       )}
