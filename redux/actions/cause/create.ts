@@ -4,6 +4,7 @@ import {
   CREATE_CAUSE_ERROR,
   CREATE_CAUSE_SUCCESS,
   SET_CROPPED_IMAGE,
+  CLEAR_CREATE_CAUSE,
 } from "redux/action-types/cause/create";
 import { UploadFile } from "antd/es/upload/interface";
 
@@ -23,15 +24,22 @@ export default (data: any) => (dispatch: any, setSuccessStep: any) => {
       setSuccessStep(true);
     })
     .catch((error) => {
-      console.error("here", error);
       dispatch({
         type: CREATE_CAUSE_ERROR,
-        payload:  error.message || "We couldnt create your cause 😥, something went wrong!",
+        payload:
+          error.message ||
+          "We couldn't create your cause 😥, something went wrong!",
       });
     });
 };
 
-export const setCroppedImage =  (image: UploadFile[]) => (dispatch: any) => {
+export const clear = () => (dispatch: any) => {
+  dispatch({
+    type: CLEAR_CREATE_CAUSE,
+  });
+};
+
+export const setCroppedImage = (image: UploadFile[]) => (dispatch: any) => {
   dispatch({
     type: SET_CROPPED_IMAGE,
     payload: image,

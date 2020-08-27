@@ -17,6 +17,7 @@ import { IRootState } from "redux/initialStates";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import logout from "redux/actions/Auth/logout";
 import _ from "lodash";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import FooterItem from "./FooterItem";
 
@@ -63,10 +64,6 @@ const LayoutWrapper: React.FC<Props> = ({
 
   const [scrolled, setScrolled] = React.useState("");
 
-  const [signUp, setSignUp] = React.useState(false);
-  const [signIn, setSignIn] = React.useState(false);
-  const [resetPin, setResetPin] = React.useState(false);
-
   const user = useSelector((state: IRootState) => state.user);
 
   const dispatch = useDispatch();
@@ -91,10 +88,12 @@ const LayoutWrapper: React.FC<Props> = ({
     }
   }, [dispatch]);
 
+  console.log(user);
+
   return (
     <Layout className={styles.layout}>
       <Head>
-        {svpProps.error ? (
+        {svpProps.error || user.currentUser.error.message ? (
           <title>Error | Save Plus</title>
         ) : (
           <title>{title ? `${title} | ` : ""}Save Plus</title>
@@ -104,30 +103,32 @@ const LayoutWrapper: React.FC<Props> = ({
           rel="stylesheet"
         />
       </Head>
-      {!svpProps.error && (
-        <Header
-          className={styles.layout__header}
-          data-scroll={scrolled}
-          data-is-category={isCategory}
+      {/* Start Header */}
+      <Header
+        className={styles.layout__header}
+        data-scroll={scrolled}
+        data-is-category={isCategory}
+      >
+        <Row
+          justify="space-between"
+          align="middle"
+          className={styles.layout__header__row}
         >
-          <Row
-            justify="space-between"
-            align="middle"
-            className={styles.layout__header__row}
-          >
-            <Col>
-              <Link href="/">
-                <a>
-                  <img
-                    src="/images/logo-beta.svg"
-                    className={styles.layout__header__row__logo}
-                  />
-                </a>
-              </Link>
-            </Col>
-            <Col>
-              <Row gutter={24} align="middle">
-                {user.currentUser.isLoggedin && !isCreate && (
+          <Col>
+            <Link href="/">
+              <a>
+                <img
+                  src="/images/logo-beta.svg"
+                  className={styles.layout__header__row__logo}
+                />
+              </a>
+            </Link>
+          </Col>
+          <Col>
+            <Row gutter={24} align="middle">
+              {user.currentUser.isLoggedin &&
+                !isCreate &&
+                user.currentUser.data.id && (
                   <Col>
                     <Button
                       type="primary"
@@ -139,19 +140,20 @@ const LayoutWrapper: React.FC<Props> = ({
                     </Button>
                   </Col>
                 )}
-                <Col>
-                  <Menu
-                    mode="horizontal"
-                    className={styles.layout__header__row__menu}
-                    onClick={({ key }) => {
-                      if (key !== "sign-out") {
-                        router.push(`${key}`);
-                      } else {
-                        logout(router.push, dispatch);
-                      }
-                    }}
-                  >
-                    {!isHome && <Menu.Item key="/">Home</Menu.Item>}
+              <Col>
+                <Menu
+                  mode="horizontal"
+                  className={styles.layout__header__row__menu}
+                  onClick={({ key }) => {
+                    if (key !== "sign-out") {
+                      router.push(`${key}`);
+                    } else {
+                      logout(router.push, dispatch);
+                    }
+                  }}
+                >
+                  {!isHome && <Menu.Item key="/">Home</Menu.Item>}
+                  {svpProps.categories && svpProps.categories.length > 0 && (
                     <Menu.SubMenu
                       title={
                         <span>
@@ -165,107 +167,95 @@ const LayoutWrapper: React.FC<Props> = ({
                         </Menu.Item>
                       ))}
                     </Menu.SubMenu>
-                    <Menu.Item key="/pricing">Pricing</Menu.Item>
-                    {user.currentUser.isLoggedin && (
-                      <Menu.SubMenu
-                        className={styles.layout__header__row__user}
-                        popupClassName="header-row-user"
-                        title={
-                          <span>
-                            <Avatar
-                              className={
-                                styles.layout__header__row__user__avatar
-                              }
-                              src={user.currentUser.data.avatar}
-                              size={48}
-                            >
-                              {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
-                                ?.split(" ")
-                                .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase(),
-                                )}
-                            </Avatar>
-                            <DownOutlined />
-                          </span>
-                        }
-                      >
-                        <Menu.Item key="/profile">
-                          <Typography.Text strong ellipsis>
-                            {user.currentUser.data.first_name}
-                            {` `}
-                            {user.currentUser.data.last_name}
-                          </Typography.Text>
-                        </Menu.Item>
-                        <Menu.Divider />
-                        <Menu.Item key="/profile">Profile</Menu.Item>
-                        <Menu.Item key="/causes/create">New Cause</Menu.Item>
-                        <Menu.Item key="/user/causes">My Causes</Menu.Item>
-                        <Menu.Item key="/pin/change">Change PIN</Menu.Item>
-                        <Menu.Divider />
-                        <Menu.Item key="sign-out" danger>
-                          Sign Out
-                        </Menu.Item>
-                      </Menu.SubMenu>
-                    )}
-                  </Menu>
-                </Col>
-                {!user.currentUser.isLoggedin && (
-                  <Col>
-                    <SignIn
-                      trigger={
-                        <Button type="primary" ghost>
-                          SIGN IN
-                        </Button>
+                  )}
+                  <Menu.Item key="/pricing">Pricing</Menu.Item>
+                  {user.currentUser.isLoggedin && user.currentUser.data.id && (
+                    <Menu.SubMenu
+                      className={styles.layout__header__row__user}
+                      popupClassName="header-row-user"
+                      title={
+                        <span>
+                          <Avatar
+                            className={styles.layout__header__row__user__avatar}
+                            src={user.currentUser.data.avatar}
+                            size={48}
+                          >
+                            {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
+                              ?.split(" ")
+                              .map(
+                                (n: string) => n && n.charAt(0).toUpperCase(),
+                              )}
+                          </Avatar>
+                          <DownOutlined />
+                        </span>
                       }
-                      visible={signIn}
-                      onVisible={() => setSignIn(true)}
-                      onCancel={() => setSignIn(false)}
-                      signUp={() => setSignUp(true)}
-                      resetPin={() => setResetPin(true)}
-                    />
-                  </Col>
-                )}
-                {!user.currentUser.isLoggedin && (
-                  <Col>
-                    <SignUp
-                      trigger={<Button type="primary">SIGN UP</Button>}
-                      visible={signUp}
-                      onVisible={() => setSignUp(true)}
-                      onCancel={() => setSignUp(false)}
-                      signIn={() => setSignIn(true)}
-                    />
-                  </Col>
-                )}
-              </Row>
+                    >
+                      <Menu.Item key="/profile">
+                        <Typography.Text strong ellipsis>
+                          {user.currentUser.data.first_name}
+                          {` `}
+                          {user.currentUser.data.last_name}
+                        </Typography.Text>
+                      </Menu.Item>
+                      <Menu.Divider />
+                      <Menu.Item key="/profile">Profile</Menu.Item>
+                      <Menu.Item key="/causes/create">New Cause</Menu.Item>
+                      <Menu.Item key="/user/causes">My Causes</Menu.Item>
+                      <Menu.Item key="/pin/change">Change PIN</Menu.Item>
+                      <Menu.Divider />
+                      <Menu.Item key="sign-out" danger>
+                        Sign Out
+                      </Menu.Item>
+                    </Menu.SubMenu>
+                  )}
+                </Menu>
+              </Col>
               {!user.currentUser.isLoggedin && (
-                <ResetPin
-                  visible={resetPin}
-                  onVisible={() => setResetPin(true)}
-                  onCancel={() => setResetPin(false)}
-                  signIn={() => setSignIn(true)}
-                />
+                <>
+                  <SignIn />
+                  <SignUp />
+                  <ResetPin />
+                  <Col>
+                    <Button
+                      type="primary"
+                      ghost
+                      onClick={() => showAuthDialog(true, "login")(dispatch)}
+                    >
+                      SIGN IN
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      type="primary"
+                      onClick={() => showAuthDialog(true, "signup")(dispatch)}
+                    >
+                      SIGN UP
+                    </Button>
+                  </Col>
+                </>
               )}
+            </Row>
+          </Col>
+        </Row>
+        {isCategory && (
+          <Row
+            className={styles.layout__header__row__category}
+            align="middle"
+            data-row-category
+          >
+            <Col span={24}>
+              <CategoryBar
+                categories={svpProps.categories}
+                baseUrl={baseUrl}
+                scrolled={scrolled}
+              />
             </Col>
           </Row>
-          {isCategory && (
-            <Row
-              className={styles.layout__header__row__category}
-              align="middle"
-              data-row-category
-            >
-              <Col span={24}>
-                <CategoryBar
-                  categories={svpProps.categories}
-                  baseUrl={baseUrl}
-                  scrolled={scrolled}
-                />
-              </Col>
-            </Row>
-          )}
-        </Header>
-      )}
-      {svpProps.error ? (
-        <Content>
+        )}
+      </Header>
+      {/* End Header */}
+      {svpProps.error || user.currentUser.error.message ? (
+        <Content className={styles.layout__content} data-is-form="true">
           <Result
             status="500"
             title="Oooops!"
@@ -273,7 +263,7 @@ const LayoutWrapper: React.FC<Props> = ({
               <>
                 Sorry, something went wrong.
                 <br />
-                {svpProps.error}
+                {svpProps.error || user.currentUser.error.message}
               </>
             }
             extra={

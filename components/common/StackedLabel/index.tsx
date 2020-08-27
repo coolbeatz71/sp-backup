@@ -13,6 +13,7 @@ interface Props {
   onChange?: () => void;
   loading?: boolean;
   required?: boolean;
+  wordCount?: any;
   children: Element | any;
 }
 
@@ -25,6 +26,7 @@ const StackedLabel: React.FC<Props> = ({
   onChange = () => null,
   loading = false,
   required = false,
+  wordCount,
   children,
 }) => {
   const [status, setStatus] = React.useState(
@@ -82,6 +84,7 @@ const StackedLabel: React.FC<Props> = ({
           <span className={styles[`input__label${status}__required`]}>*</span>
         )}
       </label>
+      {wordCount && <div className={styles.input__word_count}>{wordCount}</div>}
     </div>
   );
 };

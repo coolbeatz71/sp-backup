@@ -7,14 +7,15 @@ import {
   Button,
   Divider,
   Typography,
-  message,
   Alert,
 } from "antd";
 
 import login from "redux/actions/Auth/login";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import { changeAuthContext } from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog, {
+  changeAuthContext,
+} from "redux/actions/Auth/showAuthDialog";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
@@ -25,68 +26,24 @@ import formPhoneValidator from "utils/validators/form-phone-validator";
 
 import styles from "./index.module.scss";
 
-interface Props {
-  trigger?: React.ReactElement;
-  signUp?: () => void;
-  resetPin?: () => void;
-  visible?: boolean;
-  onVisible?: () => void;
-  onCancel?: () => void;
-}
-
-const SignIn: React.FC<Props> = ({
-  trigger,
-  signUp = () => {
-    //
-  },
-  resetPin = () => {
-    //
-  },
-  visible: vs = false,
-  onVisible = () => {
-    //
-  },
-  onCancel = () => {
-    //
-  },
-}) => {
+const SignIn: React.FC<{}> = () => {
   const dispatch = useDispatch();
-  const [visible, setVisible] = React.useState(vs);
 
   const {
     loading,
     error: { message: error = null },
   } = useSelector(({ auth: { login } }: IRootState) => login);
 
-  React.useEffect(() => {
-    if (visible !== vs) setVisible(vs);
-  }, [vs]);
-
-  const user = useSelector((state: IRootState) => state.user);
-
-  React.useEffect(() => {
-    if (visible && user.currentUser.isLoggedin) {
-      message.success(
-        `Signed in as ${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`,
-      );
-      setVisible(false);
-      onCancel();
-    }
-  }, [user.currentUser.isLoggedin, visible]);
+  const { state, context } = useSelector(
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+  );
 
   return (
     <Modal
       title="Welcome back!"
-      trigger={trigger}
-      visible={visible}
-      onVisible={() => {
-        setVisible(true);
-        onVisible();
-        changeAuthContext("login")(dispatch);
-      }}
-      onCancel={() => {
-        setVisible(false);
-        onCancel();
+      visible={state && ["login"].includes(context)}
+      onCloseClick={() => {
+        showAuthDialog(false)(dispatch);
       }}
     >
       <Form
@@ -127,9 +84,7 @@ const SignIn: React.FC<Props> = ({
                 className={styles.sign_in__button_left}
                 type="text"
                 onClick={() => {
-                  setVisible(false);
-                  onCancel();
-                  resetPin();
+                  changeAuthContext("pin-reset")(dispatch);
                 }}
                 disabled={loading}
               >
@@ -142,9 +97,7 @@ const SignIn: React.FC<Props> = ({
                 className={styles.sign_in__button_right}
                 type="text"
                 onClick={() => {
-                  setVisible(false);
-                  onCancel();
-                  signUp();
+                  changeAuthContext("signup")(dispatch);
                 }}
                 disabled={loading}
               >

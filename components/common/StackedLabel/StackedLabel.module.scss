@@ -27,6 +27,14 @@
       line-height: 16px;
     }
   }
+  &__word_count {
+    text-align: right;
+    position: absolute;
+    bottom: -14px;
+    font-size: 12px;
+    line-height: 14px;
+    right: 0px;
+  }
   input {
     z-index: 0;
   }

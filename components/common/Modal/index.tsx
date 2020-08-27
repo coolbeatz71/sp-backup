@@ -6,21 +6,24 @@ import styles from "./index.module.scss";
 import Head from "next/head";
 
 interface Props {
-  title: string | string[];
+  title?: string | string[];
   trigger?: React.ReactElement;
   visible?: boolean;
   titleLevel?: 1 | 2 | 3 | 4;
+  titleType?: "danger" | "secondary" | "warning";
   icon?: string;
   onVisible?: () => void;
   onCancel?: () => void;
+  onCloseClick?: () => void;
   children: string | string[] | React.ReactElement | React.ReactElement[];
 }
 
 const Modal: React.FC<Props> = ({
-  title,
+  title = ` `,
   trigger,
   visible: vs = false,
   titleLevel = 2,
+  titleType,
   icon,
   onVisible = () => {
     //
@@ -28,6 +31,7 @@ const Modal: React.FC<Props> = ({
   onCancel = () => {
     //
   },
+  onCloseClick,
   children,
 }) => {
   const [visible, setVisible] = React.useState(vs);
@@ -48,7 +52,7 @@ const Modal: React.FC<Props> = ({
       <AntdModal
         destroyOnClose
         title={
-          <Typography.Title level={titleLevel} ellipsis>
+          <Typography.Title level={titleLevel} ellipsis type={titleType}>
             {title}
           </Typography.Title>
         }
@@ -57,7 +61,11 @@ const Modal: React.FC<Props> = ({
         footer={null}
         onCancel={() => {
           setVisible(false);
-          onCancel();
+          if (onCloseClick) {
+            onCloseClick();
+          } else {
+            onCancel();
+          }
         }}
       >
         <Head>

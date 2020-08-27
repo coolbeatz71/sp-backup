@@ -1,0 +1,29 @@
+@import '../../../../../constants/colors.scss';
+
+.success {
+  &__centered {
+    text-align: center;
+  }
+  &__facebook {
+    span {
+      color: #3b5998;
+    }
+  }
+  &__whatsapp {
+    span {
+      color: #7ad06d;
+    }
+  }
+  &__twitter {
+    span {
+      color: #03a9f4;
+    }
+  }
+  &__copyable {
+    color: rgba($black, 0.5);
+    background-color: $appBg;
+    border-color: $appBg;
+    border-radius: 4px;
+    margin-bottom: 0px !important;
+  }
+}

@@ -107,7 +107,12 @@
   }
   &__summary {
     font-size: 13px;
-    height: 40px;
+    height: 60px;
+    margin-top: 14px;
+    &[data-access="private"] {
+      margin-top: 4px;
+      height: 40px;
+    }
   }
   &__progress {
     margin-bottom: 1em;
@@ -122,6 +127,7 @@
       border-radius: 4px;
       margin: 4px 0px;
       overflow: hidden;
+      // &__goal { }
       &__inner {
         position: absolute;
         height: 6px;

@@ -3,6 +3,7 @@ import { Input as SemanticInput } from "antd";
 import { InputProps, PasswordProps, TextAreaProps } from "antd/es/input";
 import styles from "./input.module.scss";
 import { IUnknownObject } from "interfaces/unknownObject";
+import StackedLabel from "components/common/StackedLabel";
 
 const { Password, TextArea: SemanticTextArea } = SemanticInput;
 
@@ -11,50 +12,30 @@ export interface InputInterface {
   ref?: any;
   hasWordCount?: boolean;
   handleChange?: () => void;
+  maxLength?: number;
+  value?: any;
+  name?: string;
+  placeholder?: string;
+  prefix?: any;
+  suffix?: any;
+  disabled?: boolean;
 }
 
-const Input: React.FC<InputInterface & InputProps> = (props) => {
+const Input: React.FC<InputInterface> = (props) => {
   const { placeholder, ...defaultProps } = props;
-  const [onFocus, setOnFocus] = useState(false);
-  useEffect(() => {
-    if (props.value || props.defaultValue) setOnFocus(true);
-  }, [props.value]);
-  const inputRef = useRef({ focus: (): any => null });
-  const handleFocus = ({ target }: any) => {
-    if (target.value.length > 0) return setOnFocus(true);
-    setOnFocus(!onFocus);
-  };
-
-  const focusOnClick = () => inputRef.current.focus();
 
   return (
-    <div
-      className={`${styles.input} ${props.className} ${
-        props.canHaveError ? styles.canHaveError : ""
-      }`}
+    <StackedLabel
+      label={placeholder || ""}
+      wordCount={
+        props.hasWordCount
+          ? `${(props.maxLength || 0) - `${props.value}`.length} Characters`
+          : undefined
+      }
+      {...defaultProps}
     >
-      <SemanticInput
-        id={props.name}
-        onFocus={handleFocus}
-        onBlur={handleFocus}
-        ref={inputRef}
-        {...defaultProps}
-      />
-      <label
-        className={`${styles.input__label} ${
-          onFocus ? styles.focused__mode : ""
-        }`}
-        htmlFor={props.name}
-        onClick={focusOnClick}
-      >
-        {props.placeholder}
-      </label>
-      {props.hasWordCount && (
-        <span className={`${styles.input__wordsCount}`}>
-          {`${(props.maxLength || 0) - `${props.value}`.length} Characters`}
-        </span>
-      )}
-    </div>
+      <SemanticInput id={props.name} {...defaultProps} />
+    </StackedLabel>
   );
 };
 

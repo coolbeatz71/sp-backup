@@ -27,7 +27,7 @@ export default {
     data: {},
     croppedImage: [],
     loading: false,
-    error: "",
+    error: null,
   },
   single: {
     data: {},
@@ -56,7 +56,7 @@ export interface ICause {
   create: {
     data: { [key: string]: any };
     croppedImage: UploadFile[];
-    error: string;
+    error: string | null;
     loading: boolean;
   };
   single: {

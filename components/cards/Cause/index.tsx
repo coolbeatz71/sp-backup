@@ -23,7 +23,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
-import Actions from "components/common/CauseCard/Actions";
+import CausesActions from "components/common/CausesActions";
 
 import CustomIcon from "components/common/CustomIcon";
 
@@ -179,13 +179,22 @@ const Cause: React.FC<Props> = ({ cause }) => {
             </Typography.Title>
           </a>
         </Link>
-        {myCause && <Actions slug={cause.slug} status={cause.status} />}
+        {myCause && (
+          <CausesActions
+            record={cause}
+            reload={() => {
+              //
+            }}
+          />
+        )}
       </div>
+      {cause.access === "private" && <Badge color="#e150fd" text="Private" />}
       <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
         <a>
           <Typography.Paragraph
+            data-access={cause.access}
             className={styles.card__summary}
-            ellipsis={{ rows: 2 }}
+            ellipsis={{ rows: cause.access === "public" ? 3 : 2 }}
           >
             {cause.summary}
           </Typography.Paragraph>
@@ -211,7 +220,7 @@ const Cause: React.FC<Props> = ({ cause }) => {
           />
         </div>
         <Row justify="space-between">
-          <Col span={16}>
+          <Col className={styles.card__progress__item__goal}>
             <Typography.Text ellipsis>
               {numeral(cause.target_amount).format("0,0.[00]")} RWF Goal
             </Typography.Text>

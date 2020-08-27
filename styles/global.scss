@@ -1,7 +1,7 @@
-// @import "./_variables";
-// @import "./mixins";
-// @import "./global/filterDropdown";
-// @import "./global/skeleton";
+@import "./_variables";
+@import "./mixins";
+@import "./global/filterDropdown";
+@import "./global/skeleton";
 
 // html,
 // body {
@@ -68,42 +68,46 @@
 //   font-size: 20px;
 // }
 
-// .ant-collapse-item-active {
-//   border: 0 !important;
-//   .ant-collapse-header {
-//     border-bottom: 1px solid #d9d9d9;
-//   }
-// }
+.ant-collapse-item-active {
+  border: 0 !important;
+  .ant-collapse-header {
+    border-bottom: 1px solid #d9d9d9;
+  }
+}
 
-// .ant-collapse-item {
-//   -webkit-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
+.ant-collapse-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
-//   .ant-collapse-content-box {
-//     text-align: justify;
-//     padding: 12px 0 !important;
-//     color: $color-primary;
-//     font-size: 12pt;
-//   }
-// }
+  .ant-collapse-content-box {
+    text-align: justify;
+    padding: 12px 0 !important;
+    color: $color-primary;
+    font-size: 12pt;
+  }
+}
 
-// .ant-collapse-borderless {
-//   background-color: $color-light;
-// }
+.ant-collapse-borderless {
+  background-color: rgba($color: $color-light, $alpha: 0.3);
+}
 
-// .ant-collapse-header {
-//   font-size: 13pt;
-//   text-align: justify;
-//   padding: 12px 0 !important;
-//   padding-right: 0 !important;
+.ant-collapse-header {
+  font-size: 13pt;
+  text-align: left;
+  padding: 12px 0 !important;
+  padding-right: 0 !important;
 
-//   .ant-collapse-arrow {
-//     right: 0 !important;
-//     left: auto;
-//   }
-// }
+  @include mediaMd {
+    font-size: 9pt;
+  }
+
+  .ant-collapse-arrow {
+    right: 0 !important;
+    left: auto;
+  }
+}
 
 // .btn-primary {
 //   background-color: $color-primary;
@@ -281,36 +285,36 @@
 //   background: rgba(33, 155, 178, 0.1) !important;
 // }
 
-// .cause-image-uploader{
-//   .ant-upload{
-//     width: 100%;
-//     height: 150px;
-//     span.ant-upload{
-//       padding: 0;
-//     }
-//   }
-//   &__container{
-//     height: 100%;
-//     background-color: $color-primary-light;
-//     background-repeat: no-repeat;
-//     background-position: center;
-//     background-size: cover;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     position: relative;
-//     .upload-action{
-//       background-color: rgba($color: #aaa, $alpha: 0.2);
-//       padding: 0 8px;
-//       position: absolute;
-//       top: 45%;
-//     }
-//     img{
-//       width: 100%;
-//       height: auto;
-//     }
-//   }
-// }
+.cause-image-uploader {
+  .ant-upload {
+    width: 100%;
+    height: 150px;
+    span.ant-upload {
+      padding: 0;
+    }
+  }
+  &__container {
+    height: 100%;
+    background-color: $color-primary-light;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .upload-action {
+      background-color: rgba($color: #aaa, $alpha: 0.2);
+      padding: 0 8px;
+      position: absolute;
+      top: 45%;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
 
 // .ant-input-group {
 //   .ant-input-group-addon {

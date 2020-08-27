@@ -6,7 +6,7 @@
     z-index: -1;
     position: absolute;
     padding: 0;
-    background: $color-primary-light url("/pricing.svg");
+    background: $color-primary-light;
     width: 100%;
     height: 480px;
 
@@ -15,25 +15,13 @@
     }
   }
 
-  &__overlayBottom {
-    z-index: -2;
-    padding: 0;
-    position: absolute;
-    width: 100%;
-    top: 480px;
-    height: 100%;
-    overflow-y: visible;
-    background-image: url("/pricing-bg.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
   &__container {
     display: flex;
     flex-flow: column;
     justify-content: center;
     text-align: center;
+    background-image: url("/images/pricing.svg");
+    background-repeat: no-repeat;
     &__header {
       color: $color-dark;
       padding: 5rem;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CreateCause from "pages/causes/create";
+import CreateCause from "pages/causes/create_";
 import { useRouter } from "next/router";
 import getSingle from "redux/actions/cause/getSingle";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,14 +8,10 @@ import moment from "moment";
 import { isEmpty, forEach } from "lodash";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IUnknownObject } from "interfaces/unknownObject";
-import styles from "../../create/createCause.module.scss";
-import Error from "components/common/Error";
 import notification from "utils/notification";
-import { Spin } from "antd";
+import { SvpType } from "helpers/context";
 
-export interface EditCauseProps {}
-
-const EditCause: React.FC<EditCauseProps> = () => {
+const EditCause: React.FC<{ svpProps: SvpType }> = ({ svpProps }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [fetched, setFetched] = useState(false);
@@ -94,19 +90,15 @@ const EditCause: React.FC<EditCauseProps> = () => {
   const formattedData = formatData();
 
   return (
-    <>
-      {loading ? (
-        <div className={styles.createCause}>
-          <div className={styles.createCause__spinner}>
-            <Spin size="large" tip="Loading..." />
-          </div>
-        </div>
-      ) : error ? (
-        <Error status={error.status || 500} message={error.message} />
-      ) : (
-        <CreateCause editFormState={formattedData} slug={slug} />
-      )}
-    </>
+    <CreateCause
+      key={loading ? 1 : 2}
+      svpProps={svpProps}
+      editFormState={formattedData}
+      slug={slug}
+      loading={loading}
+      error={error}
+      isCreate={false}
+    />
   );
 };
 
