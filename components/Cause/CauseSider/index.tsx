@@ -1,5 +1,5 @@
 import React from "react";
-import { Affix, Card, Row, Col, Typography, Empty } from "antd";
+import { Card, Row, Col, Typography, Empty } from "antd";
 import Link from "next/link";
 import numeral from "numeral";
 import Progress from "../CauseProgress";

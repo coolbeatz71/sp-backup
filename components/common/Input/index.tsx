@@ -19,6 +19,8 @@ export interface InputInterface {
   prefix?: any;
   suffix?: any;
   disabled?: boolean;
+  addonBefore?: any;
+  onChange?: any;
 }
 
 const Input: React.FC<InputInterface> = (props) => {
