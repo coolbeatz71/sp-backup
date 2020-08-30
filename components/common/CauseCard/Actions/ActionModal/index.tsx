@@ -1,11 +1,9 @@
 import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Button, Modal, Typography } from "antd";
-import { CloseOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { Form, Button, Typography, Input, Row, Col, Alert } from "antd";
 import styles from "./actionModal.module.scss";
 import { IRootState } from "redux/initialStates";
 import { validateMessages } from "constants/validationMessages";
-import { InputPassword } from "components/common/Input";
 import pauseCause from "redux/actions/cause/pauseCause";
 import { Store } from "antd/lib/form/interface";
 import { ActionType } from "..";
@@ -14,8 +12,8 @@ import { RESET_CANCEL_ERROR } from "redux/action-types/cause/cancelCause";
 import { RESET_PAUSE_ERROR } from "redux/action-types/cause/pauseCause";
 import { RESET_RESUME_ERROR } from "redux/action-types/cause/resumeCause";
 import resumeCause from "redux/actions/cause/resumeCause";
-
-const { Text } = Typography;
+import Modal from "components/common/Modal";
+import StackedLabel from "components/common/StackedLabel";
 
 interface IActionModalProps {
   slug: string;
@@ -103,7 +101,7 @@ const ActionModal: FC<IActionModalProps> = ({
         };
       case ActionType.accessCode:
         return {
-          title: "",
+          title: "Access Code",
           subTitle: `The access code for this cause is </br> <strong>${plainAccessCode}</strong>`,
         };
       default:
@@ -116,54 +114,43 @@ const ActionModal: FC<IActionModalProps> = ({
 
   return (
     <Modal
+      title={
+        actionSuccessful
+          ? getModalContent()?.successMessage
+          : getModalContent()?.title
+      }
+      titleType="danger"
       visible={visible}
-      footer={false}
-      closable={false}
-      destroyOnClose={true}
-      maskStyle={{ background: "#000000b3" }}
+      onCancel={() => handleModalClose()}
     >
-      <div className={styles.pause__modalHeader}>
-        <CloseOutlined
-          className={styles.pause__modalHeader__icon}
-          onClick={handleModalClose}
-        />
-      </div>
-
       <div className={styles.pause__modalContent}>
-        <h4>
-          {actionSuccessful
-            ? getModalContent()?.successMessage
-            : getModalContent()?.title}
-        </h4>
-
         {actionSuccessful ? (
           <div className={styles.pause__modalContent__successful}>
             <img src="/success-action.gif" alt="pause success" />
           </div>
         ) : (
           <>
-            <p
+            <Typography.Paragraph
               className={styles.pause__modalContent__subTitle}
-              dangerouslySetInnerHTML={{
-                __html: getModalContent()?.subTitle,
-              }}
-            />
-
+            >
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: getModalContent()?.subTitle,
+                }}
+              />
+            </Typography.Paragraph>
             {errorPause || errorCancel || errorResume ? (
-              <Text type="danger" className="mb-3 d-block text-center">
-                <span className="d-block">
-                  <ExclamationCircleOutlined className="auth-error-message" />
-                  {errorPause || errorCancel || errorResume}
-                </span>
-              </Text>
+              <Alert
+                type="error"
+                message={errorPause || errorCancel || errorResume}
+              />
             ) : (
               context !== ActionType.accessCode && (
-                <p className={styles.pause__modalContent__continue}>
+                <Typography.Paragraph type="danger">
                   To Continue Enter Your PIN
-                </p>
+                </Typography.Paragraph>
               )
             )}
-
             {context !== ActionType.accessCode && (
               <Form
                 onFinish={handleSubmit}
@@ -171,29 +158,35 @@ const ActionModal: FC<IActionModalProps> = ({
                 className={styles.pause__modalContent__form}
               >
                 <Form.Item
-                  className="form-group"
                   rules={[
                     {
                       len: 5,
                       required: true,
                       pattern: /^[0-9]{5}$/,
-                      message: "Pin must be number of 5 digits",
+                      message: "PIN must be 5 digits",
                     },
                   ]}
                   validateTrigger={["onSubmit", "onBlur"]}
                   name="password"
                 >
-                  <InputPassword maxLength={5} placeholder="PIN" />
+                  <StackedLabel label="PIN" required>
+                    <Input.Password
+                      maxLength={5}
+                      disabled={loadingPause || loadingCancel || loadingResume}
+                    />
+                  </StackedLabel>
                 </Form.Item>
-                <div className="d-flex mb-3">
-                  <Button
-                    htmlType="submit"
-                    loading={loadingPause || loadingCancel || loadingResume}
-                    className="btn-primary ml-auto text-uppercase"
-                  >
-                    {context}
-                  </Button>
-                </div>
+                <Row justify="end">
+                  <Col>
+                    <Button
+                      htmlType="submit"
+                      loading={loadingPause || loadingCancel || loadingResume}
+                      type="primary"
+                    >
+                      {context?.toUpperCase()}
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             )}
           </>

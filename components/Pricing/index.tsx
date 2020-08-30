@@ -5,10 +5,9 @@ import styles from "./pricing.module.scss";
 import { IRootState } from "redux/initialStates";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { CREATE_CAUSE_PATH } from "helpers/paths";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import { useMedia } from "react-use";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 const pricingPlan = [
   {
@@ -26,18 +25,12 @@ const pricingPlan = [
 
 const PricingCard: React.FC<{}> = ({}) => {
   const { push } = useRouter();
-  const dispatch = useDispatch();
   const isMobile = useMedia("(max-width: 768px)");
+  const dispatch = useDispatch();
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
-
-  const onClick = () => {
-    isLoggedin
-      ? push(CREATE_CAUSE_PATH)
-      : showAuthDialog(true, "signup")(dispatch);
-  };
 
   return (
     <div className={styles.pricingCard}>
@@ -74,10 +67,14 @@ const PricingCard: React.FC<{}> = ({}) => {
       </div>
       <div>
         <Button
-          className="btn-secondary-outline px-4 mb-4"
-          onClick={() => onClick()}
+          type="primary"
+          ghost
+          onClick={() => {
+            if (isLoggedin) push("/causes/create");
+            else showAuthDialog(true, "signup")(dispatch);
+          }}
         >
-          {isLoggedin ? "Create a cause" : "Get Started"}
+          {isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
         </Button>
       </div>
     </div>

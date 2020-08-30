@@ -1,0 +1,32 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/dimensions.scss";
+
+.video {
+  background-color: $primary-ultra-light;
+  padding: calc(#{$padding} * 2) 0px;
+  &__text {
+    text-align: center;
+    [class~="ant-typography"] {
+      margin: 0px !important;
+    }
+    span {
+      color: $primary;
+    }
+  }
+  background-repeat: no-repeat;
+  background-image: url(/images/square.svg), url(/images/square.svg),
+    url(/images/square.svg), url(/images/circle.svg), url(/images/circle.svg);
+  background-size: 160px, 100px, 200px, 400px, 400px;
+  background-position: 50% $padding, 20% 30%, 25% 80%, -40px 130%, 105% -40px;
+  &__item {
+    display: inline-block;
+    background-color: $black;
+    margin: $padding 0px;
+    width: 700px;
+    height: 420px;
+    @media screen and (max-width: #{$mobile-size}) {
+      width: calc(100vw - (#{$padding} * 2));
+      height: calc(60vw - (#{$padding} * 2));
+    }
+  }
+}

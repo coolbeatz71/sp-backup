@@ -1,0 +1,41 @@
+@import "../../../styles/colors.scss";
+
+.cropping {
+  &__upload {
+    > span {
+      background-color: $primary-ultra-light !important;
+      padding: 0px !important;
+      position: relative;
+    }
+    &__hint {
+      display: flex;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba($primary-ultra-light, 0.7) !important;
+    }
+    &__inner {
+      &__canvas {
+        position: relative;
+        &::before {
+          height: 0;
+          content: "";
+          display: block;
+          padding-bottom: calc(100% / (1600 / 900));
+        }
+        & > :first-child {
+          object-fit: cover;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

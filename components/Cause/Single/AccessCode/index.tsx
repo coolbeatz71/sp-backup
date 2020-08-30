@@ -1,17 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import styles from "./accessCode.module.scss";
-import { Modal, Input, Typography } from "antd";
+import { Input, Typography, Row, Col } from "antd";
 import { IUnknownObject } from "interfaces/unknownObject";
 import getSingle from "redux/actions/cause/getSingle";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Modal from "components/common/Modal";
 
 export interface AccessCodeProps {
   slug: string | string[];
   error?: any;
 }
-
-const { Text } = Typography;
 
 const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
       };
       const digitsFilled = Object.keys(newValue).length;
       const nextEmptyInput = Object.keys(newValue).find(
-        (key) => !newValue[key]
+        (key) => !newValue[key],
       );
       const nextDigitToFill = nextEmptyInput
         ? Number(nextEmptyInput)
@@ -86,35 +84,39 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
   };
 
   return (
-    <div className={styles.accessCode}>
-      <Modal
-        className="access-code-modal"
-        title="ACCESS CODE"
-        footer={false}
-        visible={true}
-        onCancel={() => push("/")}
-      >
-        <div className="access-code-modal__form d-flex">
+    <Modal title="Access Code" visible={true} onCancel={() => push("/")}>
+      <>
+        <Row gutter={[24, 24]} justify="center">
           {digitsToFill.map((digitNo) => (
-            <Input
-              key={digitNo}
-              autoFocus={digitNo === 0}
-              className="access-code-modal__form__input"
-              onChange={handleValueChange}
-              name={`${digitNo}`}
-              value={values[`${digitNo}`]}
-              onPaste={handlePaste}
-              onKeyUp={handleDelete}
-               // @ts-ignore: a type mismatch
-              ref={inputRefs[digitNo]}
-            />
+            <Col key={`item-${digitNo}`}>
+              <Input
+                size="large"
+                style={{ width: 40, textAlign: "center" }}
+                key={digitNo}
+                autoFocus={digitNo === 0}
+                className="access-code-modal__form__input"
+                onChange={handleValueChange}
+                name={`${digitNo}`}
+                value={values[`${digitNo}`]}
+                onPaste={handlePaste}
+                onKeyUp={handleDelete}
+                // @ts-ignore: a type mismatch
+                ref={inputRefs[digitNo]}
+              />
+            </Col>
           ))}
-        </div>
-        <Text className="text-center d-block my-3" type="danger">
-          {error?.status === 400 && error?.message}
-        </Text>
-      </Modal>
-    </div>
+        </Row>
+        {error?.status === 400 && (
+          <Row justify="space-around">
+            <Col>
+              <Typography.Paragraph type="danger">
+                {error?.message}
+              </Typography.Paragraph>
+            </Col>
+          </Row>
+        )}
+      </>
+    </Modal>
   );
 };
 

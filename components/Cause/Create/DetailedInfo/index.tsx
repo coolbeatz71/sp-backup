@@ -4,9 +4,7 @@ import ReactPlayer from "react-player";
 import { TextArea, Input } from "components/common/Input";
 import isLocation from "helpers/isLocation";
 
-export interface DetailedInfoProps {}
-
-const DetailedInfo: React.FC<DetailedInfoProps> = () => {
+const DetailedInfo: React.FC<{}> = () => {
   const isEditing = isLocation(["causes", "edit"]);
   return (
     <div>

@@ -3,35 +3,26 @@ import { Form, Select, DatePicker, Upload } from "antd";
 import moment from "moment";
 import { Input } from "components/common/Input";
 import { LoadingOutlined } from "@ant-design/icons";
-import splApi from "helpers/axios";
-import { Icategories } from "interfaces/categories";
 import normalizeInputNumber from "helpers/normalizeInputNumber";
 import isLocation from "helpers/isLocation";
 import ImgCrop from "antd-img-crop";
 import { setCroppedImage } from "redux/actions/cause/create";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
+import StackedLabel from "components/common/StackedLabel";
+import { SvpType } from "helpers/context";
 
-export interface BasicInfoProps {}
+export interface BasicInfoProps {
+  svpProps: SvpType;
+}
 
 const { RangePicker } = DatePicker;
 
-const BasicInfo: React.FC<BasicInfoProps> = () => {
+const BasicInfo: React.FC<BasicInfoProps> = ({ svpProps }) => {
   const dispatch = useDispatch();
-  const [categories, setCatories] = useState<Icategories[]>([]);
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState("");
   const isEditing = isLocation(["causes", "edit"]);
-  useEffect(() => {
-    splApi
-      .get("/categories")
-      .then((response: any) => {
-        setCatories(response.categories);
-      })
-      .catch((error) => {
-        console.error("here", error);
-      });
-  }, []);
 
   const { data } = useSelector(({ cause: { single } }: IRootState) => single);
 
@@ -88,14 +79,15 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         validateTrigger={["onSubmit", "onBlur", "onChange"]}
         rules={[{ required: true }]}
       >
-        <Select placeholder="Category" disabled={isEditing}>
-          {categories.length > 0 &&
-            categories.map(({ id, title }) => (
+        <StackedLabel label="Category">
+          <Select disabled={isEditing}>
+            {svpProps.categories.map(({ id, title }) => (
               <Select.Option key={id} value={id}>
                 {title}
               </Select.Option>
             ))}
-        </Select>
+          </Select>
+        </StackedLabel>
       </Form.Item>
       <Form.Item
         name="target_amount"
@@ -109,11 +101,7 @@ const BasicInfo: React.FC<BasicInfoProps> = () => {
         ]}
         normalize={normalizeInputNumber}
       >
-        <Input
-          placeholder="Cause fundraising target"
-          prefix="RWF"
-          className="prefixed"
-        />
+        <Input placeholder="Cause fundraising target" prefix="RWF" />
       </Form.Item>
       <Form.Item
         name="duration"

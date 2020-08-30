@@ -1,11 +1,16 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "antd/dist/antd.css";
-import "styles/global.scss";
-import Layout from "../components/Layout";
+
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
+import { withRedux } from "helpers/with-redux-store";
+import getInitialProps from "helpers/getInitialProps";
+import Context from "helpers/context";
+import "react-image-crop/dist/ReactCrop.css";
+
+import "theme/index.css";
+import "theme/global.scss";
+import "styles/global.scss";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => {
@@ -17,10 +22,14 @@ Router.events.on("routeChangeComplete", () => {
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps, svpProps }) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Context.Provider value={{ svpProps }}>
+      <Component {...pageProps} svpProps={svpProps} />
+    </Context.Provider>
   );
-}
+};
+
+MyApp.getInitialProps = getInitialProps;
+
+export default withRedux(MyApp);

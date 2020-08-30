@@ -13,20 +13,23 @@ import { omitBy } from "lodash";
 
 export interface IAuthModalContainer {}
 
-const AuthModalContainer: React.FC<IAuthModalContainer> = ({
-}) => {
+const AuthModalContainer: React.FC<IAuthModalContainer> = ({}) => {
   const dispatch = useDispatch();
 
   const { state: isDialogVisible, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
   );
 
   const { phone_number } = useSelector(
-    ({ pin: { reset: { data } } }: IRootState) => data
+    ({
+      pin: {
+        reset: { data },
+      },
+    }: IRootState) => data,
   );
 
   const { currentUser } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
   );
 
   const {
@@ -43,7 +46,7 @@ const AuthModalContainer: React.FC<IAuthModalContainer> = ({
     loading: loadingSignup,
     error: { message: errorSignup },
   } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
   );
 
   const {
@@ -95,7 +98,7 @@ const AuthModalContainer: React.FC<IAuthModalContainer> = ({
         login(form)(dispatch);
         break;
       case "signup":
-        const compactForm = omitBy(form, (input) => input === "");
+        const compactForm = omitBy(form, (input) => input === "");
         sendVerificationCode(compactForm)(dispatch);
         break;
       case "verify-phone":

@@ -6,7 +6,10 @@ import {
 } from "redux/action-types/cause/edit";
 import notification from "utils/notification";
 
-export default (data: any, slug: string | string[]) => (push: any, dispatch: any) => {
+export default (data: any, slug: string | string[]) => (
+  push: any,
+  dispatch: any,
+) => {
   dispatch({
     type: EDIT_CAUSE_START,
   });
@@ -20,13 +23,14 @@ export default (data: any, slug: string | string[]) => (push: any, dispatch: any
         type: EDIT_CAUSE_SUCCESS,
       });
       notification("Cause updated successfully", "success");
-      push("/user/causes");
+      push(`/causes/${slug}`);
     })
     .catch((error) => {
-      console.error("here", error);
       dispatch({
         type: EDIT_CAUSE_ERROR,
-        payload: error.message || "We couldnt edit your cause 😥, something went wrong!",
+        payload:
+          error.message ||
+          "We couldn't edit your cause 😥, something went wrong!",
       });
     });
 };

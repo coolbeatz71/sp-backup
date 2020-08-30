@@ -1,260 +1,208 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./single.module.scss";
-import { Button, Skeleton } from "antd";
+import { Row, Col, Typography, message } from "antd";
 import ReactPlayer from "react-player/lazy";
-import formatNumber from "helpers/numberFormater";
-import { getDaysToGo } from "helpers/causeDaysToGo";
 import getSingle from "redux/actions/cause/getSingle";
-import { useMedia, useWindowScroll } from "react-use";
 import { IRootState } from "redux/initialStates";
-import getProgressPercentage from "helpers/getProgressPercentage";
-import getCauseRemainingDays from "helpers/getCauseRemainingDays";
 import Error from "components/common/Error";
-import CauseDonors from "components/Cause/Single/Dornors";
-import phoneFormatter from "helpers/phoneNumberFormatter";
-import { causeStatus } from "interfaces";
 import AccessCode from "components/Cause/Single/AccessCode";
-import Share from "components/common/Share";
-import PageHead from "components/common/PageHead";
-import LazyLoadCover from "components/common/CauseCard/LazyLoadCover";
 import SingleCauseSkeleton from "components/common/Skeleton/SingleCause";
+import getCauseInitialProps from "helpers/getCauseInitialProps";
+import LayoutWrapper from "components/LayoutWrapper";
+import Head from "next/head";
+import getPlatformUrl from "helpers/getPlatformUrl";
+import CauseProgress from "components/Cause/CauseProgress";
+import CauseSider from "components/Cause/CauseSider";
+import { format } from "dev-rw-phone";
+import EditModal from "components/modals/EditModal";
 
-const SingleCause: React.FC<{}> = () => {
-  const [fetched, setFetched] = useState(false);
+interface Props {
+  cause: { [key: string]: any };
+  error: null | { [key: string]: any };
+  edit?: boolean;
+}
+
+const SingleCause: NextPage<Props> = ({
+  cause: cs,
+  error: er,
+  edit = false,
+}) => {
+  const [cause, setCause] = React.useState(cs);
+  const [error, setError] = React.useState(er);
+
+  const [fetched, setFetched] = useState(error === null);
   const router = useRouter();
   const dispatch = useDispatch();
-  const { slug } = router.query;
-  const isMobile = useMedia("(max-width: 768px)");
-  const progressBarRef = useRef<HTMLDivElement>();
-  const { y } = useWindowScroll();
-  const [isVideoPlayerReady, setVideoPlayerReadiness] = useState(false);
+  // const [isVideoPlayerReady, setVideoPlayerReadiness] = useState(false);
 
-  if (slug && !fetched) {
-    getSingle(slug)(dispatch);
-    setFetched(true);
-  }
-
-  const isTopProgressBarVisible = () =>
-    // @ts-ignore
-    y >= progressBarRef.current?.offsetTop;
-
-  const { loading, data, error } = useSelector(
+  const { loading, data, error: _err } = useSelector(
     ({ cause: { single } }: IRootState) => single,
   );
 
-  const donateButton = (screen?: string) =>
-    data.status === causeStatus.active && (
-      <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
-        <Button
-          className={`btn-primary mt-3 ${
-            screen === "mobile" && isMobile
-              ? "d-block d-md-none"
-              : !screen || screen === "tablet"
-              ? "d-none d-md-block"
-              : "d-none"
-          }`}
-          size="large"
-        >
-          Donate
-        </Button>
-      </Link>
-    );
+  React.useEffect(() => {
+    if (_err) setError(_err);
+    if (data?.slug) {
+      setCause(data);
+      setError(null);
+    }
+  }, [_err, data]);
 
-  const contactInfo = (screen?: string) => (
-    <div
-      className={`${screen === "mobile" && "d-md-none"} ${
-        styles.singleCause__body__contact
-      }`}
-    >
-      <h5>cause Team and Contact</h5>
-      You can reach out to on{" "}
-      <a
-        href={`tel:+${phoneFormatter(
-          data.phone_number || data.payment_account_number,
-        )}`}
-      >
-        {phoneFormatter(data.phone_number || data.payment_account_number)}
-      </a>
-    </div>
-  );
+  React.useEffect(() => {
+    if (!fetched) {
+      getSingle(cause?.slug)(dispatch);
+      setFetched(true);
+    }
+  }, [fetched]);
+
+  const [editing, setEditing] = React.useState(edit);
+
+  React.useEffect(() => {
+    if (edit && cause.slug) {
+      if (cause.edit_count === 0) {
+        setEditing(edit);
+      } else {
+        message.warning("This cause was already edited!");
+        router.replace(`/causes/${data?.slug}`);
+      }
+    }
+  }, [edit, cause]);
 
   return (
-    <div className={styles.singleCause}>
-      {loading ? (
-        <SingleCauseSkeleton />
-      ) : error ? (
-        error?.status === 403 || error?.status === 400 ? (
-          <AccessCode slug={slug} error={error} />
+    <LayoutWrapper title={error?.message || cause?.name} isForm>
+      <div data-content-padding>
+        {loading ? (
+          <SingleCauseSkeleton />
         ) : (
-          <Error status={error.status || 500} message={error.message} />
-        )
-      ) : (
-        fetched && (
-          <div className="d-flex flex-column">
-            <PageHead data={data} />
-            <div className={styles.singleCause__header}>
-              <div className={styles.singleCause__header__cover}>
-                <LazyLoadCover context="cause-details">
-                  <img
-                    alt=""
-                    src={
-                      !data.image || !data.image.match(/\.(jpg|jpeg|png)$/)
-                        ? "/icons/no-img-placeholder.svg"
-                        : data.image
-                    }
-                    onError={(e) =>
-                      (e.currentTarget.src = "/icons/no-img-placeholder.svg")
-                    }
-                  />
-                </LazyLoadCover>
-              </div>
-              <div
-                className={styles.singleCause__header__progress}
-                // @ts-ignore
-                ref={progressBarRef}
-              >
-                <div
-                  className={styles.singleCause__header__progress__container}
-                >
-                  <div className={styles.singleCause__header__progress__raised}>
-                    <h5>{formatNumber(data.raised_amount)} RWF Raised</h5>
-                    <span
-                      className={
-                        styles.singleCause__header__progress__percentage
-                      }
-                    >
-                      {getProgressPercentage(
-                        data.raised_amount,
-                        data.target_amount,
-                      )}{" "}
-                      %
-                    </span>
-                  </div>
-                  <div
-                    className={
-                      styles.singleCause__header__progress__progressBar
-                    }
-                  >
-                    <div
-                      className={`progression ${styles.singleCause__header__progress__progression}`}
-                    />
-                  </div>
-                  <div className={styles.singleCause__header__progress__goal}>
-                    <h5>{formatNumber(data.target_amount)} RWF Goal</h5>
-                    <span className={styles.causeStatus}>
-                      {getDaysToGo(
-                        data.status,
-                        getCauseRemainingDays(data.end_date),
-                      )}
-                    </span>
-                  </div>
-                </div>
-                {donateButton()}
-              </div>
-              {donateButton("mobile")}
-            </div>
-            <div className={styles.singleCause__body}>
-              <div className={styles.singleCause__body__details}>
-                <div className={styles.singleCause__body__details__summary}>
-                  <h5>{data.name}</h5>
-                  <p>{data.summary}</p>
-                </div>
-                {data.video && (
-                  <>
-                    {!isVideoPlayerReady && <Skeleton active />}
-                    <div
-                      className={styles.singleCause__body__details__video}
-                      style={{ display: isVideoPlayerReady ? "block" : "none" }}
-                    >
-                      <ReactPlayer
-                        url={data.video}
-                        width="100%"
-                        controls
-                        onReady={() => setVideoPlayerReadiness(true)}
-                      />
-                    </div>
-                  </>
-                )}
-                <div className={styles.singleCause__body__details__description}>
-                  <h5>Use of funds</h5>
-                  <p>{data.description}</p>
-                </div>
-                {contactInfo()}
-              </div>
-              <div className={styles.singleCause__body__right}>
-                <CauseDonors slug={slug} />
-                <div
-                  className={`${styles.singleCause__header__progress} ${
-                    styles.singleCause__header__progressSide
-                  } ${isTopProgressBarVisible() ? "show-side-progress" : ""}`}
-                >
-                  <div
-                    className={styles.singleCause__header__progress__container}
-                  >
-                    <div
-                      className={styles.singleCause__header__progress__raised}
-                    >
-                      <h5>{formatNumber(data.raised_amount)} RWF Raised</h5>
-                      <span
-                        className={
-                          styles.singleCause__header__progress__percentage
-                        }
+          error && (
+            <>
+              {[400, 403].includes(error?.status) ? (
+                <AccessCode slug={cause?.slug} error={error} />
+              ) : (
+                <Error
+                  status={error?.status || 500}
+                  message={error?.message || "An unknown error ocurred!"}
+                />
+              )}
+            </>
+          )
+        )}
+        {!loading && !error && (
+          <div>
+            <EditModal
+              visible={editing}
+              onClose={() => router.push(`/causes/${cause?.slug}`)}
+              slug={cause?.slug}
+              name={cause?.name}
+              target={cause?.target_amount * 1}
+              start={cause?.start_date}
+              end={cause?.end_date}
+            />
+            <Head>
+              <meta property="og:type" content="website" />
+              <meta property="description" content={cause?.description} />
+              <meta property="og:title" content={cause?.name} />
+              <meta property="description" content={cause?.summary} />
+              <meta
+                property="og:url"
+                content={`${getPlatformUrl()}/causes/${cause?.slug}`}
+              />
+              <meta property="og:description" content={cause?.summary} />
+              <meta property="og:image" content={cause?.image} />
+
+              <meta name="twitter:title" content={cause?.name} />
+              <meta name="twitter:description" content={cause?.summary} />
+              <meta name="twitter:image" content={cause?.image} />
+              <meta name="twitter:card" content={cause?.image} />
+            </Head>
+            <Row>
+              <Col xs={{ span: 24, offset: 0 }} xl={{ span: 20, offset: 2 }}>
+                <div className={styles.dashboard__inner}>
+                  <Row gutter={[0, 24]}>
+                    <Col span={15}>
+                      <Typography.Title
+                        className={styles.dashboard__content__title}
                       >
-                        {getProgressPercentage(
-                          data.raised_amount,
-                          data.target_amount,
-                        )}{" "}
-                        %
-                      </span>
-                    </div>
-                    <div
-                      className={
-                        styles.singleCause__header__progress__progressBar
-                      }
-                    >
-                      <div
-                        className={`progression ${styles.singleCause__header__progress__progression}`}
-                      />
-                    </div>
-                    <div className={styles.singleCause__header__progress__goal}>
-                      <h5>{formatNumber(data.target_amount)} RWF Goal</h5>
-                      <span className={styles.causeStatus}>
-                        {getDaysToGo(
-                          data.status,
-                          getCauseRemainingDays(data.end_date),
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                  {donateButton()}
-                  {donateButton("mobile")}
+                        {cause.name}
+                      </Typography.Title>
+                    </Col>
+                  </Row>
+                  <Row gutter={[24, 24]} className={styles.dashboard__content}>
+                    <Col span={15}>
+                      <Row gutter={[0, 24]}>
+                        <Col>
+                          <img src={cause?.image} style={{ width: "100%" }} />
+                        </Col>
+                      </Row>
+                      <Row gutter={[0, 24]}>
+                        <Col span={24}>
+                          <CauseProgress
+                            cause={cause}
+                            edit={() => {
+                              // setEditing(true);
+                            }}
+                            reload={(del) => {
+                              if (!del) getSingle(cause?.slug)(dispatch);
+                              else router.replace(`/causes`);
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Typography.Paragraph
+                        className={styles.dashboard__content__paragraph}
+                      >
+                        {cause.description}
+                      </Typography.Paragraph>
+                      {![null, "", undefined].includes(cause.video) && (
+                        <Typography.Paragraph
+                          className={styles.dashboard__content__video}
+                        >
+                          <ReactPlayer
+                            controls
+                            url={cause.video}
+                            width="100%"
+                          />
+                        </Typography.Paragraph>
+                      )}
+                      <h4 className={styles.dashboard__content__title}>
+                        USE OF FUNDS
+                      </h4>
+                      <Typography.Paragraph
+                        className={styles.dashboard__content__paragraph}
+                      >
+                        {cause.summary}
+                      </Typography.Paragraph>
+                      <h4 className={styles.dashboard__content__title}>
+                        CAUSE TEAM AND CONTACT
+                      </h4>
+                      <Typography.Paragraph
+                        className={styles.dashboard__content__paragraph}
+                      >
+                        You can reach out on{" "}
+                        <Typography.Link
+                          href={`tel:${cause.payment_account_number}`}
+                          target="_blank"
+                        >
+                          {format(cause.payment_account_number)}
+                        </Typography.Link>
+                      </Typography.Paragraph>
+                    </Col>
+                    <Col span={9}>
+                      <CauseSider cause={cause} />
+                    </Col>
+                  </Row>
                 </div>
-                {data.status === causeStatus.active && (
-                  <Share
-                    title={data.name}
-                    slug={slug}
-                    tillNumber={data.till_number}
-                  />
-                )}
-              </div>
-              {contactInfo("mobile")}
-            </div>
+              </Col>
+            </Row>
           </div>
-        )
-      )}
-      <style jsx>{`
-        .progression {
-          width: ${getProgressPercentage(
-            data.raised_amount,
-            data.target_amount,
-          )}%;
-        }
-      `}</style>
-    </div>
+        )}
+      </div>
+    </LayoutWrapper>
   );
 };
+
+SingleCause.getInitialProps = getCauseInitialProps;
 
 export default SingleCause;

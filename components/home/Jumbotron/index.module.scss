@@ -1,0 +1,92 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/dimensions.scss";
+
+.jumbo {
+  background-color: $primary;
+  position: relative;
+  &__image {
+    height: 500px;
+    position: relative;
+    background-image: url("/images/jumbo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      width: 100%;
+      background: $primary;
+      background: linear-gradient(
+        90deg,
+        rgba($primary, 0) 0%,
+        rgba($primary, 1) 100%
+      );
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      height: 100vw;
+      &:after {
+        background: linear-gradient(
+          180deg,
+          rgba($primary, 0.3) 0%,
+          rgba($primary, 0.7) 100%
+        );
+      }
+    }
+  }
+  &__content {
+    &__headers {
+      &:after {
+        background-image: url("/images/jumbo.png");
+        height: 60px;
+        width: 60px;
+        left: -30px;
+      }
+      h2 {
+        margin-bottom: 0px !important;
+        color: $white !important;
+        font-size: 32px;
+      }
+      h3 {
+        margin-top: 0px !important;
+        margin-bottom: $padding !important;
+        color: $white !important;
+        font-size: 24px;
+      }
+    }
+    &__paragraph {
+      font-size: 30px;
+      color: $white !important;
+      padding-right: $padding;
+    }
+    button {
+      -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+      color: $primary;
+      &:hover {
+        color: rgba($primary, 0.3);
+        -webkit-box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+      }
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: $padding !important;
+      position: absolute;
+      height: 100vw;
+      width: 100vw;
+      top: 0px;
+      left: 0px;
+      &__paragraph {
+        font-size: 24px;
+        padding-right: 0;
+      }
+    }
+  }
+}

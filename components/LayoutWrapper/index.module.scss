@@ -1,0 +1,170 @@
+@import "../../styles/dimensions.scss";
+@import "../../styles/colors.scss";
+
+.layout {
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: $primary-ultra-light;
+  &__header {
+    transition: all 0.6s;
+    background-color: rgba($primary-ultra-light, 0.72);
+    position: fixed;
+    width: 100vw;
+    height: $header-height;
+    z-index: 99;
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px $content-padding;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    &[data-scroll="scrolled"],
+    &[data-scroll="over"] {
+      -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+      &[data-is-category="true"] {
+        height: calc(#{$header-height} * 1.5);
+      }
+      [data-row-category] {
+        height: calc(#{$header-height} / 2);
+      }
+    }
+    &[data-scroll="scrolled"] {
+      background-color: rgba($primary-ultra-light, 0.72);
+    }
+    &[data-scroll="over"] {
+      background-color: rgba($white, 0.72);
+    }
+    &__row {
+      width: 100%;
+      [data-create-button] {
+        transform: translateX(-32px);
+        opacity: 0;
+        pointer-events: none;
+        &[data-create-button="over"] {
+          transform: translateX(0px);
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      &__user {
+        border-bottom-color: transparent !important;
+        &__avatar {
+          margin-right: 4px;
+          &[class~="ant-skeleton"] {
+            pointer-events: none;
+            margin-right: 0px;
+            [class~="ant-skeleton-avatar"] {
+              margin-top: calc((#{$header-height} - 48px) / 2);
+            }
+          }
+        }
+      }
+      &__menu {
+        background-color: transparent;
+        border-bottom: none;
+        & > li {
+          height: $header-height;
+          line-height: $header-height;
+          margin-right: 0px !important;
+          [class~="anticon-down"] {
+            margin-right: 0px !important;
+            font-size: 0.8em;
+          }
+        }
+      }
+      &__category {
+        width: 100%;
+        height: $header-height;
+        transition: height 0.6s;
+        [class~="ant-menu"] {
+          background-color: transparent;
+          border-bottom: none;
+          & > li {
+            height: calc(#{$header-height} / 2);
+            line-height: calc(#{$header-height} / 2);
+            margin-left: 0px !important;
+          }
+        }
+      }
+    }
+    &[data-is-category="true"] {
+      height: calc(#{$header-height} * 2);
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      height: $mobile-header-height;
+      padding: 0px $mobile-content-padding;
+      &[data-is-category="true"] {
+        height: calc(#{$mobile-header-height} * 2);
+      }
+    }
+  }
+  &__content {
+    background-image: url(/images/abstract-bg.svg);
+    background-color: $white !important;
+    margin-top: $header-height;
+    &[data-is-form="true"] {
+      background-color: $primary-ultra-light !important;
+      background-image: url(/images/background.svg);
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+    &[data-is-category="true"] {
+      margin-top: calc(#{$header-height} * 2);
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      margin-top: $mobile-header-height;
+      &[data-is-category="true"] {
+        margin-top: calc(#{$mobile-header-height} * 2);
+      }
+    }
+  }
+  &__footer {
+    background-color: $white !important;
+    background-color: $white;
+    padding: $padding $content-padding;
+    [class~="footer-item"] {
+      text-align: center;
+      [class~="logo"] {
+        width: 180px;
+        height: auto;
+      }
+      [class~="copy"] {
+        margin-top: calc(#{$padding} * 0.5);
+        margin-bottom: calc(#{$padding} * 0.2);
+      }
+      [class~="ant-menu-horizontal"] {
+        text-align: center;
+        border-bottom-color: transparent;
+      }
+      [class~="ant-btn-text"] {
+        width: 48px;
+        > span {
+          font-size: 20px;
+          transition: all 0.3s;
+        }
+        &:hover {
+          [class~="twitter"] {
+            color: $twitter;
+          }
+          [class~="instagram"] {
+            color: $instagram;
+          }
+          [class~="facebook"] {
+            color: $facebook;
+          }
+          [class~="youtube"] {
+            color: $youtube;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: #{$mobile-size}) {
+      padding: $padding $mobile-content-padding;
+    }
+  }
+}

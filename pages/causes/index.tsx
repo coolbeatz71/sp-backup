@@ -2,108 +2,131 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import styles from "./causes.module.scss";
-import { getAllCategories } from "../../redux/actions/categories/getAll";
-import Mission from "components/common/Mission";
-import CategoriesBar from "components/common/CategoriesBar";
-import { getAllCauses } from "./../../redux/actions/cause/getAll";
-import CauseCard from "components/common/CauseCard";
-import getCauseRemainingDays from "helpers/getCauseRemainingDays";
-import { getOwnerInfo } from "helpers/getOwnerInfo";
-import { isEmpty } from "lodash";
-import { ALL_CAUSES_PATH } from "../../helpers/paths";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
-import { Result } from "antd";
-import CauseCardSkeleton from "components/common/Skeleton/CauseCard";
+import { getAllCauses } from "redux/actions/cause/getAll";
+import { getUserCauses } from "redux/actions/cause/getUserCauses";
 
-const AllCauses: React.SFC<{}> = () => {
+import { isEmpty, find } from "lodash";
+
+import validator from "validator";
+
+import { Row, Col, Result } from "antd";
+
+import { SvpType } from "helpers/context";
+
+import Jumbotron from "components/home/Jumbotron";
+import Cause from "components/cards/Cause";
+import CauseSkeleton from "components/cards/CauseSkeleton";
+import Section from "components/home/Section";
+
+import LayoutWrapper from "components/LayoutWrapper";
+
+interface Props {
+  svpProps: SvpType;
+  myCauses?: boolean;
+  baseUrl?: string;
+}
+
+const AllCauses: React.FC<Props> = ({
+  svpProps,
+  myCauses = false,
+  baseUrl = "/causes",
+}) => {
   const dispatch = useDispatch();
-  const { pathname, asPath } = useRouter();
+  const { asPath, query } = useRouter();
 
-  const goToRegister = () => {
-    showAuthDialog(true, "signup")(dispatch);
-  };
-
-  const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+  const {
+    data,
+    /*loading,*/ fetched,
+    error,
+  } = useSelector(({ cause: { all, user } }: IRootState) =>
+    myCauses ? user : all,
   );
 
-  const { categories } = useSelector(
-    ({ categories }: IRootState) => categories,
-  );
-
-  const { data, loading, fetched, error } = useSelector(
-    ({ cause: { all } }: IRootState) => all,
-  );
+  const category_id: any = query.category_id;
+  const category: any = find(svpProps?.categories || [], {
+    id: validator.isNumeric(`${category_id}`) ? category_id * 1 : category_id,
+  });
 
   useEffect(() => {
-    getAllCategories()(dispatch);
-    // tslint:disable-next-line: align
-  }, [dispatch]);
-
-  useEffect(() => {
-    getAllCauses(asPath)(dispatch);
-    // tslint:disable-next-line: align
+    if (myCauses) {
+      getUserCauses(asPath)(dispatch);
+    } else {
+      getAllCauses(asPath)(dispatch);
+    }
   }, [asPath, dispatch]);
 
   return (
-    <>
-      <CategoriesBar page={ALL_CAUSES_PATH} categories={categories} />
-      <div className={styles.allCauses}>
-        {categories.loading || (loading && !fetched) ? (
-          <div className={styles.allCauses__grid}>
-            {[...Array(6)].map((_values, index) => (
-              <div key={index}>
-                <CauseCardSkeleton />
+    <LayoutWrapper
+      title={`${myCauses ? "Your " : ""}${
+        category ? `${category.title} ` : ""
+      }Causes`}
+      isCategory
+      baseUrl={baseUrl}
+    >
+      <div data-content-padding>
+        {myCauses && (
+          <Section
+            title="Your Causes"
+            icon="/images/social-care.svg"
+            fetched={true}
+            error={null}
+            data={[]}
+            myCauses
+          />
+        )}
+        {error ? (
+          <Result
+            status="500"
+            title="Oooops!"
+            subTitle={
+              <div>
+                Something went wrong.
+                <br />
+                {error.message}
               </div>
+            }
+          />
+        ) : !fetched ? (
+          <Row gutter={[24, 24]}>
+            {[1, 2, 3, 4, 5, 6].map((index: number) => (
+              <Col
+                key={index}
+                xxl={{ span: 6, offset: 0 }}
+                lg={{ span: 8, offset: 0 }}
+                md={{ span: 12, offset: 0 }}
+                sm={{ span: 16, offset: 4 }}
+                xs={{ span: 24, offset: 0 }}
+              >
+                <CauseSkeleton />
+              </Col>
             ))}
-          </div>
+          </Row>
         ) : isEmpty(data.data) ? (
-          <div className={styles.allCauses__illustration}>
-            <Result
-              status="404"
-              title="404"
-              subTitle="Sorry, No cause was found"
-            />
-          </div>
+          <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, No causes were found"
+          />
         ) : (
-          <div className={styles.allCauses__grid}>
-            {fetched &&
-              !error &&
-              data.data.map((cause: any, index: number) => (
-                <div key={index}>
-                  <CauseCard
-                    pathName={pathname}
-                    slug={cause.slug}
-                    title={cause.name}
-                    description={cause.summary}
-                    tillNumber={cause.till_number}
-                    cover={cause.image}
-                    owner={getOwnerInfo(
-                      cause.user_names,
-                      cause.verified,
-                      cause.user_avatar,
-                    )}
-                    amountRaised={cause.raised_amount}
-                    amountToReach={cause.target_amount}
-                    currency={cause.currency}
-                    status={cause.status}
-                    category={cause.category.title}
-                    rating={cause.ratings}
-                    ratersCount={cause.raters_count}
-                    daysToGo={getCauseRemainingDays(cause.end_date)}
-                    sponsored={cause.sponsored}
-                    data={cause}
-                  />
-                </div>
-              ))}
-          </div>
+          <Row data-section-row={data.length} gutter={[24, 48]}>
+            {data.data.map((cause: any, index: number) => (
+              <Col
+                key={index}
+                xxl={{ span: 6, offset: 0 }}
+                lg={{ span: 8, offset: 0 }}
+                md={{ span: 12, offset: 0 }}
+                sm={{ span: 16, offset: 4 }}
+                xs={{ span: 24, offset: 0 }}
+              >
+                <Cause cause={cause} />
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
-      <div>
-        <Mission isLoggedin={isLoggedin} goToRegister={goToRegister} />
-      </div>
-    </>
+
+      <Jumbotron hideSignedIn />
+    </LayoutWrapper>
   );
 };
 

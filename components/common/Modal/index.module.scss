@@ -1,0 +1,59 @@
+@import "../../../styles/dimensions.scss";
+
+.modal_icon {
+  [class~="ant-modal-content"] {
+    padding-top: 160px;
+  }
+  &__icon {
+    height: 120px;
+    width: auto;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.modal,
+.modal_icon {
+  [class~="ant-modal-content"] {
+    min-width: calc(#{$modal-padding} * 8);
+    background-image: url(/images/circle.svg), url(/images/circle.svg),
+      url(/images/square.svg), url(/images/square.svg);
+    background-repeat: no-repeat;
+    background-size: 400px, 400px, 200px, 200px;
+    background-position: -200px -200px,
+      calc(100% + 200px) clamp(200px, calc(100% + 100px), calc(100% + 100px)),
+      0px clamp(200px, 100%, 100%), 100% 0px;
+    [class~="ant-modal-close"] {
+      width: $modal-padding;
+      height: calc(#{$modal-padding} * 0.66);
+      margin-top: $padding;
+      [class~="ant-modal-close-x"] {
+        height: 100%;
+        width: 100%;
+        line-height: calc(#{$modal-padding} * 0.66);
+      }
+    }
+    [class~="ant-modal-header"] {
+      border-bottom: none;
+      text-align: center;
+      padding: $padding $modal-padding;
+      background-color: transparent;
+      [class~="ant-modal-title"] {
+        height: calc(#{$modal-padding} * 0.66);
+        line-height: calc(#{$modal-padding} * 0.66);
+        font-size: calc(#{$modal-padding} * 0.44);
+        [class~="ant-typography"] {
+          margin-bottom: 0px;
+          line-height: inherit;
+        }
+      }
+    }
+    [class~="ant-modal-body"] {
+      padding: 0px $modal-padding $padding $modal-padding;
+    }
+  }
+}
