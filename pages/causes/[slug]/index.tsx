@@ -61,13 +61,12 @@ const SingleCause: NextPage<Props> = ({
 
   React.useEffect(() => {
     if (edit && cause.slug) {
-      setEditing(edit);
-      // if (cause.edit_count === 0) {
-      //   setEditing(edit);
-      // } else {
-      //   message.warning("This cause was already edited!");
-      //   router.replace(`/causes/${data?.slug}`);
-      // }
+      if (cause.edit_count === 0) {
+        setEditing(edit);
+      } else {
+        message.warning("This cause was already edited!");
+        router.replace(`/causes/${data?.slug}`);
+      }
     }
   }, [edit, cause]);
 
