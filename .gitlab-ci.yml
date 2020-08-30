@@ -19,4 +19,4 @@ deploy-staging:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - ssh-keyscan -H $DO_DEV_IP >> ~/.ssh/known_hosts
   script:
-    - ssh -o StrictHostKeyChecking=no root@$DO_DEV_IP "cd $WORKDIR && git pull origin develop && yarn install && yarn build && pm2 restart all"
+    - ssh -o StrictHostKeyChecking=no gitlab@$DO_DEV_IP "cd $WORKDIR && sudo git pull origin develop && sudo yarn install && sudo yarn build && sudo pm2 restart all"
