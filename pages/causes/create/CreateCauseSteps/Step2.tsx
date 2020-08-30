@@ -30,7 +30,14 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="summary"
-        rules={[{ required: true, message: "Cause summary is required!" }]}
+        rules={[
+          { required: true, message: "Cause summary is required!" },
+          {
+            max: 280,
+            message:
+              "Cause summary's length must be less or equal to 280 characters!",
+          },
+        ]}
       >
         <StackedLabel label="Summary of this cause">
           <Input.TextArea
@@ -78,7 +85,16 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           />
         </StackedLabel>
       </Form.Item>
-      <Form.Item name="details">
+      <Form.Item
+        name="details"
+        rules={[
+          {
+            max: 1000,
+            message:
+              "Cause details' length must be less or equal to 1,000 characters!",
+          },
+        ]}
+      >
         <StackedLabel label="Details about the cause">
           <Input.TextArea
             className={styles.create__text_area}

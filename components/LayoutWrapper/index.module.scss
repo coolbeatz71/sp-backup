@@ -55,6 +55,13 @@
         border-bottom-color: transparent !important;
         &__avatar {
           margin-right: 4px;
+          &[class~="ant-skeleton"] {
+            pointer-events: none;
+            margin-right: 0px;
+            [class~="ant-skeleton-avatar"] {
+              margin-top: calc((#{$header-height} - 48px) / 2);
+            }
+          }
         }
       }
       &__menu {

@@ -8,6 +8,7 @@ import {
   Result,
   Avatar,
   Typography,
+  Skeleton,
 } from "antd";
 import Head from "next/head";
 import Context from "helpers/context";
@@ -27,6 +28,7 @@ import { DownOutlined, HomeOutlined } from "@ant-design/icons";
 import SignUp from "components/modals/SignUp";
 import SignIn from "components/modals/SignIn";
 import ResetPin from "components/modals/ResetPin";
+import ChangePin from "components/modals/ChangePin";
 
 import CategoryBar from "./CategoryBar";
 import Link from "next/link";
@@ -66,6 +68,8 @@ const LayoutWrapper: React.FC<Props> = ({
 
   const user = useSelector((state: IRootState) => state.user);
 
+  const [changePin, setChangePin] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const scrollHandler = () => {
@@ -87,8 +91,6 @@ const LayoutWrapper: React.FC<Props> = ({
       getCurrentUser(dispatch);
     }
   }, [dispatch]);
-
-  console.log(user);
 
   return (
     <Layout className={styles.layout}>
@@ -141,15 +143,26 @@ const LayoutWrapper: React.FC<Props> = ({
                   </Col>
                 )}
               <Col>
+                {user.currentUser.isLoggedin && user.currentUser.data.id && (
+                  <ChangePin
+                    visible={changePin}
+                    onVisible={() => setChangePin(true)}
+                    onCancel={() => setChangePin(false)}
+                  />
+                )}
                 <Menu
                   mode="horizontal"
                   className={styles.layout__header__row__menu}
                   onClick={({ key }) => {
-                    if (key !== "sign-out") {
-                      router.push(`${key}`);
-                    } else {
-                      logout(router.push, dispatch);
+                    if (key === "sign-out") {
+                      return logout(router.push, dispatch);
                     }
+
+                    if (key === "change-pin") {
+                      return setChangePin(true);
+                    }
+
+                    if (key) router.push(`${key}`);
                   }}
                 >
                   {!isHome && <Menu.Item key="/">Home</Menu.Item>}
@@ -169,6 +182,23 @@ const LayoutWrapper: React.FC<Props> = ({
                     </Menu.SubMenu>
                   )}
                   <Menu.Item key="/pricing">Pricing</Menu.Item>
+                  {user.currentUser.isLoggedin && !user.currentUser.data.id && (
+                    <Menu.SubMenu
+                      className={styles.layout__header__row__user}
+                      popupClassName="header-row-user"
+                      title={
+                        <span>
+                          <Skeleton.Avatar
+                            className={styles.layout__header__row__user__avatar}
+                            active
+                            size={48}
+                          />
+                        </span>
+                      }
+                    >
+                      <div />
+                    </Menu.SubMenu>
+                  )}
                   {user.currentUser.isLoggedin && user.currentUser.data.id && (
                     <Menu.SubMenu
                       className={styles.layout__header__row__user}
@@ -201,7 +231,7 @@ const LayoutWrapper: React.FC<Props> = ({
                       <Menu.Item key="/profile">Profile</Menu.Item>
                       <Menu.Item key="/causes/create">New Cause</Menu.Item>
                       <Menu.Item key="/user/causes">My Causes</Menu.Item>
-                      <Menu.Item key="/pin/change">Change PIN</Menu.Item>
+                      <Menu.Item key="change-pin">Change PIN</Menu.Item>
                       <Menu.Divider />
                       <Menu.Item key="sign-out" danger>
                         Sign Out

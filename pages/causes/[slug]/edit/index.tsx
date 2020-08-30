@@ -1,105 +1,19 @@
-import React, { useEffect, useState } from "react";
-import CreateCause from "pages/causes/create_";
-import { useRouter } from "next/router";
-import getSingle from "redux/actions/cause/getSingle";
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "redux/initialStates";
-import moment from "moment";
-import { isEmpty, forEach } from "lodash";
-import phoneFormatter from "helpers/phoneNumberFormatter";
-import { IUnknownObject } from "interfaces/unknownObject";
-import notification from "utils/notification";
-import { SvpType } from "helpers/context";
+import React from "react";
+import getCauseInitialProps from "helpers/getCauseInitialProps";
+import { NextPage } from "next";
 
-const EditCause: React.FC<{ svpProps: SvpType }> = ({ svpProps }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const [fetched, setFetched] = useState(false);
-  const { slug } = router.query;
+import Cause from "pages/causes/[slug]";
 
-  const { data, loading, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
-  );
+interface Props {
+  cause: { [key: string]: any };
+  error: null | { [key: string]: any };
+  edit?: boolean;
+}
 
-  const { data: currentUser } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
-  );
-
-  useEffect(() => {
-    if (
-      !isEmpty(data) &&
-      !isEmpty(currentUser) &&
-      data.user_id !== currentUser.id
-    ) {
-      notification("You dont have the permission to edit this cause", "warn");
-      router.push("/user/causes");
-    }
-  }, [data]);
-
-  if (slug && !fetched) {
-    getSingle(slug)(dispatch);
-    setFetched(true);
-  }
-
-  const formatData = () => {
-    if (!isEmpty(data)) {
-      const formattedData: IUnknownObject = {
-        ...data,
-        duration: [moment(data.start_date), moment(data.end_date)],
-        image: data.image && [
-          {
-            uid: "-1",
-            status: "done",
-            url: data.image,
-            thumbUrl: data.image,
-          },
-        ],
-        affiliated: !!data.organization,
-      };
-      forEach(formattedData, (value, key) => {
-        if (key === "institution" && value) {
-          forEach(value, (institutionValue, institutionKey) => {
-            if (institutionKey.includes("phone"))
-              return (formattedData[
-                `${key}_${institutionKey}`
-              ] = phoneFormatter(institutionValue));
-            formattedData[`${key}_${institutionKey}`] = institutionValue;
-          });
-          return;
-        }
-        if (key === "organization" && value) {
-          forEach(value, (organizationValue, organizationKey) => {
-            if (organizationKey.includes("phone"))
-              return (formattedData[
-                `${key}_${organizationKey}`
-              ] = phoneFormatter(organizationValue));
-            formattedData[`${key}_${organizationKey}`] = organizationValue;
-          });
-          return;
-        }
-        if (key.includes("phone") || key.includes("account_number")) {
-          formattedData[key] = phoneFormatter(value);
-          return;
-        }
-      });
-      return formattedData;
-    }
-    return {};
-  };
-
-  const formattedData = formatData();
-
-  return (
-    <CreateCause
-      key={loading ? 1 : 2}
-      svpProps={svpProps}
-      editFormState={formattedData}
-      slug={slug}
-      loading={loading}
-      error={error}
-      isCreate={false}
-    />
-  );
+const Edit: NextPage<Props> = ({ cause, error }) => {
+  return <Cause edit cause={cause} error={error} />;
 };
 
-export default EditCause;
+Edit.getInitialProps = getCauseInitialProps;
+
+export default Edit;

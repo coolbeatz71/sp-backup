@@ -19,18 +19,26 @@ const social = [
   {
     name: "twitter",
     icon: <TwitterOutlined className="twitter" />,
+    url:
+      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
   },
   {
     name: "instagram",
     icon: <InstagramFilled className="instagram" />,
+    url:
+      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
   },
   {
     name: "facebook",
     icon: <FacebookFilled className="facebook" />,
+    url:
+      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
   },
   {
     name: "youtube",
     icon: <YoutubeFilled className="youtube" />,
+    url:
+      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
   },
 ];
 
@@ -62,7 +70,13 @@ const FooterItem = () => {
       </Menu>
       <Typography.Paragraph>
         {social.map((item) => (
-          <Button key={item.name} type="text" size="large" icon={item.icon} />
+          <Button
+            key={item.name}
+            type="text"
+            size="large"
+            icon={item.icon}
+            onClick={() => window.open(item.url, "_blank")}
+          />
         ))}
       </Typography.Paragraph>
       <div>

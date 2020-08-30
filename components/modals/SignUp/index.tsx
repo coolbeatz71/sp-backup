@@ -1,5 +1,14 @@
 import React from "react";
-import { Form, Input, Row, Col, Button, Divider, Alert } from "antd";
+import {
+  Form,
+  Input,
+  Row,
+  Col,
+  Button,
+  Divider,
+  Alert,
+  Typography,
+} from "antd";
 
 import signup, { sendVerificationCode } from "redux/actions/Auth/signup";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +57,11 @@ const SignUp: React.FC<{}> = () => {
             signup({ ...currentUser, ...form })(dispatch);
           }}
         >
+          <Form.Item>
+            <Typography.Text>
+              Enter the verification code sent to your phone number
+            </Typography.Text>
+          </Form.Item>
           <Form.Item name="short_code">
             <StackedLabel label="Verification Code" required>
               <Input disabled={loadingSignUp} />
@@ -83,10 +97,10 @@ const SignUp: React.FC<{}> = () => {
       ) : (
         <Form
           validateTrigger={["onFinish"]}
-          onFinish={(form) => {
+          onFinish={({ phone_number, ...form }) => {
             sendVerificationCode({
               ...form,
-              phone_number: normalize(form.phone_number),
+              phone_number: normalize(phone_number),
             })(dispatch);
           }}
         >

@@ -8,14 +8,25 @@
     pointer-events: none;
     z-index: 0;
     background-color: darken($border, 20%);
+    height: 50vh;
+    &__backdrop {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: blur(30px);
+      opacity: 0.7;
+    }
     img {
+      object-fit: contain;
       width: 100%;
-      height: auto;
+      height: 50vh;
       border-radius: 4px;
     }
   }
   &__content {
-    margin-top: -60px;
+    &[data-first] {
+      margin-top: -60px;
+    }
     z-index: 1;
     &__progress {
       box-sizing: border-box;

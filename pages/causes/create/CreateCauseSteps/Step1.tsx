@@ -51,7 +51,14 @@ const Step1: React.FC<Props> = ({
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="name"
-        rules={[{ required: true, message: "Cause name is required!" }]}
+        rules={[
+          { required: true, message: "Cause name is required!" },
+          {
+            max: 70,
+            message:
+              "Cause name's length must be less or equal to 70 characters!",
+          },
+        ]}
       >
         <StackedLabel label="Cause Name">
           <Input placeholder="Cause Name" />
@@ -105,8 +112,10 @@ const Step1: React.FC<Props> = ({
                     return Promise.reject("Invalid date!");
                   }
 
-                  if (moment(value).isBefore(moment("1900-01-01"))) {
-                    return Promise.reject("Must be after year 1900");
+                  if (moment(value).isBefore(moment().startOf("day"))) {
+                    return Promise.reject(
+                      "Cause start should not be in the past!",
+                    );
                   }
 
                   return Promise.resolve();

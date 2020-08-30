@@ -42,6 +42,10 @@ const IndexPage = () => {
           fetched={fetched}
           error={error}
           data={data?.causes_featured}
+          more={{
+            title: "DISCOVER MORE SPONSORED CAUSES",
+            link: "/causes?feed_type=sponsored",
+          }}
         />
       </div>
       <div data-content-padding data-content-section>
@@ -51,6 +55,10 @@ const IndexPage = () => {
           fetched={fetched}
           error={error}
           data={data?.causes_popular}
+          more={{
+            title: "DISCOVER MORE POPULAR CAUSES",
+            link: "/causes?feed_type=popular",
+          }}
         />
       </div>
       <div data-content-padding data-content-section>
@@ -60,6 +68,10 @@ const IndexPage = () => {
           fetched={fetched}
           error={error}
           data={data?.causes_recents}
+          more={{
+            title: "DISCOVER MORE RECENT CAUSES",
+            link: "/causes",
+          }}
         />
       </div>
       <Video />

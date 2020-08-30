@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Typography, Row, Col, Card } from "antd";
+import { Typography, Row, Col, Card, Button } from "antd";
 import Cause from "components/cards/Cause";
 import CauseSkeleton from "components/cards/CauseSkeleton";
 
 import styles from "./index.module.scss";
+import Link from "next/link";
 
 const howItWorksItems = [
   {
@@ -35,6 +36,7 @@ interface Props {
   data: any[];
   howItWorks?: boolean;
   myCauses?: boolean;
+  more?: { title: string; link: string };
 }
 
 const Section: React.FC<Props> = ({
@@ -45,6 +47,7 @@ const Section: React.FC<Props> = ({
   data,
   howItWorks = false,
   myCauses = false,
+  more,
 }) => {
   return error ? (
     <div />
@@ -96,13 +99,15 @@ const Section: React.FC<Props> = ({
         </div>
       )}
       {!fetched ? (
-        <Row gutter={[24, 24]}>
-          {[1, 2, 3].map((index: number) => (
-            <Col span={8} key={index}>
-              <CauseSkeleton />
-            </Col>
-          ))}
-        </Row>
+        <div data-section-scroll>
+          <Row data-section-row={3} gutter={[24, 24]}>
+            {[1, 2, 3].map((index: number) => (
+              <Col span={8} key={index}>
+                <CauseSkeleton />
+              </Col>
+            ))}
+          </Row>
+        </div>
       ) : data.length === 0 ? (
         <div />
       ) : (
@@ -113,6 +118,19 @@ const Section: React.FC<Props> = ({
                 <Cause cause={cause} />
               </Col>
             ))}
+          </Row>
+        </div>
+      )}
+      {fetched && data.length >= 3 && more && (
+        <div data-section-scroll>
+          <Row data-section-row="more" justify="end" gutter={[24, 24]}>
+            <Col>
+              <Link href={more.link}>
+                <Button type="primary" ghost>
+                  {more.title}
+                </Button>
+              </Link>
+            </Col>
           </Row>
         </div>
       )}

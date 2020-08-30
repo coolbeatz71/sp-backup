@@ -14,7 +14,7 @@ interface Props {
 const CauseSider: React.FC<Props> = ({ cause }) => {
   const donors = cause.donors || [];
   return (
-    <Affix offsetTop={88}>
+    <>
       <div className={styles.dashboard__content__sidebar}>
         <Card>
           {donors.length === 0 ? (
@@ -73,7 +73,7 @@ const CauseSider: React.FC<Props> = ({ cause }) => {
           tiny
         />
       </div>
-    </Affix>
+    </>
   );
 };
 

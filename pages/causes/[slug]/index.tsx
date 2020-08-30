@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./single.module.scss";
-import { Row, Col, Typography } from "antd";
+import { Row, Col, Typography, message } from "antd";
 import ReactPlayer from "react-player/lazy";
 import getSingle from "redux/actions/cause/getSingle";
 import { IRootState } from "redux/initialStates";
@@ -17,13 +17,19 @@ import getPlatformUrl from "helpers/getPlatformUrl";
 import CauseProgress from "components/Cause/CauseProgress";
 import CauseSider from "components/Cause/CauseSider";
 import { format } from "dev-rw-phone";
+import EditModal from "components/modals/EditModal";
 
 interface Props {
   cause: { [key: string]: any };
   error: null | { [key: string]: any };
+  edit?: boolean;
 }
 
-const SingleCause: NextPage<Props> = ({ cause: cs, error: er }) => {
+const SingleCause: NextPage<Props> = ({
+  cause: cs,
+  error: er,
+  edit = false,
+}) => {
   const [cause, setCause] = React.useState(cs);
   const [error, setError] = React.useState(er);
 
@@ -51,7 +57,19 @@ const SingleCause: NextPage<Props> = ({ cause: cs, error: er }) => {
     }
   }, [fetched]);
 
-  console.log(data);
+  const [editing, setEditing] = React.useState(edit);
+
+  React.useEffect(() => {
+    if (edit && cause.slug) {
+      setEditing(edit);
+      // if (cause.edit_count === 0) {
+      //   setEditing(edit);
+      // } else {
+      //   message.warning("This cause was already edited!");
+      //   router.replace(`/causes/${data?.slug}`);
+      // }
+    }
+  }, [edit, cause]);
 
   return (
     <LayoutWrapper title={error?.message || cause?.name} isForm>
@@ -74,6 +92,15 @@ const SingleCause: NextPage<Props> = ({ cause: cs, error: er }) => {
         )}
         {!loading && !error && (
           <div>
+            <EditModal
+              visible={editing}
+              onClose={() => router.push(`/causes/${cause?.slug}`)}
+              slug={cause?.slug}
+              name={cause?.name}
+              target={cause?.target_amount * 1}
+              start={cause?.start_date}
+              end={cause?.end_date}
+            />
             <Head>
               <meta property="og:type" content="website" />
               <meta property="description" content={cause?.description} />
@@ -91,31 +118,39 @@ const SingleCause: NextPage<Props> = ({ cause: cs, error: er }) => {
               <meta name="twitter:image" content={cause?.image} />
               <meta name="twitter:card" content={cause?.image} />
             </Head>
-
-            <div className={styles.dashboard__inner}>
-              <div className={styles.dashboard__banner} data-aspect-ratio="">
-                <img src={cause?.image} data-aspect-ratio="" />
-              </div>
-              <Row className={styles.dashboard__content}>
-                <Col span={18} offset={3}>
-                  <CauseProgress
-                    cause={cause}
-                    edit={() => {
-                      // setEditing(true);
-                    }}
-                    reload={(del) => {
-                      if (!del) getSingle(cause?.slug)(dispatch);
-                      else router.replace(`/causes`);
-                    }}
-                  />
-                  <Row gutter={24}>
+            <Row>
+              <Col xs={{ span: 24, offset: 0 }} xl={{ span: 20, offset: 2 }}>
+                <div className={styles.dashboard__inner}>
+                  <Row gutter={[0, 24]}>
                     <Col span={15}>
                       <Typography.Title
-                        level={3}
                         className={styles.dashboard__content__title}
                       >
                         {cause.name}
                       </Typography.Title>
+                    </Col>
+                  </Row>
+                  <Row gutter={[24, 24]} className={styles.dashboard__content}>
+                    <Col span={15}>
+                      <Row gutter={[0, 24]}>
+                        <Col>
+                          <img src={cause?.image} style={{ width: "100%" }} />
+                        </Col>
+                      </Row>
+                      <Row gutter={[0, 24]}>
+                        <Col span={24}>
+                          <CauseProgress
+                            cause={cause}
+                            edit={() => {
+                              // setEditing(true);
+                            }}
+                            reload={(del) => {
+                              if (!del) getSingle(cause?.slug)(dispatch);
+                              else router.replace(`/causes`);
+                            }}
+                          />
+                        </Col>
+                      </Row>
                       <Typography.Paragraph
                         className={styles.dashboard__content__paragraph}
                       >
@@ -159,9 +194,9 @@ const SingleCause: NextPage<Props> = ({ cause: cs, error: er }) => {
                       <CauseSider cause={cause} />
                     </Col>
                   </Row>
-                </Col>
-              </Row>
-            </div>
+                </div>
+              </Col>
+            </Row>
           </div>
         )}
       </div>

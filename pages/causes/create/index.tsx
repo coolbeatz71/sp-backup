@@ -1,9 +1,10 @@
 import React from "react";
 import { Row, Col, Card, Typography, message, Tag } from "antd";
 import _ from "lodash";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "components/LayoutWrapper";
+import { IRootState } from "redux/initialStates";
 
 import styles from "./index.module.scss";
 
@@ -82,6 +83,10 @@ const Create: React.FC<Props> = ({
   const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
   const [issue, setIssue] = React.useState<boolean[]>([]);
 
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
   const [success, setSuccess] = React.useState(false);
 
   const router = useRouter();
@@ -125,7 +130,7 @@ const Create: React.FC<Props> = ({
           }
         >
           {steps[index].component!(
-            alerts(edit, {}),
+            alerts(edit, userData),
             svpProps.categories,
             data,
             setForm,
@@ -155,12 +160,12 @@ const Create: React.FC<Props> = ({
                   }
 
                   for (const key in formattedData) {
-                    if (data.hasOwnProperty(key)) {
+                    if (formattedData.hasOwnProperty(key)) {
                       formData.append(
                         key,
-                        typeof data[key] === "string"
-                          ? data[key]
-                          : JSON.stringify(data[key]),
+                        typeof formattedData[key] === "string"
+                          ? formattedData[key]
+                          : JSON.stringify(formattedData[key]),
                       );
                     }
                   }
