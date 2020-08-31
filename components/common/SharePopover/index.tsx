@@ -18,6 +18,7 @@ interface Props {
   code: string;
   title: string;
   standalone?: boolean;
+  isCreateSuccess?: boolean;
 }
 
 interface LinkProps {
@@ -56,6 +57,7 @@ const SharePopover: React.FC<Props> = ({
   code,
   title,
   standalone = false,
+  isCreateSuccess = false,
 }) => {
   const [visible, setVisible] = React.useState(false);
 
@@ -67,6 +69,7 @@ const SharePopover: React.FC<Props> = ({
         trigger={
           <Button
             className={styles.share__ussd}
+            data-is-success={isCreateSuccess}
             size="large"
             type="text"
             icon={<CustomIcon type="ussd" />}
@@ -85,6 +88,7 @@ const SharePopover: React.FC<Props> = ({
       <Link slug={slug} title={title} type="facebook">
         <Button
           className={styles.share__facebook}
+          data-is-success={isCreateSuccess}
           size="large"
           type="text"
           icon={<FacebookFilled />}
@@ -93,6 +97,7 @@ const SharePopover: React.FC<Props> = ({
       <Link slug={slug} title={title} type="whatsapp">
         <Button
           className={styles.share__whatsapp}
+          data-is-success={isCreateSuccess}
           size="large"
           type="text"
           icon={<WhatsAppOutlined />}
@@ -101,6 +106,7 @@ const SharePopover: React.FC<Props> = ({
       <Link slug={slug} title={title} type="twitter">
         <Button
           className={styles.share__twitter}
+          data-is-success={isCreateSuccess}
           size="large"
           type="text"
           icon={<TwitterOutlined />}
@@ -110,8 +116,13 @@ const SharePopover: React.FC<Props> = ({
   );
 
   return standalone ? (
-    <Row align="middle" gutter={24}>
-      <Col>Share</Col>
+    <Row
+      align="middle"
+      justify="center"
+      gutter={isCreateSuccess ? [24, 10] : 24}
+      className={styles.share}
+    >
+      {!isCreateSuccess && <Col>Share</Col>}
       <Col>{share}</Col>
     </Row>
   ) : (

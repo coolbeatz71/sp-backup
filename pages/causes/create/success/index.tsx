@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import qs from "query-string";
 import { IRootState } from "redux/initialStates";
+import getPlatformUrl from "helpers/getPlatformUrl";
+import SharePopover from "components/common/SharePopover";
 
 import Layout from "components/LayoutWrapper";
 import fire from "utils/fire-confetti";
@@ -12,15 +14,10 @@ import { clear } from "redux/actions/cause/create";
 
 import styles from "./index.module.scss";
 import Link from "next/link";
-import {
-  WhatsAppOutlined,
-  FacebookFilled,
-  TwitterOutlined,
-} from "@ant-design/icons";
 
 const genData = (data: any) => {
   if (data) {
-    const url = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/causes/${data.slug}`;
+    const url = `${getPlatformUrl()}/causes/${data.slug}`;
     return {
       url,
       fb: qs.stringifyUrl({
@@ -90,7 +87,17 @@ const Success = () => {
                   level={4}
                   className={styles.success__centered}
                 >
-                  Cause Created Successfully!
+                  {data.status === "pending" ? (
+                    <>
+                      Thank you!
+                      <br />
+                      This cause is Pending for
+                      <br />
+                      Verification
+                    </>
+                  ) : (
+                    "Cause Created Successfully!"
+                  )}
                 </Typography.Title>
                 <Card
                   cover={
@@ -104,47 +111,39 @@ const Success = () => {
                 >
                   <div className={styles.success__centered}>
                     <Typography.Title level={3}>{data.name}</Typography.Title>
-                    <Typography.Paragraph>
-                      <strong>SHARE THE CAUSE</strong>
-                    </Typography.Paragraph>
-                    <Typography.Paragraph
-                      ellipsis
-                      code
-                      copyable={{ text: `${data.till_number}` }}
-                    >
-                      Bill #: {data.till_number}
-                    </Typography.Paragraph>
-                    <Row gutter={[0, 20]}>
-                      <Col
-                        className={styles.success__facebook}
-                        span={4}
-                        offset={6}
-                      >
-                        <a href={d?.fb} target="_blank">
-                          <FacebookFilled />
-                        </a>
-                      </Col>
-                      <Col className={styles.success__whatsapp} span={4}>
-                        <a href={d?.wa} target="_blank">
-                          <WhatsAppOutlined />
-                        </a>
-                      </Col>
-                      <Col className={styles.success__twitter} span={4}>
-                        <a href={d?.tw} target="_blank">
-                          <TwitterOutlined />
-                        </a>
-                      </Col>
-                    </Row>
+                    {data.status !== "pending" && (
+                      <>
+                        <Typography.Paragraph>
+                          <strong>SHARE THE CAUSE</strong>
+                        </Typography.Paragraph>
+                        <Typography.Paragraph
+                          ellipsis
+                          code
+                          copyable={{ text: `${data.till_number}` }}
+                        >
+                          Bill #: {data.till_number}
+                        </Typography.Paragraph>
+                        <SharePopover
+                          standalone
+                          isCreateSuccess
+                          slug={data.slug}
+                          code={data.till_number}
+                          title={data.name}
+                        />
+                      </>
+                    )}
                     <Typography.Paragraph underline>
-                      <Link href="/dashboard">BACK HOME</Link>
+                      <Link href="/">BACK HOME</Link>
                     </Typography.Paragraph>
-                    <Typography.Paragraph
-                      ellipsis
-                      copyable
-                      className={styles.success__copyable}
-                    >
-                      {d?.url}
-                    </Typography.Paragraph>
+                    {data.status !== "pending" && (
+                      <Typography.Paragraph
+                        ellipsis
+                        copyable
+                        className={styles.success__copyable}
+                      >
+                        {d?.url}
+                      </Typography.Paragraph>
+                    )}
                   </div>
                 </Card>
               </Col>

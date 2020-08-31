@@ -15,4 +15,12 @@
   &__twitter {
     color: #03a9f4;
   }
+  [data-is-success="true"] {
+    margin-left: 12px;
+    margin-right: 12px;
+    &,
+    [class~="anticon"] {
+      font-size: 20px;
+    }
+  }
 }
