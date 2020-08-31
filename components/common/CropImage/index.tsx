@@ -9,6 +9,8 @@ import generateBlob from "./generateBlob";
 
 import styles from "./index.module.scss";
 
+const globalAny: any = global;
+
 interface Props {
   file: any[];
   image: any;
@@ -30,6 +32,7 @@ const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
 
   const imgRef = React.useRef(null);
   const previewCanvasRef = React.useRef(null);
+  const cropOuter = React.useRef(null);
 
   const props = {
     name: "image",
@@ -77,13 +80,32 @@ const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
 
   React.useEffect(() => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+      if (globalAny.imgRefCurrent) {
+        drawImage(
+          globalAny.imgRefCurrent,
+          previewCanvasRef,
+          completedCrop,
+          true,
+        );
+      }
       return;
     }
 
     drawImage(imgRef, previewCanvasRef, completedCrop);
-  }, [completedCrop]);
+  }, [
+    completedCrop,
+    previewCanvasRef.current,
+    imgRef.current,
+    cropOuter.current,
+  ]);
 
   const onLoad = React.useCallback((img) => {
+    const canvasRefAny: any = previewCanvasRef.current;
+    globalAny.imgRefCurrent = {
+      current: img,
+      height: canvasRefAny?.height,
+      width: canvasRefAny?.width,
+    };
     imgRef.current = img;
   }, []);
 

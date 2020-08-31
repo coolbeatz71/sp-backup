@@ -18,6 +18,8 @@ import createCause, { clear } from "redux/actions/cause/create";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
+const globalAny: any = global;
+
 const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
   children,
   edit,
@@ -104,6 +106,7 @@ const Create: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    globalAny.imgRefCurrent = null;
     clear()(dispatch);
   }, [dispatch]);
 
