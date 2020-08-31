@@ -64,7 +64,7 @@ const SignUp: React.FC<{}> = () => {
           </Form.Item>
           <Form.Item name="short_code">
             <StackedLabel label="Verification Code" required>
-              <Input disabled={loadingSignUp} />
+              <Input disabled={loadingSignUp} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
           {errorSignUp && (
@@ -131,7 +131,7 @@ const SignUp: React.FC<{}> = () => {
           </Form.Item>
           <Form.Item name="password">
             <StackedLabel label="PIN" required>
-              <Input.Password autoComplete="password" />
+              <Input.Password autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
           <Form.Item name="email">

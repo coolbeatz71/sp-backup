@@ -99,7 +99,7 @@ const ResetPin: React.FC<{}> = () => {
           </Form.Item>
           <Form.Item name="code">
             <StackedLabel label="Verification Code" required>
-              <Input disabled={loadingUpdate} />
+              <Input disabled={loadingUpdate} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
           <Form.Item name="new_password" rules={formPinValidator("New PIN")}>
@@ -107,6 +107,7 @@ const ResetPin: React.FC<{}> = () => {
               <Input
                 placeholder="New PIN"
                 type="password"
+                autoComplete="new-password"
                 disabled={loadingUpdate}
               />
             </StackedLabel>
@@ -119,6 +120,7 @@ const ResetPin: React.FC<{}> = () => {
               <Input
                 placeholder="Confirm PIN"
                 type="password"
+                autoComplete="new-password"
                 disabled={loadingUpdate}
               />
             </StackedLabel>
