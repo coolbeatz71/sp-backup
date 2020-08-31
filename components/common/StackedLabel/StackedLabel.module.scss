@@ -28,12 +28,20 @@
     }
   }
   &__word_count {
+    display: block;
+    width: 56px;
+    height: 14px;
     text-align: right;
     position: absolute;
-    bottom: -14px;
-    font-size: 12px;
-    line-height: 14px;
-    right: 0px;
+    right: 8px;
+    bottom: 9px;
+    font-size: 10px;
+    &[data-over-limit="true"] {
+      color: $danger;
+    }
+  }
+  [data-char-count-input="true"] {
+    padding-right: 60px !important;
   }
   input {
     z-index: 0;

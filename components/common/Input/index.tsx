@@ -29,9 +29,9 @@ const Input: React.FC<InputInterface> = (props) => {
   return (
     <StackedLabel
       label={placeholder || ""}
-      wordCount={
+      charCount={
         props.hasWordCount
-          ? `${(props.maxLength || 0) - `${props.value}`.length} Characters`
+          ? (props.maxLength || 0) - `${props.value}`.length
           : undefined
       }
       {...defaultProps}
