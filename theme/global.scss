@@ -91,10 +91,12 @@
 
 [class~="header-row-user"] {
   width: 160px;
-  left: auto !important;
-  right: $content-padding;
-  position: fixed;
-  top: $header-height;
+  @media screen and (min-width: #{$lg-size}) {
+    left: auto !important;
+    right: $content-padding;
+    position: fixed;
+    top: $header-height;
+  }
   @media screen and (max-width: #{$mobile-size}) {
     right: $padding;
     top: $mobile-header-height;
