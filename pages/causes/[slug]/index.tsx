@@ -12,8 +12,6 @@ import AccessCode from "components/Cause/Single/AccessCode";
 import SingleCauseSkeleton from "components/common/Skeleton/SingleCause";
 import getCauseInitialProps from "helpers/getCauseInitialProps";
 import LayoutWrapper from "components/LayoutWrapper";
-import Head from "next/head";
-import getPlatformUrl from "helpers/getPlatformUrl";
 import CauseProgress from "components/Cause/CauseProgress";
 import CauseSider from "components/Cause/CauseSider";
 import { format } from "dev-rw-phone";
@@ -71,7 +69,13 @@ const SingleCause: NextPage<Props> = ({
   }, [edit, cause]);
 
   return (
-    <LayoutWrapper title={error?.message || cause?.name} isForm>
+    <LayoutWrapper
+      isCause
+      isForm
+      title={error?.message || cause?.name}
+      description={cause?.summary}
+      image={cause?.image}
+    >
       <div data-content-padding>
         {loading ? (
           <SingleCauseSkeleton />
@@ -100,23 +104,6 @@ const SingleCause: NextPage<Props> = ({
               start={cause?.start_date}
               end={cause?.end_date}
             />
-            <Head>
-              <meta property="og:type" content="website" />
-              <meta property="description" content={cause?.description} />
-              <meta property="og:title" content={cause?.name} />
-              <meta property="description" content={cause?.summary} />
-              <meta
-                property="og:url"
-                content={`${getPlatformUrl()}/causes/${cause?.slug}`}
-              />
-              <meta property="og:description" content={cause?.summary} />
-              <meta property="og:image" content={cause?.image} />
-
-              <meta name="twitter:title" content={cause?.name} />
-              <meta name="twitter:description" content={cause?.summary} />
-              <meta name="twitter:image" content={cause?.image} />
-              <meta name="twitter:card" content={cause?.image} />
-            </Head>
             <Row>
               <Col xs={{ span: 24, offset: 0 }} xl={{ span: 20, offset: 2 }}>
                 <div className={styles.dashboard__inner}>
