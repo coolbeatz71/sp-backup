@@ -41,6 +41,7 @@
     }
     &__row {
       width: 100%;
+      height: 100%;
       [data-create-button] {
         transform: translateX(-32px);
         opacity: 0;
@@ -49,6 +50,19 @@
           transform: translateX(0px);
           opacity: 1;
           pointer-events: all;
+        }
+      }
+      & > [class~="ant-col"] {
+        &:first-child {
+          max-width: calc(100vw - (#{$mobile-logo-size} + ($padding * 4)));
+        }
+        & > a {
+          & > img {
+            width: $logo-size;
+            @media screen and (max-width: #{$mobile-size}) {
+              width: $mobile-logo-size;
+            }
+          }
         }
       }
       &__user {
@@ -68,8 +82,10 @@
         background-color: transparent;
         border-bottom: none;
         & > li {
-          height: $header-height;
-          line-height: $header-height;
+          @media screen and (min-width: #{$lg-size}) {
+            height: $header-height;
+            line-height: $header-height;
+          }
           margin-right: 0px !important;
           [class~="anticon-down"] {
             margin-right: 0px !important;
@@ -100,6 +116,26 @@
       padding: 0px $mobile-content-padding;
       &[data-is-category="true"] {
         height: calc(#{$mobile-header-height} * 2);
+      }
+    }
+
+    @media screen and (max-width: #{$lg-size}) {
+      &__row {
+        &__user {
+          [class~="ant-typography"],
+          [class~="ant-dropdown-menu-submenu-arrow"] {
+            max-width: 96px;
+            line-height: 32px;
+          }
+        }
+        &__menu {
+          background-color: $white;
+          min-width: 160px;
+          &__sign_in,
+          &__sign_up {
+            margin: 6px 12px 6px 12px;
+          }
+        }
       }
     }
   }
