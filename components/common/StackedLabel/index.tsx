@@ -15,7 +15,7 @@ interface Props {
   onChange?: () => void;
   loading?: boolean;
   required?: boolean;
-  charCount?: any;
+  charCount?: number;
   children: Element | any;
 }
 
