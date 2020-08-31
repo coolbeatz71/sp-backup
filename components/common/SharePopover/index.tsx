@@ -8,6 +8,7 @@ import {
 import qs from "query-string";
 import CustomIcon from "components/common/CustomIcon";
 import Modal from "components/common/Modal";
+import getPlatformUrl from "helpers/getPlatformUrl";
 
 import styles from "./index.module.scss";
 
@@ -26,9 +27,7 @@ interface LinkProps {
   title: string;
 }
 const Link: React.FC<LinkProps> = ({ type, title, slug, children }) => {
-  const link = `https://${
-    process.env.NODE_ENV === "development" ? "dev." : ""
-  }saveplus.io/causes/${slug}`;
+  const link = `${getPlatformUrl()}/causes/${slug}`;
 
   const t = {
     facebook: `https://www.facebook.com/sharer/sharer.php?${qs.stringify({
