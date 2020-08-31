@@ -68,7 +68,7 @@ const Step1: React.FC<Props> = ({
         name="category"
         rules={[{ required: true, message: "Cause category is required!" }]}
       >
-        <StackedLabel label="Category">
+        <StackedLabel label="Category" select>
           <Select placeholder="Category">
             {categories.map((cat) => (
               <Select.Option

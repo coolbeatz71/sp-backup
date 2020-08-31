@@ -9,6 +9,7 @@ interface Props {
   id?: string;
   value?: any;
   datePicker?: boolean;
+  select?: boolean;
   phone?: string;
   onChange?: () => void;
   loading?: boolean;
@@ -22,6 +23,7 @@ const StackedLabel: React.FC<Props> = ({
   id = "StackedLabel",
   value = "",
   datePicker = false,
+  select = false,
   phone = null,
   onChange = () => null,
   loading = false,
@@ -33,6 +35,7 @@ const StackedLabel: React.FC<Props> = ({
     [null, undefined, ""].includes(value) ? "" : "__stacked",
   );
   const [datePickerOpen, setDatePickerOpen] = React.useState(false);
+  const [selectOpen, setSelectOpen] = React.useState(false);
 
   const onFocus = () => setStatus("__stacked");
   const onBlur = () => {
@@ -40,6 +43,7 @@ const StackedLabel: React.FC<Props> = ({
   };
 
   const ref = React.useRef({
+    click: (): any => null,
     focus: (): any => null,
   });
 
@@ -50,6 +54,15 @@ const StackedLabel: React.FC<Props> = ({
     },
   };
 
+  const selectProps = {
+    open: selectOpen,
+    onDropdownVisibleChange: (o: boolean) => {
+      setSelectOpen(o);
+    },
+  };
+
+  if (select) console.log(ref.current);
+
   return (
     <div className={!phone ? styles.input : styles.input__phone}>
       {React.cloneElement(children, {
@@ -59,6 +72,7 @@ const StackedLabel: React.FC<Props> = ({
         onFocus,
         onBlur,
         ...(datePicker ? datePickerProps : {}),
+        ...(select ? selectProps : {}),
         ...(loading ? { disabled: true } : {}),
         placeholder: "",
       })}
@@ -76,7 +90,8 @@ const StackedLabel: React.FC<Props> = ({
         className={styles[`input__label${status}`]}
         onClick={() => {
           ref.current.focus();
-          if (datePicker) setDatePickerOpen(true);
+          if (datePicker) setDatePickerOpen(!datePickerOpen);
+          if (select) setSelectOpen(!selectOpen);
         }}
       >
         {label}

@@ -79,7 +79,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ svpProps }) => {
         validateTrigger={["onSubmit", "onBlur", "onChange"]}
         rules={[{ required: true }]}
       >
-        <StackedLabel label="Category">
+        <StackedLabel label="Category" select>
           <Select disabled={isEditing}>
             {svpProps.categories.map(({ id, title }) => (
               <Select.Option key={id} value={id}>
