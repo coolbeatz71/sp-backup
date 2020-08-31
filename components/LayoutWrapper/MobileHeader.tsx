@@ -15,7 +15,7 @@ import _ from "lodash";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import styles from "./index.module.scss";
-import { DownOutlined, MenuOutlined, PlusOutlined } from "@ant-design/icons";
+import { MenuOutlined, PlusOutlined } from "@ant-design/icons";
 import { Iuser } from "redux/initialStates/user";
 
 import SignUp from "components/modals/SignUp";
