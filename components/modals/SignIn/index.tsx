@@ -89,7 +89,7 @@ const SignIn: React.FC<{}> = () => {
                 disabled={loading}
               >
                 Forgot PIN?&nbsp;
-                <Typography.Text underline>Reset</Typography.Text>
+                <Typography.Text underline>Reset PIN</Typography.Text>
               </Button>
             </Col>
             <Col>
