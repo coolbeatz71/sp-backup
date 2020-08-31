@@ -1,6 +1,7 @@
 import React from "react";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import numeral from "numeral";
 
 import styles from "./StackedLabel.module.scss";
 
@@ -14,7 +15,7 @@ interface Props {
   onChange?: () => void;
   loading?: boolean;
   required?: boolean;
-  wordCount?: any;
+  charCount?: any;
   children: Element | any;
 }
 
@@ -28,7 +29,7 @@ const StackedLabel: React.FC<Props> = ({
   onChange = () => null,
   loading = false,
   required = false,
-  wordCount,
+  charCount,
   children,
 }) => {
   const [status, setStatus] = React.useState(
@@ -61,10 +62,11 @@ const StackedLabel: React.FC<Props> = ({
     },
   };
 
-  if (select) console.log(ref.current);
-
   return (
-    <div className={!phone ? styles.input : styles.input__phone}>
+    <div
+      className={!phone ? styles.input : styles.input__phone}
+      data-char-count={charCount ? true : false}
+    >
       {React.cloneElement(children, {
         ref,
         value,
@@ -75,6 +77,7 @@ const StackedLabel: React.FC<Props> = ({
         ...(select ? selectProps : {}),
         ...(loading ? { disabled: true } : {}),
         placeholder: "",
+        "data-char-count-input": charCount ? true : false,
       })}
       {phone && (
         <span className={styles.input__phone__code_prefix}>{phone}</span>
@@ -82,6 +85,18 @@ const StackedLabel: React.FC<Props> = ({
       {loading && (
         <div className={styles.input__loading}>
           <Spin indicator={<LoadingOutlined style={{ fontSize: 14 }} spin />} />
+        </div>
+      )}
+      {charCount && (
+        <div
+          className={styles.input__word_count}
+          data-over-limit={
+            (typeof value === "string" ? value.length : 0) > charCount
+          }
+        >
+          {`${
+            typeof value === "string" ? numeral(value.length).format() : 0
+          }/${numeral(charCount).format()}`}
         </div>
       )}
       <label
@@ -99,7 +114,6 @@ const StackedLabel: React.FC<Props> = ({
           <span className={styles[`input__label${status}__required`]}>*</span>
         )}
       </label>
-      {wordCount && <div className={styles.input__word_count}>{wordCount}</div>}
     </div>
   );
 };

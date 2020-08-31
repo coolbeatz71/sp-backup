@@ -39,7 +39,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           },
         ]}
       >
-        <StackedLabel label="Summary of this cause">
+        <StackedLabel label="Summary of this cause" charCount={280}>
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 5 }}
@@ -95,7 +95,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           },
         ]}
       >
-        <StackedLabel label="Details about the cause">
+        <StackedLabel label="Details about the cause" charCount={1000}>
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 10 }}
