@@ -180,7 +180,9 @@ const CategoryBar: React.FC<Props> = ({
                     type="primary"
                     size="small"
                     onClick={() => navigate()}
-                    disabled={feed_type.length === 0 && status.length === 0}
+                    disabled={
+                      feed_type.length === 0 && status.length === 0 && fetched
+                    }
                   >
                     OK
                   </Button>

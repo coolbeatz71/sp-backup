@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
 import CausesActions from "components/common/CausesActions";
+import PreDonation from "components/modals/PreDonation";
 
 import CustomIcon from "components/common/CustomIcon";
 
@@ -56,18 +57,19 @@ const FooterCover: React.FC<FooterCoverProps> = ({
   active,
   children,
   myCause,
-}) =>
-  myCause ? (
+}) => {
+  return myCause ? (
     <Link href="/causes/[slug]" as={`/causes/${slug}`}>
       <a>{children}</a>
     </Link>
   ) : active ? (
-    <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
+    <PreDonation slug={slug}>
       <a>{children}</a>
-    </Link>
+    </PreDonation>
   ) : (
     children
   );
+};
 
 const Cause: React.FC<Props> = ({ cause }) => {
   const [imageStatus, setImageStatus] = React.useState(
