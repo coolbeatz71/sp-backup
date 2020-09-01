@@ -68,9 +68,13 @@
         color: $primary !important;
       }
     }
+    &__paragraph__first,
     &__paragraph {
       word-break: break-all !important;
       overflow-wrap: break-word !important;
+      &__first {
+        margin-top: 24px;
+      }
     }
     &__video {
       background-color: $black;

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import validator from "validator";
 import styles from "./single.module.scss";
-import { Row, Col, Typography, message } from "antd";
+import { Row, Col, Typography, message, Grid } from "antd";
 import ReactPlayer from "react-player/lazy";
 import getSingle from "redux/actions/cause/getSingle";
 import { IRootState } from "redux/initialStates";
@@ -12,10 +13,10 @@ import AccessCode from "components/Cause/Single/AccessCode";
 import SingleCauseSkeleton from "components/common/Skeleton/SingleCause";
 import getCauseInitialProps from "helpers/getCauseInitialProps";
 import LayoutWrapper from "components/LayoutWrapper";
-import CauseProgress from "components/Cause/CauseProgress";
 import CauseSider from "components/Cause/CauseSider";
 import { format } from "dev-rw-phone";
 import EditModal from "components/modals/EditModal";
+import CauseCard from "components/cards/Cause";
 
 interface Props {
   cause: { [key: string]: any };
@@ -40,6 +41,8 @@ const SingleCause: NextPage<Props> = ({
     ({ cause: { single } }: IRootState) => single,
   );
 
+  const user = useSelector((state: IRootState) => state.user);
+
   React.useEffect(() => {
     if (_err) setError(_err);
     if (data?.slug) {
@@ -57,6 +60,10 @@ const SingleCause: NextPage<Props> = ({
 
   const [editing, setEditing] = React.useState(edit);
 
+  const myCause =
+    user.currentUser.isLoggedin &&
+    cause.user_id * 1 === user.currentUser.data?.id * 1;
+
   React.useEffect(() => {
     if (edit && cause.slug) {
       if (cause.edit_count === 0) {
@@ -67,6 +74,46 @@ const SingleCause: NextPage<Props> = ({
       }
     }
   }, [edit, cause]);
+
+  const screens = Grid.useBreakpoint();
+
+  const contact = (
+    <>
+      <h4 className={styles.dashboard__content__title}>
+        CAUSE TEAM AND CONTACT
+      </h4>
+      <Typography.Paragraph className={styles.dashboard__content__paragraph}>
+        You can reach out on{" "}
+        <Typography.Link
+          href={`tel:${cause.payment_account_number}`}
+          target="_blank"
+        >
+          {format(cause.payment_account_number)}
+        </Typography.Link>
+      </Typography.Paragraph>
+    </>
+  );
+
+  const content = (
+    <>
+      {" "}
+      <Typography.Paragraph
+        className={styles.dashboard__content__paragraph__first}
+      >
+        {cause.summary}
+      </Typography.Paragraph>
+      {typeof cause.video === "string" && validator.isURL(cause.video) && (
+        <Typography.Paragraph className={styles.dashboard__content__video}>
+          <ReactPlayer controls url={cause.video} width="100%" />
+        </Typography.Paragraph>
+      )}
+      <h4 className={styles.dashboard__content__title}>USE OF FUNDS</h4>
+      <Typography.Paragraph className={styles.dashboard__content__paragraph}>
+        {cause.description}
+      </Typography.Paragraph>
+      {screens.lg && contact}
+    </>
+  );
 
   return (
     <LayoutWrapper
@@ -104,85 +151,32 @@ const SingleCause: NextPage<Props> = ({
               start={cause?.start_date}
               end={cause?.end_date}
             />
-            <Row>
-              <Col xs={{ span: 24, offset: 0 }} xl={{ span: 20, offset: 2 }}>
-                <div className={styles.dashboard__inner}>
-                  <Row gutter={[0, 24]}>
-                    <Col span={15}>
-                      <Typography.Title
-                        className={styles.dashboard__content__title}
-                      >
-                        {cause.name}
-                      </Typography.Title>
-                    </Col>
-                  </Row>
-                  <Row gutter={[24, 24]} className={styles.dashboard__content}>
-                    <Col span={15}>
-                      <Row gutter={[0, 24]}>
-                        <Col>
-                          <img src={cause?.image} style={{ width: "100%" }} />
-                        </Col>
-                      </Row>
-                      <Row gutter={[0, 24]}>
-                        <Col span={24}>
-                          <CauseProgress
-                            cause={cause}
-                            edit={() => {
-                              // setEditing(true);
-                            }}
-                            reload={(del) => {
-                              if (!del) getSingle(cause?.slug)(dispatch);
-                              else router.replace(`/causes`);
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                      <Typography.Paragraph
-                        className={styles.dashboard__content__paragraph}
-                      >
-                        {cause.description}
-                      </Typography.Paragraph>
-                      {![null, "", undefined].includes(cause.video) && (
-                        <Typography.Paragraph
-                          className={styles.dashboard__content__video}
-                        >
-                          <ReactPlayer
-                            controls
-                            url={cause.video}
-                            width="100%"
-                          />
-                        </Typography.Paragraph>
-                      )}
-                      <h4 className={styles.dashboard__content__title}>
-                        USE OF FUNDS
-                      </h4>
-                      <Typography.Paragraph
-                        className={styles.dashboard__content__paragraph}
-                      >
-                        {cause.summary}
-                      </Typography.Paragraph>
-                      <h4 className={styles.dashboard__content__title}>
-                        CAUSE TEAM AND CONTACT
-                      </h4>
-                      <Typography.Paragraph
-                        className={styles.dashboard__content__paragraph}
-                      >
-                        You can reach out on{" "}
-                        <Typography.Link
-                          href={`tel:${cause.payment_account_number}`}
-                          target="_blank"
-                        >
-                          {format(cause.payment_account_number)}
-                        </Typography.Link>
-                      </Typography.Paragraph>
-                    </Col>
-                    <Col span={9}>
-                      <CauseSider cause={cause} />
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
+            <div className={styles.dashboard__inner}>
+              <Row gutter={[0, 24]}>
+                <Col md={24} lg={15}>
+                  <Typography.Title
+                    level={2}
+                    className={styles.dashboard__content__title}
+                  >
+                    {cause.name}
+                  </Typography.Title>
+                </Col>
+              </Row>
+              <Row gutter={[24, 24]} className={styles.dashboard__content}>
+                <Col md={24} lg={15}>
+                  <CauseCard cause={cause} isView />
+                  {screens.lg && content}
+                </Col>
+                <Col md={24} lg={9}>
+                  <CauseSider
+                    cause={cause}
+                    myCause={myCause}
+                    content={content}
+                    contact={contact}
+                  />
+                </Col>
+              </Row>
+            </div>
           </div>
         )}
       </div>

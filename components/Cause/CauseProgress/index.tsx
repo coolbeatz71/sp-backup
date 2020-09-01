@@ -34,7 +34,7 @@ const CauseProgress: React.FC<Props> = ({
   return (
     <div className={styles.dashboard__content__progress}>
       <Row gutter={24}>
-        <Col span={15}>
+        <Col span={tiny ? 24 : 15}>
           <Row>
             <Col flex={1}>
               <Typography.Text
@@ -91,20 +91,22 @@ const CauseProgress: React.FC<Props> = ({
             </Col>
           </Row>
         </Col>
-        <Col span={9}>
-          <div className={styles.dashboard__content__progress__buttons}>
-            <Button
-              type="primary"
-              onClick={() => router.push(`/causes/${cause.slug}/donate`)}
-              disabled={cause.status !== "active"}
-            >
-              DONATE
-            </Button>
-            {myCause && !tiny && (
-              <Actions reload={reload} record={cause} viewing edit={edit} />
-            )}
-          </div>
-        </Col>
+        {!tiny && (
+          <Col span={9}>
+            <div className={styles.dashboard__content__progress__buttons}>
+              <Button
+                type="primary"
+                onClick={() => router.push(`/causes/${cause.slug}/donate`)}
+                disabled={cause.status !== "active"}
+              >
+                DONATE
+              </Button>
+              {myCause && !tiny && (
+                <Actions reload={reload} record={cause} viewing edit={edit} />
+              )}
+            </div>
+          </Col>
+        )}
       </Row>
     </div>
   );

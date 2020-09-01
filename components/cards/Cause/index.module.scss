@@ -3,6 +3,9 @@
 
 .card {
   background-color: $light-gray;
+  &[data-is-view="true"] {
+    background-color: transparent;
+  }
   &__cover {
     &__placeholder {
       background-color: rgba($primary, 0.1);
