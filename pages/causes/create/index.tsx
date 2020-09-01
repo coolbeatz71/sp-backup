@@ -84,10 +84,7 @@ const Create: React.FC<Props> = ({
     defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
   );
   const [index, setIndex] = React.useState<number>(0);
-  const [data, setData] = React.useState<{ [key: string]: any }>({
-    ...dt,
-    payment_account_number: short(userData.phone_number),
-  });
+  const [data, setData] = React.useState<{ [key: string]: any }>(dt);
   const [refreshKey, setRefreshKey] = React.useState<number>(0);
   const [form, setForm] = React.useState<any>();
   const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
@@ -113,6 +110,10 @@ const Create: React.FC<Props> = ({
     globalAny.imgRefCurrent = null;
     clear()(dispatch);
   }, [dispatch]);
+
+  React.useEffect(() => {
+    setData({ ...data, account: short(userData.phone_number) });
+  }, [userData]);
 
   return (
     <div className={styles.create} key={dt.name}>
