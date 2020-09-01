@@ -11,6 +11,7 @@ import styles from "./index.module.scss";
 import defaultSteps from "./CreateCauseSteps";
 import Buttons from "./CreateCauseSteps/Buttons";
 import { SvpType } from "helpers/context";
+import { short } from "dev-rw-phone";
 
 import handleData from "./handlers";
 import { useRouter } from "next/router";
@@ -75,19 +76,22 @@ const Create: React.FC<Props> = ({
   slug,
   svpProps,
 }) => {
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
   const [steps, setSteps] = React.useState(
     defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
   );
   const [index, setIndex] = React.useState<number>(0);
-  const [data, setData] = React.useState<{ [key: string]: any }>(dt);
+  const [data, setData] = React.useState<{ [key: string]: any }>({
+    ...dt,
+    payment_account_number: short(userData.phone_number),
+  });
   const [refreshKey, setRefreshKey] = React.useState<number>(0);
   const [form, setForm] = React.useState<any>();
   const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
   const [issue, setIssue] = React.useState<boolean[]>([]);
-
-  const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
-  );
 
   const [success, setSuccess] = React.useState(false);
 
