@@ -130,7 +130,7 @@ const SharePopover: React.FC<Props> = ({
   return standalone ? (
     <Row
       align="middle"
-      justify="center"
+      justify={isCreateSuccess ? "center" : "start"}
       gutter={isCreateSuccess ? [24, 10] : 24}
       className={styles.share}
     >

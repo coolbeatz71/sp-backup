@@ -35,6 +35,7 @@ import colors from "helpers/cause-type-colors";
 interface Props {
   cause: { [key: string]: any };
   reload?: () => void;
+  isView?: boolean;
 }
 
 const donateMsg: { [key: string]: string } = {
@@ -71,7 +72,7 @@ const FooterCover: React.FC<FooterCoverProps> = ({
   );
 };
 
-const Cause: React.FC<Props> = ({ cause }) => {
+const Cause: React.FC<Props> = ({ cause, isView = false }) => {
   const [imageStatus, setImageStatus] = React.useState(
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
@@ -86,12 +87,23 @@ const Cause: React.FC<Props> = ({ cause }) => {
     user.currentUser.isLoggedin &&
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
+  const LinkWrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+    isView ? (
+      <React.Fragment>{children}</React.Fragment>
+    ) : (
+      <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+        {children}
+      </Link>
+    );
+
   return (
     <AntdCard
       className={styles.card}
-      hoverable
+      data-is-view={isView}
+      hoverable={!isView}
+      bordered={!isView}
       cover={
-        <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+        <LinkWrap>
           <a data-aspect-ratio className={styles.card__cover}>
             {imageStatus === "loading" && (
               <div className={styles.card__cover__placeholder}>
@@ -131,7 +143,7 @@ const Cause: React.FC<Props> = ({ cause }) => {
               />
             )}
           </a>
-        </Link>
+        </LinkWrap>
       }
     >
       <Badge className={styles.card__type} count={cause.category.title} />
@@ -173,105 +185,111 @@ const Cause: React.FC<Props> = ({ cause }) => {
           )}
         </Col>
       </Row>
-      <div className={styles.card__title} data-my-cause={myCause}>
-        <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
-          <a>
-            <Typography.Title level={4} ellipsis>
-              {cause.name}
-            </Typography.Title>
-          </a>
-        </Link>
-        {myCause && (
-          <CausesActions
-            record={cause}
-            reload={() => {
-              //
-            }}
-          />
-        )}
-      </div>
-      {cause.access === "private" && <Badge color="#e150fd" text="Private" />}
-      <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
-        <a>
-          <Typography.Paragraph
-            data-access={cause.access}
-            className={styles.card__summary}
-            ellipsis={{ rows: cause.access === "public" ? 3 : 2 }}
-          >
-            {cause.summary}
-          </Typography.Paragraph>
-        </a>
-      </Link>
-      <div className={styles.card__progress}>
-        <Row justify="space-between">
-          <Col span={16}>
-            <Typography.Text ellipsis>
-              {numeral(cause.raised_amount).format("0,0.[00]")} RWF Raised
-            </Typography.Text>
-          </Col>
-          <Col>
-            <Typography.Text type="secondary" ellipsis>
-              {numeral(percentage).format("0.[00]")}%
-            </Typography.Text>
-          </Col>
-        </Row>
-        <div className={styles.card__progress__item}>
-          <div
-            className={styles.card__progress__item__inner}
-            style={{ width: `${percentage}%` }}
-          />
+      {!isView && (
+        <div className={styles.card__title} data-my-cause={myCause}>
+          <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+            <a>
+              <Typography.Title level={4} ellipsis>
+                {cause.name}
+              </Typography.Title>
+            </a>
+          </Link>
+          {myCause && (
+            <CausesActions
+              record={cause}
+              reload={() => {
+                //
+              }}
+            />
+          )}
         </div>
-        <Row justify="space-between">
-          <Col className={styles.card__progress__item__goal}>
-            <Typography.Text ellipsis>
-              {numeral(cause.target_amount).format("0,0.[00]")} RWF Goal
-            </Typography.Text>
-          </Col>
-          <Col>
-            <Typography.Text type="secondary" ellipsis>
-              {notEnded ? "" : "Ended "}
-              {moment(cause.end_date).fromNow(notEnded)}
-              {notEnded ? " to Go" : " Ago"}
-            </Typography.Text>
-          </Col>
-        </Row>
-      </div>
-      <Row justify="space-between">
-        <Col span={16}>
-          <StarRating
-            value={cause.ratings * 1}
-            count={cause.raters_count * 1}
-          />
-        </Col>
-        <Col>
-          <SharePopover
+      )}
+      {cause.access === "private" && <Badge color="#e150fd" text="Private" />}
+      {!isView && (
+        <>
+          <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+            <a>
+              <Typography.Paragraph
+                data-access={cause.access}
+                className={styles.card__summary}
+                ellipsis={{ rows: cause.access === "public" ? 3 : 2 }}
+              >
+                {cause.summary}
+              </Typography.Paragraph>
+            </a>
+          </Link>
+          <div className={styles.card__progress}>
+            <Row justify="space-between">
+              <Col span={16}>
+                <Typography.Text ellipsis>
+                  {numeral(cause.raised_amount).format("0,0.[00]")} RWF Raised
+                </Typography.Text>
+              </Col>
+              <Col>
+                <Typography.Text type="secondary" ellipsis>
+                  {numeral(percentage).format("0.[00]")}%
+                </Typography.Text>
+              </Col>
+            </Row>
+            <div className={styles.card__progress__item}>
+              <div
+                className={styles.card__progress__item__inner}
+                style={{ width: `${percentage}%` }}
+              />
+            </div>
+            <Row justify="space-between">
+              <Col className={styles.card__progress__item__goal}>
+                <Typography.Text ellipsis>
+                  {numeral(cause.target_amount).format("0,0.[00]")} RWF Goal
+                </Typography.Text>
+              </Col>
+              <Col>
+                <Typography.Text type="secondary" ellipsis>
+                  {notEnded ? "" : "Ended "}
+                  {moment(cause.end_date).fromNow(notEnded)}
+                  {notEnded ? " to Go" : " Ago"}
+                </Typography.Text>
+              </Col>
+            </Row>
+          </div>
+          <Row justify="space-between">
+            <Col span={16}>
+              <StarRating
+                value={cause.ratings * 1}
+                count={cause.raters_count * 1}
+              />
+            </Col>
+            <Col>
+              <SharePopover
+                slug={cause.slug}
+                title={cause.name}
+                code={cause.till_number}
+              >
+                <Button type="link" size="small" className={styles.card__share}>
+                  Share <ShareAltOutlined />
+                </Button>
+              </SharePopover>
+            </Col>
+          </Row>
+          <Divider />
+          <FooterCover
             slug={cause.slug}
-            title={cause.name}
-            code={cause.till_number}
+            active={cause.status === "active"}
+            myCause={myCause}
           >
-            <Button type="link" size="small" className={styles.card__share}>
-              Share <ShareAltOutlined />
+            <Button type="text" block className={styles.card__donate}>
+              <Typography.Text
+                underline
+                strong
+                ellipsis
+                type={cause.status !== "active" ? "secondary" : undefined}
+              >
+                {donateMsg[myCause ? "myCause" : cause.status]}
+              </Typography.Text>
             </Button>
-          </SharePopover>
-        </Col>
-      </Row>
-      <Divider />
-      <FooterCover
-        slug={cause.slug}
-        active={cause.status === "active"}
-        myCause={myCause}
-      >
-        <Button type="text" block className={styles.card__donate}>
-          <Typography.Text
-            underline
-            strong
-            ellipsis
-            type={cause.status !== "active" ? "secondary" : undefined}
-          >
-            {donateMsg[myCause ? "myCause" : cause.status]}
-          </Typography.Text>
-        </Button>
-      </FooterCover>
+          </FooterCover>
+        </>
+      )}
     </AntdCard>
   );
 };

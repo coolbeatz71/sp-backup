@@ -1,4 +1,5 @@
 @import "../../../styles/colors.scss";
+@import "../../../styles/dimensions.scss";
 
 .dashboard {
   &__content {
@@ -6,6 +7,9 @@
       &,
       div[class="ant-card-meta-title"] {
         color: $primary !important;
+      }
+      &[data-meta-not-lg="true"] * {
+        font-size: 14px !important;
       }
     }
     &__sidebar {
@@ -17,9 +21,19 @@
           }
         }
       }
+      [data-not-lg="true"] {
+        background-color: transparent;
+        [class~="ant-card-body"] {
+          padding: 0px !important;
+        }
+      }
       &__more {
         margin-top: 8px;
         text-align: right;
+        &[data-more-not-lg="true"] {
+          margin-bottom: $padding;
+          text-align: center;
+        }
       }
     }
   }
