@@ -11,7 +11,9 @@ interface Props {
   visible?: boolean;
   titleLevel?: 1 | 2 | 3 | 4;
   titleType?: "danger" | "secondary" | "warning";
+  noTitle?: boolean;
   icon?: string;
+  iconStyle?: React.CSSProperties;
   onVisible?: () => void;
   onCancel?: () => void;
   onCloseClick?: () => void;
@@ -24,7 +26,9 @@ const Modal: React.FC<Props> = ({
   visible: vs = false,
   titleLevel = 2,
   titleType,
+  noTitle = false,
   icon,
+  iconStyle = {},
   onVisible = () => {
     //
   },
@@ -52,9 +56,13 @@ const Modal: React.FC<Props> = ({
       <AntdModal
         destroyOnClose
         title={
-          <Typography.Title level={titleLevel} ellipsis type={titleType}>
-            {title}
-          </Typography.Title>
+          noTitle ? (
+            <div />
+          ) : (
+            <Typography.Title level={titleLevel} ellipsis type={titleType}>
+              {title}
+            </Typography.Title>
+          )
         }
         visible={visible}
         className={styles[icon ? "modal_icon" : "modal"]}
@@ -71,7 +79,13 @@ const Modal: React.FC<Props> = ({
         <Head>
           <title>{title} | Save Plus</title>
         </Head>
-        {icon && <img src={icon} className={styles.modal_icon__icon} />}
+        {icon && (
+          <img
+            src={icon}
+            className={styles.modal_icon__icon}
+            style={iconStyle}
+          />
+        )}
         {children}
       </AntdModal>
     </>
