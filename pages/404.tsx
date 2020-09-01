@@ -1,12 +1,13 @@
 import React from "react";
+import { Result } from "antd";
+import Icon from "components/common/CustomIcon";
+
+import Layout from "components/LayoutWrapper";
 
 const NotFound = () => (
-  <div className="error">
-    <div className="illustration">
-      <img src="/404.svg" alt="404" />
-    </div>
-    <h1>Page not found</h1>
-  </div>
+  <Layout title="Not Found" noFooter isError>
+    <Result icon={<Icon type="404" style={{ fontSize: 240 }} />} />
+  </Layout>
 );
 
 export default NotFound;

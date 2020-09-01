@@ -28,6 +28,15 @@
       margin-top: -60px;
     }
     z-index: 1;
+    [data-card-not-lg="true"] {
+      @media screen and (max-width: #{$mobile-size}) {
+        margin-right: -$padding;
+        margin-left: -$padding;
+        [class~="ant-card-cover"] img {
+          border-radius: 0px 0px;
+        }
+      }
+    }
     &__progress {
       box-sizing: border-box;
       padding: 0px 24px;

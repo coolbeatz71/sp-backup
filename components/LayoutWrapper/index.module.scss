@@ -152,6 +152,9 @@
     &[data-is-category="true"] {
       margin-top: calc(#{$header-height} * 2);
     }
+    &[data-is-error="true"] {
+      background-color: $primary-ultra-light !important;
+    }
     @media screen and (max-width: #{$mobile-size}) {
       margin-top: $mobile-header-height;
       &[data-is-category="true"] {

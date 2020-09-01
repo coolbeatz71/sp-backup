@@ -93,7 +93,7 @@ const CauseEditing: React.FC<Props> = ({
             },
           ]}
         >
-          <StackedLabel label="Cause Fundraising Target">
+          <StackedLabel label="Cause Fundraising Target" formatNumber>
             <InputNumber
               placeholder="Cause Fundraising Target"
               disabled={loading}
