@@ -17,6 +17,7 @@ import CauseSider from "components/Cause/CauseSider";
 import { format } from "dev-rw-phone";
 import EditModal from "components/modals/EditModal";
 import CauseCard from "components/cards/Cause";
+import NotFound from "pages/404";
 
 interface Props {
   cause: { [key: string]: any };
@@ -65,7 +66,7 @@ const SingleCause: NextPage<Props> = ({
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
   React.useEffect(() => {
-    if (edit && cause.slug) {
+    if (edit && cause.id) {
       if (cause.edit_count === 0) {
         setEditing(edit);
       } else {
@@ -131,6 +132,8 @@ const SingleCause: NextPage<Props> = ({
             <>
               {[400, 403].includes(error?.status) ? (
                 <AccessCode slug={cause?.slug} error={error} />
+              ) : error?.status === 404 ? (
+                <NotFound noWrapper />
               ) : (
                 <Error
                   status={error?.status || 500}
@@ -142,15 +145,17 @@ const SingleCause: NextPage<Props> = ({
         )}
         {!loading && !error && (
           <div>
-            <EditModal
-              visible={editing}
-              onClose={() => router.push(`/causes/${cause?.slug}`)}
-              slug={cause?.slug}
-              name={cause?.name}
-              target={cause?.target_amount * 1}
-              start={cause?.start_date}
-              end={cause?.end_date}
-            />
+            {cause?.edit_count === 0 && (
+              <EditModal
+                visible={editing}
+                onClose={() => router.push(`/causes/${cause?.slug}`)}
+                slug={cause?.slug}
+                name={cause?.name}
+                target={cause?.target_amount * 1}
+                start={cause?.start_date}
+                end={cause?.end_date}
+              />
+            )}
             <div className={styles.dashboard__inner}>
               <Row gutter={[0, 24]}>
                 <Col span={24} lg={15}>
