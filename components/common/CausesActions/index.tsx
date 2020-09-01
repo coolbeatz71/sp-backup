@@ -20,7 +20,8 @@ const isUncancellable = (status: string): boolean =>
 
 const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
-const isUneditable = (status: string) => status !== causeStatus.active;
+const isUneditable = (status: string) =>
+  status !== causeStatus.active && status !== causeStatus.paused;
 
 interface Props {
   record: { [key: string]: any };
