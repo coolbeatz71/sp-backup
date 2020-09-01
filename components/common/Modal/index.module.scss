@@ -19,7 +19,9 @@
 .modal,
 .modal_icon {
   [class~="ant-modal-content"] {
-    min-width: calc(#{$modal-padding} * 8);
+    @media screen and (min-width: #{$lg-size}) {
+      width: calc(#{$modal-padding} * 8);
+    }
     background-image: url(/images/circle.svg), url(/images/circle.svg),
       url(/images/square.svg), url(/images/square.svg);
     background-repeat: no-repeat;
@@ -29,6 +31,9 @@
       0px clamp(200px, 100%, 100%), 100% 0px;
     [class~="ant-modal-close"] {
       width: $modal-padding;
+      @media screen and (max-width: #{$lg-size}) {
+        width: calc(#{$padding} * 2);
+      }
       height: calc(#{$modal-padding} * 0.66);
       margin-top: $padding;
       [class~="ant-modal-close-x"] {
@@ -41,6 +46,9 @@
       border-bottom: none;
       text-align: center;
       padding: $padding $modal-padding;
+      @media screen and (max-width: #{$lg-size}) {
+        padding: $padding calc(#{$padding} * 2);
+      }
       background-color: transparent;
       [class~="ant-modal-title"] {
         height: calc(#{$modal-padding} * 0.66);
@@ -54,6 +62,9 @@
     }
     [class~="ant-modal-body"] {
       padding: 0px $modal-padding $padding $modal-padding;
+      @media screen and (max-width: #{$lg-size}) {
+        padding: 0px $padding $padding $padding;
+      }
     }
   }
 }
