@@ -92,7 +92,7 @@ const Step1: React.FC<Props> = ({
           },
         ]}
       >
-        <StackedLabel label="Cause Fundraising Target">
+        <StackedLabel label="Cause Fundraising Target" formatNumber>
           <InputNumber placeholder="Cause Fundraising Target" />
         </StackedLabel>
       </Form.Item>

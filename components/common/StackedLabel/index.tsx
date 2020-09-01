@@ -11,6 +11,7 @@ interface Props {
   value?: any;
   datePicker?: boolean;
   select?: boolean;
+  formatNumber?: boolean;
   phone?: string;
   onChange?: () => void;
   loading?: boolean;
@@ -25,6 +26,7 @@ const StackedLabel: React.FC<Props> = ({
   value = "",
   datePicker = false,
   select = false,
+  formatNumber = false,
   phone = null,
   onChange = () => null,
   loading = false,
@@ -62,6 +64,11 @@ const StackedLabel: React.FC<Props> = ({
     },
   };
 
+  const numberProps = {
+    formatter: (value: any) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    parser: (value: any) => value.replace(/\$\s?|(,*)/g, ""),
+  };
+
   return (
     <div
       className={!phone ? styles.input : styles.input__phone}
@@ -75,6 +82,7 @@ const StackedLabel: React.FC<Props> = ({
         onBlur,
         ...(datePicker ? datePickerProps : {}),
         ...(select ? selectProps : {}),
+        ...(formatNumber ? numberProps : {}),
         ...(loading ? { disabled: true } : {}),
         placeholder: "",
         "data-char-count-input": charCount ? true : false,
