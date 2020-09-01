@@ -85,7 +85,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 Edit Cause
               </Button>
             )}
-            {status === causeStatus.paused ? (
+            {record.status === causeStatus.paused ? (
               <Button
                 className={styles.actions__menu_button}
                 type="text"
