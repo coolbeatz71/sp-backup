@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { Result } from "antd";
 import Icon from "components/common/CustomIcon";
 
