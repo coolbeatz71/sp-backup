@@ -65,6 +65,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
                 code={cause.till_number}
                 title={cause.title}
                 standalone
+                isPrivate={cause.access === "private"}
               />
             </Card>
           </>
