@@ -1,9 +1,10 @@
 import React from "react";
-import { Popover, Button, Typography, Row, Col } from "antd";
+import { Popover, Button, Typography, Row, Col, message } from "antd";
 import {
   TwitterOutlined,
   WhatsAppOutlined,
   FacebookFilled,
+  CopyOutlined,
 } from "@ant-design/icons";
 import qs from "query-string";
 import CustomIcon from "components/common/CustomIcon";
@@ -24,12 +25,10 @@ interface Props {
 interface LinkProps {
   type: "facebook" | "whatsapp" | "twitter";
   children: React.ReactElement;
-  slug: string;
   title: string;
+  link: string;
 }
-const Link: React.FC<LinkProps> = ({ type, title, slug, children }) => {
-  const link = `${getPlatformUrl()}/causes/${slug}`;
-
+const Link: React.FC<LinkProps> = ({ type, title, link, children }) => {
   const t = {
     facebook: `https://www.facebook.com/sharer/sharer.php?${qs.stringify({
       display: "page",
@@ -61,8 +60,21 @@ const SharePopover: React.FC<Props> = ({
 }) => {
   const [visible, setVisible] = React.useState(false);
 
+  const link = `${getPlatformUrl()}/causes/${slug}`;
+
   const share = (
     <div>
+      {!isCreateSuccess && (
+        <Button
+          size="large"
+          type="text"
+          icon={<CopyOutlined />}
+          onClick={() => {
+            navigator.clipboard.writeText(link);
+            message.success(`Copied "${link}"!`, 2);
+          }}
+        />
+      )}
       <Modal
         title="USSD Code"
         onVisible={() => setVisible(false)}
@@ -85,7 +97,7 @@ const SharePopover: React.FC<Props> = ({
           </Typography.Title>
         </div>
       </Modal>
-      <Link slug={slug} title={title} type="facebook">
+      <Link link={link} title={title} type="facebook">
         <Button
           className={styles.share__facebook}
           data-is-success={isCreateSuccess}
@@ -94,7 +106,7 @@ const SharePopover: React.FC<Props> = ({
           icon={<FacebookFilled />}
         />
       </Link>
-      <Link slug={slug} title={title} type="whatsapp">
+      <Link link={link} title={title} type="whatsapp">
         <Button
           className={styles.share__whatsapp}
           data-is-success={isCreateSuccess}
@@ -103,7 +115,7 @@ const SharePopover: React.FC<Props> = ({
           icon={<WhatsAppOutlined />}
         />
       </Link>
-      <Link slug={slug} title={title} type="twitter">
+      <Link link={link} title={title} type="twitter">
         <Button
           className={styles.share__twitter}
           data-is-success={isCreateSuccess}

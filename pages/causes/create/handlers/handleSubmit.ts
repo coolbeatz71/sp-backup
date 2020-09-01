@@ -37,9 +37,7 @@ const handleSubmit = (
         payment_method:
           phone(data.account).telco === "MTN" ? "MTN_Rwanda" : "Airtel_Rwanda",
         payment_account_number: phone(data.account).normalized,
-        payment_account_name: data.account_name,
         summary: data.summary,
-        video: data.video,
         description: data.details,
         target_amount: data.target,
         access: data.isPrivate ? "private" : "public",
@@ -47,6 +45,10 @@ const handleSubmit = (
         end_date: data.end.format("YYYY-MM-DD"),
         affiliated: data.affiliated ? true : false,
       };
+
+      if (!["", null, undefined].includes(data.video)) {
+        toUpload.video = data.video;
+      }
 
       if (hasOrg) {
         toUpload.organization = {
