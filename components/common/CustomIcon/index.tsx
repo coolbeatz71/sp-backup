@@ -18,6 +18,7 @@ import save from "./svg/save";
 import verified from "./svg/verified";
 import ussd from "./svg/ussd";
 import config from "./svg/config";
+import notFound from "./svg/404";
 
 const icons: { [key: string]: any } = {
   dashboard,
@@ -34,6 +35,7 @@ const icons: { [key: string]: any } = {
   verified,
   ussd,
   config,
+  404: notFound,
   "sign-out": signOut,
 };
 
@@ -41,7 +43,10 @@ interface Props {
   type: string;
 }
 
-const CustomIcon: React.FC<Props> = ({ type, ...props }) => {
+const CustomIcon: React.FC<Props & { [key: string]: any }> = ({
+  type,
+  ...props
+}) => {
   return <Icon component={icons[type]} {...props} />;
 };
 

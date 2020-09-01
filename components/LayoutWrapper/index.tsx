@@ -30,6 +30,7 @@ interface Props {
     | React.ReactElement[]
     | null;
   isHome?: boolean;
+  isError?: boolean;
   isCause?: boolean;
   isCategory?: boolean;
   isCreate?: boolean;
@@ -47,6 +48,7 @@ const LayoutWrapper: React.FC<Props> = ({
   image,
   description,
   isHome = false,
+  isError = false,
   isCause = false,
   isCategory = false,
   isCreate = false,
@@ -179,6 +181,7 @@ const LayoutWrapper: React.FC<Props> = ({
           className={styles.layout__content}
           data-is-category={isCategory}
           data-is-form={isForm}
+          data-is-error={isError}
         >
           {children}
         </Content>
