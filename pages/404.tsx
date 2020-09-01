@@ -1,5 +1,5 @@
 import React from "react";
-import { Result, Button } from "antd";
+import { Result } from "antd";
 import Icon from "components/common/CustomIcon";
 
 import Layout from "components/LayoutWrapper";
