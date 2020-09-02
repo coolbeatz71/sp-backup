@@ -67,6 +67,14 @@
         overflow: hidden;
         @media screen and (max-width: #{$scroll-break}) {
           overflow-x: auto;
+          &[data-section-scroll="1"] {
+            overflow-x: hidden;
+          }
+          &[data-section-scroll="2"] {
+            [data-section-row="items"] {
+              max-width: 200vw !important;
+            }
+          }
         }
         [data-section-row] {
           min-width: calc(#{$scroll-break} + (#{$content-padding} * 2));

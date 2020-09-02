@@ -111,8 +111,8 @@ const Section: React.FC<Props> = ({
       ) : data.length === 0 ? (
         <div />
       ) : (
-        <div data-section-scroll>
-          <Row data-section-row={data.length} gutter={[24, 24]}>
+        <div data-section-scroll={data.length}>
+          <Row data-section-row="items" gutter={[24, 24]}>
             {data.map((cause: any, index: number) => (
               <Col span={8} key={index}>
                 <Cause cause={cause} />
