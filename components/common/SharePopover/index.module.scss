@@ -6,7 +6,10 @@
   &__ussd {
     color: $primary;
     &__text {
+      position: relative;
+      top: -30px;
       text-align: center;
+      font-size: 12pt;
     }
   }
   &__facebook {

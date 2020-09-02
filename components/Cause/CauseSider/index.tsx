@@ -19,8 +19,16 @@ interface Props {
 const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
   const donors = cause.donors || [];
   const screens = Grid.useBreakpoint();
+
+  const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+    screens.lg ? (
+      <Affix offsetTop={120}>{children}</Affix>
+    ) : (
+      <React.Fragment>{children}</React.Fragment>
+    );
+
   return (
-    <Affix offsetTop={120}>
+    <Wrapper>
       <div className={styles.dashboard__content__sidebar}>
         {(myCause || cause.status === "active") && (
           <Row gutter={[24, 24]}>
@@ -110,7 +118,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
         </Card>
         {!screens.lg && contact}
       </div>
-    </Affix>
+    </Wrapper>
   );
 };
 

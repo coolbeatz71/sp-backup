@@ -135,7 +135,7 @@ const SignUp: React.FC<{}> = () => {
             </StackedLabel>
           </Form.Item>
           <Form.Item name="email">
-            <StackedLabel label="Email Address">
+            <StackedLabel label="Email (Optional)">
               <Input type="email" autoComplete="email" disabled={loading} />
             </StackedLabel>
           </Form.Item>
