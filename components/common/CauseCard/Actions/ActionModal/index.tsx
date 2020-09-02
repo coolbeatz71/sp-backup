@@ -14,6 +14,7 @@ import { RESET_RESUME_ERROR } from "redux/action-types/cause/resumeCause";
 import resumeCause from "redux/actions/cause/resumeCause";
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
+import { useRouter } from "next/router";
 
 interface IActionModalProps {
   slug: string;
@@ -31,6 +32,7 @@ const ActionModal: FC<IActionModalProps> = ({
   closeModal,
 }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
     ({ cause: { pause } }: IRootState) => pause,
@@ -41,6 +43,10 @@ const ActionModal: FC<IActionModalProps> = ({
   const { loading: loadingResume, error: errorResume } = useSelector(
     ({ cause: { resume } }: IRootState) => resume,
   );
+
+  React.useEffect(() => {
+    if (actionSuccessful) router.reload();
+  }, [actionSuccessful]);
 
   const handleModalClose = () => {
     closeModal();
