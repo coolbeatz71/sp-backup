@@ -20,8 +20,8 @@ const isUncancellable = (status: string): boolean =>
 
 const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
-const isUneditable = (status: string) =>
-  status !== causeStatus.active && status !== causeStatus.paused;
+const isUneditable = (status: string, count: number) =>
+  (status !== causeStatus.active && status !== causeStatus.paused) || count > 0;
 
 interface Props {
   record: { [key: string]: any };
@@ -75,7 +75,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 View Cause
               </Button>
             )}
-            {!isUneditable(record.status) && (
+            {!isUneditable(record.status, record.edit_count) && (
               <Button
                 className={styles.actions__menu_button}
                 type="text"

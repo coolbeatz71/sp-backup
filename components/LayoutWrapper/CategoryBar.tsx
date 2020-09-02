@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Row, Col, Menu, Input, Dropdown, Button, Checkbox } from "antd";
+import { Row, Col, Menu, Input, Dropdown, Button, Checkbox, Grid } from "antd";
 import { useRouter } from "next/router";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
@@ -24,6 +24,7 @@ const CategoryBar: React.FC<Props> = ({
   scrolled,
 }) => {
   const router = useRouter();
+  const screens = Grid.useBreakpoint();
 
   const [search, setSearch] = React.useState<any>(router.query?.search || "");
 
@@ -77,21 +78,41 @@ const CategoryBar: React.FC<Props> = ({
     });
   };
 
+  const categoryTitles = { [baseUrl]: "All" };
+  categories.map(({ id, title }) => (categoryTitles[id] = title));
+
+  const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+    screens.lg ? (
+      children
+    ) : (
+      <Dropdown arrow placement="bottomLeft" overlay={children}>
+        <Button
+          size={scrolled !== "" ? "small" : "middle"}
+          type="primary"
+          ghost={`${category_id}` === baseUrl}
+        >
+          {categoryTitles[`${category_id}`]} <DownOutlined />
+        </Button>
+      </Dropdown>
+    );
+
   return (
     <Row gutter={24} align="middle">
       <Col flex={1}>
-        <Menu
-          mode="horizontal"
-          selectedKeys={[`${category_id}`]}
-          onClick={({ key }) => {
-            navigate({ category_id: key });
-          }}
-        >
-          <Menu.Item key={baseUrl}>All</Menu.Item>
-          {categories.map(({ id, title }) => (
-            <Menu.Item key={id}>{title}</Menu.Item>
-          ))}
-        </Menu>
+        <Wrapper>
+          <Menu
+            mode="horizontal"
+            selectedKeys={[`${category_id}`]}
+            onClick={({ key }) => {
+              navigate({ category_id: key });
+            }}
+          >
+            <Menu.Item key={baseUrl}>{categoryTitles[baseUrl]}</Menu.Item>
+            {categories.map(({ id, title }) => (
+              <Menu.Item key={id}>{title}</Menu.Item>
+            ))}
+          </Menu>
+        </Wrapper>
       </Col>
       <Col>
         <Dropdown
@@ -200,7 +221,7 @@ const CategoryBar: React.FC<Props> = ({
           />
         </Dropdown>
       </Col>
-      <Col>
+      <Col data-search-col={scrolled !== "" ? "scrolled" : ""}>
         <Input
           size={scrolled !== "" ? "small" : "middle"}
           placeholder="Search"
