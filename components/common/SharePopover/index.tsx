@@ -18,6 +18,7 @@ interface Props {
   slug: string;
   code: string;
   title: string;
+  isPrivate: boolean;
   standalone?: boolean;
   isCreateSuccess?: boolean;
 }
@@ -55,6 +56,7 @@ const SharePopover: React.FC<Props> = ({
   slug,
   code,
   title,
+  isPrivate = false,
   standalone = false,
   isCreateSuccess = false,
 }) => {
@@ -97,33 +99,37 @@ const SharePopover: React.FC<Props> = ({
           </Typography.Title>
         </div>
       </Modal>
-      <Link link={link} title={title} type="facebook">
-        <Button
-          className={styles.share__facebook}
-          data-is-success={isCreateSuccess}
-          size="large"
-          type="text"
-          icon={<FacebookFilled />}
-        />
-      </Link>
-      <Link link={link} title={title} type="whatsapp">
-        <Button
-          className={styles.share__whatsapp}
-          data-is-success={isCreateSuccess}
-          size="large"
-          type="text"
-          icon={<WhatsAppOutlined />}
-        />
-      </Link>
-      <Link link={link} title={title} type="twitter">
-        <Button
-          className={styles.share__twitter}
-          data-is-success={isCreateSuccess}
-          size="large"
-          type="text"
-          icon={<TwitterOutlined />}
-        />
-      </Link>
+      {!isPrivate && (
+        <>
+          <Link link={link} title={title} type="facebook">
+            <Button
+              className={styles.share__facebook}
+              data-is-success={isCreateSuccess}
+              size="large"
+              type="text"
+              icon={<FacebookFilled />}
+            />
+          </Link>
+          <Link link={link} title={title} type="whatsapp">
+            <Button
+              className={styles.share__whatsapp}
+              data-is-success={isCreateSuccess}
+              size="large"
+              type="text"
+              icon={<WhatsAppOutlined />}
+            />
+          </Link>
+          <Link link={link} title={title} type="twitter">
+            <Button
+              className={styles.share__twitter}
+              data-is-success={isCreateSuccess}
+              size="large"
+              type="text"
+              icon={<TwitterOutlined />}
+            />
+          </Link>
+        </>
+      )}
     </div>
   );
 

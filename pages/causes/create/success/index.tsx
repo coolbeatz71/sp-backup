@@ -129,6 +129,7 @@ const Success = () => {
                           slug={data.slug}
                           code={data.till_number}
                           title={data.name}
+                          isPrivate={data.access === "private"}
                         />
                       </>
                     )}

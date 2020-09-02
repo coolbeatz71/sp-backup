@@ -264,6 +264,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
                 slug={cause.slug}
                 title={cause.name}
                 code={cause.till_number}
+                isPrivate={cause.access === "private"}
               >
                 <Button type="link" size="small" className={styles.card__share}>
                   Share <ShareAltOutlined />
