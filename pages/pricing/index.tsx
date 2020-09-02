@@ -8,6 +8,10 @@ const PricingPage: React.SFC<{}> = () => {
   return (
     <LayoutWrapper title="Pricing" isForm>
       <div className={styles.pricing__container}>
+        <img
+          className={styles.pricing__container__image}
+          src="/images/pricing.svg"
+        />
         <div className={styles.pricing__container__header}>
           <h1>Simple Plans For Everyone!</h1>
           <div className={styles.pricing__container__header__desc}>
