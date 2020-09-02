@@ -19,6 +19,7 @@ export default (state: ICause, { type, payload }: Iaction) => {
         ...state,
         single: {
           ...state.single,
+          data: {},
           loading: true,
           error: null,
         },
