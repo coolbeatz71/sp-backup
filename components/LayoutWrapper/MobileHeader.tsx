@@ -236,7 +236,12 @@ const Header: React.FC<Props> = ({
                 }
                 trigger={["click"]}
               >
-                <Button type="text" size="large" icon={<MenuOutlined />} />
+                <Button
+                  type="text"
+                  size="large"
+                  icon={<MenuOutlined />}
+                  data-main-menu-trigger=""
+                />
               </Dropdown>
             </Col>
           </Row>
