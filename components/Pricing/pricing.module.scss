@@ -27,6 +27,7 @@
 
     &__sections {
       display: flex;
+      flex: 1;
       &__plan {
         margin: 0 3rem;
         display: flex;
@@ -60,7 +61,7 @@
     margin: 0;
     width: 100%;
     padding: 1rem 0;
-    padding-bottom: 0;
+    padding-bottom: 1rem;
 
     &__header {
       padding: 0 1rem;

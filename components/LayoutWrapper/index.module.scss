@@ -190,8 +190,8 @@
       background-color: $primary-ultra-light !important;
       background-image: url(/images/background.svg);
       background-repeat: no-repeat;
-      background-size: 100%;
     }
+    background-size: 100% 100%;
     &[data-is-category="true"] {
       margin-top: calc(#{$header-height} * 2);
     }
