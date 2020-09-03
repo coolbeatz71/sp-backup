@@ -189,6 +189,7 @@ const Header: React.FC<Props> = ({
             <ResetPin />
             <Col>
               <Button
+                style={{ marginLeft: 24 }}
                 type="primary"
                 ghost
                 onClick={() => showAuthDialog(true, "login")(dispatch)}
@@ -198,6 +199,7 @@ const Header: React.FC<Props> = ({
             </Col>
             <Col>
               <Button
+                style={{ marginLeft: 24 }}
                 type="primary"
                 onClick={() => showAuthDialog(true, "signup")(dispatch)}
               >
