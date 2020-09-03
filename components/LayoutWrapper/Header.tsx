@@ -52,6 +52,7 @@ const Header: React.FC<Props> = ({
   const router = useRouter();
   const [changePin, setChangePin] = React.useState(false);
   const dispatch = useDispatch();
+
   return (
     <GenericHeader
       className={styles.layout__header}
@@ -70,18 +71,21 @@ const Header: React.FC<Props> = ({
           </Link>
         </Col>
 
-        {user.currentUser.isLoggedin && !isCreate && user.currentUser.data.id && (
-          <Col>
-            <Button
-              type="primary"
-              ghost
-              onClick={() => router.push("/causes/create")}
-              data-create-button={!isHome ? "over" : scrolled}
-            >
-              Create a cause
-            </Button>
-          </Col>
-        )}
+        {user.currentUser.isLoggedin &&
+          !isCreate &&
+          user.currentUser.data.id &&
+          router.asPath !== "/causes/create" && (
+            <Col>
+              <Button
+                type="primary"
+                ghost
+                onClick={() => router.push("/causes/create")}
+                data-create-button={!isHome ? "over" : scrolled}
+              >
+                Create a cause
+              </Button>
+            </Col>
+          )}
         <Col>
           {user.currentUser.isLoggedin && user.currentUser.data.id && (
             <ChangePin
