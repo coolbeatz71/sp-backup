@@ -79,7 +79,7 @@ const SharePopover: React.FC<Props> = ({
         />
       )}
       <Modal
-        title="USSD Code"
+        noTitle
         onVisible={() => setVisible(false)}
         trigger={
           <Button
@@ -92,12 +92,11 @@ const SharePopover: React.FC<Props> = ({
         }
       >
         <div className={styles.share__ussd__text}>
-          <Typography.Title level={4}>
-            Make your donation using the USSD Code
-          </Typography.Title>
-          <Typography.Title level={4} copyable>
-            *777*77*{code}#
-          </Typography.Title>
+          <Typography>This Cause Till Number is</Typography>
+          <Typography>{code}</Typography>
+          <br />
+          <Typography>Make your donation using the USSD Code</Typography>
+          <Typography>*777*77*Cause Till Number*Donation#</Typography>
         </div>
       </Modal>
       {!isPrivate && (

@@ -28,7 +28,7 @@ const IndexPage = () => {
       <div data-content-padding data-content-section>
         <Section
           title="HOW IT WORKS"
-          icon="/images/heart-beat.svg"
+          icon="/images/garden.svg"
           fetched={true}
           error={null}
           data={[]}

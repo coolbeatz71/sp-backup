@@ -70,9 +70,8 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           }),
         ]}
       >
-        <StackedLabel label="Video URL">
+        <StackedLabel label="Video URL (Optional)">
           <Input
-            placeholder="Video URL"
             type="url"
             suffix={
               <VideoPlayer url={data.video}>

@@ -7,7 +7,6 @@
   width: 80%;
   margin: auto;
   padding: 2rem 0;
-  padding-bottom: 1.2rem;
   display: flex;
   flex-flow: column;
   color: $color-primary;
@@ -60,8 +59,7 @@
   @include mediaMd {
     margin: 0;
     width: 100%;
-    padding: 1rem 0;
-    padding-bottom: 1rem;
+    padding: 2rem 0;
 
     &__header {
       padding: 0 1rem;

@@ -19,20 +19,17 @@ const social = [
   {
     name: "twitter",
     icon: <TwitterOutlined className="twitter" />,
-    url:
-      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
+    url: "https://twitter.com/SavePlusHQ",
   },
   {
     name: "instagram",
     icon: <InstagramFilled className="instagram" />,
-    url:
-      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
+    url: "https://www.instagram.com/saveplus.hq/",
   },
   {
     name: "facebook",
     icon: <FacebookFilled className="facebook" />,
-    url:
-      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
+    url: "https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr",
   },
   {
     name: "youtube",

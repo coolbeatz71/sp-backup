@@ -6,9 +6,9 @@ const Panel = Collapse.Panel;
 
 const questions = [
   {
-    title: "What is Save Plus Bill?",
-    description: `Save Plus Bill is a unique six digit bill number that's associated to a cause on Save plus. This bill is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
-    saveplus.io</a> or our USSD code *777*77*Save Plus Bill*Amount#.`,
+    title: "What is Save Plus Till number?",
+    description: `Save Plus Till number is a unique six digit number that's associated to a cause on Save plus. This till number is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
+    saveplus.io</a> or our USSD code *777*77*Till Number*Amount#.`,
   },
   {
     title: "What's the donation process like?",

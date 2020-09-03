@@ -121,7 +121,7 @@ const Success = () => {
                           code
                           copyable={{ text: `${data.till_number}` }}
                         >
-                          Bill #: {data.till_number}
+                          Till Number #: {data.till_number}
                         </Typography.Paragraph>
                         <SharePopover
                           standalone

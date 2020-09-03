@@ -55,10 +55,11 @@ const PricingCard: React.FC<{}> = ({}) => {
                 type={isMobile ? "horizontal" : "vertical"}
                 className={isMobile ? "my-4 mx-5" : ""}
                 style={{
-                  width: isMobile ? "40%" : "3px",
+                  width: isMobile ? "60%" : "3px",
                   minWidth: isMobile ? "0" : "initial",
                   height: "100%",
-                  margin: 0,
+                  marginTop: isMobile ? "2rem" : 0,
+                  borderTop: isMobile ? "1px solid rgba(0, 0, 0, 0.1)" : "",
                 }}
               />
             )}

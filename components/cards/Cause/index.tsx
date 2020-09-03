@@ -247,7 +247,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
                 <Typography.Text type="secondary" ellipsis>
                   {notEnded ? "" : "Ended "}
                   {moment(cause.end_date).fromNow(notEnded)}
-                  {notEnded ? " to Go" : " Ago"}
+                  {notEnded ? " to Go" : ""}
                 </Typography.Text>
               </Col>
             </Row>
