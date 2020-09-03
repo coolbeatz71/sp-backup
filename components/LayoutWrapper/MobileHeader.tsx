@@ -82,7 +82,8 @@ const Header: React.FC<Props> = ({
           <Row gutter={24} align="middle">
             {user.currentUser.isLoggedin &&
               !isCreate &&
-              user.currentUser.data.id && (
+              user.currentUser.data.id &&
+              router.asPath !== "/causes/create" && (
                 <Col>
                   <Button
                     type="primary"

@@ -2,6 +2,7 @@ import React from "react";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
+import { telco } from "dev-rw-phone";
 
 import styles from "./StackedLabel.module.scss";
 
@@ -16,7 +17,7 @@ interface Props {
   onChange?: () => void;
   loading?: boolean;
   required?: boolean;
-  charCount?: number;
+  charCount?: number | [number, number];
   children: Element | any;
 }
 
@@ -88,7 +89,15 @@ const StackedLabel: React.FC<Props> = ({
         "data-char-count-input": charCount ? true : false,
       })}
       {phone && (
-        <span className={styles.input__phone__code_prefix}>{phone}</span>
+        <>
+          <span className={styles.input__phone__code_prefix}>{phone}</span>
+          <span className={styles.input__phone__code_suffix}>
+            {["Airtel", "Tigo"].includes(telco(value)) && (
+              <img src="/images/airtel.png" />
+            )}
+            {["MTN"].includes(telco(value)) && <img src="/images/mtn.png" />}
+          </span>
+        </>
       )}
       {loading && (
         <div className={styles.input__loading}>
@@ -99,12 +108,17 @@ const StackedLabel: React.FC<Props> = ({
         <div
           className={styles.input__word_count}
           data-over-limit={
-            (typeof value === "string" ? value.length : 0) > charCount
+            (typeof value === "string" ? value.length : 0) <
+              (typeof charCount !== "number" ? charCount[0] : charCount) ||
+            (typeof value === "string" ? value.length : 0) >
+              (typeof charCount === "number" ? charCount : charCount[1])
           }
         >
           {`${
             typeof value === "string" ? numeral(value.length).format() : 0
-          }/${numeral(charCount).format()}`}
+          }/${numeral(
+            typeof charCount === "number" ? charCount : charCount[1],
+          ).format()}`}
         </div>
       )}
       <label

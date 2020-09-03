@@ -54,13 +54,14 @@ const Step1: React.FC<Props> = ({
         rules={[
           { required: true, message: "Cause name is required!" },
           {
-            max: 70,
+            min: 20,
+            max: 50,
             message:
-              "Cause name's length must be less or equal to 70 characters!",
+              "Cause name's length must be between 20 and 50 characters!",
           },
         ]}
       >
-        <StackedLabel label="Cause Name">
+        <StackedLabel label="Cause Name" charCount={[20, 50]}>
           <Input placeholder="Cause Name" />
         </StackedLabel>
       </Form.Item>
