@@ -4,7 +4,7 @@ import {
   TwitterOutlined,
   WhatsAppOutlined,
   FacebookFilled,
-  CopyOutlined,
+  LinkOutlined,
 } from "@ant-design/icons";
 import qs from "query-string";
 import CustomIcon from "components/common/CustomIcon";
@@ -68,9 +68,10 @@ const SharePopover: React.FC<Props> = ({
     <div>
       {!isCreateSuccess && (
         <Button
+          className={styles.share__link}
           size="large"
           type="text"
-          icon={<CopyOutlined />}
+          icon={<LinkOutlined />}
           onClick={() => {
             navigator.clipboard.writeText(link);
             message.success(`Copied "${link}"!`, 2);

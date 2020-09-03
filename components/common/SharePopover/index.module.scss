@@ -1,5 +1,8 @@
 @import "../../../styles/colors.scss";
 .share {
+  &__link {
+    color: $primary;
+  }
   &__ussd {
     color: $primary;
     &__text {

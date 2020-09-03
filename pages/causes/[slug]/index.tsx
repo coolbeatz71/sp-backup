@@ -46,7 +46,7 @@ const SingleCause: NextPage<Props> = ({
 
   React.useEffect(() => {
     if (_err) setError(_err);
-    if (data?.slug) {
+    if (data?.slug && !cause.id) {
       setCause(data);
       setError(null);
     }
