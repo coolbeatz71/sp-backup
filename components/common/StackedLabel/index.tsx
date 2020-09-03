@@ -2,6 +2,7 @@ import React from "react";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
+import { telco } from "dev-rw-phone";
 
 import styles from "./StackedLabel.module.scss";
 
@@ -88,7 +89,15 @@ const StackedLabel: React.FC<Props> = ({
         "data-char-count-input": charCount ? true : false,
       })}
       {phone && (
-        <span className={styles.input__phone__code_prefix}>{phone}</span>
+        <>
+          <span className={styles.input__phone__code_prefix}>{phone}</span>
+          <span className={styles.input__phone__code_suffix}>
+            {["Airtel", "Tigo"].includes(telco(value)) && (
+              <img src="/images/airtel.png" />
+            )}
+            {["MTN"].includes(telco(value)) && <img src="/images/mtn.png" />}
+          </span>
+        </>
       )}
       {loading && (
         <div className={styles.input__loading}>

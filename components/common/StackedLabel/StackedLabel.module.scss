@@ -58,6 +58,16 @@
       left: 8px;
       padding: 0px 4px;
     }
+    &__code_suffix {
+      position: absolute;
+      line-height: 20px;
+      top: calc(8px + (((100% - 8px) - 20px) / 2));
+      right: 8px;
+      padding: 0px 4px;
+      img {
+        height: 20px;
+      }
+    }
   }
   &__label,
   &__label__stacked {
