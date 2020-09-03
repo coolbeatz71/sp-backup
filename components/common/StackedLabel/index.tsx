@@ -17,7 +17,7 @@ interface Props {
   onChange?: () => void;
   loading?: boolean;
   required?: boolean;
-  charCount?: number;
+  charCount?: number | [number, number];
   children: Element | any;
 }
 
@@ -108,12 +108,17 @@ const StackedLabel: React.FC<Props> = ({
         <div
           className={styles.input__word_count}
           data-over-limit={
-            (typeof value === "string" ? value.length : 0) > charCount
+            (typeof value === "string" ? value.length : 0) <
+              (typeof charCount !== "number" ? charCount[0] : charCount) ||
+            (typeof value === "string" ? value.length : 0) >
+              (typeof charCount === "number" ? charCount : charCount[1])
           }
         >
           {`${
             typeof value === "string" ? numeral(value.length).format() : 0
-          }/${numeral(charCount).format()}`}
+          }/${numeral(
+            typeof charCount === "number" ? charCount : charCount[1],
+          ).format()}`}
         </div>
       )}
       <label

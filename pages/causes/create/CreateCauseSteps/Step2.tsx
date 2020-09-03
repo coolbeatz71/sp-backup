@@ -33,13 +33,14 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
         rules={[
           { required: true, message: "Cause summary is required!" },
           {
+            min: 100,
             max: 280,
             message:
-              "Cause summary's length must be less or equal to 280 characters!",
+              "Cause summary's length must be between 100 and 280 characters!",
           },
         ]}
       >
-        <StackedLabel label="Summary of this cause" charCount={280}>
+        <StackedLabel label="Summary of this cause" charCount={[100, 280]}>
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 5 }}
@@ -89,13 +90,14 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
         name="details"
         rules={[
           {
+            min: 800,
             max: 1000,
             message:
-              "Cause details' length must be less or equal to 1,000 characters!",
+              "Cause details' length must be between 800 and 1,000 characters!",
           },
         ]}
       >
-        <StackedLabel label="Details about the cause" charCount={1000}>
+        <StackedLabel label="Details about the cause" charCount={[800, 1000]}>
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 10 }}
