@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, Typography, Empty, Button, Grid } from "antd";
+import { Card, Row, Col, Typography, Empty, Button, Grid, Affix } from "antd";
 import Link from "next/link";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
@@ -20,7 +20,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
   const donors = cause.donors || [];
   const screens = Grid.useBreakpoint();
   return (
-    <>
+    <Affix offsetTop={120}>
       <div className={styles.dashboard__content__sidebar}>
         {(myCause || cause.status === "active") && (
           <Row gutter={[24, 24]}>
@@ -110,7 +110,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
         </Card>
         {!screens.lg && contact}
       </div>
-    </>
+    </Affix>
   );
 };
 
