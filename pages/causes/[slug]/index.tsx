@@ -53,7 +53,7 @@ const SingleCause: NextPage<Props> = ({
   }, [_err, data]);
 
   React.useEffect(() => {
-    if (!fetched) {
+    if (!fetched && !cause.id) {
       getSingle(cause?.slug)(dispatch);
       setFetched(true);
     }
