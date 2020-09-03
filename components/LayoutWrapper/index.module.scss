@@ -54,7 +54,7 @@
       }
       & > [class~="ant-col"] {
         &:first-child {
-          max-width: calc(100vw - (#{$mobile-logo-size} + (#{$padding} * 4)));
+          // max-width: calc(100vw - (#{$mobile-logo-size} + (#{$padding} * 4)));
         }
         & > a {
           & > img {
