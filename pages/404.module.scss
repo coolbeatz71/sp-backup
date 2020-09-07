@@ -1,0 +1,11 @@
+@import "../styles/colors.scss";
+.not_found {
+  [class~="ant-result-icon"] {
+    margin-bottom: 0px;
+  }
+  [class~="ant-result-title"] {
+    margin-top: -20px;
+    font-weight: 600;
+    color: $save-dark-blue;
+  }
+}
