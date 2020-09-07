@@ -4,14 +4,20 @@ import Icon from "components/common/CustomIcon";
 
 import Layout from "components/LayoutWrapper";
 
+import styles from "./404.module.scss";
+
 interface Props {
   noWrapper?: boolean;
+  message?: string;
 }
 
-const NotFound: React.FC<Props> = ({ noWrapper = false }) => {
+const NotFound: React.FC<Props> = ({
+  noWrapper = false,
+  message = "Page not found!",
+}) => {
   const Wrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
     !noWrapper ? (
-      <Layout title="Not Found" noFooter isError>
+      <Layout title={message} noFooter isError>
         {children}
       </Layout>
     ) : (
@@ -19,7 +25,11 @@ const NotFound: React.FC<Props> = ({ noWrapper = false }) => {
     );
   return (
     <Wrap>
-      <Result icon={<Icon type="404" style={{ fontSize: 240 }} />} />
+      <Result
+        className={styles.not_found}
+        title={message}
+        icon={<Icon type="404" style={{ fontSize: 240 }} />}
+      />
     </Wrap>
   );
 };
