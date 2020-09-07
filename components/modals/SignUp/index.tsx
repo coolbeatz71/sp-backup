@@ -131,7 +131,7 @@ const SignUp: React.FC<{}> = () => {
           </Form.Item>
           <Form.Item name="password">
             <StackedLabel label="PIN" required>
-              <Input.Password autoComplete="new-password" />
+              <Input.Password maxLength={5} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
           <Form.Item name="email">

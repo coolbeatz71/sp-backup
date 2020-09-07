@@ -64,6 +64,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
         <Form.Item name="old_pin" rules={formPinValidator("Old PIN")}>
           <StackedLabel label="Old PIN">
             <Input.Password
+              maxLength={5}
               placeholder="Old PIN"
               type="password"
               disabled={loading}
@@ -73,6 +74,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
         <Form.Item name="new_pin" rules={formPinValidator("New PIN")}>
           <StackedLabel label="New PIN">
             <Input.Password
+              maxLength={5}
               placeholder="New PIN"
               type="password"
               disabled={loading}
@@ -85,6 +87,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
         >
           <StackedLabel label="Confirm PIN">
             <Input.Password
+              maxLength={5}
               placeholder="Confirm PIN"
               type="password"
               disabled={loading}

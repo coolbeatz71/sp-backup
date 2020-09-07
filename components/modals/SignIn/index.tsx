@@ -65,7 +65,11 @@ const SignIn: React.FC<{}> = () => {
         </Form.Item>
         <Form.Item name="password" rules={formPinValidator("PIN")}>
           <StackedLabel label="PIN" required>
-            <Input.Password autoComplete="password" disabled={loading} />
+            <Input.Password
+              maxLength={5}
+              autoComplete="password"
+              disabled={loading}
+            />
           </StackedLabel>
         </Form.Item>
         {error && (
