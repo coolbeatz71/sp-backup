@@ -5,12 +5,22 @@
   background-color: $primary-ultra-light;
   &__image {
     width: 55vw;
+    &[data-image-status="not-loaded"] {
+      width: 0px;
+      height: 0px;
+    }
   }
   &__image_mobile {
     width: 100vw;
+    &[data-image-status="not-loaded"] {
+      width: 0px;
+      height: 0px;
+    }
   }
   &__container {
     padding-left: $content-padding;
+    padding-top: $padding;
+    padding-bottom: $padding;
     &__button {
       margin-top: calc(#{$padding} * 2);
       height: calc(#{$padding} * 2);

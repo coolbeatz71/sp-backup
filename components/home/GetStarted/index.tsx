@@ -14,13 +14,24 @@ const GetStarted = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: IRootState) => state.user);
+  const [imageStatus, setImageStatus] = React.useState("not-loaded");
+  const [refresh, setRefresh] = React.useState(1);
 
   return (
     <div className={styles.get_started}>
       {!screens.lg && (
         <img
+          key={refresh}
           src="/images/get-started.png"
           className={styles.get_started__image_mobile}
+          data-image-status={imageStatus}
+          onError={() => {
+            setImageStatus("error");
+            setRefresh(refresh + 1);
+          }}
+          onLoad={() => {
+            setImageStatus("loaded");
+          }}
         />
       )}
       <Row align="middle">
@@ -50,8 +61,17 @@ const GetStarted = () => {
         {screens.lg && (
           <Col>
             <img
+              key={refresh}
               src="/images/get-started.png"
               className={styles.get_started__image}
+              data-image-status={imageStatus}
+              onError={() => {
+                setImageStatus("error");
+                setRefresh(refresh + 1);
+              }}
+              onLoad={() => {
+                setImageStatus("loaded");
+              }}
             />
           </Col>
         )}
