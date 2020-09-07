@@ -37,6 +37,7 @@
     }
   }
   &__content {
+    padding-right: $content-padding !important;
     &__headers {
       &:after {
         background-image: url("/images/jumbo.png");
@@ -57,7 +58,7 @@
       }
     }
     &__paragraph {
-      font-size: 30px;
+      font-size: 1.8vw;
       color: $white !important;
       margin-right: $padding;
     }
@@ -72,20 +73,21 @@
       }
     }
     @media screen and (max-width: #{$mobile-size}) {
+      background: rgba($color: $primary, $alpha: 0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: $padding !important;
+      padding: $mobile-content-padding !important;
       position: absolute;
       height: 100vw;
-      width: 100vw;
       top: 0px;
       left: 0px;
       &__paragraph {
         font-size: 24px;
-        padding-right: 0;
+        padding: 0 $mobile-content-padding/2;
+        margin: 0;
       }
     }
   }
