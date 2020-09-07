@@ -105,14 +105,16 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
                   </Col>
                 </Row>
               ))}
-              <div
-                className={styles.dashboard__content__sidebar__more}
-                data-more-not-lg={!screens.lg}
-              >
-                <Link href={`/dashboard/causes/${cause.slug}/donors`}>
-                  <a>View More</a>
-                </Link>
-              </div>
+              {donors.length >= 5 && (
+                <div
+                  className={styles.dashboard__content__sidebar__more}
+                  data-more-not-lg={!screens.lg}
+                >
+                  <Link href={`/dashboard/causes/${cause.slug}/donors`}>
+                    <a>View More</a>
+                  </Link>
+                </div>
+              )}
             </>
           )}
         </Card>
