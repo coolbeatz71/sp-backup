@@ -1,7 +1,21 @@
 @import "../../../styles/colors.scss";
 @import "../../../styles/dimensions.scss";
 
-.dashboard {
+.cause_sider {
+  &[data-affix-position] {
+    transition: all 0.3s;
+    position: relative;
+    top: 0px;
+  }
+  &[data-affix-position="top"] {
+    position: fixed;
+    top: 100px;
+  }
+  &[data-affix-position="bottom"] {
+    position: absolute;
+    top: auto;
+    bottom: 0px;
+  }
   &__content {
     &__primary_title {
       &,

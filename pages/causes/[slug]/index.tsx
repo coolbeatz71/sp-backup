@@ -174,7 +174,7 @@ const SingleCause: NextPage<Props> = ({
                   </div>
                   {screens.lg && content}
                 </Col>
-                <Col span={24} lg={9}>
+                <Col span={24} lg={9} style={{ position: "relative" }}>
                   <CauseSider
                     cause={cause}
                     myCause={myCause}
