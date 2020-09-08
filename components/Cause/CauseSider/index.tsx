@@ -1,11 +1,26 @@
 import React from "react";
-import { Card, Row, Col, Typography, Empty, Button, Grid, Modal } from "antd";
+import {
+  Card,
+  Row,
+  Col,
+  Typography,
+  Empty,
+  Button,
+  Grid,
+  Modal,
+  Skeleton,
+  Alert,
+} from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
 import Share from "components/common/SharePopover";
 import CausesActions from "components/common/CausesActions";
 import PreDonation from "components/modals/PreDonation";
 import Donors from "./Donors";
+
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
+import getDonors from "redux/actions/cause/getDonors";
 
 import styles from "./index.module.scss";
 
@@ -17,11 +32,25 @@ interface Props {
 }
 
 const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
-  const donors = cause.donors || [];
   const screens = Grid.useBreakpoint();
   const [fixPosition, setFixPosition] = React.useState("");
   const comparer = React.useRef<any>(null);
   const [visible, setVisible] = React.useState(false);
+  const dispatch = useDispatch();
+
+  const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
+
+  const { data, loading, error } = useSelector(
+    ({ cause: { donors } }: IRootState) => donors,
+  );
+
+  React.useEffect(() => {
+    getDonors(cause.slug, { limit: 10 })(dispatch);
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    setCauseDonors(data);
+  }, [data]);
 
   const [width, setWidth] = React.useState(0);
 
@@ -118,39 +147,53 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
           {!screens.lg && content}
           <br />
           <Card data-not-lg={!screens.lg} bordered={screens.lg}>
-            {donors.length === 0 ? (
-              <Empty description="No donors yet" />
-            ) : (
+            {loading && <Skeleton active />}
+            {error?.message && (
+              <Alert
+                message={error?.message}
+                type="error"
+                closeText="RETRY"
+                onClose={() => getDonors(cause.slug, { limit: 10 })(dispatch)}
+                showIcon
+              />
+            )}
+            {!loading && !error && (
               <>
-                <Card.Meta
-                  title="LIST OF DONORS"
-                  className={styles.cause_sider__content__primary_title}
-                  data-meta-not-lg={!screens.lg}
-                />
-                {donors.map((donor: any) => (
-                  <Row
-                    key={donor.id}
-                    className={styles.cause_sider__content__sidebar__item}
-                  >
-                    <Col flex={1}>
-                      <Typography.Paragraph ellipsis>
-                        {donor.user_names}
-                      </Typography.Paragraph>
-                    </Col>
-                    <Col>
-                      {numeral(donor.amount).format()} {cause.currency}
-                    </Col>
-                  </Row>
-                ))}
-                {donors.length >= 0 && (
-                  <div
-                    className={styles.cause_sider__content__sidebar__more}
-                    data-more-not-lg={!screens.lg}
-                  >
-                    <Button type="link" onClick={() => setVisible(true)}>
-                      View All
-                    </Button>
-                  </div>
+                {causeDonors.length === 0 ? (
+                  <Empty description="No donors yet" />
+                ) : (
+                  <>
+                    <Card.Meta
+                      title="LIST OF DONORS"
+                      className={styles.cause_sider__content__primary_title}
+                      data-meta-not-lg={!screens.lg}
+                    />
+                    {causeDonors.map((donor: any) => (
+                      <Row
+                        key={donor.id}
+                        className={styles.cause_sider__content__sidebar__item}
+                      >
+                        <Col flex={1}>
+                          <Typography.Paragraph ellipsis>
+                            {donor.user_names}
+                          </Typography.Paragraph>
+                        </Col>
+                        <Col>
+                          {numeral(donor.amount).format()} {cause.currency}
+                        </Col>
+                      </Row>
+                    ))}
+                    {causeDonors.length >= 0 && (
+                      <div
+                        className={styles.cause_sider__content__sidebar__more}
+                        data-more-not-lg={!screens.lg}
+                      >
+                        <Button type="link" onClick={() => setVisible(true)}>
+                          View All
+                        </Button>
+                      </div>
+                    )}
+                  </>
                 )}
               </>
             )}
