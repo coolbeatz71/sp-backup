@@ -10,6 +10,9 @@
   &__header {
     transition: all 0.6s;
     background-color: rgba($primary-ultra-light, 0.72);
+    &[data-backdrop-not-supported="true"] {
+      background-color: rgba($primary-ultra-light, 0.98);
+    }
     position: fixed;
     width: 100vw;
     height: $header-height;
@@ -35,9 +38,15 @@
     }
     &[data-scroll="scrolled"] {
       background-color: rgba($primary-ultra-light, 0.72);
+      &[data-backdrop-not-supported="true"] {
+        background-color: rgba($primary-ultra-light, 0.98);
+      }
     }
     &[data-scroll="over"] {
       background-color: rgba($white, 0.72);
+      &[data-backdrop-not-supported="true"] {
+        background-color: rgba($white, 0.98);
+      }
     }
     &__row {
       width: 100%;
