@@ -1,11 +1,11 @@
 import React from "react";
-import { Card, Row, Col, Typography, Empty, Button, Grid } from "antd";
-import Link from "next/link";
+import { Card, Row, Col, Typography, Empty, Button, Grid, Modal } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
 import Share from "components/common/SharePopover";
 import CausesActions from "components/common/CausesActions";
 import PreDonation from "components/modals/PreDonation";
+import Donors from "./Donors";
 
 import styles from "./index.module.scss";
 
@@ -21,6 +21,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
   const screens = Grid.useBreakpoint();
   const [fixPosition, setFixPosition] = React.useState("");
   const comparer = React.useRef<any>(null);
+  const [visible, setVisible] = React.useState(false);
 
   const [width, setWidth] = React.useState(0);
 
@@ -54,6 +55,16 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
 
   return (
     <>
+      <Modal
+        title={<Typography.Link>Donors</Typography.Link>}
+        bodyStyle={{ padding: 0 }}
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        footer={null}
+        destroyOnClose
+      >
+        <Donors slug={cause.slug} />
+      </Modal>
       <Wrapper>
         <div className={styles.cause_sider__content__sidebar}>
           {(myCause || cause.status === "active") && (
@@ -131,14 +142,14 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
                     </Col>
                   </Row>
                 ))}
-                {donors.length >= 5 && (
+                {donors.length >= 0 && (
                   <div
                     className={styles.cause_sider__content__sidebar__more}
                     data-more-not-lg={!screens.lg}
                   >
-                    <Link href={`/causes/${cause.slug}/donors`}>
-                      <a>View More</a>
-                    </Link>
+                    <Button type="link" onClick={() => setVisible(true)}>
+                      View All
+                    </Button>
                   </div>
                 )}
               </>

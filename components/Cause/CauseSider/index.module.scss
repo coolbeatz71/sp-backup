@@ -44,6 +44,10 @@
       &__more {
         margin-top: 8px;
         text-align: right;
+        [class~="ant-btn"] {
+          padding-right: 0px;
+          padding-left: 0px;
+        }
         &[data-more-not-lg="true"] {
           margin-bottom: $padding;
           text-align: center;

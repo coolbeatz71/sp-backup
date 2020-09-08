@@ -35,6 +35,11 @@ export default {
     error: "",
     accessCode: "",
   },
+  donors: {
+    data: [],
+    loading: false,
+    error: null,
+  },
   donate: basicReduxStoreDefault,
   pause: basicReduxStoreDefault,
   edit: basicReduxStoreDefault,
@@ -64,6 +69,11 @@ export interface ICause {
     error: any;
     loading: boolean;
     accessCode: string;
+  };
+  donors: {
+    data: { [key: string]: any }[];
+    error: any;
+    loading: boolean;
   };
   donate: IBasicReduxStore;
   pause: IBasicReduxStore;
