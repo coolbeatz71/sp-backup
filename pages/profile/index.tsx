@@ -6,17 +6,13 @@ import {
   Button,
   Row,
   Col,
-  Upload,
   Spin,
-  Avatar,
   Typography,
   Card,
   Progress,
   Input,
   Alert,
-  Badge,
 } from "antd";
-import { CameraOutlined } from "@ant-design/icons";
 import StackedLabel from "components/common/StackedLabel";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { RcFile } from "antd/es/upload";
@@ -24,22 +20,20 @@ import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { isEmpty } from "lodash";
-import abName from "helpers/abName";
 import updateProfile from "redux/actions/user/updateProfile";
 import Link from "next/link";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
-import ColorHash from "color-hash";
 import Modal from "components/common/Modal";
+import CropImage from "components/common/CropImage";
 
 import LayoutWrapper from "components/LayoutWrapper";
-
-const color = new ColorHash();
 
 const Profile: React.FC<{}> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
+  const [avatarKey, setAvatarKey] = React.useState(0);
 
   const { isLoggedin, data, loading: dataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
@@ -149,32 +143,21 @@ const Profile: React.FC<{}> = () => {
                   </Typography.Text>
                 </Col>
                 <Col>
-                  <Upload
-                    name="avatar"
-                    accept="image/x-png,image/jpeg,image/jpg"
-                    showUploadList={false}
-                    multiple={false}
-                    beforeUpload={handleSubmitAvatar}
-                  >
-                    <Spin spinning={loading}>
-                      <Badge
-                        count={<CameraOutlined />}
-                        className={styles.profile__badge}
-                      >
-                        <Avatar
-                          style={{
-                            backgroundColor: color.hex(
-                              `${data.first_name} ${data.last_name}`,
-                            ),
-                          }}
-                          src={data.avatar}
-                          size={56}
-                        >
-                          {abName(data.first_name, data.last_name)}
-                        </Avatar>
-                      </Badge>
-                    </Spin>
-                  </Upload>
+                  <Spin spinning={loading}>
+                    <CropImage
+                      key={avatarKey}
+                      isProfile
+                      file={[]}
+                      image={data.avatar || null}
+                      onCancel={() => {
+                        setAvatarKey(avatarKey + 1);
+                      }}
+                      onOk={(_image: any, _file: any[], uploadFile: any) => {
+                        setAvatarKey(avatarKey + 1);
+                        handleSubmitAvatar(uploadFile);
+                      }}
+                    />
+                  </Spin>
                 </Col>
               </Row>
               <Row gutter={[0, 24]}>
