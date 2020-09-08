@@ -36,6 +36,7 @@ import Error from "components/common/Error";
 import Layout from "components/LayoutWrapper";
 import StackedLabel from "components/common/StackedLabel";
 import formPhoneValidator from "utils/validators/form-phone-validator";
+import { normalize } from "dev-rw-phone";
 
 const { Text } = Typography;
 
@@ -89,7 +90,7 @@ const DonateCause: React.FC<{}> = () => {
     return {
       ...data,
       amount: serializeFormattedNumber(data.amount),
-      phone_number: phoneFormatter(data.phone_number),
+      phone_number: normalize(data.phone_number),
       payment_method: getTelco(data.phone_number),
     };
   };

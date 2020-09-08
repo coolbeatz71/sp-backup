@@ -1,6 +1,30 @@
 @import "../../../styles/colors.scss";
 
 .cropping {
+  position: relative;
+  &[data-profile-canvas="true"] {
+    [class~="ant-upload"] {
+      height: 54px;
+      width: 54px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+  &__profile_hint {
+    display: block;
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    bottom: 0px;
+    right: 0px;
+    background-color: $primary;
+    color: $white;
+    border-radius: 12px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 14px;
+    z-index: 1;
+  }
   &__upload {
     > span {
       background-color: $primary-ultra-light !important;
@@ -26,6 +50,11 @@
           content: "";
           display: block;
           padding-bottom: calc(100% / (1600 / 900));
+        }
+        &[data-profile-canvas="true"] {
+          &::before {
+            padding-bottom: calc(100%);
+          }
         }
         & > :first-child {
           object-fit: cover;

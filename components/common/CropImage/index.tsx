@@ -3,6 +3,7 @@ import ReactCrop from "react-image-crop";
 import { Modal, Upload, message } from "antd";
 import moment from "moment";
 import validator from "validator";
+import { CameraOutlined } from "@ant-design/icons";
 
 import drawImage, { clearImage } from "./drawImage";
 import generateBlob from "./generateBlob";
@@ -12,15 +13,22 @@ import styles from "./index.module.scss";
 const globalAny: any = global;
 
 interface Props {
+  isProfile?: boolean;
   file: any[];
   image: any;
   onCancel: () => void;
   onOk: (image: any, file: any[], uploadFile: any) => void;
 }
 
-const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
+const CropImage: React.FC<Props> = ({
+  isProfile = false,
+  file: fl,
+  image,
+  onCancel,
+  onOk,
+}) => {
   const [crop, setCrop] = React.useState<any>({
-    aspect: 16 / 9,
+    aspect: isProfile ? 1 : 16 / 9,
     width: 100,
     unit: "%",
   });
@@ -39,6 +47,7 @@ const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
     multiple: false,
     accept: "image/*",
     fileList: file,
+    showUploadList: !isProfile,
     beforeUpload: () => false,
     onChange: ({ file, fileList }: any) => {
       if (fileList.length > 0) {
@@ -110,11 +119,19 @@ const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
   }, []);
 
   return (
-    <div className={styles.cropping}>
-      <strong>Image</strong>
+    <div className={styles.cropping} data-profile-canvas={isProfile}>
+      {!isProfile && <strong>Image</strong>}
+      {isProfile && (
+        <div className={styles.cropping__profile_hint}>
+          <CameraOutlined />
+        </div>
+      )}
       <Upload.Dragger className={styles.cropping__upload} {...props}>
         <div className={styles.cropping__upload__inner}>
-          <div className={styles.cropping__upload__inner__canvas}>
+          <div
+            className={styles.cropping__upload__inner__canvas}
+            data-profile-canvas={isProfile}
+          >
             {validator.isURL(
               typeof completedCrop === "string" ? completedCrop : "",
             ) ? (
@@ -124,9 +141,11 @@ const CropImage: React.FC<Props> = ({ file: fl, image, onCancel, onOk }) => {
             )}
           </div>
         </div>
-        <p className={styles.cropping__upload__hint}>
-          {completedCrop ? "Change image" : "Choose an image to upload"}
-        </p>
+        {!isProfile && (
+          <p className={styles.cropping__upload__hint}>
+            {completedCrop ? "Change image" : "Choose an image to upload"}
+          </p>
+        )}
       </Upload.Dragger>
       <Modal
         title="Crop Image"

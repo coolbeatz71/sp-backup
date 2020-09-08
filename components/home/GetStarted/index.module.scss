@@ -3,14 +3,53 @@
 
 .get_started {
   background-color: $primary-ultra-light;
+
+  [data-home-image-ratio] > img {
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  [data-home-image-ratio] {
+    display: block;
+    position: relative;
+    [class~="ant-skeleton"] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.02);
+      [class~="ant-skeleton-image"] {
+        border-radius: 6px;
+        opacity: 0.5;
+      }
+    }
+  }
+  [data-home-image-ratio]::before {
+    height: 0;
+    content: "";
+    display: block;
+    padding-bottom: calc(100% / (894 / 596));
+  }
+  [data-home-image-ratio] > * {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+  }
+
   &__image {
     width: 55vw;
+    overflow: hidden;
   }
   &__image_mobile {
     width: 100vw;
+    overflow: hidden;
   }
   &__container {
     padding-left: $content-padding;
+    padding-top: $padding;
+    padding-bottom: $padding;
     &__button {
       margin-top: calc(#{$padding} * 2);
       height: calc(#{$padding} * 2);

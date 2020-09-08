@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Row, Col, Typography, Button } from "antd";
+import { Grid, Row, Col, Typography, Button, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { useRouter } from "next/router";
@@ -14,14 +14,27 @@ const GetStarted = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: IRootState) => state.user);
+  const [refresh, setRefresh] = React.useState(1);
+  const [status, setStatus] = React.useState("");
 
   return (
     <div className={styles.get_started}>
-      {!screens.lg && (
-        <img
-          src="/images/get-started.png"
-          className={styles.get_started__image_mobile}
-        />
+      {(screens.xs || screens.sm || screens.md) && !screens.lg && (
+        <div className={styles.get_started__image_mobile}>
+          <div data-home-image-ratio>
+            <img
+              key={refresh}
+              data-home-image-ratio
+              src="/images/get-started.png"
+              onError={() => {
+                setRefresh(refresh + 1);
+                setStatus("");
+              }}
+              onLoad={() => setStatus("loaded")}
+            />
+            {status !== "loaded" && <Skeleton.Image />}
+          </div>
+        </div>
       )}
       <Row align="middle">
         <Col flex={1}>
@@ -48,11 +61,20 @@ const GetStarted = () => {
           </div>
         </Col>
         {screens.lg && (
-          <Col>
-            <img
-              src="/images/get-started.png"
-              className={styles.get_started__image}
-            />
+          <Col className={styles.get_started__image}>
+            <div data-home-image-ratio>
+              <img
+                key={refresh}
+                data-home-image-ratio
+                src="/images/get-started.png"
+                onError={() => {
+                  setRefresh(refresh + 1);
+                  setStatus("");
+                }}
+                onLoad={() => setStatus("loaded")}
+              />
+              {status !== "loaded" && <Skeleton.Image />}
+            </div>
           </Col>
         )}
       </Row>
