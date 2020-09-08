@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Typography, Progress, Button } from "antd";
 import numeral from "numeral";
-import moment from "moment";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
@@ -9,6 +8,7 @@ import Actions from "components/common/CausesActions";
 
 import styles from "./index.module.scss";
 import { useRouter } from "next/router";
+import getCauseEndingDate from "helpers/causeEndingDate";
 
 interface Props {
   cause: { [key: string]: any };
@@ -86,7 +86,7 @@ const CauseProgress: React.FC<Props> = ({
                 data-is-tiny={tiny}
                 className={styles.dashboard__content__progress__text}
               >
-                <span>{moment(cause.created_at).fromNow()}</span>
+                <span>{getCauseEndingDate(cause.end_date)}</span>
               </Typography.Text>
             </Col>
           </Row>

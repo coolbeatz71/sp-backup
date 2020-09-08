@@ -19,7 +19,6 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import numeral from "numeral";
-import moment from "moment";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
@@ -31,6 +30,7 @@ import CustomIcon from "components/common/CustomIcon";
 import styles from "./index.module.scss";
 import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
+import getCauseEndingDate from "helpers/causeEndingDate";
 
 interface Props {
   cause: { [key: string]: any };
@@ -81,7 +81,6 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
 
   const percentage =
     (100 / (cause.target_amount * 1)) * (cause.raised_amount * 1);
-  const notEnded = moment().isBefore(moment(cause.end_date));
 
   const myCause =
     user.currentUser.isLoggedin &&
@@ -245,9 +244,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
               </Col>
               <Col>
                 <Typography.Text type="secondary" ellipsis>
-                  {notEnded ? "" : "Ended "}
-                  {moment(cause.end_date).fromNow(notEnded)}
-                  {notEnded ? " to Go" : ""}
+                  {getCauseEndingDate(cause.end_date)}
                 </Typography.Text>
               </Col>
             </Row>

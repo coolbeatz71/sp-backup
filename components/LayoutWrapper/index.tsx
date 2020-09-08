@@ -60,6 +60,8 @@ const LayoutWrapper: React.FC<Props> = ({
   const router = useRouter();
   const screens = useBreakpoint();
 
+  console.log(screens);
+
   const [scrolled, setScrolled] = React.useState("");
 
   const user = useSelector((state: IRootState) => state.user);
