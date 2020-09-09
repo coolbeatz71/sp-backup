@@ -169,6 +169,7 @@ const Step1: React.FC<Props> = ({
         <CropImage
           file={data.file || []}
           image={data.image || null}
+          uploadFile={data.uploadFile || null}
           onCancel={() => {
             cb({ image: null, file: [], step: 0 });
           }}

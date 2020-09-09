@@ -1,7 +1,5 @@
 const pixelRatio = 4;
 
-const globalAny: any = global;
-
 export const clearImage = (previewCanvasRef: any) => {
   const canvas = previewCanvasRef.current;
   const ctx = canvas.getContext("2d");
@@ -10,50 +8,32 @@ export const clearImage = (previewCanvasRef: any) => {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const drawImage = (
-  imgRef: any,
-  previewCanvasRef: any,
-  completedCrop: any,
-  justDraw: boolean = false,
-) => {
+const drawImage = (imgRef: any, previewCanvasRef: any, completedCrop: any) => {
   const image = imgRef.current;
   const canvas = previewCanvasRef.current;
   const crop = completedCrop;
 
-  const scaleX = image.naturalWidth / (justDraw ? imgRef.width : image.width);
-  const scaleY =
-    image.naturalHeight / (justDraw ? imgRef.height : image.height);
-  const ctx = canvas?.getContext("2d");
+  const scaleX = image.naturalWidth / image.width;
+  const scaleY = image.naturalHeight / image.height;
+  const ctx = canvas.getContext("2d");
 
-  if (!justDraw) {
-    globalAny.imgRefCurrent = {
-      ...globalAny.imgRefCurrent,
-      width: image.width,
-      height: image.height,
-    };
-  }
+  canvas.width = crop.width * pixelRatio;
+  canvas.height = crop.height * pixelRatio;
 
-  if (canvas && crop) {
-    canvas.width = crop.width * pixelRatio;
-    canvas.height = crop.height * pixelRatio;
-  }
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  ctx.imageSmoothingEnabled = false;
 
-  if (ctx && crop) {
-    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx.imageSmoothingEnabled = false;
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width,
-      crop.height,
-    );
-  }
+  ctx.drawImage(
+    image,
+    crop.x * scaleX,
+    crop.y * scaleY,
+    crop.width * scaleX,
+    crop.height * scaleY,
+    0,
+    0,
+    crop.width,
+    crop.height,
+  );
 };
 
 export default drawImage;
