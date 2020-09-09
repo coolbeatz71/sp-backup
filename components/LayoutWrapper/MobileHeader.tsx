@@ -59,11 +59,11 @@ const Header: React.FC<Props> = ({
   const [visible, setVisible] = React.useState(false);
 
   const webkitBackdrop =
-    CSS &&
+    typeof CSS !== "undefined" &&
     CSS.supports &&
     CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
   const backdrop =
-    CSS &&
+    typeof CSS !== "undefined" &&
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
