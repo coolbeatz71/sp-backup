@@ -95,9 +95,11 @@ const LayoutWrapper: React.FC<Props> = ({
   const _twitterHandle = "@SavePlusHQ";
 
   const webkitBackdrop =
+    CSS &&
     CSS.supports &&
     CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
   const backdrop =
+    CSS &&
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
