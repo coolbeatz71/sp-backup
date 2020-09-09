@@ -43,27 +43,34 @@ const PricingCard: React.FC<{}> = ({}) => {
         </p>
       </div>
       <div className={styles.pricingCard__container}>
-        {pricingPlan.map((item, index) => (
-          <div key={index} className={styles.pricingCard__container__sections}>
-            <Plan
-              price={item.price}
-              subtitle={item.subtitle}
-              description={item.description}
-            />
-            {index === 0 && (
+        {pricingPlan.map((item, index, plans) => (
+          <React.Fragment key={index}>
+            <div
+              key={index}
+              className={styles.pricingCard__container__sections}
+            >
+              <Plan
+                price={item.price}
+                subtitle={item.subtitle}
+                description={item.description}
+              />
+            </div>
+            {plans.length - 1 > index && (
               <Divider
                 type={isMobile ? "horizontal" : "vertical"}
                 className={isMobile ? "my-4 mx-5" : ""}
                 style={{
+                  display: "flex",
+                  alignSelf: "center",
                   width: isMobile ? "60%" : "3px",
                   minWidth: isMobile ? "0" : "initial",
-                  height: "100%",
+                  height: isMobile ? "100%" : "160px",
                   marginTop: isMobile ? "2rem" : 0,
                   borderTop: isMobile ? "1px solid rgba(0, 0, 0, 0.1)" : "",
                 }}
               />
             )}
-          </div>
+          </React.Fragment>
         ))}
       </div>
       <div>
