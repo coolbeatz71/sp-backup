@@ -10,12 +10,11 @@ import generateBlob from "./generateBlob";
 
 import styles from "./index.module.scss";
 
-const globalAny: any = global;
-
 interface Props {
   isProfile?: boolean;
   file: any[];
   image: any;
+  uploadFile?: any;
   onCancel: () => void;
   onOk: (image: any, file: any[], uploadFile: any) => void;
 }
@@ -24,6 +23,7 @@ const CropImage: React.FC<Props> = ({
   isProfile = false,
   file: fl,
   image,
+  uploadFile,
   onCancel,
   onOk,
 }) => {
@@ -34,13 +34,15 @@ const CropImage: React.FC<Props> = ({
   });
   const [cropped, setCropped] = React.useState<any>();
   const [completedCrop, setCompletedCrop] = React.useState<any>(image);
+  const [preview, setPreview] = React.useState<string | ArrayBuffer | null>(
+    null,
+  );
 
   const [file, setFile] = React.useState<any[]>(fl);
   const [show, setShow] = React.useState<boolean>(false);
 
   const imgRef = React.useRef(null);
   const previewCanvasRef = React.useRef(null);
-  const cropOuter = React.useRef(null);
 
   const props = {
     name: "image",
@@ -55,6 +57,7 @@ const CropImage: React.FC<Props> = ({
         setShow(true);
         setCropped(null);
       } else {
+        setPreview(null);
         cancel(previewCanvasRef);
       }
     },
@@ -80,6 +83,14 @@ const CropImage: React.FC<Props> = ({
   }, [file, show]);
 
   React.useEffect(() => {
+    if (uploadFile instanceof File) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setPreview(reader.result));
+      reader.readAsDataURL(uploadFile);
+    }
+  }, [uploadFile]);
+
+  React.useEffect(() => {
     setFile(fl);
   }, [fl]);
 
@@ -89,32 +100,13 @@ const CropImage: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
-      if (globalAny.imgRefCurrent) {
-        drawImage(
-          globalAny.imgRefCurrent,
-          previewCanvasRef,
-          completedCrop,
-          true,
-        );
-      }
       return;
     }
 
     drawImage(imgRef, previewCanvasRef, completedCrop);
-  }, [
-    completedCrop,
-    previewCanvasRef.current,
-    imgRef.current,
-    cropOuter.current,
-  ]);
+  }, [completedCrop]);
 
   const onLoad = React.useCallback((img) => {
-    const canvasRefAny: any = previewCanvasRef.current;
-    globalAny.imgRefCurrent = {
-      current: img,
-      height: canvasRefAny?.height,
-      width: canvasRefAny?.width,
-    };
     imgRef.current = img;
   }, []);
 
@@ -136,6 +128,8 @@ const CropImage: React.FC<Props> = ({
               typeof completedCrop === "string" ? completedCrop : "",
             ) ? (
               <img src={completedCrop} />
+            ) : typeof preview === "string" ? (
+              <img src={preview} />
             ) : (
               <canvas ref={previewCanvasRef} />
             )}

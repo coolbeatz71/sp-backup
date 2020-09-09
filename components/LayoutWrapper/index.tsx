@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button, Result, Grid } from "antd";
+import { Layout, Button, Result, Grid, Typography } from "antd";
 import Head from "next/head";
 import Context from "helpers/context";
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import _ from "lodash";
 import getPlatformUrl from "helpers/getPlatformUrl";
 
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, CloseOutlined } from "@ant-design/icons";
 
 import FooterItem from "./FooterItem";
 
@@ -60,8 +60,6 @@ const LayoutWrapper: React.FC<Props> = ({
   const router = useRouter();
   const screens = useBreakpoint();
 
-  console.log(screens);
-
   const [scrolled, setScrolled] = React.useState("");
 
   const user = useSelector((state: IRootState) => state.user);
@@ -95,6 +93,15 @@ const LayoutWrapper: React.FC<Props> = ({
   const _image = image || `${getPlatformUrl()}/images/get-started.png`;
   const _title = title || "";
   const _twitterHandle = "@SavePlusHQ";
+
+  const webkitBackdrop =
+    CSS.supports &&
+    CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
+  const backdrop =
+    CSS.supports &&
+    CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
+
+  const hasBanner = true;
 
   return (
     <Layout className={styles.layout}>
@@ -133,6 +140,18 @@ const LayoutWrapper: React.FC<Props> = ({
           type="image/png"
         />
       </Head>
+      {hasBanner && (
+        <div
+          className={styles.layout__banner}
+          data-backdrop-not-supported={!webkitBackdrop && !backdrop}
+        >
+          <Typography.Paragraph ellipsis={{ rows: 1 }}>
+            A relevant icon will make information clearer and more friendly. A
+            relevant icon will make information clearer and more friendly.
+          </Typography.Paragraph>
+          <Button type="text" icon={<CloseOutlined />} />
+        </div>
+      )}
       {screens.lg ? (
         <Header
           scrolled={scrolled}
@@ -142,6 +161,7 @@ const LayoutWrapper: React.FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
+          hasBanner={hasBanner}
         />
       ) : (
         <MobileHeader
@@ -152,6 +172,7 @@ const LayoutWrapper: React.FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
+          hasBanner={hasBanner}
         />
       )}
       {svpProps.error || user.currentUser.error.message ? (
@@ -184,6 +205,7 @@ const LayoutWrapper: React.FC<Props> = ({
           data-is-category={isCategory}
           data-is-form={isForm}
           data-is-error={isError}
+          data-has-banner={hasBanner}
         >
           {children}
         </Content>

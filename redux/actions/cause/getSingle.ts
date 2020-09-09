@@ -7,7 +7,9 @@ import {
 import { IUnknownObject } from "interfaces/unknownObject";
 import { STORE_ACCESS_CODE } from "redux/action-types/cause/storeAccessCode";
 
-export default (slug: string | string[], params?: IUnknownObject) => (dispatch: any) => {
+export default (slug: string | string[], params?: IUnknownObject) => (
+  dispatch: any,
+) => {
   dispatch({
     type: GET_SINGLE_CAUSE_START,
   });

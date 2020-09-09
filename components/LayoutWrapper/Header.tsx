@@ -38,6 +38,7 @@ interface Props {
   isCreate: boolean;
   svpProps: SvpType;
   baseUrl?: string;
+  hasBanner: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -48,16 +49,26 @@ const Header: React.FC<Props> = ({
   isCreate,
   svpProps,
   baseUrl,
+  hasBanner,
 }) => {
   const router = useRouter();
   const [changePin, setChangePin] = React.useState(false);
   const dispatch = useDispatch();
+
+  const webkitBackdrop =
+    CSS.supports &&
+    CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
+  const backdrop =
+    CSS.supports &&
+    CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
   return (
     <GenericHeader
       className={styles.layout__header}
       data-scroll={scrolled}
       data-is-category={isCategory}
+      data-backdrop-not-supported={!webkitBackdrop && !backdrop}
+      data-has-banner={hasBanner}
     >
       <Row align="middle" className={styles.layout__header__row}>
         <Col flex={1}>
