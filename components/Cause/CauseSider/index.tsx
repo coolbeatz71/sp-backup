@@ -27,11 +27,18 @@ import styles from "./index.module.scss";
 interface Props {
   cause: { [key: string]: any };
   myCause: boolean;
+  hasBanner: boolean;
   content: React.ReactElement;
   contact: React.ReactElement;
 }
 
-const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
+const CauseSider: React.FC<Props> = ({
+  cause,
+  myCause,
+  hasBanner,
+  content,
+  contact,
+}) => {
   const screens = Grid.useBreakpoint();
   const [fixPosition, setFixPosition] = React.useState("");
   const comparer = React.useRef<any>(null);
@@ -60,6 +67,7 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
         className={styles.cause_sider}
         style={{ width: width === 0 ? "100%" : width }}
         data-affix-position={fixPosition}
+        data-has-banner={hasBanner}
       >
         {children}
       </div>
@@ -71,7 +79,10 @@ const CauseSider: React.FC<Props> = ({ cause, myCause, content, contact }) => {
     setWidth(comparer.current?.getBoundingClientRect().width);
     if (window.pageYOffset < 100) {
       setFixPosition("");
-    } else if (window.pageYOffset > window.innerHeight + 100 - 240) {
+    } else if (
+      window.pageYOffset >
+      window.innerHeight + (hasBanner ? 148 : 100) - 240
+    ) {
       setFixPosition("bottom");
     } else {
       setFixPosition("top");
