@@ -62,6 +62,7 @@
     position: absolute;
     left: $padding;
     top: -48px;
+    border: solid 2px $light-gray;
   }
   &__verified {
     display: flex;

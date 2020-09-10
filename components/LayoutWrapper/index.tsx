@@ -103,7 +103,7 @@ const LayoutWrapper: React.FC<Props> = ({
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
-  const hasBanner = true;
+  const hasBanner = false;
 
   return (
     <Layout className={styles.layout}>
