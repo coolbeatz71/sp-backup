@@ -18,6 +18,7 @@ import save from "./svg/save";
 import verified from "./svg/verified";
 import ussd from "./svg/ussd";
 import config from "./svg/config";
+import bell from "./svg/bell";
 import notFound from "./svg/404";
 
 const icons: { [key: string]: any } = {
@@ -35,6 +36,7 @@ const icons: { [key: string]: any } = {
   verified,
   ussd,
   config,
+  bell,
   404: notFound,
   "sign-out": signOut,
 };

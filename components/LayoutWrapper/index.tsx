@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button, Result, Grid, Typography } from "antd";
+import { Layout, Button, Result, Grid } from "antd";
 import Head from "next/head";
 import Context from "helpers/context";
 import { useRouter } from "next/router";
@@ -9,7 +9,9 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import _ from "lodash";
 import getPlatformUrl from "helpers/getPlatformUrl";
 
-import { HomeOutlined, CloseOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
+
+import Banner from "./Banner";
 
 import FooterItem from "./FooterItem";
 
@@ -56,6 +58,7 @@ const LayoutWrapper: React.FC<Props> = ({
   const screens = useBreakpoint();
 
   const [scrolled, setScrolled] = React.useState("");
+  const [hasBanner, setHasBanner] = React.useState(false);
 
   const user = useSelector((state: IRootState) => state.user);
 
@@ -98,8 +101,6 @@ const LayoutWrapper: React.FC<Props> = ({
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
-  const hasBanner = true;
-
   return (
     <Layout className={styles.layout}>
       <Head>
@@ -137,18 +138,12 @@ const LayoutWrapper: React.FC<Props> = ({
           type="image/png"
         />
       </Head>
-      {hasBanner && (
-        <div
-          className={styles.layout__banner}
-          data-backdrop-not-supported={!webkitBackdrop && !backdrop}
-        >
-          <Typography.Paragraph ellipsis={{ rows: 1 }}>
-            A relevant icon will make information clearer and more friendly. A
-            relevant icon will make information clearer and more friendly.
-          </Typography.Paragraph>
-          <Button type="text" icon={<CloseOutlined />} />
-        </div>
-      )}
+      <Banner
+        className={styles.layout__banner}
+        webkitBackdrop={webkitBackdrop}
+        backdrop={backdrop}
+        hasBannerCallback={(hb) => setHasBanner(hb)}
+      />
       {screens.lg ? (
         <Header
           scrolled={scrolled}
