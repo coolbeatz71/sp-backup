@@ -58,9 +58,11 @@ const LayoutWrapper: React.FC<Props> = ({
   const screens = useBreakpoint();
 
   const [scrolled, setScrolled] = React.useState("");
-  const [hasBanner, setHasBanner] = React.useState(false);
 
   const user = useSelector((state: IRootState) => state.user);
+  const { data: banner } = useSelector(
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
+  );
 
   const dispatch = useDispatch();
 
@@ -142,7 +144,6 @@ const LayoutWrapper: React.FC<Props> = ({
         className={styles.layout__banner}
         webkitBackdrop={webkitBackdrop}
         backdrop={backdrop}
-        hasBannerCallback={(hb) => setHasBanner(hb)}
       />
       {screens.lg ? (
         <Header
@@ -153,7 +154,7 @@ const LayoutWrapper: React.FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
-          hasBanner={hasBanner}
+          hasBanner={typeof banner.id !== "undefined"}
         />
       ) : (
         <MobileHeader
@@ -164,7 +165,7 @@ const LayoutWrapper: React.FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
-          hasBanner={hasBanner}
+          hasBanner={typeof banner.id !== "undefined"}
         />
       )}
       {svpProps.error || user.currentUser.error.message ? (
@@ -197,7 +198,7 @@ const LayoutWrapper: React.FC<Props> = ({
           data-is-category={isCategory}
           data-is-form={isForm}
           data-is-error={isError}
-          data-has-banner={hasBanner}
+          data-has-banner={typeof banner.id !== "undefined"}
         >
           {children}
         </Content>

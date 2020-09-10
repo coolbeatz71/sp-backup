@@ -43,6 +43,9 @@ const SingleCause: NextPage<Props> = ({
   );
 
   const user = useSelector((state: IRootState) => state.user);
+  const { data: banner } = useSelector(
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
+  );
 
   React.useEffect(() => {
     if (_err) setError(_err);
@@ -180,10 +183,7 @@ const SingleCause: NextPage<Props> = ({
                     myCause={myCause}
                     content={content}
                     contact={contact}
-                    /**
-                     * TODO hasBanner
-                     */
-                    hasBanner={true}
+                    hasBanner={typeof banner.id !== "undefined"}
                   />
                 </Col>
               </Row>
