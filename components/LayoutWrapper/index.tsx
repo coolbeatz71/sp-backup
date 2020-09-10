@@ -23,12 +23,7 @@ const { useBreakpoint } = Grid;
 const { Footer, Content } = Layout;
 
 interface Props {
-  children:
-    | string
-    | string[]
-    | React.ReactElement
-    | React.ReactElement[]
-    | null;
+  children: any;
   isHome?: boolean;
   isError?: boolean;
   isCause?: boolean;
@@ -103,7 +98,7 @@ const LayoutWrapper: React.FC<Props> = ({
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
-  const hasBanner = false;
+  const hasBanner = true;
 
   return (
     <Layout className={styles.layout}>

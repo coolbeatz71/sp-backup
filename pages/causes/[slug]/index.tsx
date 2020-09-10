@@ -180,6 +180,10 @@ const SingleCause: NextPage<Props> = ({
                     myCause={myCause}
                     content={content}
                     contact={contact}
+                    /**
+                     * TODO hasBanner
+                     */
+                    hasBanner={true}
                   />
                 </Col>
               </Row>
