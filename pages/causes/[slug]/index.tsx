@@ -81,6 +81,14 @@ const SingleCause: NextPage<Props> = ({
 
   const screens = Grid.useBreakpoint();
 
+  const contactPhone = cause.organization
+    ? cause.organization.phone_number
+    : cause.contact_phone_number;
+
+  const contactEmail = cause.organization
+    ? cause.organization.email
+    : cause.contact_email;
+
   const contact = (
     <>
       <h4 className={styles.dashboard__content__title}>
@@ -89,10 +97,19 @@ const SingleCause: NextPage<Props> = ({
       <Typography.Paragraph className={styles.dashboard__content__paragraph}>
         You can reach out on{" "}
         <Typography.Link
-          href={`tel:${cause.payment_account_number}`}
+          href={`tel:${contactPhone}`}
           target="_blank"
+          style={{ textDecoration: "underline" }}
         >
-          {format(cause.payment_account_number)}
+          {format(contactPhone)}
+        </Typography.Link>{" "}
+        or{" "}
+        <Typography.Link
+          href={`mailto:${contactEmail}`}
+          target="_blank"
+          style={{ textDecoration: "underline" }}
+        >
+          {contactEmail}
         </Typography.Link>
       </Typography.Paragraph>
     </>

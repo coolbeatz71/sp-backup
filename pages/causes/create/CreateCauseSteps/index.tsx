@@ -22,6 +22,26 @@ export interface StepType {
   ) => any;
 }
 
+export const contactStep = {
+  id: "Step3",
+  title: "Contact Information",
+  component: (
+    alerts: React.ReactElement | null,
+    categories: any[],
+    data: { [key: string]: any },
+    setForm: (form: any) => void,
+    cb: (data: any) => void,
+  ) => (
+    <Step3
+      alerts={alerts}
+      categories={categories}
+      data={data}
+      setForm={setForm}
+      cb={cb}
+    />
+  ),
+};
+
 const defaultSteps = (
   isMed: boolean = false,
   isAff: boolean = false,
@@ -45,6 +65,7 @@ const defaultSteps = (
       />
     ),
   },
+  ...(isMed ? [medStep] : []),
   {
     id: "Step2",
     title: "Detailed Information",
@@ -64,26 +85,7 @@ const defaultSteps = (
       />
     ),
   },
-  {
-    id: "Step3",
-    title: "Contact Information",
-    component: (
-      alerts: React.ReactElement | null,
-      categories: any[],
-      data,
-      setForm: (form: any) => void,
-      cb,
-    ) => (
-      <Step3
-        alerts={alerts}
-        categories={categories}
-        data={data}
-        setForm={setForm}
-        cb={cb}
-      />
-    ),
-  },
-  ...(isMed ? [medStep] : []),
+  contactStep,
   ...(isAff ? [orgStep] : []),
   {
     id: "Step4",
