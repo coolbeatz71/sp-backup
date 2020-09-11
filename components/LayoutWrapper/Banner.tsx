@@ -33,13 +33,15 @@ const Banner: React.FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
       data-backdrop-not-supported={!webkitBackdrop && !backdrop}
     >
       <CustomIcon type="bell" />
-      <Typography.Paragraph ellipsis={{ rows: 2 }}>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: banner.text,
-          }}
-        />
-      </Typography.Paragraph>
+      <div className="TypographyParagraph">
+        <Typography.Paragraph ellipsis={{ rows: 2 }}>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: banner.text,
+            }}
+          />
+        </Typography.Paragraph>
+      </div>
       <Button
         type="text"
         icon={<CloseOutlined />}
