@@ -21,7 +21,6 @@ import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
 
 import { normalize } from "dev-rw-phone";
-import formPinValidator from "utils/validators/form-pin-validator";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 
 import styles from "./index.module.scss";
@@ -63,7 +62,10 @@ const SignIn: React.FC<{}> = () => {
             <Input autoComplete="phone_number" type="tel" disabled={loading} />
           </StackedLabel>
         </Form.Item>
-        <Form.Item name="password" rules={formPinValidator("PIN")}>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "PIN is required!" }]}
+        >
           <StackedLabel label="PIN" required>
             <Input.Password
               maxLength={5}
