@@ -5,51 +5,29 @@ import CustomIcon from "components/common/CustomIcon";
 
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import { getAllBroadcasts } from "redux/actions/broadcasts/getAll";
+import {
+  getAllBroadcasts,
+  clearAllBroadcasts,
+} from "redux/actions/broadcasts/getAll";
 
 interface Props {
   className: any;
   webkitBackdrop: boolean;
   backdrop: boolean;
-  hasBannerCallback: (hb: boolean) => void;
 }
 
-const Banner: React.FC<Props> = ({
-  className,
-  webkitBackdrop,
-  backdrop,
-  hasBannerCallback,
-}) => {
+const Banner: React.FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
   const dispatch = useDispatch();
-  const [banner, setBanner] = React.useState<{ [key: string]: any } | null>(
-    null,
-  );
-  const [closed, setClosed] = React.useState<number[]>([]);
 
-  const { data } = useSelector(
+  const { data: banner } = useSelector(
     ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
   React.useEffect(() => {
-    hasBannerCallback(banner !== null);
-  }, [banner]);
-
-  React.useEffect(() => {
-    if (process.browser) {
-      const closedBroadcastIds =
-        localStorage.getItem("save-closedBroadcastIds") || "[]";
-      setClosed(JSON.parse(closedBroadcastIds));
-    }
     getAllBroadcasts()(dispatch);
   }, [dispatch]);
 
-  React.useEffect(() => {
-    if (data && data.data && data.data.length > 0) {
-      setBanner(data.data[0]);
-    }
-  }, [data]);
-
-  return banner !== null && !closed.includes(banner.id) ? (
+  return typeof banner.id !== "undefined" ? (
     <div
       className={className}
       data-backdrop-not-supported={!webkitBackdrop && !backdrop}
@@ -66,8 +44,11 @@ const Banner: React.FC<Props> = ({
         type="text"
         icon={<CloseOutlined />}
         onClick={() => {
-          const newClosed = [...closed, banner.id];
-          setClosed(newClosed);
+          const closedBroadcastIds = JSON.parse(
+            localStorage.getItem("save-closedBroadcastIds") || "[]",
+          );
+          const newClosed = [...closedBroadcastIds, banner.id];
+          clearAllBroadcasts()(dispatch);
           localStorage.setItem(
             "save-closedBroadcastIds",
             JSON.stringify(newClosed),

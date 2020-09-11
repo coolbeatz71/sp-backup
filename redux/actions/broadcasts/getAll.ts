@@ -3,6 +3,7 @@ import {
   GET_ALL_BROADCASTS_ERROR,
   GET_ALL_BROADCASTS_SUCCESS,
   GET_ALL_BROADCASTS_START,
+  CLEAR_ALL_BROADCASTS,
 } from "redux/action-types/broadcasts/getAll";
 
 export const getAllBroadcasts = () => (dispatch: any) => {
@@ -23,4 +24,10 @@ export const getAllBroadcasts = () => (dispatch: any) => {
         payload: error,
       });
     });
+};
+
+export const clearAllBroadcasts = () => (dispatch: any) => {
+  dispatch({
+    type: CLEAR_ALL_BROADCASTS,
+  });
 };
