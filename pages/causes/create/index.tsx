@@ -109,7 +109,12 @@ const Create: React.FC<Props> = ({
   }, [dispatch]);
 
   React.useEffect(() => {
-    setData({ ...data, account: short(userData.phone_number) });
+    setData({
+      ...data,
+      account: short(userData.phone_number),
+      contact_email: userData.email,
+      contact_phone_number: short(userData.phone_number),
+    });
   }, [userData]);
 
   return (
