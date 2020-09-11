@@ -44,6 +44,10 @@ const handleSubmit = (
         start_date: data.start.format("YYYY-MM-DD"),
         end_date: data.end.format("YYYY-MM-DD"),
         affiliated: data.affiliated ? true : false,
+        contact_information: {
+          email: data.contact_email,
+          phone_number: phone(data.contact_phone_number).normalized,
+        },
       };
 
       if (!["", null, undefined].includes(data.video)) {
@@ -57,6 +61,7 @@ const handleSubmit = (
           email: data.org_email,
           field: data.org_field,
         };
+        toUpload.contact_information = {};
       }
 
       if (hasMed) {
