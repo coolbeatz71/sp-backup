@@ -23,50 +23,54 @@
     align-items: center;
     justify-content: center;
     @media screen and (max-width: #{$mobile-size}) {
-      padding: 0px calc(#{$mobile-content-padding} + 32px);
+      padding: 0px $mobile-content-padding;
     }
     &[data-backdrop-not-supported="true"] {
       background-color: rgba($banner-bg, 0.98);
     }
-    [class~="ant-typography"] {
-      margin: 0px 0px;
-      text-align: center;
-      color: $white;
-      font-weight: 300;
-      a,
-      strong {
-        font-weight: 600;
+    [class~="TypographyParagraph"] {
+      display: flex;
+      flex: 1;
+      [class~="ant-typography"] {
+        margin: 0px 0px;
+        text-align: left;
         color: $white;
-      }
-      a {
-        text-decoration: underline;
-        opacity: 1;
-        transition: opacity 0.3s;
-        &:hover {
-          opacity: 0.7;
+        font-weight: 300;
+        &,
+        * {
+          font-size: 14px;
+        }
+        p {
+          margin-bottom: 0px;
+        }
+        a,
+        strong {
+          font-weight: 600;
+          color: $white;
+        }
+        a {
+          text-decoration: underline;
+          opacity: 1;
+          transition: opacity 0.3s;
+          &:hover {
+            opacity: 0.7;
+          }
         }
       }
     }
     & > [class~="anticon"],
     [class~="ant-btn"] {
-      position: absolute;
-      top: calc((#{$banner-height} - 32px) / 2);
       * {
         color: $white;
       }
     }
     & > [class~="anticon"] {
+      margin-left: -6px;
+      margin-right: calc(#{$padding} * 0.6);
       font-size: 32px;
-      left: calc((#{$content-padding} - 32px) / 2);
-      @media screen and (max-width: #{$mobile-size}) {
-        left: calc(#{$mobile-content-padding} - 8px);
-      }
     }
     [class~="ant-btn"] {
-      right: calc((#{$content-padding} - 32px) / 2);
-      @media screen and (max-width: #{$mobile-size}) {
-        right: calc(#{$mobile-content-padding} - 8px);
-      }
+      margin-right: -8px;
     }
   }
   &__header {
@@ -127,9 +131,9 @@
         }
       }
       & > [class~="ant-col"] {
-        &:first-child {
-          // max-width: calc(100vw - (#{$mobile-logo-size} + (#{$padding} * 4)));
-        }
+        // &:first-child {
+        //   max-width: calc(100vw - (#{$mobile-logo-size} + (#{$padding} * 4)));
+        // }
         & > a {
           & > img {
             width: $logo-size;
