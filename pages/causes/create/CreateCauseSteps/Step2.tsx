@@ -64,7 +64,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
                 return Promise.resolve();
               }
               return Promise.reject(
-                "The Video URL should be a valid Video URL!",
+                "The Video URL should be a valid Video URL!"
               );
             },
           }),
