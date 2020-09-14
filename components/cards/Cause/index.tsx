@@ -31,6 +31,7 @@ import styles from "./index.module.scss";
 import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
 import getCauseEndingDate from "helpers/causeEndingDate";
+import { causeStatus } from "interfaces";
 
 interface Props {
   cause: { [key: string]: any };
@@ -262,8 +263,14 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
                 title={cause.name}
                 code={cause.till_number}
                 isPrivate={cause.access === "private"}
+                disabled={cause.status !== causeStatus.active}
               >
-                <Button type="link" size="small" className={styles.card__share}>
+                <Button
+                  type="link"
+                  size="small"
+                  className={styles.card__share}
+                  disabled={cause.status !== causeStatus.active}
+                >
                   Share <ShareAltOutlined />
                 </Button>
               </SharePopover>
