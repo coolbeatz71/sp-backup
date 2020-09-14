@@ -28,7 +28,6 @@ import normalizeInputNumber from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
-import Share from "components/common/Share";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
 import AccessCode from "components/Cause/Single/AccessCode";
@@ -37,6 +36,7 @@ import Layout from "components/LayoutWrapper";
 import StackedLabel from "components/common/StackedLabel";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 import { normalize } from "dev-rw-phone";
+import SharePopover from "components/common/SharePopover";
 
 const { Text } = Typography;
 
@@ -164,12 +164,16 @@ const DonateCause: React.FC<{}> = () => {
                   <Link href="/">
                     <a>Back Home</a>
                   </Link>
-                  <Share
-                    title={cause.name}
-                    slug={slug}
-                    tillNumber={cause.till_number}
-                    position="center"
-                  />
+                  <div className={styles.donate__body__form__successful__share}>
+                    <SharePopover
+                      slug={cause.slug}
+                      code={cause.till_number}
+                      title={cause.title}
+                      standalone
+                      isPrivate={cause.access === "private"}
+                    />
+                  </div>
+
                   <div className={styles.donate__body__form__successful__rate}>
                     <span>Rate this cause</span>
                     <ReactStars
