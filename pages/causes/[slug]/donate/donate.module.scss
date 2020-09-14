@@ -88,17 +88,17 @@
           font-size: 14px;
           color: $color-dark;
         }
-        &__share {
-          display: flex;
-          justify-content: center;
-          width: 100%;
-          margin: 1rem auto;
-          span,
-          img {
-            margin-right: 1rem;
+        button {
+          span {
+            color: unset;
           }
-          a {
-            margin: 0;
+        }
+        &__share > :first-child {
+          padding-top: 1rem;
+          div:nth-child(2) {
+            div {
+              display: flex;
+            }
           }
         }
         &__rate {

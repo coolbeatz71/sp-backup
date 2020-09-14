@@ -13,7 +13,7 @@ import {
 } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
-import Share from "components/common/SharePopover";
+import SharePopover from "components/common/SharePopover";
 import CausesActions from "components/common/CausesActions";
 import PreDonation from "components/modals/PreDonation";
 import Donors from "./Donors";
@@ -145,7 +145,7 @@ const CauseSider: React.FC<Props> = ({
             <>
               <br />
               <Card>
-                <Share
+                <SharePopover
                   slug={cause.slug}
                   code={cause.till_number}
                   title={cause.title}
