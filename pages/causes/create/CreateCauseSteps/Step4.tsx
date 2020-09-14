@@ -21,8 +21,11 @@ const Step4: React.FC<Props> = ({
     (state: IRootState) => state.cause.create
   );
 
+  const [form] = Form.useForm();
+
   return (
     <Form
+      form={form}
       ref={(ref) => setForm(ref)}
       initialValues={{
         ...data,
@@ -31,6 +34,17 @@ const Step4: React.FC<Props> = ({
       }}
       validateTrigger={["onFinish"]}
       onValuesChange={(dt) => {
+        if (Object.keys(dt).includes("payment_account_name")) {
+          if (dt.payment_account_name === "MTN_Rwanda") {
+            form.setFieldsValue({
+              account: "78",
+            });
+          } else if (dt.payment_account_name === "Airtel_Rwanda") {
+            form.setFieldsValue({
+              account: "73",
+            });
+          }
+        }
         cb({ ...dt, step: 0 });
       }}
       onFinish={(dt) => {
