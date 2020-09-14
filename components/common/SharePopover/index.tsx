@@ -21,6 +21,7 @@ interface Props {
   isPrivate: boolean;
   standalone?: boolean;
   isCreateSuccess?: boolean;
+  disabled?: boolean;
 }
 
 interface LinkProps {
@@ -59,6 +60,7 @@ const SharePopover: React.FC<Props> = ({
   isPrivate = false,
   standalone = false,
   isCreateSuccess = false,
+  disabled = false,
 }) => {
   const [visible, setVisible] = React.useState(false);
 
@@ -143,7 +145,7 @@ const SharePopover: React.FC<Props> = ({
       {!isCreateSuccess && <Col>Share</Col>}
       <Col>{share}</Col>
     </Row>
-  ) : (
+  ) : !disabled ? (
     <Popover
       className={styles.share}
       visible={visible}
@@ -154,6 +156,8 @@ const SharePopover: React.FC<Props> = ({
     >
       {children}
     </Popover>
+  ) : (
+    <>{children}</>
   );
 };
 
