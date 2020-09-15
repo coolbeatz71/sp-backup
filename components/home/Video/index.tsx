@@ -9,14 +9,14 @@ const Video = () => {
   return (
     <div className={styles.video}>
       <div className={styles.video__text}>
-        <Typography.Title level={4}>Short video on Save Plus</Typography.Title>
+        <Typography.Title level={4}>View Save Plus video here</Typography.Title>
       </div>
       <Row justify="space-around">
         <Col>
           <div className={styles.video__item}>
             <ReactPlayer
               controls
-              url="https://www.youtube.com/watch?v=3_SusAjQjnw"
+              url="https://www.youtube.com/watch?v=r5Z_af3Zhok"
               width="100%"
               height="100%"
             />
