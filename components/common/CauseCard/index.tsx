@@ -136,7 +136,7 @@ const CauseCard: FC<CauseCardProps> = ({
                 src={
                   !cover || !cover.match(/\.(jpg|jpeg|png)$/)
                     ? "/icons/no-img-placeholder.svg"
-                    : cover
+                    : `${process.env.SAVE_PLUS_IMAGES_URL}/${cover}`
                 }
                 onError={(e) =>
                   (e.currentTarget.src = "/icons/no-img-placeholder.svg")

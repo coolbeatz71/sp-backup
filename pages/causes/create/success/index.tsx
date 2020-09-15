@@ -15,6 +15,8 @@ import { clear } from "redux/actions/cause/create";
 import styles from "./index.module.scss";
 import Link from "next/link";
 
+const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+
 const genData = (data: any) => {
   if (data) {
     const url = `${getPlatformUrl()}/causes/${data.slug}`;
@@ -47,7 +49,7 @@ const genData = (data: any) => {
 
 const Success = () => {
   const { data: success } = useSelector(
-    (state: IRootState) => state.cause.create,
+    (state: IRootState) => state.cause.create
   );
 
   const [data, setData] = React.useState<any>(success);
@@ -105,7 +107,10 @@ const Success = () => {
                       className={styles.dashboard__banner}
                       data-aspect-ratio=""
                     >
-                      <img src={data.image} data-aspect-ratio="" />
+                      <img
+                        src={`${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${data.image}`}
+                        data-aspect-ratio=""
+                      />
                     </div>
                   }
                 >
