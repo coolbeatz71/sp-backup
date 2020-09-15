@@ -33,6 +33,8 @@ import colors from "helpers/cause-type-colors";
 import getCauseEndingDate from "helpers/causeEndingDate";
 import { causeStatus } from "interfaces";
 
+const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+
 interface Props {
   cause: { [key: string]: any };
   reload?: () => void;
@@ -78,6 +80,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
     !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
+  console.log("WHAT IS HAPPENING", NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL);
   const user = useSelector((state: IRootState) => state.user);
 
   const percentage =
@@ -127,7 +130,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
               <img
                 className={imageStatus}
                 alt="Cause Cover Image"
-                src={cause.image}
+                src={`${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${cause.image}`}
                 onError={() => {
                   setImageStatus("error");
                 }}
