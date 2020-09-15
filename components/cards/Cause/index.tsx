@@ -75,7 +75,7 @@ const FooterCover: React.FC<FooterCoverProps> = ({
 
 const Cause: React.FC<Props> = ({ cause, isView = false }) => {
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none",
+    !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
   const user = useSelector((state: IRootState) => state.user);

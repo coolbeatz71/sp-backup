@@ -11,8 +11,6 @@ import {
 } from "antd";
 import StarRating from "components/common/StarRating";
 
-import CustomIcon from "components/common/CustomIcon";
-
 import styles from "./index.module.scss";
 
 const CauseSkeleton = () => {
@@ -25,9 +23,6 @@ const CauseSkeleton = () => {
       <Avatar className={styles.card__avatar} size={64}>
         &nbsp;
       </Avatar>
-      <div className={styles.card__verified}>
-        <CustomIcon type="verified" />
-      </div>
       <Typography.Paragraph ellipsis={{ rows: 1 }}>&nbsp;</Typography.Paragraph>
       <div className={styles.card__title}>
         <Typography.Title level={4} ellipsis className={styles.card__gray}>
