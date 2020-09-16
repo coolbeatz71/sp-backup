@@ -2,7 +2,7 @@ import React from "react";
 
 const Icon = () => (
   <img
-    src="icons/cause-verified.png"
+    src="/icons/cause-verified.png"
     alt=""
     style={{
       width: "1em",
