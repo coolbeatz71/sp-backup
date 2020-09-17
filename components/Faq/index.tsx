@@ -6,25 +6,29 @@ const Panel = Collapse.Panel;
 
 const questions = [
   {
-    title: "What is Save Plus Till number?",
-    description: `Save Plus Till number is a unique six digit number that's associated to a cause on Save plus. This till number is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
-    saveplus.io</a> or our USSD code *777*77*Till Number*Amount#.`,
+    title: "What is Save Plus Till?",
+    description: `Save Plus Till is a unique six digit Till number that's associated to a cause on Save plus. This Till is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
+    saveplus.io</a> or our USSD code *777*77*Save Plus Till*Amount#.`,
   },
   {
     title: "What's the donation process like?",
-    description: `You can donate for a cause by clicking on the donate button on the cause and entering the amount you want to donate and othet neccessary information that is needed. You can choose to donate as an individual or as an organization, also we allow you to choose to donate anonymously ie your name will not be publish on the page as a donor. But note that anonymous donatation is only available for individual donations.`,
+    description: `You can donate to a cause by clicking on the donate button on that cause ,enter the amount you want to donate and other necessary information needed.You can choose to donate as an individual or as an organization. You are also allowed to choose to donate anonymously, i.e. your name will not be published on the page as a donor. Note that anonymous donation is only available for individual donations.`,
   },
   {
     title: "How secure is the payment",
-    description: `Our payment method is very secure and you are assured that your payment information is protected. We do not store your card or any of your payment information. Be assured that your donation will be directed to the appropriate beneficiary of the cause. We also apply two-factor authentication across the platform.`,
+    description: `Our payment method is very secure, Worry not, your payment information is protected. We do not store your card or any of your payment information.Your donation will be directed to the appropriate beneficiary of the cause. A two-factor authentication is applied across the platform.`,
   },
   {
     title: "How often can I donate",
     description: `You can donate as often as you like for a cause or different cause, we do not limit your donations for any cause as long as the cause is active and open for donations. `,
   },
   {
+    title: "How do I collect funds for my cause?",
+    description: `The funds disbursment is automated. Once the cause hits the target the funds are automatically sent to the creator's account (MoMo, Airtel Money or Bank Account).`,
+  },
+  {
     title: "Can I cancel a cause?",
-    description: `Yes, a cause can be cancelled at any point in time. The creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
+    description: `Yes, a cause can be canceled any time and the creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
   },
   {
     title: "Is Save Plus accessible outside of Rwanda?",
@@ -36,7 +40,7 @@ const questions = [
   },
   {
     title: "What's the connection between Save Plus and Save?",
-    description: `Save Plus and Save are sister products and are owned by the same company. You can sign in to both products with the same credentials seamlessly or have an account with only one product.  `,
+    description: `Save Plus and Save are sister products owned by the same company. You can sign in to both products with the same credentials seamlessly or have an account with only one product.`,
   },
 ];
 
