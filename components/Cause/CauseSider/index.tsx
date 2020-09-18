@@ -79,11 +79,6 @@ const CauseSider: React.FC<Props> = ({
     setWidth(comparer.current?.getBoundingClientRect().width);
     if (window.pageYOffset < 100) {
       setFixPosition("");
-    } else if (
-      window.pageYOffset >
-      window.innerHeight + (hasBanner ? 148 : 100) - 240
-    ) {
-      setFixPosition("bottom");
     } else {
       setFixPosition("top");
     }
