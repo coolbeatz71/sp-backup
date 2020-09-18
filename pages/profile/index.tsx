@@ -124,6 +124,7 @@ const Profile: React.FC<{}> = () => {
               <img
                 src="/images/family-love.svg"
                 className={styles.profile__title__icon}
+                alt="profile image"
               />
               <Typography.Title level={2}>Your Profile</Typography.Title>
               <Typography.Paragraph strong>

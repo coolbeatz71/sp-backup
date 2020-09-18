@@ -79,6 +79,7 @@ const Header: React.FC<Props> = ({
               <img
                 src="/images/logo-beta.svg"
                 className={styles.layout__header__row__logo}
+                alt="beta logo"
               />
             </a>
           </Link>

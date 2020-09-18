@@ -84,6 +84,7 @@ const Section: React.FC<Props> = ({
                   <img
                     src={item.icon}
                     className={styles.section__cards__col__card__icon}
+                    alt="cause icon"
                   />
                   <Typography.Title
                     level={4}

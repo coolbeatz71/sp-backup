@@ -73,7 +73,7 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
           <div className={styles.causeCard__body__extra__share}>
             <span className={styles.causeCard__share__text}>Share</span>
             <span className={styles.causeCard__share}>
-              <img src="/icons/share-icon.svg" alt="" />
+              <img src="/icons/share-icon.svg" alt="share icon" />
             </span>
           </div>
         </CausePopover>

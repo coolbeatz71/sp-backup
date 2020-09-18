@@ -31,6 +31,7 @@ const GetStarted = () => {
                 setStatus("");
               }}
               onLoad={() => setStatus("loaded")}
+              alt="illustration image"
             />
             {status !== "loaded" && <Skeleton.Image />}
           </div>
@@ -72,6 +73,7 @@ const GetStarted = () => {
                   setStatus("");
                 }}
                 onLoad={() => setStatus("loaded")}
+                alt="illustration image"
               />
               {status !== "loaded" && <Skeleton.Image />}
             </div>

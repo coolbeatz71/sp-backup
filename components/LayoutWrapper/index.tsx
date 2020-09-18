@@ -106,6 +106,7 @@ const LayoutWrapper: React.FC<Props> = ({
   return (
     <Layout className={styles.layout}>
       <Head>
+        <html lang="en" />
         {svpProps.error || user.currentUser.error.message ? (
           <title>Error | {_siteName}</title>
         ) : (

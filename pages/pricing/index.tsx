@@ -11,6 +11,7 @@ const PricingPage: React.SFC<{}> = () => {
         <img
           className={styles.pricing__container__image}
           src="/images/pricing.svg"
+          alt="background image"
         />
         <div className={styles.pricing__container__header}>
           <h1>Simple Plans For Everyone!</h1>

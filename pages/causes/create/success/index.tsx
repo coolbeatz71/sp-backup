@@ -49,7 +49,7 @@ const genData = (data: any) => {
 
 const Success = () => {
   const { data: success } = useSelector(
-    (state: IRootState) => state.cause.create
+    (state: IRootState) => state.cause.create,
   );
 
   const [data, setData] = React.useState<any>(success);
@@ -110,6 +110,7 @@ const Success = () => {
                       <img
                         src={`${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${data.image}`}
                         data-aspect-ratio=""
+                        alt="cause cover"
                       />
                     </div>
                   }

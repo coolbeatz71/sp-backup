@@ -93,9 +93,11 @@ const StackedLabel: React.FC<Props> = ({
           <span className={styles.input__phone__code_prefix}>{phone}</span>
           <span className={styles.input__phone__code_suffix}>
             {["Airtel", "Tigo"].includes(telco(value)) && (
-              <img src="/images/airtel.png" />
+              <img src="/images/airtel.png" alt="airtel icon" />
             )}
-            {["MTN"].includes(telco(value)) && <img src="/images/mtn.png" />}
+            {["MTN"].includes(telco(value)) && (
+              <img src="/images/mtn.png" alt="mtn icon" />
+            )}
           </span>
         </>
       )}

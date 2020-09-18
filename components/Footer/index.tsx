@@ -33,22 +33,22 @@ const Footer: React.FC<{}> = () => {
         </div>
         <div className={styles.socialMedia}>
           <a href="https://twitter.com/SavePlusHQ" target="_blank">
-            <img src="/twitter-icon.svg" alt="" />
+            <img src="/twitter-icon.svg" alt="twitter icon" />
           </a>
           <a href="https://www.instagram.com/saveplus.hq/" target="_blank">
-            <img src="/ig-icon.svg" alt="" />
+            <img src="/ig-icon.svg" alt="instagram icon" />
           </a>
           <a
             href="https://www.facebook.com/SavePlus.HQ/?_rdc=1&_rdr"
             target="_blank"
           >
-            <img src="/facebook-icon.svg" alt="" />
+            <img src="/facebook-icon.svg" alt="facebook icon" />
           </a>
           <a
             href="https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5"
             target="_blank"
           >
-            <img src="/youtube-icon.svg" alt="" />
+            <img src="/youtube-icon.svg" alt="youtube icon" />
           </a>
         </div>
         <div className={styles.contact}>
