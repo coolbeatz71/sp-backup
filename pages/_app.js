@@ -2,6 +2,7 @@ import React from "react";
 
 import NProgress from "nprogress";
 import { Router } from "next/router";
+import Head from "next/head";
 import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
@@ -33,6 +34,15 @@ Router.events.on("routeChangeError", () => nProgress.done());
 const MyApp = ({ Component, pageProps, svpProps }) => {
   return (
     <Context.Provider value={{ svpProps }}>
+      <Head>
+        <link
+          id="favicon"
+          rel="shortcut icon"
+          href="/icons/favicon-32x32.png"
+          sizes="16x16 32x32 48x48"
+          type="image/png"
+        />
+      </Head>
       <Component {...pageProps} svpProps={svpProps} />
     </Context.Provider>
   );
