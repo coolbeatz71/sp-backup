@@ -15,7 +15,7 @@ const LazyLoadCover: FC<LazyLoadCoverProps> = ({ children, context }) => {
 
   const placeholder = (
     <div className={className}>
-      <img src="/icons/image-placeholder.gif" alt="" />
+      <img src="/icons/image-placeholder.gif" alt="placeholder icon" />
     </div>
   );
 

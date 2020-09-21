@@ -22,8 +22,40 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
     @media screen and (max-width: #{$mobile-size}) {
       padding: 0px $mobile-content-padding;
+      [class~="TypographyParagraph"] {
+        height: 48px;
+        overflow: hidden;
+        position: relative;
+        p {
+          position: absolute;
+          height: 100%;
+          line-height: 50px;
+          text-align: left;
+          -moz-transform: translateX(0%);
+          -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+          -moz-animation: scroll-left 20s linear infinite;
+          -webkit-animation: scroll-left 20s linear infinite;
+          animation: scroll-left 20s linear infinite;
+        }
+      }
+
+      @keyframes scroll-left {
+        0% {
+          -moz-transform: translateX(50%);
+          -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+        }
+
+        100% {
+          -moz-transform: translateX(-100%);
+          -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+        }
+      }
     }
     &[data-backdrop-not-supported="true"] {
       background-color: rgba($banner-bg, 0.98);

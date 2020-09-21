@@ -34,7 +34,7 @@ const Banner: React.FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
     >
       <CustomIcon type="bell" />
       <div className="TypographyParagraph">
-        <Typography.Paragraph ellipsis={{ rows: 2 }}>
+        <Typography.Paragraph ellipsis={{ rows: 1 }}>
           <span
             dangerouslySetInnerHTML={{
               __html: banner.text,

@@ -26,7 +26,7 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
           {avatar ? (
             <img
               src={avatar}
-              alt=""
+              alt="owner avatar"
               className={styles.causeCard__body__header__causeOwner__avatar}
             />
           ) : (
@@ -45,7 +45,7 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
 
           {verified && (
             <img
-              alt=""
+              alt="verified icon"
               src="/icons/verified-icon.svg"
               className={styles.causeCard__body__header__causeOwner__verified}
             />

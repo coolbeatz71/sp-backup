@@ -99,7 +99,7 @@ const SingleCause: React.FC<{}> = () => {
               <div className={styles.singleCause__header__cover}>
                 <LazyLoadCover context="cause-details">
                   <img
-                    alt=""
+                    alt="image placeholder"
                     src={
                       !data.image || !data.image.match(/\.(jpg|jpeg|png)$/)
                         ? "/icons/no-img-placeholder.svg"

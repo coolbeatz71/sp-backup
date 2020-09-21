@@ -34,7 +34,7 @@ const ChangePin: FC<{}> = () => {
     <div className={styles.change}>
       <div className={styles.change__header}>
         <div className={styles.change__header__title}>
-          <img src="/icons/shield.svg" alt="" />
+          <img src="/icons/shield.svg" alt="shield image" />
           <h4>Change your PIN</h4>
         </div>
         <p>Make modifications to your PIN remember to keep it safe</p>

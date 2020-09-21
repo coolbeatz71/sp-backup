@@ -70,7 +70,7 @@ const Share: React.FC<ShareProps> = ({
         <img
           className="social__share__icon"
           src="/icons/smartphone-ussd.svg"
-          alt=""
+          alt="ussd icon"
         />
       </a>
       <a
@@ -82,7 +82,7 @@ const Share: React.FC<ShareProps> = ({
         <img
           className="social__share__icon"
           src="/icons/facebook-share.svg"
-          alt=""
+          alt="facebook icon"
         />
       </a>
       <a
@@ -94,7 +94,7 @@ const Share: React.FC<ShareProps> = ({
         <img
           className="social__share__icon"
           src="/icons/whatsapp-share.svg"
-          alt=""
+          alt="whatsapp icon"
         />
       </a>
       <a
@@ -106,7 +106,7 @@ const Share: React.FC<ShareProps> = ({
         <img
           className="social__share__icon"
           src="/icons/twitter-share.svg"
-          alt=""
+          alt="twitter icon"
         />
       </a>
       <Modal

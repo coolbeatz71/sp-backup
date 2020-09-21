@@ -127,9 +127,9 @@ const CropImage: React.FC<Props> = ({
             {validator.isURL(
               typeof completedCrop === "string" ? completedCrop : "",
             ) ? (
-              <img src={completedCrop} />
+              <img src={completedCrop} alt="cropped image" />
             ) : typeof preview === "string" ? (
-              <img src={preview} />
+              <img src={preview} alt="image preview" />
             ) : (
               <canvas ref={previewCanvasRef} />
             )}

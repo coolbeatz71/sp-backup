@@ -132,7 +132,7 @@ const CauseCard: FC<CauseCardProps> = ({
           <LazyLoadCover context="cause-card">
             <a>
               <img
-                alt=""
+                alt="cause cover"
                 src={
                   !cover || !cover.match(/\.(jpg|jpeg|png)$/)
                     ? "/icons/no-img-placeholder.svg"

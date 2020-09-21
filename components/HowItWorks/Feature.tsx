@@ -11,10 +11,10 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => (
   <div className={styles.featureCard}>
     <div className={styles.featureCard__header}>
       <div className={styles.featureCard__header__right}>
-        <img src="/icons/heart-group.png" alt="" />
+        <img src="/icons/heart-group.png" alt="feature icon" />
       </div>
       <div className={styles.featureCard__icon}>
-        <img src={icon} alt="" />
+        <img src={icon} alt="feature image" />
       </div>
       <div className={styles.featureCard__body}>
         <h4 className={styles.featureCard__title}>{title}</h4>

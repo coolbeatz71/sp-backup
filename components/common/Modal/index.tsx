@@ -84,6 +84,7 @@ const Modal: React.FC<Props> = ({
             src={icon}
             className={styles.modal_icon__icon}
             style={iconStyle}
+            alt="modal icon"
           />
         )}
         {children}
