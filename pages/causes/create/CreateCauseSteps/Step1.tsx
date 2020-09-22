@@ -115,7 +115,7 @@ const Step1: React.FC<Props> = ({
 
                   if (moment(value).isBefore(moment().startOf("day"))) {
                     return Promise.reject(
-                      "Cause start should not be in the past!"
+                      "Cause start should not be in the past!",
                     );
                   }
 

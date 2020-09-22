@@ -85,7 +85,12 @@ const CategoryBar: React.FC<Props> = ({
     screens.lg ? (
       children
     ) : (
-      <Dropdown arrow placement="bottomLeft" overlay={children}>
+      <Dropdown
+        arrow
+        placement="bottomLeft"
+        overlay={children}
+        trigger={["click"]}
+      >
         <Button
           size={scrolled !== "" ? "small" : "middle"}
           type="primary"
@@ -226,7 +231,7 @@ const CategoryBar: React.FC<Props> = ({
           size={scrolled !== "" ? "small" : "middle"}
           placeholder="Search"
           prefix={<SearchOutlined />}
-          allowClear
+          allowClear={screens.lg}
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
