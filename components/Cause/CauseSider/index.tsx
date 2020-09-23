@@ -85,7 +85,7 @@ const CauseSider: React.FC<Props> = ({
   };
 
   React.useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
+    window.addEventListener("scroll", scrollHandler, { passive: true });
   }, [scrollHandler]);
 
   return (
