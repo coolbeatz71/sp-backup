@@ -6,7 +6,7 @@ import {
 } from "redux/action-types/user/currentUser";
 import getToken from "helpers/getToken";
 
-export default (dispatch: any) => {
+const getCurrentUser = (dispatch: any) => {
   const saveToken = getToken();
   if (saveToken) {
     dispatch({
@@ -30,3 +30,5 @@ export default (dispatch: any) => {
       });
   }
 };
+
+export default getCurrentUser;
