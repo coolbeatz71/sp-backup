@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -168,7 +168,7 @@ const DonateCause: React.FC<{}> = () => {
                     <SharePopover
                       slug={cause.slug}
                       code={cause.till_number}
-                      title={cause.title}
+                      title={cause.name}
                       standalone
                       isPrivate={cause.access === "private"}
                     />

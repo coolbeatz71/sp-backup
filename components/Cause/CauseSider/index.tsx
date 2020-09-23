@@ -143,7 +143,7 @@ const CauseSider: React.FC<Props> = ({
                 <SharePopover
                   slug={cause.slug}
                   code={cause.till_number}
-                  title={cause.title}
+                  title={cause.name}
                   standalone
                   isPrivate={cause.access === "private"}
                 />
