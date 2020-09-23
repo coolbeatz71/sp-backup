@@ -55,7 +55,9 @@ const alerts = (editing: boolean, userData: any) => {
   ) : !userData.avatar ? (
     <Tag icon={<ExclamationCircleOutlined />} color="warning">
       <Link href="/profile">
-        <a>You need to update your profile picture first</a>
+        <a rel="noreferrer noopener">
+          You need to update your profile picture first
+        </a>
       </Link>
     </Tag>
   ) : null;
@@ -75,11 +77,11 @@ const Create: React.FC<Props> = ({
   svpProps,
 }) => {
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const [steps, setSteps] = React.useState(
-    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
+    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated)
   );
   const [index, setIndex] = React.useState<number>(0);
   const [data, setData] = React.useState<{ [key: string]: any }>(dt);
@@ -175,7 +177,7 @@ const Create: React.FC<Props> = ({
                         key,
                         typeof formattedData[key] === "string"
                           ? formattedData[key]
-                          : JSON.stringify(formattedData[key]),
+                          : JSON.stringify(formattedData[key])
                       );
                     }
                   }
@@ -183,11 +185,11 @@ const Create: React.FC<Props> = ({
                   createCause(formData)(dispatch, () => {
                     setSuccess(true);
                   });
-                },
+                }
               );
             },
             issue,
-            steps,
+            steps
           )}
         </Card>
       </Wrapper>

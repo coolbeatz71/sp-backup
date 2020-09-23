@@ -32,7 +32,12 @@ const Success: React.SFC<SuccessProps> = ({ slug, summary, till_number }) => {
         />
       </div>
       <Link href="/">
-        <a className="text-center my-3 back__home__link">BACK HOME</a>
+        <a
+          className="text-center my-3 back__home__link"
+          rel="noreferrer noopener"
+        >
+          BACK HOME
+        </a>
       </Link>
       <div className="copy__link d-flex w-75 mx-auto mt-3">
         <span className="url__text">{URL}</span>

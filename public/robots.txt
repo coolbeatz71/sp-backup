@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /causes/create
+Disallow: /profile
+
+Sitemap: https://saveplus.io/sitemap.xml

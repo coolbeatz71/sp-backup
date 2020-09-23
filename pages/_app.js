@@ -42,6 +42,8 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
           sizes="16x16 32x32 48x48"
           type="image/png"
         />
+        <meta name="description" content="More than a crowd-funding platform" />
+        <meta name="theme-color" content="#FFFFFF" />
       </Head>
       <Component {...pageProps} svpProps={svpProps} />
     </Context.Provider>

@@ -45,7 +45,7 @@ const NavItems: FC<NavbarItemsProps> = ({
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
 
   const { categories } = useSelector(
-    ({ categories }: IRootState) => categories,
+    ({ categories }: IRootState) => categories
   );
   const { data, fetched, error } = categories;
 
@@ -86,6 +86,7 @@ const NavItems: FC<NavbarItemsProps> = ({
             onClick={() => {
               if (menuMobileVisible) toggleMenuMobile();
             }}
+            rel="noreferrer noopener"
           >
             Home
           </a>
@@ -111,7 +112,11 @@ const NavItems: FC<NavbarItemsProps> = ({
         overlay={causeMenu}
         trigger={["click"]}
       >
-        <a className="ant-dropdown-link" onClick={handleClick}>
+        <a
+          className="ant-dropdown-link"
+          onClick={handleClick}
+          rel="noreferrer noopener"
+        >
           {fetched && !error && (
             <>
               Causes <DownOutlined />
@@ -125,6 +130,7 @@ const NavItems: FC<NavbarItemsProps> = ({
           onClick={() => {
             if (menuMobileVisible) toggleMenuMobile();
           }}
+          rel="noreferrer noopener"
         >
           Pricing
         </a>
@@ -159,6 +165,7 @@ const NavItems: FC<NavbarItemsProps> = ({
           <a
             className={`ant-dropdown-link ${styles.navbar__profile}`}
             onClick={handleClick}
+            rel="noreferrer noopener"
           >
             {loading ? (
               <Spin indicator={<LoadingOutlined spin={loading} />} />

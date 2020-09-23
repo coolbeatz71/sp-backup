@@ -125,7 +125,7 @@ const Step1: React.FC<Props> = ({
             ]}
           >
             <StackedLabel label="Start Date" datePicker>
-              <DatePicker />
+              <DatePicker inputReadOnly />
             </StackedLabel>
           </Form.Item>
         </Col>
@@ -160,7 +160,7 @@ const Step1: React.FC<Props> = ({
             ]}
           >
             <StackedLabel label="End Date" datePicker>
-              <DatePicker />
+              <DatePicker inputReadOnly />
             </StackedLabel>
           </Form.Item>
         </Col>

@@ -168,7 +168,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </>
         )}
         {["pin-reset", "pin-reset-update", "verify-phone"].includes(
-          context,
+          context
         ) ? null : ["signup"].includes(context) ? (
           <>
             <Form.Item className={styles.authForm__names}>
@@ -294,6 +294,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
               <a
                 onClick={() => changeAuthContext("pin-reset")(dispatch)}
                 className={styles.authForm__forgotPin}
+                rel="noreferrer noopener"
               >
                 Forgot PIN
               </a>
@@ -302,7 +303,10 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <div className={styles.authForm__actions__signin}>
             <span>{formAction(context).suggestionMessage}</span>
             <Link href="">
-              <a onClick={formAction(context).handleSuggestionAction}>
+              <a
+                onClick={formAction(context).handleSuggestionAction}
+                rel="noreferrer noopener"
+              >
                 {formAction(context).suggestionActionText}
               </a>
             </Link>

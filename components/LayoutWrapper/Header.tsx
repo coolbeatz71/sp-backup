@@ -75,7 +75,7 @@ const Header: React.FC<Props> = ({
       <Row align="middle" className={styles.layout__header__row}>
         <Col flex={1}>
           <Link href="/">
-            <a>
+            <a rel="noreferrer noopener">
               <img
                 src="/images/logo-beta.svg"
                 className={styles.layout__header__row__logo}

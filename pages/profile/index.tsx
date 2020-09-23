@@ -36,10 +36,10 @@ const Profile: React.FC<{}> = () => {
   const [avatarKey, setAvatarKey] = React.useState(0);
 
   const { isLoggedin, data, loading: dataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
   const { loading, error } = useSelector(
-    ({ user: { updateProfile } }: IRootState) => updateProfile,
+    ({ user: { updateProfile } }: IRootState) => updateProfile
   );
 
   useEffect(() => {
@@ -256,7 +256,7 @@ const Profile: React.FC<{}> = () => {
             Your Profile has been updated!
           </Typography.Title>
           <Link href="/">
-            <a>Go Back Home</a>
+            <a rel="noreferrer noopener">Go Back Home</a>
           </Link>
         </div>
       </Modal>

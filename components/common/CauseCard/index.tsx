@@ -61,7 +61,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
       <div className={styles.causeCard__footer}>
         {status === causeStatus.active ? (
           <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
-            <a>{canDonateMsg[status]}</a>
+            <a rel="noreferrer noopener">{canDonateMsg[status]}</a>
           </Link>
         ) : (
           <p>{canDonateMsg[status]}</p>
@@ -74,7 +74,7 @@ const renderFooter = (status: string, pathName: string, slug: string) => {
     return (
       <div className={styles.causeCard__footer}>
         <Link href="/causes/[slug]" as={`/causes/${slug}`}>
-          <a>View Cause Detail</a>
+          <a rel="noreferrer noopener">View Cause Detail</a>
         </Link>
       </div>
     );
@@ -130,7 +130,7 @@ const CauseCard: FC<CauseCardProps> = ({
           )}
 
           <LazyLoadCover context="cause-card">
-            <a>
+            <a rel="noreferrer noopener">
               <img
                 alt="cause cover"
                 src={
@@ -169,7 +169,7 @@ const CauseCard: FC<CauseCardProps> = ({
           )}
           <div className={styles.causeCard__body__content__title}>
             <Link href="/causes/[slug]" as={`/causes/${slug}`}>
-              <a>
+              <a rel="noreferrer noopener">
                 <h3>
                   {truncate(title, {
                     length: 58,

@@ -42,7 +42,7 @@ const SingleCause: React.FC<{}> = () => {
     y >= progressBarRef.current?.offsetTop;
 
   const { loading, data, error } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single } }: IRootState) => single
   );
 
   const donateButton = (screen?: string) =>
@@ -73,8 +73,9 @@ const SingleCause: React.FC<{}> = () => {
       You can reach out to on{" "}
       <a
         href={`tel:+${phoneFormatter(
-          data.phone_number || data.payment_account_number,
+          data.phone_number || data.payment_account_number
         )}`}
+        rel="noreferrer noopener"
       >
         {phoneFormatter(data.phone_number || data.payment_account_number)}
       </a>
@@ -128,7 +129,7 @@ const SingleCause: React.FC<{}> = () => {
                     >
                       {getProgressPercentage(
                         data.raised_amount,
-                        data.target_amount,
+                        data.target_amount
                       )}{" "}
                       %
                     </span>
@@ -147,7 +148,7 @@ const SingleCause: React.FC<{}> = () => {
                     <span className={styles.causeStatus}>
                       {getDaysToGo(
                         data.status,
-                        getCauseRemainingDays(data.end_date),
+                        getCauseRemainingDays(data.end_date)
                       )}
                     </span>
                   </div>
@@ -205,7 +206,7 @@ const SingleCause: React.FC<{}> = () => {
                       >
                         {getProgressPercentage(
                           data.raised_amount,
-                          data.target_amount,
+                          data.target_amount
                         )}{" "}
                         %
                       </span>
@@ -224,7 +225,7 @@ const SingleCause: React.FC<{}> = () => {
                       <span className={styles.causeStatus}>
                         {getDaysToGo(
                           data.status,
-                          getCauseRemainingDays(data.end_date),
+                          getCauseRemainingDays(data.end_date)
                         )}
                       </span>
                     </div>
@@ -249,7 +250,7 @@ const SingleCause: React.FC<{}> = () => {
         .progression {
           width: ${getProgressPercentage(
             data.raised_amount,
-            data.target_amount,
+            data.target_amount
           )}%;
         }
       `}</style>

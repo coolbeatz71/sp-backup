@@ -14,7 +14,7 @@ const UserMenu = (
   first_name: string,
   last_name: string,
   dispatch: Dispatch<any>,
-  push: any,
+  push: any
 ) => {
   return (
     <Menu>
@@ -28,28 +28,28 @@ const UserMenu = (
       <Menu.Divider className="avatar__profile__divider" />
       <Menu.Item>
         <Link href="/profile">
-          <a>Profile</a>
+          <a rel="noreferrer noopener">Profile</a>
         </Link>
       </Menu.Item>
       <Menu.Divider />
 
       <Menu.Item>
         <Link href={CREATE_CAUSE_PATH}>
-          <a>New Cause</a>
+          <a rel="noreferrer noopener">New Cause</a>
         </Link>
       </Menu.Item>
       <Menu.Divider />
 
       <Menu.Item>
         <Link href={USER_CAUSES_PATH}>
-          <a>My Causes</a>
+          <a rel="noreferrer noopener">My Causes</a>
         </Link>
       </Menu.Item>
       <Menu.Divider />
 
       <Menu.Item>
         <Link href={CHANGE_PIN_PATH}>
-          <a>Change PIN</a>
+          <a rel="noreferrer noopener">Change PIN</a>
         </Link>
       </Menu.Item>
       <Menu.Divider />

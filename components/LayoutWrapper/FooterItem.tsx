@@ -42,11 +42,15 @@ const social = [
 const FooterItem = () => {
   return (
     <div className="footer-item">
-      <img src="/logo-beta.svg" className="logo" />
+      <img src="/logo-beta.svg" className="logo" alt="Save Plus Logo" />
       <div className="copy">
         <Typography.Text type="secondary">
           Copyright &copy;{moment().format("YYYY")}{" "}
-          <a href="https://exuus.com/" target="_blank">
+          <a
+            href="https://exuus.com/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <Typography.Text type="secondary">exuus</Typography.Text>
           </a>
         </Typography.Text>

@@ -83,7 +83,7 @@ const Header: React.FC<Props> = ({
       >
         <Col>
           <Link href="/">
-            <a>
+            <a rel="noreferrer noopener">
               <img
                 src="/images/logo-beta.svg"
                 className={styles.layout__header__row__logo}
@@ -193,7 +193,7 @@ const Header: React.FC<Props> = ({
                               {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
                                 ?.split(" ")
                                 .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase(),
+                                  (n: string) => n && n.charAt(0).toUpperCase()
                                 )}
                             </Avatar>
                             <Typography.Text strong ellipsis>

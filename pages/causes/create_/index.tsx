@@ -88,7 +88,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [submitCount, setSubmitCount] = useState(0);
   const [formState, setFormState] = useState(
-    editFormState || formStateDefaultValue,
+    editFormState || formStateDefaultValue
   );
   const [editFormValues, setEditFormValues] = useState<IUnknownObject>();
   const [steps, setSteps] = useState(defaultSteps);
@@ -98,11 +98,11 @@ const CreateCause: React.FC<CreateCauseProps> = ({
   const stepsCount = steps.length - 1;
 
   const { loading, data, error, croppedImage } = useSelector(
-    ({ cause: { create } }: IRootState) => create,
+    ({ cause: { create } }: IRootState) => create
   );
 
   const { loading: loadingEdit, error: errorEdit } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit,
+    ({ cause: { edit } }: IRootState) => edit
   );
 
   useEffect(() => {
@@ -160,7 +160,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({
       }
       if (key.includes("target_amount")) {
         data.target_amount = Number(
-          serializeFormattedNumber(data.target_amount),
+          serializeFormattedNumber(data.target_amount)
         );
         return;
       }
@@ -190,7 +190,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({
 
   const getTouchedFields = (values: IUnknownObject) => {
     const touchedKeys = Object.keys(values).filter((key) =>
-      form.isFieldTouched(key),
+      form.isFieldTouched(key)
     );
     const touchedFields = pick(values, touchedKeys);
     return touchedFields;
@@ -322,7 +322,7 @@ const CreateCause: React.FC<CreateCauseProps> = ({
                             color="warning"
                           >
                             <Link href="/profile">
-                              <a>
+                              <a rel="noreferrer noopener">
                                 You need to update your profile picture first
                               </a>
                             </Link>

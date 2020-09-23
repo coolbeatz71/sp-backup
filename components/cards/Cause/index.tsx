@@ -64,11 +64,11 @@ const FooterCover: React.FC<FooterCoverProps> = ({
 }) => {
   return myCause ? (
     <Link href="/causes/[slug]" as={`/causes/${slug}`}>
-      <a>{children}</a>
+      <a rel="noreferrer noopener">{children}</a>
     </Link>
   ) : active ? (
     <PreDonation slug={slug}>
-      <a>{children}</a>
+      <a rel="noreferrer noopener">{children}</a>
     </PreDonation>
   ) : (
     children
@@ -107,7 +107,11 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
       bordered={!isView}
       cover={
         <LinkWrap>
-          <a data-aspect-ratio className={styles.card__cover}>
+          <a
+            data-aspect-ratio
+            className={styles.card__cover}
+            rel="noreferrer noopener"
+          >
             {imageStatus === "loading" && (
               <div className={styles.card__cover__placeholder}>
                 <Spin indicator={<LoadingOutlined />} />
@@ -191,7 +195,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
       {!isView && (
         <div className={styles.card__title} data-my-cause={myCause}>
           <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
-            <a>
+            <a rel="noreferrer noopener">
               <Typography.Title level={4} ellipsis>
                 {cause.name}
               </Typography.Title>
@@ -211,7 +215,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
       {!isView && (
         <>
           <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
-            <a>
+            <a rel="noreferrer noopener">
               <Typography.Paragraph
                 data-access={cause.access}
                 className={styles.card__summary}

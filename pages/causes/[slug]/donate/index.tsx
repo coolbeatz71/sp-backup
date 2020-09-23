@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -158,11 +158,11 @@ const DonateCause: React.FC<{}> = () => {
                   <img
                     className={styles.donate__body__form__successful__confeti}
                     src="/confeti.gif"
-                    alt=""
+                    alt="Confetti GIF"
                   />
 
                   <Link href="/">
-                    <a>Back Home</a>
+                    <a rel="noreferrer noopener">Back Home</a>
                   </Link>
                   <div className={styles.donate__body__form__successful__share}>
                     <SharePopover

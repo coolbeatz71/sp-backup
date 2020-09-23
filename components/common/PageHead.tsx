@@ -14,8 +14,11 @@ const PageHead: React.FC<PageHeadProps> = ({ data }) => {
       <meta property="og:type" content="website" />
       <meta property="description" content={data.description} />
       <meta property="og:title" content={data.name} />
-      <meta property="description" content={data.summary} />
-      <meta property="og:url" content={`${getPlatformUrl()}/causes/${data.slug}`} />
+      <meta property="description" content={data.summary} name="description" />
+      <meta
+        property="og:url"
+        content={`${getPlatformUrl()}/causes/${data.slug}`}
+      />
       <meta property="og:description" content={data.summary} />
       <meta property="og:image" content={data.image} />
 

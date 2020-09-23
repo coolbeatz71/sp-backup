@@ -20,6 +20,8 @@ import styles from "./index.module.scss";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 
+const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+
 const { useBreakpoint } = Grid;
 
 const { Footer, Content } = Layout;
@@ -61,7 +63,7 @@ const LayoutWrapper: React.FC<Props> = ({
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
   );
 
   const dispatch = useDispatch();
@@ -72,7 +74,7 @@ const LayoutWrapper: React.FC<Props> = ({
         ? "over"
         : window.pageYOffset > 80
         ? "scrolled"
-        : "",
+        : ""
     );
   };
 
@@ -133,6 +135,7 @@ const LayoutWrapper: React.FC<Props> = ({
         <meta name="twitter:description" content={_description} />
         <meta name="twitter:image" content={_image} />
         <meta name="author" content={_author} />
+        <meta name="theme-color" content="#ffffff" />
         <link
           id="favicon"
           rel="shortcut icon"
@@ -140,6 +143,8 @@ const LayoutWrapper: React.FC<Props> = ({
           sizes="16x16 32x32 48x48"
           type="image/png"
         />
+        <link href="/robots.txt" />
+        <link rel="preconnect" href={NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL} />
       </Head>
       <Banner
         className={styles.layout__banner}

@@ -39,7 +39,9 @@ const PreDonation: React.FC<Props> = ({ children, slug }) => {
           VISA, Mastercard & PayPal coming soon!
         </Typography.Paragraph>
         <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
-          <a style={{ textDecoration: "underline" }}>Proceed</a>
+          <a style={{ textDecoration: "underline" }} rel="noreferrer noopener">
+            Proceed
+          </a>
         </Link>
       </div>
     </Modal>

@@ -46,7 +46,7 @@ const Link: React.FC<LinkProps> = ({ type, title, link, children }) => {
   };
 
   return (
-    <a href={t[type]} target="_blank">
+    <a href={t[type]} target="_blank" rel="noreferrer noopener">
       {children}
     </a>
   );
