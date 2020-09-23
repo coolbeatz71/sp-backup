@@ -19,7 +19,7 @@ const getInitialProps = async ({ Component, ctx }: { [key: string]: any }) => {
     const _categories = await splApi.get("/categories");
     categories = _categories.data;
   } catch (exc) {
-    error = exc.message;
+    error = exc.message || "Network or an unknown error occurred!";
   }
 
   return ret(Component, ctx, { error, categories });
