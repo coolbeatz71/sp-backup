@@ -45,24 +45,33 @@ const StarRating: React.FC<Props> = ({
   count = 0,
   noAction = false,
 }) => {
-  const Wrap = noAction ? React.Fragment : Popover;
+  const Wrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+    noAction ? (
+      <React.Fragment>{children}</React.Fragment>
+    ) : (
+      <Popover
+        trigger="hover"
+        placement="topLeft"
+        content={
+          <>
+            <Typography.Title level={4} style={{ marginBottom: 0 }}>
+              {numeral(value).format("0.[00]")}
+            </Typography.Title>
+            <Stars value={value} />
+            <Typography.Text>
+              <Typography.Text strong>
+                {numeral(count).format()}
+              </Typography.Text>
+              {count === 1 ? " Person" : " People"}
+            </Typography.Text>
+          </>
+        }
+      >
+        {children}
+      </Popover>
+    );
   return (
-    <Wrap
-      trigger="hover"
-      placement="topLeft"
-      content={
-        <>
-          <Typography.Title level={4} style={{ marginBottom: 0 }}>
-            {numeral(value).format("0.[00]")}
-          </Typography.Title>
-          <Stars value={value} />
-          <Typography.Text>
-            <Typography.Text strong>{numeral(count).format()}</Typography.Text>
-            {count === 1 ? " Person" : " People"}
-          </Typography.Text>
-        </>
-      }
-    >
+    <Wrap>
       <Stars value={value} text={noAction ? "" : "Rating:"} />
     </Wrap>
   );
