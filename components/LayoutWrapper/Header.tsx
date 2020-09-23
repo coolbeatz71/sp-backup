@@ -178,7 +178,11 @@ const Header: React.FC<Props> = ({
                 }
               >
                 <Menu.Item key="/profile">
-                  <Typography.Text strong ellipsis>
+                  <Typography.Text
+                    strong
+                    ellipsis
+                    className={styles.layout__header__row__user__name}
+                  >
                     {user.currentUser.data.first_name}
                     {` `}
                     {user.currentUser.data.last_name}
