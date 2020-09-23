@@ -132,7 +132,7 @@ const LayoutWrapper: React.FC<Props> = ({
         <meta property="og:description" content={_description} />
         <meta property="og:url" content={_url} />
         {!isCause && <meta name="twitter:site" content={_twitterHandle} />}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={_title} />
         <meta name="twitter:description" content={_description} />
         <meta name="twitter:image" content={_image} />
