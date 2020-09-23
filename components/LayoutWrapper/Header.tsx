@@ -167,6 +167,7 @@ const Header: React.FC<Props> = ({
                       className={styles.layout__header__row__user__avatar}
                       src={user.currentUser.data.avatar}
                       size={48}
+                      alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
                     >
                       {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
                         ?.split(" ")

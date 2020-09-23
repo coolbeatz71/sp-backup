@@ -159,6 +159,7 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
           className={styles.card__avatar}
           src={cause.user_avatar}
           size={64}
+          alt={cause.user_names}
         >
           {cause.user_names
             ?.split(" ")

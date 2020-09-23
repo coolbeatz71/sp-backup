@@ -20,7 +20,7 @@ const CauseSkeleton = () => {
       cover={<div data-aspect-ratio className={styles.card__cover} />}
     >
       <Badge className={styles.card__type} count="Cause" />
-      <Avatar className={styles.card__avatar} size={64}>
+      <Avatar className={styles.card__avatar} size={64} alt="Avatar">
         &nbsp;
       </Avatar>
       <Typography.Paragraph ellipsis={{ rows: 1 }}>&nbsp;</Typography.Paragraph>
