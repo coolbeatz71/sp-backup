@@ -5,8 +5,8 @@ import StackedLabel from "components/common/StackedLabel";
 
 // import { cancelCause, clear } from "redux/reducers/cancelCause";
 
-const cancelCause = (sl: string, pa: string) => {
-  console.log(sl, pa);
+const cancelCause = (_sl: string, _pa: string) => {
+  //
 };
 
 const clear = () => {

@@ -23,7 +23,6 @@ export default (dispatch: any) => {
         });
       })
       .catch((error) => {
-        console.log("here", error);
         dispatch({
           type: SET_CURRENT_USER_ERROR,
           payload: error,

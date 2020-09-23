@@ -37,7 +37,6 @@ export default (data: {}) => (dispatch: any) => {
       showAuthDialog(false)(dispatch);
     })
     .catch((error) => {
-      console.log("here", error);
       dispatch({
         type: SIGNUP_ERROR,
         payload: error,
