@@ -38,6 +38,7 @@ const OwnerInfo: FC<OwnerInfoProps> = ({
               style={{
                 backgroundColor: color.hex(names),
               }}
+              alt={name}
             >
               {names && abName(names[0], names[1])}
             </Avatar>

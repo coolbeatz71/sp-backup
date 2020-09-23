@@ -184,6 +184,7 @@ const NavItems: FC<NavbarItemsProps> = ({
                       marginRight: 5,
                       marginTop: -5,
                     }}
+                    alt={`${first_name} ${last_name}`}
                   >
                     {abName(first_name, last_name)}
                   </Avatar>
