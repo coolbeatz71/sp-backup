@@ -63,7 +63,7 @@ const LayoutWrapper: React.FC<Props> = ({
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const LayoutWrapper: React.FC<Props> = ({
         ? "over"
         : window.pageYOffset > 80
         ? "scrolled"
-        : ""
+        : "",
     );
   };
 
@@ -92,7 +92,9 @@ const LayoutWrapper: React.FC<Props> = ({
   const _description = description || "More Than A Crowdfunding Platform";
   const _siteName = "Save Plus";
   const _author = "Exuus";
-  const _image = image || `${getPlatformUrl()}/images/get-started.png`;
+  const _image = image
+    ? `${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${image}`
+    : `${getPlatformUrl()}/images/get-started.png`;
   const _title = title || "";
   const _twitterHandle = "@SavePlusHQ";
 
