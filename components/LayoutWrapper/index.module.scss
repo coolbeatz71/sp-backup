@@ -187,6 +187,9 @@
             }
           }
         }
+        &__name {
+          max-width: 120px;
+        }
       }
       &__menu {
         background-color: transparent;

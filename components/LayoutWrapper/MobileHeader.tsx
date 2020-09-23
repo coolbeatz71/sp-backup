@@ -194,10 +194,14 @@ const Header: React.FC<Props> = ({
                               {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
                                 ?.split(" ")
                                 .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase()
+                                  (n: string) => n && n.charAt(0).toUpperCase(),
                                 )}
                             </Avatar>
-                            <Typography.Text strong ellipsis>
+                            <Typography.Text
+                              strong
+                              ellipsis
+                              className={styles.layout__header__row__user__name}
+                            >
                               {user.currentUser.data.first_name}
                               {` `}
                               {user.currentUser.data.last_name}
