@@ -58,14 +58,19 @@ const Header: React.FC<Props> = ({
 
   const [visible, setVisible] = React.useState(false);
 
-  const webkitBackdrop =
-    typeof CSS !== "undefined" &&
-    CSS.supports &&
-    CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
-  const backdrop =
-    typeof CSS !== "undefined" &&
-    CSS.supports &&
-    CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
+  const [noBackdrop, setNoBackdrop] = React.useState(false);
+
+  React.useEffect(() => {
+    const webkitBackdrop =
+      typeof CSS !== "undefined" &&
+      CSS.supports &&
+      CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
+    const backdrop =
+      typeof CSS !== "undefined" &&
+      CSS.supports &&
+      CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
+    setNoBackdrop(!webkitBackdrop && !backdrop);
+  }, []);
 
   return (
     <GenericHeader
@@ -73,7 +78,7 @@ const Header: React.FC<Props> = ({
       data-scroll={scrolled}
       data-is-category={isCategory}
       data-is-mobile="true"
-      data-backdrop-not-supported={!webkitBackdrop && !backdrop}
+      data-backdrop-not-supported={noBackdrop}
       data-has-banner={hasBanner}
     >
       <Row

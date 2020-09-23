@@ -118,8 +118,6 @@ const DonateCause: React.FC<{}> = () => {
     rateCause(slug, { rating: nextValue });
   };
 
-  console.log(isFormDataReady);
-
   return (
     <Layout title="Donate">
       <div className={styles.donate}>

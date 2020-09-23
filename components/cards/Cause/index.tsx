@@ -77,10 +77,9 @@ const FooterCover: React.FC<FooterCoverProps> = ({
 
 const Cause: React.FC<Props> = ({ cause, isView = false }) => {
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none"
+    !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
-  console.log("WHAT IS HAPPENING", NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL);
   const user = useSelector((state: IRootState) => state.user);
 
   const percentage =

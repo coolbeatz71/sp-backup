@@ -32,7 +32,6 @@ export default (data: {}) => (dispatch: any) => {
       showAuthDialog(false)(dispatch);
     })
     .catch((error) => {
-      console.log("here", error);
       dispatch({
         type: LOGIN_ERROR,
         payload: error,

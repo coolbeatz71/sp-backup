@@ -4,9 +4,7 @@ import {
   LOGOUT_ERROR,
   LOGOUT_SUCCESS,
 } from "redux/action-types/Auth/logout";
-import {
-  SET_CURRENT_USER_SUCCESS,
-} from "redux/action-types/user/currentUser";
+import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 
 export default (push: any, dispatch: any) => {
   dispatch({
@@ -31,7 +29,6 @@ export default (push: any, dispatch: any) => {
       push("/");
     })
     .catch((error) => {
-      console.log("here", error);
       dispatch({
         type: LOGOUT_ERROR,
         payload: error,

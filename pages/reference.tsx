@@ -13,13 +13,17 @@ import HowItWorks from "components/HowItWorks";
 
 const Reference = () => {
   const dispatch = useDispatch();
-  const clickExample = () => console.log("here social clicked");
+  const clickExample = () => {
+    //
+  };
 
   const { currentName } = useSelector(
     ({ example: { changeName } }: IRootState) => changeName,
   );
 
-  const handleChange = ({ target }: any) => console.log("here ", target.value);
+  const handleChange = () => {
+    //
+  };
 
   return (
     <div title="Save Plus">
@@ -108,8 +112,8 @@ const Reference = () => {
           width: 40%;
           margin: 1rem 0;
         }
-        .field{
-          margin-bottom: 1rem
+        .field {
+          margin-bottom: 1rem;
         }
       `}</style>
     </div>
