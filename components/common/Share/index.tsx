@@ -119,7 +119,7 @@ const Share: React.FC<ShareProps> = ({
         <h6 className="text-center mt-4">
           Make your donation using the USSD Code
         </h6>
-        <h6 className="mb-4 text-center">{`*777*77*Save plus Bill*Donation#`}</h6>
+        <h6 className="mb-4 text-center">{`*777*77*${tillNumber}*Donation#`}</h6>
       </Modal>
       <style jsx>{`
         .share {

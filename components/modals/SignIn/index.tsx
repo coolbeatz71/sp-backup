@@ -12,6 +12,7 @@ import {
 
 import login from "redux/actions/Auth/login";
 import { useDispatch, useSelector } from "react-redux";
+import { useMedia } from "react-use";
 import { IRootState } from "redux/initialStates";
 import showAuthDialog, {
   changeAuthContext,
@@ -34,8 +35,10 @@ const SignIn: React.FC<{}> = () => {
   } = useSelector(({ auth: { login } }: IRootState) => login);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
+
+  const isMobile = useMedia("(max-width: 768px)");
 
   return (
     <Modal
@@ -50,7 +53,7 @@ const SignIn: React.FC<{}> = () => {
         validateTrigger={["onFinish"]}
         onFinish={(form) => {
           login({ ...form, phone_number: normalize(form.phone_number) })(
-            dispatch,
+            dispatch
           );
         }}
       >
@@ -84,7 +87,7 @@ const SignIn: React.FC<{}> = () => {
             SIGN IN
           </Button>
           <Divider>OR</Divider>
-          <Row justify="space-between">
+          <Row justify={isMobile ? "center" : "space-between"}>
             <Col>
               <Button
                 className={styles.sign_in__button_left}
@@ -108,7 +111,7 @@ const SignIn: React.FC<{}> = () => {
                 disabled={loading}
               >
                 Don't have an account?&nbsp;
-                <Typography.Text underline>Create</Typography.Text>
+                <Typography.Text underline>Create account</Typography.Text>
               </Button>
             </Col>
           </Row>
