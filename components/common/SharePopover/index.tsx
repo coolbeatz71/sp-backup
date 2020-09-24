@@ -98,7 +98,7 @@ const SharePopover: React.FC<Props> = ({
           <Typography>{code}</Typography>
           <br />
           <Typography>Make your donation using the USSD Code</Typography>
-          <Typography>*777*77*Cause Till Number*Donation#</Typography>
+          <Typography>*777*77*{code}*Amount#</Typography>
         </div>
       </Modal>
       {!isPrivate && (
