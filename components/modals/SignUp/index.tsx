@@ -22,6 +22,8 @@ import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
 import Icon from "components/common/CustomIcon";
 
+import formPinValidator from "utils/validators/form-pin-validator";
+
 const SignUp: React.FC<{}> = () => {
   const dispatch = useDispatch();
 
@@ -30,7 +32,7 @@ const SignUp: React.FC<{}> = () => {
     loading,
     error: { message: error = null },
   } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
   );
 
   const {
@@ -39,7 +41,7 @@ const SignUp: React.FC<{}> = () => {
   } = useSelector(({ auth: { signup } }: IRootState) => signup);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
   return (
@@ -129,7 +131,7 @@ const SignUp: React.FC<{}> = () => {
               />
             </StackedLabel>
           </Form.Item>
-          <Form.Item name="password">
+          <Form.Item name="password" rules={formPinValidator("PIN")}>
             <StackedLabel label="PIN" required>
               <Input.Password maxLength={5} autoComplete="new-password" />
             </StackedLabel>
