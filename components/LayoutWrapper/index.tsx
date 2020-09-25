@@ -79,7 +79,7 @@ const LayoutWrapper: React.FC<Props> = ({
   };
 
   React.useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
+    window.addEventListener("scroll", scrollHandler, { passive: true });
   }, [scrollHandler]);
 
   React.useEffect(() => {

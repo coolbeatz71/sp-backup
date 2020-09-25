@@ -16,6 +16,11 @@ const GetStarted = () => {
   const user = useSelector((state: IRootState) => state.user);
   const [refresh, setRefresh] = React.useState(1);
   const [status, setStatus] = React.useState("");
+  const [btn, setBtn] = React.useState("GET STARTED");
+
+  React.useEffect(() => {
+    setBtn(user.currentUser.isLoggedin ? "CREATE A CAUSE" : "GET STARTED");
+  }, [user.currentUser.isLoggedin]);
 
   return (
     <div className={styles.get_started}>
@@ -57,7 +62,7 @@ const GetStarted = () => {
                 else showAuthDialog(true, "signup")(dispatch);
               }}
             >
-              {user.currentUser.isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
+              {btn}
             </Button>
           </div>
         </Col>

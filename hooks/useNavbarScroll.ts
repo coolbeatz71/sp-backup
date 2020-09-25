@@ -20,14 +20,16 @@ const useNavbarScroll = (isLight: boolean, isMobile: boolean, page: string) => {
   useEffect(() => {
     if (!isLight) {
       setLightNavbar(false);
-      window.addEventListener("scroll", changeNavbarTheme);
+      window.addEventListener("scroll", changeNavbarTheme, { passive: true });
     } else {
       setLightNavbar(true);
     }
 
     if (!isMobile && (page === HOME_PATH || page === PRICING_PATH)) {
       setCreateCauseButton(false);
-      window.addEventListener("scroll", hideCreateCauseButton);
+      window.addEventListener("scroll", hideCreateCauseButton, {
+        passive: true,
+      });
     } else {
       setCreateCauseButton(true);
       window.removeEventListener("scroll", hideCreateCauseButton);
