@@ -9,7 +9,7 @@ export const medStep = {
     categories: any[],
     data: any,
     setForm: (form: any) => void,
-    cb: (data: any) => void,
+    cb: (data: any) => void
   ) => (
     <StepMed
       alerts={alerts}
@@ -24,11 +24,11 @@ export const medStep = {
 const handleMed = (
   steps: StepType[],
   dt: any,
-  setSteps: (param: StepType[]) => void,
+  setSteps: (param: StepType[]) => void
 ) => {
   if (
     ![null, undefined, ""].includes(dt.category) &&
-    JSON.parse(dt.category).slug === "medical" &&
+    JSON.parse(dt.category).slug === "Medical" &&
     steps[1] &&
     steps[1].id !== "StepMed"
   ) {
@@ -37,7 +37,7 @@ const handleMed = (
     setSteps(addSteps);
   } else if (
     ![null, undefined, ""].includes(dt.category) &&
-    JSON.parse(dt.category).slug !== "medical" &&
+    JSON.parse(dt.category).slug !== "Medical" &&
     steps[1] &&
     steps[1].id === "StepMed"
   ) {
