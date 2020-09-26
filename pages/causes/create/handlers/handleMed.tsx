@@ -28,7 +28,7 @@ const handleMed = (
 ) => {
   if (
     ![null, undefined, ""].includes(dt.category) &&
-    JSON.parse(dt.category).slug === "Medical" &&
+    JSON.parse(dt.category).id === 1 &&
     steps[1] &&
     steps[1].id !== "StepMed"
   ) {
@@ -37,7 +37,7 @@ const handleMed = (
     setSteps(addSteps);
   } else if (
     ![null, undefined, ""].includes(dt.category) &&
-    JSON.parse(dt.category).slug !== "Medical" &&
+    JSON.parse(dt.category).id !== 1 &&
     steps[1] &&
     steps[1].id === "StepMed"
   ) {
