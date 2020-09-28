@@ -77,7 +77,7 @@ const FooterCover: React.FC<FooterCoverProps> = ({
 
 const Cause: React.FC<Props> = ({ cause, isView = false }) => {
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none",
+    !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -188,6 +188,14 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
               className={styles.card__user}
             >
               with {cause.organization.name}
+            </Typography.Paragraph>
+          )}
+          {cause.institution && (
+            <Typography.Paragraph
+              ellipsis={{ rows: 1 }}
+              className={styles.card__user}
+            >
+              with {cause.institution.name}
             </Typography.Paragraph>
           )}
         </Col>
