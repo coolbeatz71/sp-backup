@@ -95,7 +95,7 @@ const Step4: React.FC<Props> = ({
         ]}
       >
         <StackedLabel label="Phone Number" phone="+250">
-          <Input placeholder="Phone Number" disabled={loading} />
+          <Input placeholder="Phone Number" disabled={loading} maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item id="isPrivate" label="Private cause">

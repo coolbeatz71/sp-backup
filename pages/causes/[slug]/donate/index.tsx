@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -293,7 +293,7 @@ const DonateCause: React.FC<{}> = () => {
                           name="phone_number"
                         >
                           <StackedLabel label="Phone Number" phone="+250">
-                            <LegacyInput />
+                            <LegacyInput maxLength={9} />
                           </StackedLabel>
                         </Form.Item>
                         <Form.Item

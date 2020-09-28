@@ -18,10 +18,10 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { RcFile } from "antd/es/upload";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
-import phoneFormatter from "helpers/phoneNumberFormatter";
 import { isEmpty } from "lodash";
 import updateProfile from "redux/actions/user/updateProfile";
 import Link from "next/link";
+import { short } from "dev-rw-phone";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 import Modal from "components/common/Modal";
@@ -52,7 +52,7 @@ const Profile: React.FC<{}> = () => {
   const onSubmit = (form: any) => {
     const formattedData: { [key: string]: any } = {
       ...form,
-      phone_number: phoneFormatter(form.phone_number),
+      phone_number: short(form.phone_number),
     };
     const formData = new FormData();
     Object.keys(formattedData).forEach((key) => {
@@ -64,7 +64,7 @@ const Profile: React.FC<{}> = () => {
   const formattedData = () => {
     return {
       ...data,
-      phone_number: phoneFormatter(data.phone_number),
+      phone_number: short(data.phone_number),
     };
   };
 

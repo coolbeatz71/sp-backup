@@ -25,7 +25,7 @@ const Step3: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
         rules={[{ required: true, message: "Phone number is required!" }]}
       >
         <StackedLabel label="Phone Number" phone="+250">
-          <Input placeholder="Phone Number" />
+          <Input placeholder="Phone Number" maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item

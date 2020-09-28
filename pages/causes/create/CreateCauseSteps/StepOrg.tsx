@@ -1,4 +1,5 @@
 import React from "react";
+import { phone } from "dev-rw-phone";
 
 import { Row, Col, Button, Input, Form } from "antd";
 
@@ -41,10 +42,21 @@ const StepOrg: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       </Form.Item>
       <Form.Item
         name="org_phone_number"
-        rules={[{ required: true, message: "Phone number is required!" }]}
+        rules={[
+          { required: true, message: "Phone number is required!" },
+          () => ({
+            validator(_rule: any, value: any) {
+              if (!phone(value).isOk) {
+                return Promise.reject("Phone number should be valid");
+              }
+
+              return Promise.resolve();
+            },
+          }),
+        ]}
       >
         <StackedLabel label="Phone Number" phone="+250">
-          <Input placeholder="Phone Number" />
+          <Input placeholder="Phone Number" maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
