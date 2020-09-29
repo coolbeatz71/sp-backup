@@ -45,6 +45,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 5 }}
             placeholder="Summary of this cause"
+            maxLength={280}
           />
         </StackedLabel>
       </Form.Item>
@@ -101,6 +102,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 10 }}
             placeholder="Details about the cause"
+            maxLength={1000}
           />
         </StackedLabel>
       </Form.Item>

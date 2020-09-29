@@ -62,7 +62,7 @@ const Step1: React.FC<Props> = ({
         ]}
       >
         <StackedLabel label="Cause Name" charCount={[20, 50]}>
-          <Input placeholder="Cause Name" />
+          <Input placeholder="Cause Name" maxLength={50} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
@@ -115,7 +115,7 @@ const Step1: React.FC<Props> = ({
 
                   if (moment(value).isBefore(moment().startOf("day"))) {
                     return Promise.reject(
-                      "Cause start should not be in the past!",
+                      "Cause start should not be in the past!"
                     );
                   }
 
