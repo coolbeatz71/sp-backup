@@ -16,7 +16,7 @@ const Video = () => {
           <div className={styles.video__item}>
             <ReactPlayer
               controls
-              url="https://www.youtube.com/watch?v=r5Z_af3Zhok"
+              url="https://www.youtube.com/watch?v=u1eWK3WMjKU"
               width="100%"
               height="100%"
             />
