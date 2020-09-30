@@ -10,6 +10,7 @@ import {
   Modal,
   Skeleton,
   Alert,
+  Affix,
 } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
@@ -40,7 +41,6 @@ const CauseSider: React.FC<Props> = ({
   contact,
 }) => {
   const screens = Grid.useBreakpoint();
-  const [fixPosition, setFixPosition] = React.useState("");
   const comparer = React.useRef<any>(null);
   const [visible, setVisible] = React.useState(false);
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const CauseSider: React.FC<Props> = ({
   const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
 
   const { data, loading, error } = useSelector(
-    ({ cause: { donors } }: IRootState) => donors
+    ({ cause: { donors } }: IRootState) => donors,
   );
 
   React.useEffect(() => {
@@ -59,39 +59,21 @@ const CauseSider: React.FC<Props> = ({
     setCauseDonors(data);
   }, [data]);
 
-  const [width, setWidth] = React.useState(0);
-
   const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
     screens.lg ? (
-      <div
+      <Affix
+        offsetTop={hasBanner ? 148 : 100}
         className={styles.cause_sider}
-        style={{ width: width === 0 ? "100%" : width }}
-        data-affix-position={fixPosition}
+        style={{
+          width: "100%",
+        }}
         data-has-banner={hasBanner}
       >
         {children}
-      </div>
+      </Affix>
     ) : (
       <React.Fragment>{children}</React.Fragment>
     );
-
-  const scrollHandler = () => {
-    setWidth(comparer.current?.getBoundingClientRect().width);
-    if (window.pageYOffset < 100) {
-      setFixPosition("");
-    } else if (
-      window.pageYOffset >
-      window.innerHeight + (hasBanner ? 148 : 100) - 240
-    ) {
-      setFixPosition("bottom");
-    } else {
-      setFixPosition("top");
-    }
-  };
-
-  React.useEffect(() => {
-    window.addEventListener("scroll", scrollHandler, { passive: true });
-  }, [scrollHandler]);
 
   return (
     <>

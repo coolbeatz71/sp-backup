@@ -144,7 +144,7 @@ const SingleCause: NextPage<Props> = ({
       description={cause?.summary}
       image={cause?.image}
     >
-      <div data-content-padding>
+      <div data-content-padding className={styles.dashboard}>
         {loading ? (
           <SingleCauseSkeleton />
         ) : (
@@ -194,7 +194,7 @@ const SingleCause: NextPage<Props> = ({
                   </div>
                   {screens.lg && content}
                 </Col>
-                <Col span={24} lg={9} style={{ position: "relative" }}>
+                <Col span={24} lg={9}>
                   <CauseSider
                     cause={cause}
                     myCause={myCause}

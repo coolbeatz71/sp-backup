@@ -2,23 +2,6 @@
 @import "../../../styles/dimensions.scss";
 
 .cause_sider {
-  &[data-affix-position] {
-    transition: all 0.3s;
-    position: relative;
-    top: 0px;
-  }
-  &[data-affix-position="top"] {
-    position: fixed;
-    top: 100px;
-    &[data-has-banner="true"] {
-      top: 148px;
-    }
-  }
-  &[data-affix-position="bottom"] {
-    position: absolute;
-    top: auto;
-    bottom: 0px;
-  }
   &__content {
     &__primary_title {
       &,
