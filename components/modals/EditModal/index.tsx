@@ -44,7 +44,7 @@ const CauseEditing: React.FC<Props> = ({
   const { push } = useRouter();
 
   const { loading, error } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit,
+    ({ cause: { edit } }: IRootState) => edit
   );
 
   return (
@@ -70,7 +70,7 @@ const CauseEditing: React.FC<Props> = ({
                 end_date,
                 target_amount: dt.target,
               },
-              slug,
+              slug
             )(push, dispatch);
           } else {
             onClose(true);
@@ -122,6 +122,12 @@ const CauseEditing: React.FC<Props> = ({
 
                 if (moment(value).isBefore(moment().startOf("day"))) {
                   return Promise.reject("Should not be in the past");
+                }
+
+                if (
+                  moment(value).isBefore(moment().add(1, "day").endOf("day"))
+                ) {
+                  return Promise.reject("Should be at least 2 days from today");
                 }
 
                 return Promise.resolve();

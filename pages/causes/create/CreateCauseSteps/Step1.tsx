@@ -154,6 +154,14 @@ const Step1: React.FC<Props> = ({
                     return Promise.reject("Should not be in the past");
                   }
 
+                  if (
+                    moment(value).isBefore(moment().add(1, "day").endOf("day"))
+                  ) {
+                    return Promise.reject(
+                      "Should be at least 2 days from today"
+                    );
+                  }
+
                   return Promise.resolve();
                 },
               }),
