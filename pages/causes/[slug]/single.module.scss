@@ -79,7 +79,7 @@
     }
     &__paragraph__first,
     &__paragraph {
-      word-break: break-all !important;
+      text-align: justify;
       overflow-wrap: break-word !important;
       &__first {
         margin-top: 24px;

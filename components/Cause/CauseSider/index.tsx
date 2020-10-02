@@ -61,16 +61,22 @@ const CauseSider: React.FC<Props> = ({
 
   const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
     screens.lg ? (
-      <Affix
-        offsetTop={hasBanner ? 148 : 100}
+      <div
         className={styles.cause_sider}
-        style={{
-          width: "100%",
-        }}
+        style={{ width: "100%" }}
         data-has-banner={hasBanner}
       >
         {children}
-      </Affix>
+      </div>
+    ) : (
+      <React.Fragment>{children}</React.Fragment>
+    );
+
+  const DonationWrapper: React.FC<{ children: React.ReactElement }> = ({
+    children,
+  }) =>
+    screens.lg ? (
+      <Affix offsetTop={hasBanner ? 148 : 100}>{children}</Affix>
     ) : (
       <React.Fragment>{children}</React.Fragment>
     );
@@ -89,40 +95,44 @@ const CauseSider: React.FC<Props> = ({
       </Modal>
       <Wrapper>
         <div className={styles.cause_sider__content__sidebar}>
-          {(myCause || cause.status === "active") && (
-            <Row gutter={[24, 24]}>
-              {myCause && (
-                <Col>
-                  <CausesActions
-                    viewing
-                    record={cause}
-                    reload={() => {
-                      //
-                    }}
-                  />
-                </Col>
+          <DonationWrapper>
+            <>
+              {(myCause || cause.status === "active") && (
+                <Row gutter={[24, 24]}>
+                  {myCause && (
+                    <Col>
+                      <CausesActions
+                        viewing
+                        record={cause}
+                        reload={() => {
+                          //
+                        }}
+                      />
+                    </Col>
+                  )}
+                  {cause.status === "active" && (
+                    <Col flex={1}>
+                      <PreDonation slug={cause.slug}>
+                        <Button type="primary" block>
+                          DONATE
+                        </Button>
+                      </PreDonation>
+                    </Col>
+                  )}
+                </Row>
               )}
-              {cause.status === "active" && (
-                <Col flex={1}>
-                  <PreDonation slug={cause.slug}>
-                    <Button type="primary" block>
-                      DONATE
-                    </Button>
-                  </PreDonation>
-                </Col>
-              )}
-            </Row>
-          )}
-          <Progress
-            cause={cause}
-            reload={() => {
-              //
-            }}
-            edit={() => {
-              //
-            }}
-            tiny
-          />
+              <Progress
+                cause={cause}
+                reload={() => {
+                  //
+                }}
+                edit={() => {
+                  //
+                }}
+                tiny
+              />
+            </>
+          </DonationWrapper>
           {cause.status === "active" && (
             <>
               <br />
