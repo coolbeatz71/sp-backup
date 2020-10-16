@@ -48,11 +48,11 @@ const CauseSider: React.FC<Props> = ({
   const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
 
   const { data, loading, error } = useSelector(
-    ({ cause: { donors } }: IRootState) => donors,
+    ({ cause: { donors } }: IRootState) => donors
   );
 
   React.useEffect(() => {
-    getDonors(cause.slug, { limit: 10 })(dispatch);
+    getDonors(cause.slug, { limit: 5 })(dispatch);
   }, [dispatch]);
 
   React.useEffect(() => {
