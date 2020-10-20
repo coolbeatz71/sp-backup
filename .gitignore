@@ -10,3 +10,5 @@ out/
 cypress/
 *.lock
 public/sw.js
+
+.vscode/

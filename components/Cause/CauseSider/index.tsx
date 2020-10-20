@@ -45,11 +45,25 @@ const CauseSider: React.FC<Props> = ({
   const [visible, setVisible] = React.useState(false);
   const dispatch = useDispatch();
 
+  const [scrolled, setScrolled] = React.useState("");
   const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
 
   const { data, loading, error } = useSelector(
     ({ cause: { donors } }: IRootState) => donors
   );
+
+  const scrollHandler = () => {
+    setScrolled(
+      (!hasBanner && window.pageYOffset < 100) ||
+        (hasBanner && window.pageYOffset < 148)
+        ? "over"
+        : "scrolled",
+    );
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+  }, [scrollHandler]);
 
   React.useEffect(() => {
     getDonors(cause.slug, { limit: 5 })(dispatch);
@@ -76,7 +90,9 @@ const CauseSider: React.FC<Props> = ({
     children,
   }) =>
     screens.lg ? (
-      <Affix offsetTop={hasBanner ? 148 : 100}>{children}</Affix>
+      <Affix data-scrolled={scrolled} offsetTop={hasBanner ? 148 : 100}>
+        {children}
+      </Affix>
     ) : (
       <React.Fragment>{children}</React.Fragment>
     );
@@ -131,22 +147,22 @@ const CauseSider: React.FC<Props> = ({
                 }}
                 tiny
               />
+              {cause.status === "active" && (
+                <>
+                  <br />
+                  <Card>
+                    <SharePopover
+                      slug={cause.slug}
+                      code={cause.till_number}
+                      title={cause.name}
+                      standalone
+                      isPrivate={cause.access === "private"}
+                    />
+                  </Card>
+                </>
+              )}
             </>
           </DonationWrapper>
-          {cause.status === "active" && (
-            <>
-              <br />
-              <Card>
-                <SharePopover
-                  slug={cause.slug}
-                  code={cause.till_number}
-                  title={cause.name}
-                  standalone
-                  isPrivate={cause.access === "private"}
-                />
-              </Card>
-            </>
-          )}
           {!screens.lg && content}
           <br />
           <Card data-not-lg={!screens.lg} bordered={screens.lg}>

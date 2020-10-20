@@ -13,6 +13,11 @@
       }
     }
     &__sidebar {
+      [data-scrolled="scrolled"] {
+        [class~="ant-affix"] {
+          background-color: $primary-ultra-light;
+        }
+      }
       &__item {
         margin-top: 8px;
         [class="ant-col"] {
