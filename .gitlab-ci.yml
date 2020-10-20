@@ -1,7 +1,16 @@
 image: node:latest
 
 stages:
+  - lint
   - deploy
+
+lint:
+  stage: lint
+  except:
+    - develop
+  script:
+    - npm install
+    - npm run type-check
 
 deploy-staging:
   image: ubuntu:latest
