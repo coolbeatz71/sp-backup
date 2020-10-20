@@ -7,16 +7,19 @@ import { validateMessages } from "constants/validationMessages";
 import pauseCause from "redux/actions/cause/pauseCause";
 import cancelCause from "redux/actions/cause/cancelCause";
 import transfer from "redux/actions/cause/transfer";
+import cashout from "redux/actions/cause/cashout";
 
 import { RESET_CANCEL_ERROR } from "redux/action-types/cause/cancelCause";
 import { RESET_PAUSE_ERROR } from "redux/action-types/cause/pauseCause";
 import { RESET_RESUME_ERROR } from "redux/action-types/cause/resumeCause";
 import { RESET_TRANSFER_ERROR } from "redux/action-types/cause/transfer";
+import { RESET_CASHOUT_ERROR } from "redux/action-types/cause/cashout";
 
 import resumeCause from "redux/actions/cause/resumeCause";
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
 import CauseTransfer from "components/common/CauseTransfer";
+import CauseCashout from "components/common/CauseCashout";
 import { Store } from "antd/lib/form/interface";
 
 import styles from "./actionModal.module.scss";
@@ -34,6 +37,7 @@ interface IActionModalProps {
 const ActionModal: FC<IActionModalProps> = ({
   slug,
   plainAccessCode = "",
+  paymentAccountNumber = "",
   visible,
   context,
   closeModal,
@@ -72,6 +76,9 @@ const ActionModal: FC<IActionModalProps> = ({
         case ActionType.donationTransfer:
           dispatch({ type: RESET_TRANSFER_ERROR });
           break;
+        case ActionType.cashOut:
+          dispatch({ type: RESET_CASHOUT_ERROR });
+          break;
         default:
           break;
       }
@@ -91,6 +98,9 @@ const ActionModal: FC<IActionModalProps> = ({
         break;
       case ActionType.donationTransfer:
         transfer(slug, data)(setActionSuccessful, dispatch);
+        break;
+      case ActionType.cashOut:
+        cashout(slug, data)(setActionSuccessful, dispatch);
         break;
       default:
         break;
@@ -129,6 +139,11 @@ const ActionModal: FC<IActionModalProps> = ({
           title: "Transfer Donations",
           subTitle: "",
         };
+      case ActionType.cashOut:
+        return {
+          title: "Cash Out",
+          subTitle: "",
+        };
       default:
         return {
           title: "",
@@ -139,7 +154,10 @@ const ActionModal: FC<IActionModalProps> = ({
 
   return (
     <Modal
-      noTitle={context === ActionType.donationTransfer}
+      noTitle={
+        context === ActionType.donationTransfer ||
+        context === ActionType.cashOut
+      }
       title={
         actionSuccessful
           ? getModalContent()?.successMessage
@@ -150,7 +168,14 @@ const ActionModal: FC<IActionModalProps> = ({
       onCancel={() => handleModalClose()}
     >
       <>
-        {context === ActionType.donationTransfer ? (
+        {context === ActionType.cashOut ? (
+          <CauseCashout
+            slug={slug}
+            handleSubmit={handleSubmit}
+            paymentAccountNumber={paymentAccountNumber}
+            actionSuccessful={actionSuccessful}
+          />
+        ) : context === ActionType.donationTransfer ? (
           <CauseTransfer
             slug={slug}
             handleSubmit={handleSubmit}

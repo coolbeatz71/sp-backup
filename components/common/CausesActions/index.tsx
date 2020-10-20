@@ -14,6 +14,7 @@ export enum ActionType {
   cancel = "cancel",
   resume = "resume",
   donationTransfer = "donationTransfer",
+  cashOut = "cashOut",
 }
 
 const isUncancellable = (status: string): boolean =>
@@ -24,7 +25,7 @@ const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 const isUneditable = (status: string, count: number) =>
   (status !== causeStatus.active && status !== causeStatus.paused) || count > 0;
 
-const canTransfer = (
+const canTransferOrCashout = (
   status: string,
   raisedAmount: number,
   cashedOutAmount: number,
@@ -124,7 +125,22 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 Cancel Cause
               </Button>
             )}
-            {canTransfer(
+
+            {canTransferOrCashout(
+              record.status,
+              record.raised_amount * 1,
+              record.cashed_out_amount * 1,
+            ) && (
+              <Button
+                className={styles.actions__menu_button}
+                type="text"
+                onClick={() => handleAction(ActionType.cashOut)}
+              >
+                Cash Out
+              </Button>
+            )}
+
+            {canTransferOrCashout(
               record.status,
               record.raised_amount * 1,
               record.cashed_out_amount * 1,

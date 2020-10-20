@@ -14,6 +14,7 @@ import resumeCause from "./resumeCause";
 import transfer from "./transfer";
 import all_transfer from "./all_transfer";
 import single_transfer from "./singleTransfer";
+import cashout from "./cashout";
 
 export default (
   state = initialState.cause,
@@ -23,6 +24,7 @@ export default (
     ...create(state, action),
     ...donateCause(state, action),
     ...transfer(state, action),
+    ...cashout(state, action),
   };
   const get = {
     ...feed(state, action),

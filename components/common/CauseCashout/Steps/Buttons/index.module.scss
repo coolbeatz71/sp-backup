@@ -1,0 +1,27 @@
+@import "../../../../../styles/colors.scss";
+
+.steps {
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0px;
+  &__step {
+    cursor: pointer;
+    width: 32px;
+    height: 14px;
+    line-height: 0px;
+    border: solid 4px white;
+    background-color: $border;
+    border-radius: 7px;
+    transition: all 0.3s;
+    &:hover {
+      &:not([disabled]) {
+        background-color: rgba($primary, 0.5);
+      }
+    }
+    &[data-active="is_active"]:not(:hover) {
+      &:not([disabled]) {
+        background-color: $primary;
+      }
+    }
+  }
+}

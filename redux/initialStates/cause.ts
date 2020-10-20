@@ -75,6 +75,7 @@ export default {
   cancel: basicReduxStoreDefault,
   resume: basicReduxStoreDefault,
   transfer: basicReduxStoreDefault,
+  cashout: basicReduxStoreDefault,
 };
 
 export interface ICauseFeed {
@@ -123,4 +124,5 @@ export interface ICause {
   cancel: IBasicReduxStore;
   resume: IBasicReduxStore;
   transfer: IBasicReduxStore;
+  cashout: IBasicReduxStore;
 }
