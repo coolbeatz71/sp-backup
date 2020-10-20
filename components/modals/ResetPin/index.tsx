@@ -34,7 +34,7 @@ const ResetPin: React.FC<{}> = () => {
   } = useSelector(({ pin: { reset_update } }: IRootState) => reset_update);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
   return (
@@ -104,11 +104,11 @@ const ResetPin: React.FC<{}> = () => {
           </Form.Item>
           <Form.Item name="new_password" rules={formPinValidator("New PIN")}>
             <StackedLabel label="New PIN">
-              <Input
+              <Input.Password
                 placeholder="New PIN"
-                type="password"
                 autoComplete="new-password"
                 disabled={loadingUpdate}
+                maxLength={5}
               />
             </StackedLabel>
           </Form.Item>
@@ -117,11 +117,11 @@ const ResetPin: React.FC<{}> = () => {
             rules={formPinMatchValidator("new_password", "New PIN and Confirm")}
           >
             <StackedLabel label="Confirm PIN">
-              <Input
+              <Input.Password
                 placeholder="Confirm PIN"
-                type="password"
                 autoComplete="new-password"
                 disabled={loadingUpdate}
+                maxLength={5}
               />
             </StackedLabel>
           </Form.Item>
