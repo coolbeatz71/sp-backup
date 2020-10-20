@@ -18,7 +18,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
   const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
 
   const { data, loading, error } = useSelector(
-    ({ cause: { donors } }: IRootState) => donors,
+    ({ cause: { donors } }: IRootState) => donors
   );
 
   React.useEffect(() => {

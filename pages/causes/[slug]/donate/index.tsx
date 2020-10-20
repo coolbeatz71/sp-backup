@@ -159,8 +159,8 @@ const DonateCause: React.FC<{}> = () => {
                     alt="Confetti GIF"
                   />
 
-                  <Link href="/">
-                    <a rel="noreferrer noopener">Back Home</a>
+                  <Link href={`/causes/${slug}`}>
+                    <a rel="noreferrer noopener">Back to the cause</a>
                   </Link>
                   <div className={styles.donate__body__form__successful__share}>
                     <SharePopover
