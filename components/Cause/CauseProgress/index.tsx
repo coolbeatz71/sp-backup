@@ -54,7 +54,7 @@ const CauseProgress: React.FC<Props> = ({
                 <span>
                   {numeral(
                     ((cause.raised_amount * 1) / (cause.target_amount * 1)) *
-                      100,
+                      100
                   ).format("0,0.0")}
                   %
                 </span>

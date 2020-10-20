@@ -236,12 +236,16 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
           <div className={styles.card__progress}>
             <Row justify="space-between">
               <Col span={16}>
-                <Typography.Text ellipsis>
+                <Typography.Text ellipsis className={styles.progress_amount}>
                   {numeral(cause.raised_amount).format("0,0.[00]")} RWF Raised
                 </Typography.Text>
               </Col>
               <Col>
-                <Typography.Text type="secondary" ellipsis>
+                <Typography.Text
+                  type="secondary"
+                  ellipsis
+                  className={styles.progress_ratio}
+                >
                   {numeral(percentage).format("0.[00]")}%
                 </Typography.Text>
               </Col>
@@ -254,12 +258,16 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
             </div>
             <Row justify="space-between">
               <Col className={styles.card__progress__item__goal}>
-                <Typography.Text ellipsis>
+                <Typography.Text ellipsis className={styles.progress_amount}>
                   {numeral(cause.target_amount).format("0,0.[00]")} RWF Goal
                 </Typography.Text>
               </Col>
               <Col>
-                <Typography.Text type="secondary" ellipsis>
+                <Typography.Text
+                  type="secondary"
+                  ellipsis
+                  className={styles.progress_ratio}
+                >
                   {getCauseEndingDate(cause.end_date)}
                 </Typography.Text>
               </Col>
