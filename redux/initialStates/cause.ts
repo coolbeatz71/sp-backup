@@ -36,9 +36,26 @@ export default {
     accessCode: "",
   },
   donors: {
+    data: {
+      search: [],
+      get: [],
+    },
+    loading: {
+      search: false,
+      get: false,
+    },
+    error: {
+      search: null,
+      get: null,
+    },
+    meta: {
+      search: {},
+      get: {},
+    },
+  },
+  moreDonors: {
     data: [],
     loading: false,
-    error: null,
   },
   donate: basicReduxStoreDefault,
   pause: basicReduxStoreDefault,
@@ -71,8 +88,13 @@ export interface ICause {
     accessCode: string;
   };
   donors: {
-    data: { [key: string]: any }[];
+    data: { [key: string]: any };
     error: any;
+    loading: { [key: string]: boolean };
+    meta: { [key: string]: any };
+  };
+  moreDonors: {
+    data: { [key: string]: any }[];
     loading: boolean;
   };
   donate: IBasicReduxStore;

@@ -36,7 +36,6 @@ const SingleCause: NextPage<Props> = ({
   const [fetched, setFetched] = useState(error === null);
   const router = useRouter();
   const dispatch = useDispatch();
-  // const [isVideoPlayerReady, setVideoPlayerReadiness] = useState(false);
 
   const { loading, data, error: _err } = useSelector(
     ({ cause: { single } }: IRootState) => single,

@@ -3,7 +3,8 @@ import feed from "./feed";
 import userCauses from "./userCauses";
 import create from "./create";
 import single from "./single";
-import donors from "./donors";
+import getDonors from "./getDonors";
+import searchDonors from "./searchDonors";
 import all from "./all";
 import donateCause from "./donateCause";
 import pauseCause from "./pauseCause";
@@ -21,7 +22,8 @@ export default (
     ...userCauses(state, action),
     ...create(state, action),
     ...single(state, action),
-    ...donors(state, action),
+    ...getDonors(state, action),
+    ...searchDonors(state, action),
     ...all(state, action),
     ...donateCause(state, action),
     ...pauseCause(state, action),
