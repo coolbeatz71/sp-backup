@@ -39,6 +39,7 @@ interface Props {
   cause: { [key: string]: any };
   reload?: () => void;
   isView?: boolean;
+  isDonate?: boolean;
 }
 
 const donateMsg: { [key: string]: string } = {
@@ -75,9 +76,13 @@ const FooterCover: React.FC<FooterCoverProps> = ({
   );
 };
 
-const Cause: React.FC<Props> = ({ cause, isView = false }) => {
+const Cause: React.FC<Props> = ({
+  cause,
+  isView = false,
+  isDonate = false,
+}) => {
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none"
+    !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -174,32 +179,34 @@ const Cause: React.FC<Props> = ({ cause, isView = false }) => {
         )}
         {cause.verified && <CustomIcon type="verified" />}
       </div>
-      <Row gutter={[0, 10]} className={styles.card__user__row} align="middle">
-        <Col>
-          <Typography.Paragraph
-            ellipsis={{ rows: 1 }}
-            className={styles.card__user}
-          >
-            by {cause.user_names}
-          </Typography.Paragraph>
-          {cause.organization && (
+      {!isDonate && (
+        <Row gutter={[0, 10]} className={styles.card__user__row} align="middle">
+          <Col>
             <Typography.Paragraph
               ellipsis={{ rows: 1 }}
               className={styles.card__user}
             >
-              with {cause.organization.name}
+              by {cause.user_names}
             </Typography.Paragraph>
-          )}
-          {cause.institution && (
-            <Typography.Paragraph
-              ellipsis={{ rows: 1 }}
-              className={styles.card__user}
-            >
-              with {cause.institution.name}
-            </Typography.Paragraph>
-          )}
-        </Col>
-      </Row>
+            {cause.organization && (
+              <Typography.Paragraph
+                ellipsis={{ rows: 1 }}
+                className={styles.card__user}
+              >
+                with {cause.organization.name}
+              </Typography.Paragraph>
+            )}
+            {cause.institution && (
+              <Typography.Paragraph
+                ellipsis={{ rows: 1 }}
+                className={styles.card__user}
+              >
+                with {cause.institution.name}
+              </Typography.Paragraph>
+            )}
+          </Col>
+        </Row>
+      )}
       {!isView && (
         <div className={styles.card__title} data-my-cause={myCause}>
           <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>

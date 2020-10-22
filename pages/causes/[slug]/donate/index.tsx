@@ -37,6 +37,7 @@ import StackedLabel from "components/common/StackedLabel";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 import { normalize } from "dev-rw-phone";
 import SharePopover from "components/common/SharePopover";
+import CauseCard from "components/cards/Cause";
 
 const { Text } = Typography;
 
@@ -66,11 +67,11 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -99,7 +100,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -137,7 +138,12 @@ const DonateCause: React.FC<{}> = () => {
         ) : (
           <div className={styles.donate__body}>
             <div className={styles.donate__body__header}>
-              {!donationSuccessful && <h4>Donate for a Cause</h4>}
+              {!donationSuccessful && (
+                <>
+                  <h4>Donate to a Cause</h4>
+                  <h5>Thank you for your support</h5>
+                </>
+              )}
             </div>
             <div className={styles.donate__body__form}>
               {donationSuccessful ? (
@@ -193,13 +199,17 @@ const DonateCause: React.FC<{}> = () => {
                 </div>
               ) : (
                 <>
-                  <div className={styles.donate__body__form__header}>
-                    <h6>Thank you for your support</h6>
-                    <p>
-                      We appreciate your support for this cause. We currently
-                      take donation using Mobile Money
-                    </p>
-                  </div>
+                  <Row justify="center">
+                    <Typography.Title
+                      level={2}
+                      className={styles.donate__body__form__causeName}
+                      ellipsis
+                    >
+                      {cause.name}
+                    </Typography.Title>
+                  </Row>
+                  <CauseCard cause={cause} isView isDonate />
+                  <br />
                   {userDataLoading && isEmpty(data) ? (
                     <Spin />
                   ) : (
