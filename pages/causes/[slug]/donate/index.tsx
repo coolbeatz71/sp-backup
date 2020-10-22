@@ -35,7 +35,7 @@ import Error from "components/common/Error";
 import Layout from "components/LayoutWrapper";
 import StackedLabel from "components/common/StackedLabel";
 import formPhoneValidator from "utils/validators/form-phone-validator";
-import { normalize } from "dev-rw-phone";
+import { normalize, telco } from "dev-rw-phone";
 import SharePopover from "components/common/SharePopover";
 import CauseCard from "components/cards/Cause";
 
@@ -67,11 +67,11 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -110,6 +110,19 @@ const DonateCause: React.FC<{}> = () => {
     }
     if (Object.keys(changedField)[0] === "anonymous") {
       setIsAnonymous(changedField.anonymous);
+    }
+
+    if (Object.keys(changedField)[0] === "payment_method") {
+      console.log(changedField);
+      if (changedField.payment_method === "MTN_Rwanda") {
+        form.setFieldsValue({
+          phone_number: "78",
+        });
+      } else if (changedField.payment_method === "Airtel_Rwanda") {
+        form.setFieldsValue({
+          phone_number: "73",
+        });
+      }
     }
   };
 
@@ -208,7 +221,7 @@ const DonateCause: React.FC<{}> = () => {
                       {cause.name}
                     </Typography.Title>
                   </Row>
-                  <CauseCard cause={cause} isView isDonate />
+                  <CauseCard cause={cause} isView />
                   <br />
                   {userDataLoading && isEmpty(data) ? (
                     <Spin />
@@ -222,6 +235,10 @@ const DonateCause: React.FC<{}> = () => {
                         initialValues={{
                           ...data,
                           type: "individual",
+                          payment_method:
+                            telco(data.phone_number) === "Airtel"
+                              ? "Airtel_Rwanda"
+                              : "MTN_Rwanda",
                         }}
                       >
                         <Text type="danger" className="mb-3 d-block">
@@ -297,9 +314,56 @@ const DonateCause: React.FC<{}> = () => {
                           )
                         )}
                         <Form.Item
+                          name="payment_method"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Payment Method is required",
+                            },
+                          ]}
+                        >
+                          <StackedLabel label="Select Payment Method" select>
+                            <Select placeholder="Payment Method">
+                              <Select.Option value="MTN_Rwanda">
+                                MTN Mobile Money
+                              </Select.Option>
+                              <Select.Option value="Airtel_Rwanda">
+                                Airtel Money
+                              </Select.Option>
+                            </Select>
+                          </StackedLabel>
+                        </Form.Item>
+                        <Form.Item
                           className="form-group phone-code"
                           validateTrigger={["onSubmit", "onBlur"]}
-                          rules={formPhoneValidator("Phone Number")}
+                          rules={[
+                            ...formPhoneValidator("Phone Number"),
+                            {
+                              validator(_rule: any, value: any) {
+                                const {
+                                  payment_method: paymentMethod,
+                                } = form.getFieldsValue();
+                                if (
+                                  paymentMethod === "MTN_Rwanda" &&
+                                  telco(value) !== "MTN"
+                                ) {
+                                  return Promise.reject(
+                                    "Should be a valid MTN Number"
+                                  );
+                                }
+                                if (
+                                  paymentMethod === "Airtel_Rwanda" &&
+                                  telco(value) !== "Airtel"
+                                ) {
+                                  return Promise.reject(
+                                    "Should be a valid Airtel Number"
+                                  );
+                                }
+
+                                return Promise.resolve();
+                              },
+                            },
+                          ]}
                           name="phone_number"
                         >
                           <StackedLabel label="Phone Number" phone="+250">
@@ -311,7 +375,7 @@ const DonateCause: React.FC<{}> = () => {
                           validateTrigger={["onSubmit", "onBlur"]}
                           rules={[{ min: 3, type: "email" }]}
                         >
-                          <Input placeholder="Email Address" />
+                          <Input placeholder="Email Address (Optional)" />
                         </Form.Item>
                         <div className="d-flex">
                           <span className="font-weight-bold">Anonymous</span>
