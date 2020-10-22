@@ -33,6 +33,12 @@
         margin-top: 2rem;
         color: $color-dark;
       }
+
+      h5 {
+        font-weight: 600;
+        font-size: 17px;
+        color: $color-dark;
+      }
     }
     &__form {
       background: #fff;
@@ -53,6 +59,13 @@
           line-height: inherit;
           margin-bottom: 1rem;
         }
+      }
+
+      &__causeName {
+        margin-bottom: 24px !important;
+        color: $color-primary !important;
+        font-size: 20px !important;
+        text-transform: uppercase;
       }
       &__successful {
         display: flex;
