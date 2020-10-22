@@ -7,6 +7,7 @@ import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
+import dynamic from "next/dynamic";
 
 import "theme/ngprogress.scss";
 import "theme/index.css";
@@ -31,6 +32,15 @@ Router.events.on("routeChangeComplete", () => {
 });
 Router.events.on("routeChangeError", () => nProgress.done());
 
+const InterCom = dynamic(
+  () => {
+    return import("../components/Intercom");
+  },
+  {
+    ssr: false,
+  }
+);
+
 const MyApp = ({ Component, pageProps, svpProps }) => {
   return (
     <Context.Provider value={{ svpProps }}>
@@ -46,6 +56,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
         <meta name="theme-color" content="#FFFFFF" />
       </Head>
       <Component {...pageProps} svpProps={svpProps} />
+      <InterCom />
     </Context.Provider>
   );
 };
