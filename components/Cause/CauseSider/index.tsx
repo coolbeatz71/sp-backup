@@ -21,7 +21,7 @@ import Donors from "./Donors";
 
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import getDonors from "redux/actions/cause/getDonors";
+import getDonors from "redux/actions/cause/donors";
 
 import styles from "./index.module.scss";
 
@@ -48,9 +48,14 @@ const CauseSider: React.FC<Props> = ({
   const [scrolled, setScrolled] = React.useState("");
   const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
 
-  const { data, loading, error } = useSelector(
-    ({ cause: { donors } }: IRootState) => donors
-  );
+  const {
+    data: { get: donorsList },
+    loading: { get: loading },
+    error: { get: getError },
+    meta: {
+      get: { total },
+    },
+  } = useSelector(({ cause: { donors } }: IRootState) => donors);
 
   const scrollHandler = () => {
     setScrolled(
@@ -66,12 +71,12 @@ const CauseSider: React.FC<Props> = ({
   }, [scrollHandler]);
 
   React.useEffect(() => {
-    getDonors(cause.slug, { limit: 5 })(dispatch);
+    getDonors(cause.slug, false, { limit: 5 })(dispatch);
   }, [dispatch]);
 
   React.useEffect(() => {
-    setCauseDonors(data);
-  }, [data]);
+    setCauseDonors(donorsList);
+  }, [donorsList]);
 
   const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
     screens.lg ? (
@@ -100,8 +105,8 @@ const CauseSider: React.FC<Props> = ({
   return (
     <>
       <Modal
-        title={<Typography.Link>Donors</Typography.Link>}
-        bodyStyle={{ padding: 0 }}
+        title={<Typography.Link>Donors ({total})</Typography.Link>}
+        bodyStyle={{ padding: 0, paddingBottom: "2.5rem" }}
         visible={visible}
         onCancel={() => setVisible(false)}
         footer={null}
@@ -167,23 +172,25 @@ const CauseSider: React.FC<Props> = ({
           <br />
           <Card data-not-lg={!screens.lg} bordered={screens.lg}>
             {loading && <Skeleton active />}
-            {error?.message && (
+            {getError?.message && (
               <Alert
-                message={error?.message}
+                message={getError?.message}
                 type="error"
                 closeText="RETRY"
-                onClose={() => getDonors(cause.slug, { limit: 10 })(dispatch)}
+                onClose={() =>
+                  getDonors(cause.slug, false, { limit: 10 })(dispatch)
+                }
                 showIcon
               />
             )}
-            {!loading && !error && (
+            {!loading && !getError && (
               <>
                 {causeDonors.length === 0 ? (
                   <Empty description="No donors yet" />
                 ) : (
                   <>
                     <Card.Meta
-                      title="LIST OF DONORS"
+                      title={`LIST OF DONORS (${total})`}
                       className={styles.cause_sider__content__primary_title}
                       data-meta-not-lg={!screens.lg}
                     />
