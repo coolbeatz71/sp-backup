@@ -104,10 +104,5 @@
     "jsx-no-lambda": false,
     "jsx-boolean-value": false
   },
-  "extends": [
-    "tslint-config-airbnb",
-    "tslint:latest",
-    "tslint-react",
-    "tslint-eslint-rules"
-  ]
+  "extends": ["tslint:latest", "tslint-react"]
 }

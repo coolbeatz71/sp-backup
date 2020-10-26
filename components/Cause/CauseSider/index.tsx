@@ -214,7 +214,13 @@ const CauseSider: React.FC<Props> = ({
                         className={styles.cause_sider__content__sidebar__more}
                         data-more-not-lg={!screens.lg}
                       >
-                        <Button type="link" onClick={() => setVisible(true)}>
+                        <Button
+                          type="link"
+                          onClick={() => {
+                            window.scrollTo({ top: 0 });
+                            setVisible(true);
+                          }}
+                        >
                           View All
                         </Button>
                       </div>

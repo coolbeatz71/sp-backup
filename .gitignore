@@ -12,3 +12,4 @@ cypress/
 public/sw.js
 
 .vscode/
+/public/workbox-*
