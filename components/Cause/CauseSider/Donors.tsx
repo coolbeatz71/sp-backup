@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isEmpty } from "lodash";
 import numeral from "numeral";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Input, Skeleton, Alert, Typography, Spin, Empty } from "antd";
@@ -10,6 +9,7 @@ import moreDonors from "redux/actions/cause/moreDonors";
 import { CLEAR_SEARCH_DONORS } from "redux/action-types/cause/donors";
 
 import styles from "./Donors.module.scss";
+import { isEmpty } from "lodash";
 
 interface Props {
   slug: string;
@@ -42,6 +42,14 @@ const Donors: React.FC<Props> = ({ slug }) => {
   };
 
   React.useEffect(() => {
+    const delayTimer = setTimeout(() => {
+      if (!isEmpty(search.trim())) return searchDonors();
+    }, 500);
+
+    return () => clearTimeout(delayTimer);
+  }, [dispatch, search]);
+
+  React.useEffect(() => {
     dispatch({ type: CLEAR_SEARCH_DONORS });
     getDonors(slug, true, { limit })(dispatch);
   }, [dispatch]);
@@ -55,14 +63,6 @@ const Donors: React.FC<Props> = ({ slug }) => {
       setDonors([...donorsList, ...moreDonorsList]);
     }
   }, [moreDonorsList]);
-
-  React.useEffect(() => {
-    const delayTimer = setTimeout(() => {
-      if (!isEmpty(search.trim())) return searchDonors();
-    }, 1000);
-
-    return () => clearTimeout(delayTimer);
-  }, [dispatch, search]);
 
   const fetchMoreDonors = () => {
     setPage((prev) => prev + 1);
@@ -84,7 +84,6 @@ const Donors: React.FC<Props> = ({ slug }) => {
           marginBottom: "1.5rem",
         }}
         placeholder="Search"
-        disabled={loading || searchError}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={(e) => {

@@ -24,7 +24,7 @@
     "@types/react-star-rating-component": "^1.4.0",
     "@types/react-transition-group": "^4.4.0",
     "@types/validator": "^13.1.0",
-    "antd": "^4.6.5",
+    "antd": "^4.7.3",
     "antd-img-crop": "^3.9.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
