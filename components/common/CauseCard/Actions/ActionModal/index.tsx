@@ -1,24 +1,31 @@
 import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Typography, Input, Row, Col, Alert } from "antd";
-import styles from "./actionModal.module.scss";
+import { useRouter } from "next/router";
 import { IRootState } from "redux/initialStates";
 import { validateMessages } from "constants/validationMessages";
 import pauseCause from "redux/actions/cause/pauseCause";
-import { Store } from "antd/lib/form/interface";
-import { ActionType } from "..";
 import cancelCause from "redux/actions/cause/cancelCause";
+import transfer from "redux/actions/cause/transfer";
+
 import { RESET_CANCEL_ERROR } from "redux/action-types/cause/cancelCause";
 import { RESET_PAUSE_ERROR } from "redux/action-types/cause/pauseCause";
 import { RESET_RESUME_ERROR } from "redux/action-types/cause/resumeCause";
+import { RESET_TRANSFER_ERROR } from "redux/action-types/cause/transfer";
+
 import resumeCause from "redux/actions/cause/resumeCause";
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
-import { useRouter } from "next/router";
+import CauseTransfer from "components/common/CauseTransfer";
+import { Store } from "antd/lib/form/interface";
+
+import styles from "./actionModal.module.scss";
+import { ActionType } from "components/common/CausesActions";
 
 interface IActionModalProps {
   slug: string;
   plainAccessCode?: string;
+  paymentAccountNumber?: string;
   visible: boolean;
   context?: ActionType | "";
   closeModal: () => void;
@@ -31,8 +38,8 @@ const ActionModal: FC<IActionModalProps> = ({
   context,
   closeModal,
 }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
     ({ cause: { pause } }: IRootState) => pause,
@@ -44,26 +51,30 @@ const ActionModal: FC<IActionModalProps> = ({
     ({ cause: { resume } }: IRootState) => resume,
   );
 
-  React.useEffect(() => {
-    if (actionSuccessful) router.reload();
-  }, [actionSuccessful]);
-
   const handleModalClose = () => {
     closeModal();
-    setActionSuccessful(false);
 
-    switch (context) {
-      case ActionType.pause:
-        dispatch({ type: RESET_PAUSE_ERROR });
-        break;
-      case ActionType.cancel:
-        dispatch({ type: RESET_CANCEL_ERROR });
-        break;
-      case ActionType.resume:
-        dispatch({ type: RESET_RESUME_ERROR });
-        break;
-      default:
-        break;
+    if (actionSuccessful) {
+      router.reload();
+    } else {
+      setActionSuccessful(false);
+
+      switch (context) {
+        case ActionType.pause:
+          dispatch({ type: RESET_PAUSE_ERROR });
+          break;
+        case ActionType.cancel:
+          dispatch({ type: RESET_CANCEL_ERROR });
+          break;
+        case ActionType.resume:
+          dispatch({ type: RESET_RESUME_ERROR });
+          break;
+        case ActionType.donationTransfer:
+          dispatch({ type: RESET_TRANSFER_ERROR });
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -77,6 +88,9 @@ const ActionModal: FC<IActionModalProps> = ({
         break;
       case ActionType.resume:
         resumeCause(slug, data)(setActionSuccessful, dispatch);
+        break;
+      case ActionType.donationTransfer:
+        transfer(slug, data)(setActionSuccessful, dispatch);
         break;
       default:
         break;
@@ -110,6 +124,11 @@ const ActionModal: FC<IActionModalProps> = ({
           title: "Access Code",
           subTitle: `The access code for this cause is </br> <strong>${plainAccessCode}</strong>`,
         };
+      case ActionType.donationTransfer:
+        return {
+          title: "Transfer Donations",
+          subTitle: "",
+        };
       default:
         return {
           title: "",
@@ -120,6 +139,7 @@ const ActionModal: FC<IActionModalProps> = ({
 
   return (
     <Modal
+      noTitle={context === ActionType.donationTransfer}
       title={
         actionSuccessful
           ? getModalContent()?.successMessage
@@ -129,75 +149,90 @@ const ActionModal: FC<IActionModalProps> = ({
       visible={visible}
       onCancel={() => handleModalClose()}
     >
-      <div className={styles.pause__modalContent}>
-        {actionSuccessful ? (
-          <div className={styles.pause__modalContent__successful}>
-            <img src="/success-action.gif" alt="pause success" />
-          </div>
+      <>
+        {context === ActionType.donationTransfer ? (
+          <CauseTransfer
+            slug={slug}
+            handleSubmit={handleSubmit}
+            actionSuccessful={actionSuccessful}
+          />
         ) : (
-          <>
-            <Typography.Paragraph
-              className={styles.pause__modalContent__subTitle}
-            >
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: getModalContent()?.subTitle,
-                }}
-              />
-            </Typography.Paragraph>
-            {errorPause || errorCancel || errorResume ? (
-              <Alert
-                type="error"
-                message={errorPause || errorCancel || errorResume}
-              />
+          <div className={styles.pause__modalContent}>
+            {actionSuccessful ? (
+              <div className={styles.pause__modalContent__successful}>
+                <img src="/success-action.gif" alt="pause success" />
+              </div>
             ) : (
-              context !== ActionType.accessCode && (
-                <Typography.Paragraph type="danger">
-                  To Continue Enter Your PIN
-                </Typography.Paragraph>
-              )
-            )}
-            {context !== ActionType.accessCode && (
-              <Form
-                onFinish={handleSubmit}
-                validateMessages={validateMessages}
-                className={styles.pause__modalContent__form}
-              >
-                <Form.Item
-                  rules={[
-                    {
-                      len: 5,
-                      required: true,
-                      pattern: /^[0-9]{5}$/,
-                      message: "PIN must be 5 digits",
-                    },
-                  ]}
-                  validateTrigger={["onSubmit", "onBlur"]}
-                  name="password"
+              <>
+                <Typography.Paragraph
+                  className={styles.pause__modalContent__subTitle}
                 >
-                  <StackedLabel label="PIN" required>
-                    <Input.Password
-                      maxLength={5}
-                      disabled={loadingPause || loadingCancel || loadingResume}
-                    />
-                  </StackedLabel>
-                </Form.Item>
-                <Row justify="end">
-                  <Col>
-                    <Button
-                      htmlType="submit"
-                      loading={loadingPause || loadingCancel || loadingResume}
-                      type="primary"
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getModalContent()?.subTitle,
+                    }}
+                  />
+                </Typography.Paragraph>
+                {errorPause || errorCancel || errorResume ? (
+                  <Alert
+                    type="error"
+                    message={errorPause || errorCancel || errorResume}
+                  />
+                ) : (
+                  context &&
+                  context !== ActionType.accessCode && (
+                    <Typography.Paragraph type="danger">
+                      To Continue Enter Your PIN
+                    </Typography.Paragraph>
+                  )
+                )}
+                {context && context !== ActionType.accessCode && (
+                  <Form
+                    onFinish={handleSubmit}
+                    validateMessages={validateMessages}
+                    className={styles.pause__modalContent__form}
+                  >
+                    <Form.Item
+                      rules={[
+                        {
+                          len: 5,
+                          required: true,
+                          pattern: /^[0-9]{5}$/,
+                          message: "PIN must be 5 digits",
+                        },
+                      ]}
+                      validateTrigger={["onSubmit", "onBlur"]}
+                      name="password"
                     >
-                      {context?.toUpperCase()}
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
+                      <StackedLabel label="PIN" required>
+                        <Input.Password
+                          maxLength={5}
+                          disabled={
+                            loadingPause || loadingCancel || loadingResume
+                          }
+                        />
+                      </StackedLabel>
+                    </Form.Item>
+                    <Row justify="end">
+                      <Col>
+                        <Button
+                          htmlType="submit"
+                          loading={
+                            loadingPause || loadingCancel || loadingResume
+                          }
+                          type="primary"
+                        >
+                          {context?.toUpperCase()}
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Form>
+                )}
+              </>
             )}
-          </>
+          </div>
         )}
-      </div>
+      </>
     </Modal>
   );
 };

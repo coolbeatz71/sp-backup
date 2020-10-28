@@ -3,6 +3,7 @@ import {
   GET_SINGLE_CAUSE_START,
   GET_SINGLE_CAUSE_SUCCESS,
   GET_SINGLE_CAUSE_ERROR,
+  RESET_SINGLE_CAUSE_ERROR,
 } from "redux/action-types/cause/getSingle";
 
 import { STORE_ACCESS_CODE } from "redux/action-types/cause/storeAccessCode";
@@ -49,6 +50,15 @@ export default (state: ICause, { type, payload }: Iaction) => {
         single: {
           ...state.single,
           accessCode: payload,
+        },
+      };
+    case RESET_SINGLE_CAUSE_ERROR:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          loading: false,
+          error: null,
         },
       };
     default:

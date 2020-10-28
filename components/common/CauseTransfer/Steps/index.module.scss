@@ -1,0 +1,23 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
+.steps {
+  &__title_separator {
+    margin-bottom: 20px;
+  }
+  &__text_area {
+    resize: none;
+  }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    strong {
+      margin-right: 10px;
+    }
+    &__col {
+      display: flex;
+      flex: 1;
+    }
+  }
+}

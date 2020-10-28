@@ -11,6 +11,7 @@ import pauseCause from "./pauseCause";
 import edit from "./edit";
 import cancelCause from "./cancelCause";
 import resumeCause from "./resumeCause";
+import transfer from "./transfer";
 
 export default (
   state = initialState.cause,
@@ -30,5 +31,6 @@ export default (
     ...edit(state, action),
     ...cancelCause(state, action),
     ...resumeCause(state, action),
+    ...transfer(state, action),
   };
 };
