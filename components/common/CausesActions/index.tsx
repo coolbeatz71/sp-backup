@@ -1,7 +1,7 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Dropdown, Menu, Button } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
-import { useRouter } from "next/router";
 
 import ActionModal from "components/common/CauseCard/Actions/ActionModal";
 import { causeStatus } from "interfaces";
@@ -13,6 +13,7 @@ export enum ActionType {
   pause = "pause",
   cancel = "cancel",
   resume = "resume",
+  donationTransfer = "donationTransfer",
 }
 
 const isUncancellable = (status: string): boolean =>
@@ -22,6 +23,14 @@ const isUnpausable = (status: string): boolean => status !== causeStatus.active;
 
 const isUneditable = (status: string, count: number) =>
   (status !== causeStatus.active && status !== causeStatus.paused) || count > 0;
+
+const canTransfer = (
+  status: string,
+  raisedAmount: number,
+  cashedOutAmount: number,
+) =>
+  (status === causeStatus.active || status === causeStatus.paused) &&
+  raisedAmount - cashedOutAmount > 0;
 
 interface Props {
   record: { [key: string]: any };
@@ -115,6 +124,19 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 Cancel Cause
               </Button>
             )}
+            {canTransfer(
+              record.status,
+              record.raised_amount * 1,
+              record.cashed_out_amount * 1,
+            ) && (
+              <Button
+                className={styles.actions__menu_button}
+                type="text"
+                onClick={() => handleAction(ActionType.donationTransfer)}
+              >
+                Transfer Donations
+              </Button>
+            )}
           </Menu>
         }
       >
@@ -123,6 +145,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
       <ActionModal
         slug={record.slug}
         plainAccessCode={record.plain_access_code}
+        paymentAccountNumber={record.payment_account_number}
         visible={causeModal.isVisible}
         context={causeModal.context}
         closeModal={() => setCauseModal({ isVisible: false })}
