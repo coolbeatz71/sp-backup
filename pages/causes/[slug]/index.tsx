@@ -128,7 +128,9 @@ const SingleCause: NextPage<Props> = ({
         </Typography.Paragraph>
       )}
       <h4 className={styles.dashboard__content__title}>USE OF FUNDS</h4>
-      <Typography.Paragraph className={styles.dashboard__content__paragraph}>
+      <Typography.Paragraph
+        className={styles.dashboard__content__paragraph__details}
+      >
         {cause.description}
       </Typography.Paragraph>
       {screens.lg && contact}
