@@ -1,4 +1,3 @@
-import example, { Iexample } from "./example";
 import user, { Iuser } from "./user";
 import { auth, Iauth } from "./auth";
 import cause, { ICause } from "./cause";
@@ -7,7 +6,6 @@ import broadcasts, { IAllBroadcasts } from "./broadcasts";
 import pin, { IPinReset } from "./pin";
 import search, { ISearchKeyword } from "./search";
 export default {
-  example,
   user,
   auth,
   cause,
@@ -18,7 +16,6 @@ export default {
 };
 
 export interface IRootState {
-  example: Iexample;
   user: Iuser;
   auth: Iauth;
   cause: ICause;
