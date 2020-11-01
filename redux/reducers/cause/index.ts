@@ -17,20 +17,30 @@ export default (
   state = initialState.cause,
   action: { type: string; payload: any },
 ) => {
-  return {
-    ...state,
+  const post = {
+    ...create(state, action),
+    ...donateCause(state, action),
+    ...transfer(state, action),
+  };
+  const get = {
     ...feed(state, action),
     ...userCauses(state, action),
-    ...create(state, action),
     ...single(state, action),
     ...getDonors(state, action),
     ...searchDonors(state, action),
     ...all(state, action),
-    ...donateCause(state, action),
+  };
+  const update = {
     ...pauseCause(state, action),
     ...edit(state, action),
     ...cancelCause(state, action),
     ...resumeCause(state, action),
-    ...transfer(state, action),
+  };
+
+  return {
+    ...state,
+    ...post,
+    ...get,
+    ...update,
   };
 };
