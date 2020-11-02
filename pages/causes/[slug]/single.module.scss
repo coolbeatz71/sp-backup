@@ -84,6 +84,10 @@
       &__first {
         margin-top: 24px;
       }
+
+      &__details {
+        white-space: pre-line;
+      }
     }
     &__video {
       background-color: $black;
