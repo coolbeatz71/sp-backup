@@ -11,6 +11,12 @@ export default {
     error: null,
     fetched: false,
   },
+  all_transfer: {
+    data: {},
+    loading: false,
+    error: null,
+    fetched: false,
+  },
   feed: {
     data: {},
     loading: false,
@@ -74,6 +80,7 @@ export interface ICauseFeed {
 
 export interface ICause {
   all: ICauseFeed;
+  all_transfer: ICauseFeed;
   feed: ICauseFeed;
   user: ICauseFeed;
   create: {

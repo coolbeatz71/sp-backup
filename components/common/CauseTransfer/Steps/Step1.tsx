@@ -29,7 +29,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
   );
 
   const { data: causes, loading, error, fetched } = useSelector(
-    ({ cause: { all } }: IRootState) => all,
+    ({ cause: { all_transfer } }: IRootState) => all_transfer,
   );
 
   const { loading: loadingCause, data: singleCause, error: _err } = useSelector(
@@ -44,7 +44,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
   }, []);
 
   React.useEffect(() => {
-    getAllCauses(CAUSES_URL)(dispatch);
+    getAllCauses(CAUSES_URL, "transfer")(dispatch);
   }, [dispatch]);
 
   const onCauseChange = (value: any) => {
