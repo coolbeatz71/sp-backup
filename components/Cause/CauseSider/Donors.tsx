@@ -29,7 +29,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
     loading: { search: loading },
     error: { search: searchError },
     meta: {
-      search: { total },
+      search: { total, pages },
     },
   } = useSelector(({ cause: { donors } }: IRootState) => donors);
 
@@ -38,7 +38,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
   );
 
   const searchDonors = (dt: any = null) => {
-    getDonors(slug, true, dt ? dt : { search })(dispatch);
+    getDonors(slug, true, dt ? dt : { limit, search })(dispatch);
   };
 
   React.useEffect(() => {
@@ -65,12 +65,12 @@ const Donors: React.FC<Props> = ({ slug }) => {
   }, [moreDonorsList]);
 
   const fetchMoreDonors = () => {
-    setPage((prev) => prev + 1);
-    if (donors.length === total) {
+    if (donors.length >= total || page > pages) {
       setHasMoreDonors(false);
       return;
     }
 
+    setPage((prev) => prev + 1);
     moreDonors(
       slug,
       search ? { limit, page, search } : { limit, page },

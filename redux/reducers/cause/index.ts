@@ -12,6 +12,7 @@ import edit from "./edit";
 import cancelCause from "./cancelCause";
 import resumeCause from "./resumeCause";
 import transfer from "./transfer";
+import all_transfer from "./all_transfer";
 
 export default (
   state = initialState.cause,
@@ -29,6 +30,7 @@ export default (
     ...getDonors(state, action),
     ...searchDonors(state, action),
     ...all(state, action),
+    ...all_transfer(state, action),
   };
   const update = {
     ...pauseCause(state, action),
