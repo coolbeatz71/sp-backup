@@ -209,7 +209,7 @@ const CauseSider: React.FC<Props> = ({
                         </Col>
                       </Row>
                     ))}
-                    {causeDonors.length >= 5 && (
+                    {total >= 5 && (
                       <div
                         className={styles.cause_sider__content__sidebar__more}
                         data-more-not-lg={!screens.lg}
