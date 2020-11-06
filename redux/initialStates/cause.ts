@@ -41,6 +41,12 @@ export default {
     error: "",
     accessCode: "",
   },
+  single_transfer: {
+    data: {},
+    loading: false,
+    error: "",
+    accessCode: "",
+  },
   donors: {
     data: {
       search: [],
@@ -90,6 +96,12 @@ export interface ICause {
     loading: boolean;
   };
   single: {
+    data: { [key: string]: any };
+    error: any;
+    loading: boolean;
+    accessCode: string;
+  };
+  single_transfer: {
     data: { [key: string]: any };
     error: any;
     loading: boolean;
