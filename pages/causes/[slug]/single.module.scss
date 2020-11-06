@@ -2,6 +2,9 @@
 @import "../../../styles/dimensions.scss";
 
 .dashboard {
+  &__inner {
+    padding-top: 4rem;
+  }
   &__banner {
     border-radius: 4px;
     overflow: hidden;
