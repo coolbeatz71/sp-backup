@@ -67,12 +67,16 @@ const DonateCause: React.FC<{}> = () => {
   }
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
+
+  useEffect(() => {
+    if (donationSuccessful) window?.scrollTo({ top: 0 });
+  }, [donationSuccessful]);
 
   useEffect(() => {
     if (data.phone_number) {
@@ -100,7 +104,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -221,7 +225,7 @@ const DonateCause: React.FC<{}> = () => {
                       {cause.name}
                     </Typography.Title>
                   </Row>
-                  <CauseCard cause={cause} isView />
+                  <CauseCard cause={cause} isView isDonate />
                   <br />
                   {userDataLoading && isEmpty(data) ? (
                     <Spin />
@@ -348,7 +352,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "MTN"
                                 ) {
                                   return Promise.reject(
-                                    "Should be a valid MTN Number"
+                                    "Should be a valid MTN Number",
                                   );
                                 }
                                 if (
@@ -356,7 +360,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "Airtel"
                                 ) {
                                   return Promise.reject(
-                                    "Should be a valid Airtel Number"
+                                    "Should be a valid Airtel Number",
                                   );
                                 }
 

@@ -15,7 +15,6 @@ import {
 import numeral from "numeral";
 import Progress from "../CauseProgress";
 import SharePopover from "components/common/SharePopover";
-import CausesActions from "components/common/CausesActions";
 import PreDonation from "components/modals/PreDonation";
 import Donors from "./Donors";
 
@@ -117,20 +116,9 @@ const CauseSider: React.FC<Props> = ({
       <Wrapper>
         <div className={styles.cause_sider__content__sidebar}>
           <DonationWrapper>
-            <>
+            <div>
               {(myCause || cause.status === "active") && (
                 <Row gutter={[24, 24]}>
-                  {myCause && (
-                    <Col>
-                      <CausesActions
-                        viewing
-                        record={cause}
-                        reload={() => {
-                          //
-                        }}
-                      />
-                    </Col>
-                  )}
                   {cause.status === "active" && (
                     <Col flex={1}>
                       <PreDonation slug={cause.slug}>
@@ -166,7 +154,7 @@ const CauseSider: React.FC<Props> = ({
                   </Card>
                 </>
               )}
-            </>
+            </div>
           </DonationWrapper>
           {!screens.lg && content}
           <br />

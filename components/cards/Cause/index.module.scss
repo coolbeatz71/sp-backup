@@ -6,6 +6,10 @@
   &[data-is-view="true"] {
     background-color: transparent;
   }
+  &__title {
+    color: $primary !important;
+    line-height: unset !important;
+  }
   &__cover {
     &__placeholder {
       background-color: rgba($primary, 0.1);

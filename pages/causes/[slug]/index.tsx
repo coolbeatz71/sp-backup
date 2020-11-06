@@ -178,16 +178,6 @@ const SingleCause: NextPage<Props> = ({
               />
             )}
             <div className={styles.dashboard__inner}>
-              <Row gutter={[0, 24]}>
-                <Col span={24} lg={15}>
-                  <Typography.Title
-                    level={2}
-                    className={styles.dashboard__content__title}
-                  >
-                    {cause.name}
-                  </Typography.Title>
-                </Col>
-              </Row>
               <Row gutter={[24, 24]} className={styles.dashboard__content}>
                 <Col span={24} lg={15}>
                   <div data-card-not-lg={!screens.lg}>

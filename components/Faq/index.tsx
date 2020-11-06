@@ -8,7 +8,7 @@ const questions = [
   {
     title: "What is Save Plus Till?",
     description: `Save Plus Till is a unique six digit Till number that's associated to a cause on Save plus. This Till is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
-    saveplus.io</a> or our USSD code *777*77*Save Plus Till*Amount#.`,
+    saveplus.io</a> or our USSD code *777*77*Save Plus Till#.`,
   },
   {
     title: "What's the donation process like?",
