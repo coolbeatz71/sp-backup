@@ -33,7 +33,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
   );
 
   const { loading: loadingCause, data: singleCause, error: _err } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single_transfer } }: IRootState) => single_transfer,
   );
 
   React.useEffect(() => {
@@ -76,6 +76,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
           getSingle(
             slug,
             access === "private" && access_code ? { access_code } : {},
+            "transfer",
           )(dispatch);
 
           setConfirmed(true);
