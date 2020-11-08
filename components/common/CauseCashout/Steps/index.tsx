@@ -1,0 +1,43 @@
+import React from "react";
+
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+
+export interface StepType {
+  id: string;
+  title: string;
+  component?: (
+    data: any,
+    setForm: (form: any) => void,
+    cb: (data: any) => void,
+    issue: boolean[],
+    steps: any[],
+  ) => any;
+}
+
+const title = "Cash Out";
+
+const defaultSteps = (): StepType[] => [
+  {
+    title,
+    id: "Step1",
+    component: (data, setForm: (form: any) => void, cb) => (
+      <Step1 data={data} setForm={setForm} cb={cb} />
+    ),
+  },
+  {
+    title,
+    id: "Step2",
+    component: (data, setForm: (form: any) => void, cb, issue, steps) => (
+      <Step2
+        data={data}
+        setForm={setForm}
+        cb={cb}
+        issue={issue}
+        steps={steps}
+      />
+    ),
+  },
+];
+
+export default defaultSteps;

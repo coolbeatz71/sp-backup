@@ -1,0 +1,51 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+
+.cashout {
+  &__title {
+    text-align: center;
+  }
+
+  &__success {
+    position: relative;
+    top: -2rem;
+    text-align: center;
+    h4 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      line-height: 48px;
+    }
+
+    p {
+      font-size: 12.5px;
+    }
+  }
+
+  [class~="ant-card"] {
+    background-color: transparent;
+    position: relative;
+    top: -2rem;
+
+    [class~="ant-card-head"] {
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    [class~="ant-card-body"] {
+      padding: 0;
+    }
+  }
+
+  @include mediaMd {
+    [class~="ant-card"] {
+      [class~="ant-card-head"] {
+        padding: 0 2rem;
+      }
+
+      [class~="ant-card-body"] {
+        padding: 0 2rem;
+      }
+    }
+  }
+}

@@ -140,6 +140,29 @@ const CauseSider: React.FC<Props> = ({
                 }}
                 tiny
               />
+              {myCause && (
+                <>
+                  <br />
+                  <Card>
+                    <Row align="middle">
+                      <Col flex={1}>
+                        <Typography.Paragraph
+                          ellipsis
+                          style={{ marginBottom: 0 }}
+                        >
+                          Current Balance
+                        </Typography.Paragraph>
+                      </Col>
+                      <Col>
+                        <strong>
+                          {numeral(cause.current_balance).format()}{" "}
+                          {cause.currency}
+                        </strong>
+                      </Col>
+                    </Row>
+                  </Card>
+                </>
+              )}
               {cause.status === "active" && (
                 <>
                   <br />
