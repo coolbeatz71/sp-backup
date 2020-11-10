@@ -11,6 +11,7 @@ import {
   Skeleton,
   Alert,
   Affix,
+  Tooltip,
 } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
@@ -23,6 +24,7 @@ import { IRootState } from "redux/initialStates";
 import getDonors from "redux/actions/cause/donors";
 
 import styles from "./index.module.scss";
+import { ALL_CAUSES_PATH } from "helpers/paths";
 
 interface Props {
   cause: { [key: string]: any };
@@ -212,7 +214,20 @@ const CauseSider: React.FC<Props> = ({
                       >
                         <Col flex={1}>
                           <Typography.Paragraph ellipsis>
-                            {donor.user_names}
+                            {donor.donor_source ? (
+                              <Tooltip
+                                placement="bottomLeft"
+                                title={donor.donor_source.name}
+                              >
+                                <a
+                                  href={`${ALL_CAUSES_PATH}/${donor.donor_source.slug}`}
+                                >
+                                  {donor.donor_source.till_number}
+                                </a>
+                              </Tooltip>
+                            ) : (
+                              donor.user_names
+                            )}
                           </Typography.Paragraph>
                         </Col>
                         <Col>
