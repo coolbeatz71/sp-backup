@@ -17,4 +17,11 @@
       flex: 1;
     }
   }
+
+  &__maxError {
+    [class~="ant-alert-message"],
+    [class~="ant-alert-description"] {
+      font-size: 11.5px;
+    }
+  }
 }

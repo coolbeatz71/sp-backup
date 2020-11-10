@@ -12,6 +12,8 @@ export interface StepType {
     cb: (data: any) => void,
     issue: boolean[],
     steps: any[],
+    currentBalance: number,
+    currency: string,
   ) => any;
 }
 
@@ -21,8 +23,22 @@ const defaultSteps = (): StepType[] => [
   {
     title,
     id: "Step1",
-    component: (data, setForm: (form: any) => void, cb) => (
-      <Step1 data={data} setForm={setForm} cb={cb} />
+    component: (
+      data,
+      setForm: (form: any) => void,
+      cb,
+      [],
+      [],
+      currentBalance,
+      currency,
+    ) => (
+      <Step1
+        data={data}
+        setForm={setForm}
+        cb={cb}
+        currentBalance={currentBalance}
+        currency={currency}
+      />
     ),
   },
   {

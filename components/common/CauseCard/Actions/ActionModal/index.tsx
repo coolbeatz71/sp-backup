@@ -29,6 +29,8 @@ interface IActionModalProps {
   slug: string;
   plainAccessCode?: string;
   paymentAccountNumber?: string;
+  currentBalance?: number;
+  currency?: string;
   visible: boolean;
   context?: ActionType | "";
   closeModal: () => void;
@@ -38,6 +40,8 @@ const ActionModal: FC<IActionModalProps> = ({
   slug,
   plainAccessCode = "",
   paymentAccountNumber = "",
+  currentBalance = 0,
+  currency = "Rwf",
   visible,
   context,
   closeModal,
@@ -173,6 +177,8 @@ const ActionModal: FC<IActionModalProps> = ({
             slug={slug}
             handleSubmit={handleSubmit}
             paymentAccountNumber={paymentAccountNumber}
+            currentBalance={currentBalance}
+            currency={currency}
             actionSuccessful={actionSuccessful}
           />
         ) : context === ActionType.donationTransfer ? (

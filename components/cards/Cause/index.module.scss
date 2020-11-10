@@ -6,9 +6,16 @@
   &[data-is-view="true"] {
     background-color: transparent;
   }
-  &__title {
-    color: $primary !important;
-    line-height: unset !important;
+
+  &__head {
+    &__title {
+      color: $primary !important;
+      line-height: unset !important;
+    }
+
+    @media screen and (max-width: #{$mobile-size}) {
+      padding: 0 $padding;
+    }
   }
   &__cover {
     &__placeholder {

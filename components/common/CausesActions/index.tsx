@@ -162,6 +162,8 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
         slug={record.slug}
         plainAccessCode={record.plain_access_code}
         paymentAccountNumber={record.payment_account_number}
+        currentBalance={record.raised_amount * 1 - record.cashed_out_amount * 1}
+        currency={record.currency}
         visible={causeModal.isVisible}
         context={causeModal.context}
         closeModal={() => setCauseModal({ isVisible: false })}
