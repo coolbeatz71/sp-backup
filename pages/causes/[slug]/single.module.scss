@@ -4,6 +4,9 @@
 .dashboard {
   &__inner {
     padding-top: 4rem;
+    @media screen and (max-width: #{$mobile-size}) {
+      padding-top: 0;
+    }
   }
   &__banner {
     border-radius: 4px;

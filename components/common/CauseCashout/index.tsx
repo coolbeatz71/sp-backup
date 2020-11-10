@@ -18,6 +18,8 @@ interface Props {
   actionSuccessful: boolean;
   handleSubmit: (data: Store) => void;
   paymentAccountNumber?: string;
+  currentBalance: number;
+  currency: string;
 }
 
 const CauseCashout: React.FC<Props> = ({
@@ -25,6 +27,8 @@ const CauseCashout: React.FC<Props> = ({
   slug,
   actionSuccessful,
   paymentAccountNumber = "",
+  currentBalance = 0,
+  currency,
   handleSubmit,
 }) => {
   const dispatch = useDispatch();
@@ -109,6 +113,8 @@ const CauseCashout: React.FC<Props> = ({
             },
             issue,
             steps,
+            currentBalance,
+            currency,
           )}
         </Card>
       )}

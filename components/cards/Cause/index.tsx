@@ -107,9 +107,13 @@ const Cause: React.FC<Props> = ({
   return (
     <>
       {isView && !isDonate && (
-        <Row gutter={[0, 24]} justify="space-between">
+        <Row
+          gutter={[0, 24]}
+          justify="space-between"
+          className={styles.card__head}
+        >
           <Col span={24} lg={22} style={{ paddingTop: 0 }}>
-            <Typography.Title level={3} className={styles.card__title}>
+            <Typography.Title level={3} className={styles.card__head__title}>
               {upperFirst(cause.name)}
             </Typography.Title>
           </Col>

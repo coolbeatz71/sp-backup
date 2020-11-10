@@ -1,5 +1,6 @@
 import React from "react";
-import { Row, Col, Button, Input, Form, InputNumber } from "antd";
+import numeral from "numeral";
+import { Row, Col, Button, Input, Form, InputNumber, Alert } from "antd";
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
 
@@ -9,9 +10,28 @@ export interface Props {
   cb: (data: any) => void;
   issue?: boolean[];
   steps?: any[];
+  currentBalance?: number;
+  currency?: string;
 }
 
-const Step1: React.FC<Props> = ({ data, setForm, cb }) => {
+const Step1: React.FC<Props> = ({
+  data,
+  setForm,
+  cb,
+  currentBalance,
+  currency,
+}) => {
+  const [isMaxError, setMaxError] = React.useState<boolean>(false);
+
+  const maxErrorMsg = `The maximum cashout amount is 2,000,000 ${currency} in 24 hours.`;
+  const maxErrorDesc = (
+    <>
+      For more details email us on{" "}
+      <a href="mailto:support@saveplus.io">support@saveplus.io</a> or call on
+      0735240491
+    </>
+  );
+
   return (
     <Form
       ref={(ref) => setForm(ref)}
@@ -24,6 +44,12 @@ const Step1: React.FC<Props> = ({ data, setForm, cb }) => {
         cb({ ...dt, step: 1 });
       }}
     >
+      <Form.Item>
+        <span>
+          The balance is {numeral(currentBalance).format()} {currency}
+        </span>
+      </Form.Item>
+
       <Form.Item
         name="amount"
         rules={[
@@ -35,13 +61,36 @@ const Step1: React.FC<Props> = ({ data, setForm, cb }) => {
             pattern: /([1-9][\d,]{2,})$$/g,
             message: "The amount should be valid with a minimum of 100 rwf!",
           },
+          {
+            type: "number",
+            max: 2000000,
+            message: " ",
+          },
         ]}
         validateTrigger={["onSubmit", "onBlur"]}
       >
         <StackedLabel label="Amount" formatNumber>
-          <InputNumber placeholder="Amount" />
+          <InputNumber
+            placeholder="Amount"
+            onKeyUp={(e) => {
+              const amount = numeral(e.currentTarget.value).value();
+              setMaxError(amount > 2000000);
+            }}
+          />
         </StackedLabel>
       </Form.Item>
+
+      {isMaxError && (
+        <Form.Item>
+          <Alert
+            message={maxErrorMsg}
+            description={maxErrorDesc}
+            type="error"
+            showIcon
+            className={styles.steps__maxError}
+          />
+        </Form.Item>
+      )}
 
       <Form.Item
         name="reason"
