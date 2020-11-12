@@ -53,7 +53,7 @@ const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
               {cause.name}
             </Typography.Title>
           </Row>
-          <CauseCard cause={cause} isView />
+          <CauseCard cause={cause} isView isDonate />
           <CauseProgress
             cause={cause}
             reload={() => {
