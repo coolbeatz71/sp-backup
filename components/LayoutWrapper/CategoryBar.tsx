@@ -23,24 +23,28 @@ const CategoryBar: React.FC<Props> = ({
   baseUrl = "/causes",
   scrolled,
 }) => {
-  const router = useRouter();
   const screens = Grid.useBreakpoint();
+  const { query, pathname, asPath, push } = useRouter();
 
-  const [search, setSearch] = React.useState<any>(router.query?.search || "");
-
+  const [search, setSearch] = React.useState<any>(query?.search || "");
   const [fetched, setFetched] = React.useState(true);
 
   const [feed_type, setFeed_type] = React.useState<any>(
-    router.query?.feed_type ? `${router.query?.feed_type}`.split(",") : [],
+    query?.feed_type ? `${query?.feed_type}`.split(",") : [],
   );
 
   const [status, setStatus] = React.useState<any>(
-    router.query?.status ? `${router.query?.status}`.split(",") : [],
+    query?.status ? `${query?.status}`.split(",") : [],
   );
 
   const [visible, setVisible] = React.useState(false);
 
-  const category_id: any = router.query?.category_id || baseUrl;
+  React.useEffect(() => {
+    setStatus(query?.status ? `${query?.status}`.split(",") : []);
+    setFeed_type(query?.feed_type ? `${query?.feed_type}`.split(",") : []);
+  }, [pathname, query, asPath]);
+
+  const category_id: any = query?.category_id || baseUrl;
 
   const navigate = (data: { [key: string]: any } = {}) => {
     const query: { [key: string]: any } = {};
@@ -72,7 +76,7 @@ const CategoryBar: React.FC<Props> = ({
     setVisible(false);
     setFetched(true);
 
-    router.push({
+    push({
       query,
       pathname: baseUrl,
     });
@@ -128,15 +132,9 @@ const CategoryBar: React.FC<Props> = ({
             setVisible(v);
             if (!v && !fetched) {
               setFeed_type(
-                router.query?.feed_type
-                  ? `${router.query?.feed_type}`.split(",")
-                  : [],
+                query?.feed_type ? `${query?.feed_type}`.split(",") : [],
               );
-              setStatus(
-                router.query?.status
-                  ? `${router.query?.status}`.split(",")
-                  : [],
-              );
+              setStatus(query?.status ? `${query?.status}`.split(",") : []);
             }
           }}
           overlay={
