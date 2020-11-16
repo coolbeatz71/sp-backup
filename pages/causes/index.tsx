@@ -5,11 +5,11 @@ import { IRootState } from "redux/initialStates";
 import { getAllCauses } from "redux/actions/cause/getAll";
 import { getUserCauses } from "redux/actions/cause/getUserCauses";
 
-import { isEmpty, find } from "lodash";
+import { isEmpty, find, upperFirst } from "lodash";
 
 import validator from "validator";
 
-import { Row, Col, Result } from "antd";
+import { Row, Col, Result, Tag } from "antd";
 
 import { SvpType } from "helpers/context";
 
@@ -19,6 +19,7 @@ import CauseSkeleton from "components/cards/CauseSkeleton";
 import Section from "components/home/Section";
 
 import LayoutWrapper from "components/LayoutWrapper";
+import { PRIMARY } from "constants/colors";
 
 interface Props {
   svpProps: SvpType;
@@ -32,7 +33,8 @@ const AllCauses: React.FC<Props> = ({
   baseUrl = "/causes",
 }) => {
   const dispatch = useDispatch();
-  const { asPath, query } = useRouter();
+  const { asPath, query, pathname, push } = useRouter();
+  const [activeFilters, setActiveFilters] = React.useState<string[]>();
 
   const {
     data,
@@ -48,12 +50,50 @@ const AllCauses: React.FC<Props> = ({
   });
 
   useEffect(() => {
+    setActiveFilters(getActiveFilters());
+  }, [query, asPath, pathname]);
+
+  useEffect(() => {
     if (myCauses) {
       getUserCauses(asPath)(dispatch);
     } else {
       getAllCauses(asPath)(dispatch);
     }
   }, [asPath, dispatch]);
+
+  const getActiveFilters = () => {
+    const { feed_type, status } = query;
+    const feedType = !isEmpty(feed_type)
+      ? feed_type?.toString().split(",")
+      : [];
+    const statuses = !isEmpty(status) ? status?.toString().split(",") : [];
+    return [...feedType, ...statuses];
+  };
+
+  const onTagClose = (filter: string) => {
+    const key = Object.keys(query).find((key) => query[key].includes(filter))!;
+    const value = query[key];
+
+    const removeFilter = value
+      .toString()
+      .replace(filter, "")
+      .replace(/,,/g, ",")
+      .replace(/^,/g, "")
+      .replace(/^,/g, "")
+      .replace(/,$/g, "");
+
+    setActiveFilters(getActiveFilters());
+
+    if (isEmpty(removeFilter)) {
+      delete query[key];
+      push({ pathname, query });
+    } else {
+      push({
+        pathname,
+        query: { ...query, [key]: removeFilter },
+      });
+    }
+  };
 
   return (
     <LayoutWrapper
@@ -64,6 +104,26 @@ const AllCauses: React.FC<Props> = ({
       baseUrl={baseUrl}
     >
       <div data-content-padding>
+        {!isEmpty(query) && (
+          <Row
+            align="middle"
+            style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
+          >
+            Active Filters &nbsp;
+            {activeFilters?.map((filter, i) => (
+              <Tag
+                key={`${i}-filter`}
+                color={PRIMARY}
+                style={{ borderRadius: "10px" }}
+                closable
+                onClose={() => onTagClose(filter)}
+                visible={true}
+              >
+                {upperFirst(filter)}&nbsp;
+              </Tag>
+            ))}
+          </Row>
+        )}
         {myCauses && (
           <Section
             title="Your Causes"
@@ -124,7 +184,6 @@ const AllCauses: React.FC<Props> = ({
           </Row>
         )}
       </div>
-
       <Jumbotron hideSignedIn />
     </LayoutWrapper>
   );
