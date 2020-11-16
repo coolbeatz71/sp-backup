@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Donors: React.FC<Props> = ({ slug }) => {
-  const limit = 10;
+  const limit = 15;
   const dispatch = useDispatch();
 
   const [page, setPage] = React.useState<number>(2);
@@ -79,6 +79,11 @@ const Donors: React.FC<Props> = ({ slug }) => {
     )(dispatch);
   };
 
+  const getRSCHeight = () =>
+    donors.length === 0 || (donors.length >= 5 && donors.length <= limit)
+      ? 250
+      : 450;
+
   return (
     <div className={styles.donors}>
       <Input
@@ -102,7 +107,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
       />
       <div className={styles.donors__content}>
         <RSC
-          style={{ width: "100%", height: 250 }}
+          style={{ width: "100%", height: getRSCHeight() }}
           onScroll={() => {
             if (hasMoreDonors) fetchMoreDonors();
           }}
