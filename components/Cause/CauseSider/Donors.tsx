@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { Input, Skeleton, Alert, Typography, Spin, Empty } from "antd";
+import RSC from "react-scrollbars-custom";
 import { IRootState } from "redux/initialStates";
 import getDonors from "redux/actions/cause/donors";
 import moreDonors from "redux/actions/cause/moreDonors";
@@ -100,69 +100,70 @@ const Donors: React.FC<Props> = ({ slug }) => {
           }
         }}
       />
-      <div className={styles.donors__content} id="scrollable">
-        {loading && !loadingMore ? (
-          <Skeleton active />
-        ) : (
-          <>
-            {searchError?.message && (
-              <Alert
-                message={searchError?.message}
-                type="error"
-                closeText="RETRY"
-                onClose={() => getDonors(slug, true)(dispatch)}
-                showIcon
-              />
-            )}
-            {!loading && !loadingMore && donors.length === 0 ? (
-              <Empty description="No donors found" />
-            ) : (
-              <InfiniteScroll
-                dataLength={donors.length}
-                next={fetchMoreDonors}
-                hasMore={hasMoreDonors}
-                loader={
-                  <span style={{ color: " #219bb2" }}>
-                    <Spin />
-                    &nbsp; loading
-                  </span>
-                }
-                endMessage={
-                  <Alert
-                    message="No more donors to load"
-                    type="info"
-                    showIcon
-                    closable
-                    banner
-                    style={{
-                      marginTop: "1rem",
-                    }}
-                  />
-                }
-                scrollableTarget="scrollable"
-              >
-                {donors.map((d, i) => (
-                  <div key={i} className={styles.donors__content__donor}>
-                    <Typography.Text>
-                      {d.donor_source ? (
-                        <Link
-                          href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
-                        >
-                          {d.donor_source.till_number}
-                        </Link>
-                      ) : (
-                        d.user_names
-                      )}
-                    </Typography.Text>
-                    <Typography.Text>
-                      {numeral(d.amount).format()} RWF
-                    </Typography.Text>
-                  </div>
-                ))}
-              </InfiniteScroll>
-            )}
-          </>
-        )}
+      <div className={styles.donors__content}>
+        <RSC
+          style={{ width: "100%", height: 250 }}
+          onScroll={() => {
+            if (hasMoreDonors) fetchMoreDonors();
+          }}
+        >
+          {loading && !loadingMore ? (
+            <Skeleton active />
+          ) : (
+            <>
+              {searchError?.message && (
+                <Alert
+                  message={searchError?.message}
+                  type="error"
+                  closeText="RETRY"
+                  onClose={() => getDonors(slug, true)(dispatch)}
+                  showIcon
+                />
+              )}
+              {!loading && !loadingMore && donors.length === 0 ? (
+                <Empty description="No donors found" />
+              ) : (
+                <>
+                  {donors.map((d, i) => (
+                    <div key={i} className={styles.donors__content__donor}>
+                      <Typography.Text>
+                        {d.donor_source ? (
+                          <Link
+                            href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
+                          >
+                            {d.donor_source.till_number}
+                          </Link>
+                        ) : (
+                          d.user_names
+                        )}
+                      </Typography.Text>
+                      <Typography.Text>
+                        {numeral(d.amount).format()} RWF
+                      </Typography.Text>
+                    </div>
+                  ))}
+
+                  {loadingMore && (
+                    <span style={{ color: " #219bb2" }}>
+                      <Spin />
+                      &nbsp; loading
+                    </span>
+                  )}
+
+                  {donors.length >= total && donors.length >= limit && (
+                    <Alert
+                      message="No more donors to load"
+                      type="info"
+                      showIcon
+                      closable
+                      banner
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </RSC>
       </div>
     </div>
   );

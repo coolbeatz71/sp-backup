@@ -7,16 +7,18 @@
   }
 
   &__content {
-    padding: $padding;
-    overflow: hidden;
-    max-height: 30vh;
-    overflow-y: auto;
+    padding: 0 $padding;
     &__donor {
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       padding: calc(#{$padding} / 4) 0px;
+      padding-right: 10px;
+    }
+
+    [class~="ant-alert-closable"] {
+      margin: 1rem 10px 0 0;
     }
   }
 }
