@@ -28,6 +28,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { SvpType } from "helpers/context";
+import { ALL_CAUSES_PATH } from "helpers/paths";
 
 const { Header: GenericHeader } = Layout;
 
@@ -153,6 +154,7 @@ const Header: React.FC<Props> = ({
                     {!isHome && <Menu.Item key="/">Home</Menu.Item>}
                     {svpProps.categories && svpProps.categories.length > 0 && (
                       <Menu.SubMenu title={<span>Causes</span>}>
+                        <Menu.Item key={ALL_CAUSES_PATH}>All</Menu.Item>
                         {svpProps.categories.map((category) => (
                           <Menu.Item key={`/causes?category_id=${category.id}`}>
                             {category.title}
