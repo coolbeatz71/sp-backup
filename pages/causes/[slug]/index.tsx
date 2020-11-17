@@ -37,7 +37,7 @@ const SingleCause: NextPage<Props> = ({
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { loading, data, error: _err } = useSelector(
+  const { loading, data, error: _err, accessCode } = useSelector(
     ({ cause: { single } }: IRootState) => single,
   );
 
@@ -56,7 +56,10 @@ const SingleCause: NextPage<Props> = ({
 
   React.useEffect(() => {
     if (!fetched && !cause.id) {
-      getSingle(cause?.slug)(dispatch);
+      getSingle(
+        cause?.slug,
+        accessCode ? { access_code: accessCode } : {},
+      )(dispatch);
       setFetched(true);
     }
   }, [fetched]);
