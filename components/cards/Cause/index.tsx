@@ -183,7 +183,7 @@ const Cause: React.FC<Props> = ({
           </LinkWrap>
         }
       >
-        <Badge className={styles.card__type} count={cause.category.title} />
+        <Badge className={styles.card__type} count={cause.category?.title} />
         {!myCause && (
           <Avatar
             className={styles.card__avatar}
