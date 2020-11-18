@@ -1,9 +1,17 @@
 @import "../../../styles/dimensions.scss";
 
 .donors {
+  position: relative;
   [class~="ant-input"] {
     width: calc(100% - (#{$padding} * 2));
     margin: $padding $padding 0px $padding;
+  }
+
+  [class~="ant-empty"] {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   &__content {
