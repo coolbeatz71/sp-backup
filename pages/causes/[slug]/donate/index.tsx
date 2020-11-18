@@ -61,11 +61,6 @@ const DonateCause: React.FC<{}> = () => {
     accessCode,
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
-  if (slug && !fetched) {
-    getSingle(slug)(dispatch);
-    setFetched(true);
-  }
-
   const { loading, error } = useSelector(
     ({ cause: { donate } }: IRootState) => donate,
   );
@@ -73,6 +68,13 @@ const DonateCause: React.FC<{}> = () => {
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
+
+  useEffect(() => {
+    if (slug && !fetched) {
+      getSingle(slug, accessCode ? { access_code: accessCode } : {})(dispatch);
+      setFetched(true);
+    }
+  }, [slug, fetched]);
 
   useEffect(() => {
     if (donationSuccessful) window?.scrollTo({ top: 0 });
@@ -216,16 +218,20 @@ const DonateCause: React.FC<{}> = () => {
                 </div>
               ) : (
                 <>
-                  <Row justify="center">
-                    <Typography.Title
-                      level={2}
-                      className={styles.donate__body__form__causeName}
-                      ellipsis
-                    >
-                      {cause.name}
-                    </Typography.Title>
-                  </Row>
-                  <CauseCard cause={cause} isView isDonate />
+                  {!loadingCause && !errorCause && (
+                    <>
+                      <Row justify="center">
+                        <Typography.Title
+                          level={2}
+                          className={styles.donate__body__form__causeName}
+                          ellipsis
+                        >
+                          {cause.name}
+                        </Typography.Title>
+                      </Row>
+                      <CauseCard cause={cause} isView isDonate />
+                    </>
+                  )}
                   <br />
                   {userDataLoading && isEmpty(data) ? (
                     <Spin />
@@ -387,6 +393,7 @@ const DonateCause: React.FC<{}> = () => {
                             className="form-group ml-3 mb-1"
                             validateTrigger={["onSubmit", "onBlur"]}
                             name="anonymous"
+                            valuePropName="checked"
                           >
                             <Switch disabled={userType === "organization"} />
                           </Form.Item>
