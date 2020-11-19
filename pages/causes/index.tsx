@@ -129,7 +129,7 @@ const AllCauses: React.FC<Props> = ({
       baseUrl={baseUrl}
     >
       <div data-content-padding>
-        {!isEmpty(query) && (
+        {(!isEmpty(query.feed_type) || !isEmpty(query.status)) && (
           <Row
             align="middle"
             style={{ paddingTop: "1rem", paddingBottom: "2rem" }}

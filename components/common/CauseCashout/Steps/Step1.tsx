@@ -81,6 +81,7 @@ const Step1: React.FC<Props> = ({
               const amount = numeral(e.currentTarget.value).value();
               setMaxError(amount > 2000000);
             }}
+            autoComplete="off"
           />
         </StackedLabel>
       </Form.Item>

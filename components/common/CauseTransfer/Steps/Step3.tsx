@@ -11,7 +11,7 @@ const Step3: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
   const [form] = Form.useForm();
 
   const { loading, error } = useSelector(
-    ({ cause: { transfer } }: IRootState) => transfer
+    ({ cause: { transfer } }: IRootState) => transfer,
   );
 
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ const Step3: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
         validateTrigger={["onSubmit", "onBlur"]}
       >
         <StackedLabel label={t("amount")} formatNumber>
-          <InputNumber placeholder={t("amount")} />
+          <InputNumber placeholder={t("amount")} autoComplete="off" />
         </StackedLabel>
       </Form.Item>
 
