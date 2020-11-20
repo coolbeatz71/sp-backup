@@ -93,7 +93,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("got an account")} {t("sign in with")} <Icon type="save" />
+              {t("got an account")} {t("signin with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>
@@ -160,7 +160,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("got an account")} {t("sign in with")} <Icon type="save" />
+              {t("got an account")} {t("signin with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>

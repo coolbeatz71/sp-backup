@@ -136,7 +136,7 @@ export default {
   or: "Or",
   "forgot pin": "Forgot PIN?",
   "reset pin": "Reset PIN",
-  "don't have account": "Don;t have account?",
+  "don't have account": "Don't have account?",
   "create account": "Create account",
   "remember pin": "Remember PIN?",
   "signin with": "SIGN IN with",

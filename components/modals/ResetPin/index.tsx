@@ -84,7 +84,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("remember pin")} {t("sign in with")} <Icon type="save" />
+              {t("remember pin")} {t("signin with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>
@@ -149,7 +149,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("remember pin")} {t("sign in with")} <Icon type="save" />
+              {t("remember pin")} {t("signin with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>
