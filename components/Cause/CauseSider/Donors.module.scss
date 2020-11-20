@@ -28,5 +28,9 @@
     [class~="ant-alert-closable"] {
       margin: 1rem 10px 0 0;
     }
+
+    &__RSC {
+      transition: height 0.5s ease-in-out;
+    }
   }
 }

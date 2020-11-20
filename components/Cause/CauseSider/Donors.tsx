@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
 import { Input, Skeleton, Alert, Typography, Spin, Empty } from "antd";
-import RSC from "react-scrollbars-custom";
+import ReactCustomScrollbar from "react-scrollbars-custom";
 import { IRootState } from "redux/initialStates";
 import getDonors from "redux/actions/cause/donors";
 import moreDonors from "redux/actions/cause/moreDonors";
@@ -83,11 +83,6 @@ const Donors: React.FC<Props> = ({ slug }) => {
     )(dispatch);
   };
 
-  const getRSCHeight = () =>
-    donors.length === 0 || (donors.length >= 5 && donors.length <= limit)
-      ? 250
-      : 450;
-
   return (
     <div className={styles.donors}>
       <Input
@@ -110,8 +105,9 @@ const Donors: React.FC<Props> = ({ slug }) => {
         }}
       />
       <div className={styles.donors__content}>
-        <RSC
-          style={{ width: "100%", height: getRSCHeight() }}
+        <ReactCustomScrollbar
+          className={styles.donors__content__RSC}
+          style={{ width: "100%", height: donors.length <= limit ? 250 : 450 }}
           onScroll={() => {
             if (hasMoreDonors) fetchMoreDonors();
           }}
@@ -172,7 +168,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
               )}
             </>
           )}
-        </RSC>
+        </ReactCustomScrollbar>
       </div>
     </div>
   );
