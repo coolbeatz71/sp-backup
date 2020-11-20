@@ -324,7 +324,7 @@ export default {
   "successfully edited": "Igikorwa '{{name}}' kiravuguruwe.",
   faq: "Ibibazo bikunze kubazwa",
   "enjoy free period": "Ryoherwa n'igihe cy'igerageza ku buntu.",
-  "what is save plus bill": "Nimero y'igikorwa kuri save plus niyiki?",
+  "what is save plus bill": "Nimero y'igikorwa kuri save plus ni iy'iki?",
   save_plus_bill_desc:
     "Nimero y'igikorwa iba ari imibare 6 yihariye igenewe igikorwa runaka kuri Save Plus. Iyo nimero ikoreshwa n'abaterankunga mugutera inkunga binyuze kuri {{link}} cyangwa kode ngufi {{code}}",
   "how is the donation process": "Uburyo bwo gutanga inkunga bumeze bute?",
@@ -346,7 +346,7 @@ export default {
     "Save Plus ishobora gukoreshwa hanze y' U Rwanda?",
   save_plus_outside_desc:
     "Kuri ubu, Save Plus irigukoreshwa mu Rwanda gusa ariko no mubindi bihugu izagerayo mugihe kiri imbere.",
-  "does it support banks": "Save Plus ikorana nama banki cyangwa Visa card?",
+  "does it support banks": "Save Plus ikorana n'ama banki cyangwa Visa card?",
   does_it_support_banks_desc:
     "Kuri ubu uburyo bwo kwishyura ni ubwa MTN Mobile Money na Airtel Money. Vuba turatangira gukoresha ubundi buryo ( uburyo bw'ama Banki,  uburyo bwa Visa, PayPal, n'ubundi bwinshi) bwakorohereza abantu gterana inkunga.",
   "connection between save and plus":
