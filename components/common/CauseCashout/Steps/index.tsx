@@ -13,11 +13,11 @@ export interface StepType {
     issue: boolean[],
     steps: any[],
     currentBalance: number,
-    currency: string,
+    currency: string
   ) => any;
 }
 
-const title = "Cash Out";
+const title = "cash out";
 
 const defaultSteps = (): StepType[] => [
   {
@@ -30,7 +30,7 @@ const defaultSteps = (): StepType[] => [
       [],
       [],
       currentBalance,
-      currency,
+      currency
     ) => (
       <Step1
         data={data}

@@ -1,9 +1,11 @@
 import StepMed from "../CreateCauseSteps/StepMed";
 import { StepType } from "../CreateCauseSteps";
 
+import i18n from "constants/locales";
+
 export const medStep = {
   id: "StepMed",
-  title: "Medical Information",
+  title: i18n.t("medical information"),
   component: (
     alerts: React.ReactElement | null,
     categories: any[],

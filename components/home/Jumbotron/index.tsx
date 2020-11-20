@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Row, Col, Typography, Button, Grid } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -14,6 +15,8 @@ const Jumbotron: React.FC<Props> = ({ hideSignedIn = false }) => {
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
+
   const user = useSelector((state: IRootState) => state.user);
 
   return hideSignedIn && user.currentUser.isLoggedin ? (
@@ -27,22 +30,18 @@ const Jumbotron: React.FC<Props> = ({ hideSignedIn = false }) => {
         {screens.md && (
           <div className={styles.jumbo__content__headers} data-floating-image>
             <Typography.Title level={2}>SAVE Plus</Typography.Title>
-            <Typography.Title level={3}>Mission</Typography.Title>
+            <Typography.Title level={3}>{t("mission")}</Typography.Title>
           </div>
         )}
         <Typography.Paragraph className={styles.jumbo__content__paragraph}>
-          We are a platform that connects socially
-          <br />
-          impactful causes with caring people
-          <br />
-          to create impacts that make a difference.
+          {t("save_plus_mission_text")}
         </Typography.Paragraph>
         {!user.currentUser.isLoggedin && (
           <Button
             size="large"
             onClick={() => showAuthDialog(true, "signup")(dispatch)}
           >
-            JOIN US
+            {t("join us")}
           </Button>
         )}
       </Col>

@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { capitalize } from "lodash";
 import Modal from "components/common/Modal";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
@@ -10,9 +12,10 @@ interface Props {
 }
 
 const PreDonation: React.FC<Props> = ({ children, slug }) => {
+  const { t } = useTranslation();
   return (
     <Modal
-      title="Donate"
+      title={capitalize(t("donate"))}
       noTitle
       icon="/images/pre-donation.svg"
       iconStyle={{
@@ -30,17 +33,17 @@ const PreDonation: React.FC<Props> = ({ children, slug }) => {
           </Typography.Link>
         </Typography.Paragraph>
         <Typography.Paragraph>
-          Currently we are accepting
+          {t('currently we are accepting')}
           <br />
-          <Typography.Text strong>MTN Mobile Money</Typography.Text> and{" "}
-          <Typography.Text strong>Airtel Money</Typography.Text> payments.
+          <Typography.Text strong>MTN Mobile Money</Typography.Text> {t("and")}{" "}
+          <Typography.Text strong>Airtel Money</Typography.Text> {t("post_airtel")}.
         </Typography.Paragraph>
         <Typography.Paragraph>
-          VISA, Mastercard & PayPal coming soon!
+          {t("visas coming soon")}
         </Typography.Paragraph>
         <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
           <a style={{ textDecoration: "underline" }} rel="noreferrer noopener">
-            Proceed
+            {t("proceed")}
           </a>
         </Link>
       </div>

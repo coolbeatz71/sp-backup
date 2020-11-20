@@ -6,6 +6,8 @@ import ActionModal from "./ActionModal";
 import { causeStatus } from "interfaces";
 import Link from "next/link";
 
+import { useTranslation } from "react-i18next";
+
 export interface ActionProps {
   slug: string;
   status: string;
@@ -33,6 +35,7 @@ const Action: FC<ActionProps> = ({
   access = "public",
   plainAccessCode = "",
 }) => {
+  const { t } = useTranslation();
   const [causeModal, setCauseModal] = useState<{
     isVisible: boolean;
     context?: ActionType | "";
@@ -47,7 +50,7 @@ const Action: FC<ActionProps> = ({
     <Menu>
       {access === "private" && plainAccessCode && (
         <Menu.Item onClick={() => handleAction(ActionType.accessCode)}>
-          View Access Code
+          {t("view access code")}
         </Menu.Item>
       )}
       {access === "private" && <Menu.Divider />}
@@ -58,7 +61,7 @@ const Action: FC<ActionProps> = ({
             disabled={isUneditable(status)}
             className="m-0 p-0 h-25"
           >
-            Edit Cause
+            {t("edit cause")}
           </Button>
         </Link>
       </Menu.Item>
@@ -66,14 +69,14 @@ const Action: FC<ActionProps> = ({
 
       {status === causeStatus.paused ? (
         <Menu.Item onClick={() => handleAction(ActionType.resume)}>
-          Resume Cause
+          {t("resume cause")}
         </Menu.Item>
       ) : (
         <Menu.Item
           onClick={() => handleAction(ActionType.pause)}
           disabled={isUnpausable(status)}
         >
-          Pause Cause
+          {t("pause cause")}
         </Menu.Item>
       )}
       <Menu.Divider />
@@ -83,7 +86,7 @@ const Action: FC<ActionProps> = ({
         onClick={() => handleAction(ActionType.cancel)}
         disabled={isUncancellable(status)}
       >
-        Cancel Cause
+        {t("cancel cause")}
       </Menu.Item>
     </Menu>
   );

@@ -1,6 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { phone } from "dev-rw-phone";
+import { phone, isOk } from "dev-rw-phone";
 import { IRootState } from "redux/initialStates";
 
 import { Row, Col, Button, Input, Form, Switch, Alert, Select } from "antd";
@@ -17,6 +18,7 @@ const Step4: React.FC<Props> = ({
   issue = [],
   steps = [],
 }) => {
+  const { t } = useTranslation();
   const { loading, error } = useSelector(
     (state: IRootState) => state.cause.create
   );
@@ -52,12 +54,12 @@ const Step4: React.FC<Props> = ({
       }}
     >
       <Form.Item>
-        <span>How do you want to receive your donations</span>
+        <span>{t("how you want to receive donations")}</span>
       </Form.Item>
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="payment_account_name"
-        rules={[{ required: true, message: "Payment method is required" }]}
+        rules={[{ required: true, message: t("payment method is required") }]}
       >
         <StackedLabel label="Select Payment Method" select>
           <Select placeholder="Payment Method">
@@ -73,7 +75,7 @@ const Step4: React.FC<Props> = ({
       <Form.Item
         name="account"
         rules={[
-          { required: true, message: "Phone number is required!" },
+          { required: true, message: `${t("phone number")} ${t("required")}` },
           () => ({
             validator(_rule: any, value: any) {
               if (
@@ -87,18 +89,26 @@ const Step4: React.FC<Props> = ({
                 data.payment_account_name === "Airtel_Rwanda" &&
                 phone(value).telco !== "Airtel"
               ) {
-                return Promise.reject("Should be a valid Airtel Number");
+                return Promise.reject(t("should be a valid airtel"));
+              }
+
+              if (!isOk(value)) {
+                return Promise.reject(t("phone number should be valid"));
               }
               return Promise.resolve();
             },
           }),
         ]}
       >
-        <StackedLabel label="Phone Number" phone="+250">
-          <Input placeholder="Phone Number" disabled={loading} maxLength={9} />
+        <StackedLabel label={t("phone number")} phone="+250">
+          <Input
+            placeholder={t("phone number")}
+            disabled={loading}
+            maxLength={9}
+          />
         </StackedLabel>
       </Form.Item>
-      <Form.Item id="isPrivate" label="Private cause">
+      <Form.Item id="isPrivate" label={t("private cause")}>
         <Switch
           checked={data.isPrivate}
           onChange={(isPrivate) => cb({ isPrivate, step: 0 })}
@@ -107,8 +117,8 @@ const Step4: React.FC<Props> = ({
       </Form.Item>
       {data.isPrivate && (
         <Form.Item>
-          <strong>Note:</strong> This cause will not be published publicly on
-          our website.
+          <strong>Note:</strong>{" "}
+          {t("this cause will not be published publicly")}
         </Form.Item>
       )}
       {issue.length > 0 && (
@@ -116,8 +126,8 @@ const Step4: React.FC<Props> = ({
           <Alert
             message={
               issue.length === 1
-                ? "A step has an issue:"
-                : "Some steps have issues:"
+                ? t("a step has an issue")
+                : t("steps have an issue")
             }
             description={
               <ul>
@@ -125,7 +135,7 @@ const Step4: React.FC<Props> = ({
                   (iss, ind) =>
                     iss && (
                       <li key={`step-${ind}`}>
-                        Step {ind + 1}: {steps[ind].title}
+                        {t("step")} {ind + 1}: {steps[ind].title}
                       </li>
                     )
                 )}
@@ -144,12 +154,12 @@ const Step4: React.FC<Props> = ({
         <Row gutter={20} justify="space-between">
           <Col>
             <Button onClick={() => cb({ step: -1 })} disabled={loading}>
-              PREVIOUS
+              {t("previous").toUpperCase()}
             </Button>
           </Col>
           <Col>
             <Button type="primary" htmlType="submit" loading={loading}>
-              CREATE
+              {t("create").toUpperCase()}
             </Button>
           </Col>
         </Row>

@@ -3,16 +3,21 @@ import React from "react";
 import NProgress from "nprogress";
 import { Router } from "next/router";
 import Head from "next/head";
+import moment from "moment";
+import { useSelector } from "react-redux";
 import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
 import dynamic from "next/dynamic";
+import { getLanguage } from "helpers/getLanguage";
 
 import "theme/ngprogress.scss";
 import "theme/index.css";
 import "theme/global.scss";
 import "styles/global.scss";
+
+import locales from "constants/locales";
 
 const config = {
   trickle: false,
@@ -42,6 +47,15 @@ const InterCom = dynamic(
 );
 
 const MyApp = ({ Component, pageProps, svpProps }) => {
+  const user = useSelector(
+    ({
+      user: {
+        currentUser: { data },
+      },
+    }) => data
+  );
+  locales.changeLanguage(user.language || getLanguage());
+  moment.locale(user.language || getLanguage());
   return (
     <Context.Provider value={{ svpProps }}>
       <Head>

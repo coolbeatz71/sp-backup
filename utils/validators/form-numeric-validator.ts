@@ -1,4 +1,5 @@
 import validator from "validator";
+import i18n from "constants/locales";
 
 const formNumericValidator = (name: string) => () => ({
   validator(_rule: any, value: any) {
@@ -7,7 +8,7 @@ const formNumericValidator = (name: string) => () => ({
     }
 
     if (!validator.isNumeric(value))
-      return Promise.reject(`${name} must be numbers only!`);
+      return Promise.reject(`${name} ${i18n.t("must be numbers only")}`);
 
     return Promise.resolve();
   },

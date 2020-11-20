@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Modal,
@@ -40,6 +41,7 @@ const CauseEditing: React.FC<Props> = ({
   start: startDate,
   end,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { push } = useRouter();
 
@@ -50,7 +52,7 @@ const CauseEditing: React.FC<Props> = ({
   return (
     <Modal
       visible={visible}
-      title={`Edit "${name}"`}
+      title={`${t("edit")} "${name}"`}
       onCancel={() => {
         if (!loading) onClose(false);
       }}
@@ -79,7 +81,7 @@ const CauseEditing: React.FC<Props> = ({
       >
         <Form.Item>
           <Tag icon={<ExclamationCircleOutlined />} color="warning">
-            You can edit this cause only once
+            {t("you can edit this cause once")}
           </Tag>
         </Form.Item>
         <Form.Item
@@ -88,14 +90,14 @@ const CauseEditing: React.FC<Props> = ({
             {
               required: true,
               type: "number",
-              min: 1,
-              message: "Cause fundraising target is required!",
+              min: 100,
+              message: t("cause target is required"),
             },
           ]}
         >
-          <StackedLabel label="Cause Fundraising Target" formatNumber>
+          <StackedLabel label={t("cause fundraising target")} formatNumber>
             <InputNumber
-              placeholder="Cause Fundraising Target"
+              placeholder={t("cause fundraising target")}
               disabled={loading}
             />
           </StackedLabel>
@@ -103,7 +105,7 @@ const CauseEditing: React.FC<Props> = ({
         <Form.Item
           name="end"
           rules={[
-            { required: true, message: "Cause end is required!" },
+            { required: true, message: t("cause end date is required") },
             () => ({
               validator(_rule, value) {
                 if ([null, undefined, ""].includes(value)) {
@@ -117,17 +119,19 @@ const CauseEditing: React.FC<Props> = ({
                 const start = moment(startDate);
 
                 if (start.isValid() && moment(value).isBefore(start)) {
-                  return Promise.reject("Should not be before start date");
+                  return Promise.reject(
+                    t("end date should not be before the start date")
+                  );
                 }
 
                 if (moment(value).isBefore(moment().startOf("day"))) {
-                  return Promise.reject("Should not be in the past");
+                  return Promise.reject(t("should not be in past"));
                 }
 
                 if (
                   moment(value).isBefore(moment().add(1, "day").endOf("day"))
                 ) {
-                  return Promise.reject("Should be at least 2 days from today");
+                  return Promise.reject(t("should be 2 days from now"));
                 }
 
                 return Promise.resolve();
@@ -135,7 +139,7 @@ const CauseEditing: React.FC<Props> = ({
             }),
           ]}
         >
-          <StackedLabel label="End Date" datePicker>
+          <StackedLabel label={t("end date")} datePicker>
             <DatePicker disabled={loading} />
           </StackedLabel>
         </Form.Item>
@@ -149,7 +153,7 @@ const CauseEditing: React.FC<Props> = ({
             <Col>{/* */}</Col>
             <Col>
               <Button type="primary" htmlType="submit" loading={loading}>
-                UPDATE
+                {t("update").toUpperCase()}
               </Button>
             </Col>
           </Row>

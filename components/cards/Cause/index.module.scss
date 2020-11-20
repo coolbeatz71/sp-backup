@@ -47,7 +47,7 @@
       top: $padding;
       left: auto;
       right: $padding;
-      width: 80px;
+      width: 120px;
       sup {
         border-radius: 4px;
         box-shadow: none;
@@ -157,6 +157,9 @@
   }
   &__donate {
     margin: 8px 0px;
+    @media screen and (max-width: #{$mobile-size}) {
+      font-size: 12px;
+    }
   }
   [class~="ant-divider"] {
     width: calc(100% + (#{$padding} * 2));

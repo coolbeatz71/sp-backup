@@ -4,11 +4,13 @@ import { Grid, Row, Col, Typography, Button, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import styles from "./index.module.scss";
 
 const GetStarted = () => {
+  const { t } = useTranslation();
   const screens = Grid.useBreakpoint();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -16,10 +18,10 @@ const GetStarted = () => {
   const user = useSelector((state: IRootState) => state.user);
   const [refresh, setRefresh] = React.useState(1);
   const [status, setStatus] = React.useState("");
-  const [btn, setBtn] = React.useState("GET STARTED");
+  const [btn, setBtn] = React.useState(t("get started").toUpperCase());
 
   React.useEffect(() => {
-    setBtn(user.currentUser.isLoggedin ? "CREATE A CAUSE" : "GET STARTED");
+    setBtn(user.currentUser.isLoggedin ? t("create a cause").toUpperCase() : t("get started").toUpperCase());
   }, [user.currentUser.isLoggedin]);
 
   return (
@@ -49,9 +51,9 @@ const GetStarted = () => {
             data-size={screens.lg ? "" : "small"}
           >
             <Typography.Title>
-              Put a Smile on
+              {t("put_smile_1")}
               {screens.lg ? <br /> : " "}
-              Someone's Face
+              {t("put_smile_2")}
             </Typography.Title>
             <Button
               type="primary"

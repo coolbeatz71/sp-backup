@@ -1,48 +1,9 @@
 import React, { FC } from "react";
 import { Collapse } from "antd";
 import styles from "./faq.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Panel = Collapse.Panel;
-
-const questions = [
-  {
-    title: "What is Save Plus Till?",
-    description: `Save Plus Till is a unique six digit Till number that's associated to a cause on Save plus. This Till is used by donors to donate via <a href='http://www.saveplus.io' target='_blank'>
-    saveplus.io</a> or our USSD code *777*77*Save Plus Till#.`,
-  },
-  {
-    title: "What's the donation process like?",
-    description: `You can donate to a cause by clicking on the donate button on that cause ,enter the amount you want to donate and other necessary information needed.You can choose to donate as an individual or as an organization. You are also allowed to choose to donate anonymously, i.e. your name will not be published on the page as a donor. Note that anonymous donation is only available for individual donations.`,
-  },
-  {
-    title: "How secure is the payment",
-    description: `Our payment method is very secure, Worry not, your payment information is protected. We do not store your card or any of your payment information.Your donation will be directed to the appropriate beneficiary of the cause. A two-factor authentication is applied across the platform.`,
-  },
-  {
-    title: "How often can I donate",
-    description: `You can donate as often as you like for a cause or different cause, we do not limit your donations for any cause as long as the cause is active and open for donations. `,
-  },
-  {
-    title: "How do I collect funds for my cause?",
-    description: `The funds disbursment is automated. Once the cause hits the target the funds are automatically sent to the creator's account (MoMo, Airtel Money or Bank Account).`,
-  },
-  {
-    title: "Can I cancel a cause?",
-    description: `Yes, a cause can be canceled any time and the creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.`,
-  },
-  {
-    title: "Is Save Plus accessible outside of Rwanda?",
-    description: `Currently, Save Plus is only accessible in Rwanda and will be rolled out to other countries in the near future.`,
-  },
-  {
-    title: "Does Save Plus accept bank transfers or Visa Cards?",
-    description: `At the moment we're only accepting payments from MTN Mobile Money and Airtel Money. Soon, we'll start accepting other payment methods (Bank transfers, Visa payment, PayPal, etc.)`,
-  },
-  {
-    title: "What's the connection between Save Plus and Save?",
-    description: `Save Plus and Save are sister products owned by the same company. You can sign in to both products with the same credentials seamlessly or have an account with only one product.`,
-  },
-];
 
 const expandIcon = (props: any) => {
   const { isActive } = props;
@@ -74,6 +35,50 @@ const expandIcon = (props: any) => {
 };
 
 const Faq: FC<{}> = () => {
+  const { t } = useTranslation();
+  const questions = [
+    {
+      title: t("what is save plus bill"),
+      description: t("save_plus_bill_desc", {
+        link: "<a href='https://saveplus.io' target='_blank'>saveplus.io</a>",
+        code: `*777*77*${t("till number")}*${t("amount")}#`,
+      }),
+    },
+    {
+      title: t("how is the donation process"),
+      description: t("donation_process_desc", {
+        donateButton: `<b>${t("donate").toUpperCase()}</b>`,
+      }),
+    },
+    {
+      title: t("how secure is the payment"),
+      description: t("payment_security_desc"),
+    },
+    {
+      title: t("how often can i donate"),
+      description: t("how_donate_often_desc"),
+    },
+    {
+      title: t("how to collect funds"),
+      description: t("how_to_collect_funds_desc"),
+    },
+    {
+      title: t("can i cancel a cause"),
+      description: t("can_i_cancel_desc"),
+    },
+    {
+      title: t("is save plus outside rwanda"),
+      description: t("save_plus_outside_desc"),
+    },
+    {
+      title: t("does it support banks"),
+      description: t("does_it_support_banks_desc"),
+    },
+    {
+      title: t("connection between save and plus"),
+      description: t("save_and_plus_conn_desc"),
+    },
+  ];
   return (
     <Collapse
       bordered={false}

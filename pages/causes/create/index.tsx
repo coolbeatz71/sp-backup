@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Typography, message, Tag } from "antd";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "components/LayoutWrapper";
@@ -19,14 +20,17 @@ import createCause, { clear } from "redux/actions/cause/create";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
+import i18n from "constants/locales";
+
 const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
   children,
   edit,
-}) =>
-  edit ? (
+}) => {
+  const { t } = useTranslation();
+  return edit ? (
     <React.Fragment>{children}</React.Fragment>
   ) : (
-    <Layout title="Create a Cause" isForm>
+    <Layout title={t("create a cause")} isForm>
       <div data-content-padding>
         <Row>
           <Col
@@ -38,7 +42,7 @@ const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
             xs={{ span: 24, offset: 0 }}
           >
             <Typography.Title level={4} className={styles.create__title}>
-              Create a new Cause
+              {t("create a new cause")}
             </Typography.Title>
             {children}
           </Col>
@@ -46,17 +50,18 @@ const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
       </div>
     </Layout>
   );
+};
 
 const alerts = (editing: boolean, userData: any) => {
   return editing ? (
     <Tag icon={<ExclamationCircleOutlined />} color="warning">
-      You can edit this cause only once
+      {i18n.t("you can edit this cause once")}
     </Tag>
   ) : !userData.avatar ? (
     <Tag icon={<ExclamationCircleOutlined />} color="warning">
       <Link href="/profile">
         <a rel="noreferrer noopener">
-          You need to update your profile picture first
+          {i18n.t("you need to update your profile first")}
         </a>
       </Link>
     </Tag>
@@ -80,6 +85,8 @@ const Create: React.FC<Props> = ({
     ({ user: { currentUser } }: IRootState) => currentUser
   );
 
+  const { t } = useTranslation();
+
   const [steps, setSteps] = React.useState(
     defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated)
   );
@@ -99,7 +106,11 @@ const Create: React.FC<Props> = ({
       router.replace("/causes/create/success");
     }
     if (success && data.slug) {
-      message.success(`Successfully edited "${data.name}"`);
+      message.success(
+        t("successfully edited", {
+          name: data.name,
+        })
+      );
       router.replace(`/user/causes/${data.slug}`);
     }
   }, [success, router]);
@@ -126,7 +137,7 @@ const Create: React.FC<Props> = ({
           key={refreshKey}
           title={
             <Row>
-              <Col flex={1}>{steps[index].title}</Col>
+              <Col flex={1}>{t(steps[index].title)}</Col>
               <Col>
                 <Buttons
                   steps={steps}

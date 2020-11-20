@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import styles from "./profile.module.scss";
 import {
   Form,
@@ -30,6 +31,7 @@ import CropImage from "components/common/CropImage";
 import LayoutWrapper from "components/LayoutWrapper";
 
 const Profile: React.FC<{}> = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
@@ -100,7 +102,12 @@ const Profile: React.FC<{}> = () => {
     });
     const isLessThan2MB = file.size / 1024 / 1024 < 2;
     if (!isLessThan2MB) {
-      notification("Avatar must smaller than 2MB!", "error");
+      notification(
+        t("avatar should be smaller than", {
+          size: "2MB",
+        }),
+        "error"
+      );
       return false;
     }
     updateProfile(formData, true)(dispatch, setSuccessModal);
@@ -111,7 +118,7 @@ const Profile: React.FC<{}> = () => {
     <LayoutWrapper
       noFooter
       isForm
-      title={`${data.first_name || "Profile"} ${data.last_name || ""}`}
+      title={`${data.first_name || t("profile")} ${data.last_name || ""}`}
     >
       <div data-content-padding className={styles.profile}>
         <Row>
@@ -126,21 +133,23 @@ const Profile: React.FC<{}> = () => {
                 className={styles.profile__title__icon}
                 alt="profile image"
               />
-              <Typography.Title level={2}>Your Profile</Typography.Title>
+              <Typography.Title level={2}>{t("your profile")}</Typography.Title>
               <Typography.Paragraph strong>
-                Make modifications to your profile information
+                {t("make profile modifications")}
                 <br />
-                and also fill in other relevant information
+                {t("fill relevant information")}
               </Typography.Paragraph>
             </div>
             <Card loading={dataLoading || isEmpty(data)}>
               <Row align="middle">
                 <Col flex={1}>
                   <Typography.Title level={4}>
-                    Update your personal details
+                    {t("update your personal details")}
                   </Typography.Title>
                   <Typography.Text>
-                    Your profile is {calculatePercentage()}% complete
+                    {t("profile_complete", {
+                      percentage: calculatePercentage(),
+                    })}
                   </Typography.Text>
                 </Col>
                 <Col>
@@ -188,7 +197,7 @@ const Profile: React.FC<{}> = () => {
                       rules={[{ required: true, min: 3 }]}
                       validateTrigger={["onSubmit", "onBlur"]}
                     >
-                      <StackedLabel label="First Name" required>
+                      <StackedLabel label={t("first_name")} required>
                         <Input disabled={loading} />
                       </StackedLabel>
                     </Form.Item>
@@ -199,7 +208,7 @@ const Profile: React.FC<{}> = () => {
                       validateTrigger={["onSubmit", "onBlur"]}
                       rules={[{ required: true, min: 3 }]}
                     >
-                      <StackedLabel label="Last Name" required>
+                      <StackedLabel label={t("last_name")} required>
                         <Input disabled={loading} />
                       </StackedLabel>
                     </Form.Item>
@@ -211,7 +220,7 @@ const Profile: React.FC<{}> = () => {
                   rules={[{ len: 9, required: true }]}
                   name="phone_number"
                 >
-                  <StackedLabel label="Phone Number" phone="+250" required>
+                  <StackedLabel label={t("phone number")} phone="+250" required>
                     <Input disabled={true} />
                   </StackedLabel>
                 </Form.Item>
@@ -220,7 +229,7 @@ const Profile: React.FC<{}> = () => {
                   rules={[{ required: true, pattern: /^[A-Za-z0-9-]{7,20}/ }]}
                   validateTrigger={["onSubmit", "onBlur"]}
                 >
-                  <StackedLabel label="National ID or Passport Number" required>
+                  <StackedLabel label={t("national id")} required>
                     <Input disabled={loading} />
                   </StackedLabel>
                 </Form.Item>
@@ -229,14 +238,14 @@ const Profile: React.FC<{}> = () => {
                   validateTrigger={["onSubmit", "onBlur"]}
                   rules={[{ min: 2, type: "email" }]}
                 >
-                  <StackedLabel label="Email">
+                  <StackedLabel label={t("email")}>
                     <Input disabled={loading} />
                   </StackedLabel>
                 </Form.Item>
                 <Row justify="end">
                   <Col>
                     <Button type="primary" loading={loading} htmlType="submit">
-                      UPDATE
+                      {t("update").toUpperCase()}
                     </Button>
                   </Col>
                 </Row>
@@ -246,17 +255,17 @@ const Profile: React.FC<{}> = () => {
         </Row>
       </div>
       <Modal
-        title="Thank You!"
+        title={`${t("thank you")}!`}
         icon="/images/balloons.svg"
         visible={successModal}
         onCancel={() => setSuccessModal(false)}
       >
         <div className={styles.profile__success}>
           <Typography.Title level={3}>
-            Your Profile has been updated!
+            {t("profile has been updated")}
           </Typography.Title>
           <Link href="/">
-            <a rel="noreferrer noopener">Go Back Home</a>
+            <a rel="noreferrer noopener">{t("back home")}</a>
           </Link>
         </div>
       </Modal>

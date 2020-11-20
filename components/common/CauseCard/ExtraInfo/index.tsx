@@ -5,6 +5,8 @@ import CausePopover from "../CausePopover";
 import { causeStatus } from "interfaces";
 import useHideRatingPopover from "hooks/useHideRatingPopover";
 
+import { useTranslation } from "react-i18next";
+
 export interface ExtraInfoProps {
   slug: string;
   title: string;
@@ -29,6 +31,8 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
     wrapperRef,
   );
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.causeCard__body__extra}>
       <CausePopover
@@ -46,7 +50,7 @@ const ExtraInfo: FC<ExtraInfoProps> = ({
           className={styles.causeCard__body__extra__ratings}
         >
           <span className={styles.causeCard__body__extra__ratings__label}>
-            Rating:
+            {t("rating")}:
           </span>
           <ReactStars
             starCount={5}

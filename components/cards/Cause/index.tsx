@@ -11,6 +11,7 @@ import {
   Divider,
   Avatar,
 } from "antd";
+import { useTranslation } from "react-i18next";
 import StarRating from "components/common/StarRating";
 import SharePopover from "components/common/SharePopover";
 import {
@@ -43,14 +44,7 @@ interface Props {
   isDonate?: boolean;
 }
 
-const donateMsg: { [key: string]: string } = {
-  active: "Make a Donation",
-  paused: "This cause has been Paused",
-  closed: "This cause has been Closed",
-  completed: "This cause has been completed",
-  cancelled: "This cause has been cancelled",
-  myCause: "View Cause Detail",
-};
+
 
 interface FooterCoverProps {
   slug: string;
@@ -82,6 +76,17 @@ const Cause: React.FC<Props> = ({
   isView = false,
   isDonate = false,
 }) => {
+  const { t } = useTranslation();
+
+  const donateMsg: { [key: string]: string } = {
+    active: t("make a donation"),
+    paused: t("this cause has been paused"),
+    closed: t("this cause has been closed"),
+    completed: t("this cause has been completed"),
+    cancelled: t("this cause has been cancelled"),
+    myCause: t("view cause details"),
+  };
+
   const [imageStatus, setImageStatus] = React.useState(
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
@@ -175,7 +180,7 @@ const Cause: React.FC<Props> = ({
               )}
               {cause.sponsored && (
                 <Badge
-                  count="Sponsored"
+                  count={t("sponsored")}
                   className={styles.card__cover__sponsored}
                 />
               )}
@@ -183,7 +188,7 @@ const Cause: React.FC<Props> = ({
           </LinkWrap>
         }
       >
-        <Badge className={styles.card__type} count={cause.category?.title} />
+        <Badge className={styles.card__type} count={t(cause.category?.title)} />
         {!myCause && (
           <Avatar
             className={styles.card__avatar}
@@ -199,7 +204,7 @@ const Cause: React.FC<Props> = ({
         <div className={styles.card__verified} data-my-cause={myCause}>
           {myCause && (
             <Badge
-              count={capitalize(cause.status)}
+              count={capitalize(t(cause.status))}
               style={{ backgroundColor: colors[cause.status] }}
             />
           )}
@@ -212,14 +217,14 @@ const Cause: React.FC<Props> = ({
               ellipsis={{ rows: 1 }}
               className={styles.card__user}
             >
-              by {cause.user_names}
+              {t("by")} {cause.user_names}
             </Typography.Paragraph>
             {cause.organization && (
               <Typography.Paragraph
                 ellipsis={{ rows: 1 }}
                 className={styles.card__user}
               >
-                with {cause.organization.name}
+                {t("with")} {cause.organization.name}
               </Typography.Paragraph>
             )}
             {cause.institution && (
@@ -227,7 +232,7 @@ const Cause: React.FC<Props> = ({
                 ellipsis={{ rows: 1 }}
                 className={styles.card__user}
               >
-                with {cause.institution.name}
+                {t("with")} {cause.institution.name}
               </Typography.Paragraph>
             )}
           </Col>
@@ -269,7 +274,7 @@ const Cause: React.FC<Props> = ({
               <Row justify="space-between">
                 <Col span={16}>
                   <Typography.Text ellipsis className={styles.progress_amount}>
-                    {numeral(cause.raised_amount).format("0,0.[00]")} RWF Raised
+                    {numeral(cause.raised_amount).format("0,0.[00]")} RWF {t("raised")}
                   </Typography.Text>
                 </Col>
                 <Col>
@@ -291,7 +296,7 @@ const Cause: React.FC<Props> = ({
               <Row justify="space-between">
                 <Col className={styles.card__progress__item__goal}>
                   <Typography.Text ellipsis className={styles.progress_amount}>
-                    {numeral(cause.target_amount).format("0,0.[00]")} RWF Goal
+                    {numeral(cause.target_amount).format("0,0.[00]")} RWF {t("goal")}
                   </Typography.Text>
                 </Col>
                 <Col>
@@ -326,7 +331,7 @@ const Cause: React.FC<Props> = ({
                     className={styles.card__share}
                     disabled={cause.status !== causeStatus.active}
                   >
-                    Share <ShareAltOutlined />
+                    {t("share")} <ShareAltOutlined />
                   </Button>
                 </SharePopover>
               </Col>

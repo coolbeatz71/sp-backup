@@ -39,6 +39,8 @@ import { normalize, telco } from "dev-rw-phone";
 import SharePopover from "components/common/SharePopover";
 import CauseCard from "components/cards/Cause";
 
+import { useTranslation } from "react-i18next";
+
 const { Text } = Typography;
 
 const DonateCause: React.FC<{}> = () => {
@@ -53,6 +55,8 @@ const DonateCause: React.FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
   const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
   const { slug } = router.query;
+
+  const { t } = useTranslation();
 
   const {
     data: cause,
@@ -139,7 +143,7 @@ const DonateCause: React.FC<{}> = () => {
   };
 
   return (
-    <Layout title="Donate">
+    <Layout title={t("donate")}>
       <div className={styles.donate}>
         {loadingCause ? (
           <div className={styles.donate__spinner}>
@@ -159,25 +163,25 @@ const DonateCause: React.FC<{}> = () => {
             <div className={styles.donate__body__header}>
               {!donationSuccessful && (
                 <>
-                  <h4>Donate to a Cause</h4>
-                  <h5>Thank you for your support</h5>
+                  <h4>{t("donate for a cause")}</h4>
+                  <h5>{t("thank you for your support")}</h5>
                 </>
               )}
             </div>
             <div className={styles.donate__body__form}>
               {donationSuccessful ? (
                 <div className={styles.donate__body__form__successful}>
-                  <h5>Kindly confirm your Donation</h5>
+                  <h5>{t("confirm your donation")}</h5>
                   <p
                     className={styles.donate__body__form__successful__subtitle}
                   >
-                    Enter your PIN and confirm the payment on your phone number
+                    {t("enter pin and confirm via momo")} &nbsp;
                     +
                     {form.getFieldValue("phone_number") &&
                       phoneFormatter(form.getFieldValue("phone_number"))}{" "}
                   </p>
 
-                  <h4>Thank You</h4>
+                  <h4>{t("thank you")}</h4>
                   <img
                     className={styles.donate__body__form__successful__confeti}
                     src="/confeti.gif"
@@ -185,7 +189,7 @@ const DonateCause: React.FC<{}> = () => {
                   />
 
                   <Link href={`/causes/${slug}`}>
-                    <a rel="noreferrer noopener">Back to the cause</a>
+                    <a rel="noreferrer noopener">{t("back to the cause")}</a>
                   </Link>
                   <div className={styles.donate__body__form__successful__share}>
                     <SharePopover
@@ -198,7 +202,7 @@ const DonateCause: React.FC<{}> = () => {
                   </div>
 
                   <div className={styles.donate__body__form__successful__rate}>
-                    <span>Rate this cause</span>
+                    <span>{t("rate this cause")}</span>
                     <ReactStars
                       starCount={5}
                       name="rate1"
@@ -213,7 +217,7 @@ const DonateCause: React.FC<{}> = () => {
                       styles.donate__body__form__successful__comingSoon
                     }
                   >
-                    <span>Mobile App on Android & iOS Coming Soon</span>
+                    <span>{t("mobile_apps_coming_soon")}</span>
                   </div>
                 </div>
               ) : (
@@ -259,10 +263,10 @@ const DonateCause: React.FC<{}> = () => {
                           validateTrigger={["onSubmit", "onBlur", "onChange"]}
                           rules={[{ required: true }]}
                         >
-                          <Select placeholder="Type">
+                          <Select placeholder={t("type")}>
                             {donationTypes.map((type, index) => (
                               <Select.Option key={index} value={type}>
-                                {capitalize(type)}
+                                {capitalize(t(type))}
                               </Select.Option>
                             ))}
                           </Select>
@@ -270,17 +274,17 @@ const DonateCause: React.FC<{}> = () => {
                         <Form.Item
                           name="amount"
                           rules={[
-                            { required: true, message: "Amount is required" },
+                            { required: true, message: `${t("amount")} ${t("required")}` },
                             {
                               pattern: /([1-9][\d,]{2,})$$/g,
                               message:
-                                "The amount should be valid with a minimum of 100 rwf",
+                                t("should be 100 minimum"),
                             },
                           ]}
                           validateTrigger={["onSubmit", "onBlur"]}
                           normalize={normalizeInputNumber}
                         >
-                          <Input prefix="RWF" placeholder="Amount Donate" />
+                          <Input prefix="RWF" placeholder={t("amount")} />
                         </Form.Item>
                         {userType === "individual" ? (
                           <Row gutter={8}>
@@ -290,7 +294,7 @@ const DonateCause: React.FC<{}> = () => {
                                 rules={[{ required: true, min: 3 }]}
                                 validateTrigger={["onSubmit", "onBlur"]}
                               >
-                                <Input placeholder="First Name" />
+                                <Input placeholder={t("first name")} />
                               </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -299,7 +303,7 @@ const DonateCause: React.FC<{}> = () => {
                                 validateTrigger={["onSubmit", "onBlur"]}
                                 rules={[{ required: true, min: 3 }]}
                               >
-                                <Input placeholder="Last Name" />
+                                <Input placeholder={t("last name")} />
                               </Form.Item>
                             </Col>
                           </Row>
@@ -311,14 +315,14 @@ const DonateCause: React.FC<{}> = () => {
                                 validateTrigger={["onSubmit", "onBlur"]}
                                 rules={[{ required: true, min: 3 }]}
                               >
-                                <Input placeholder="Organization Name" />
+                                <Input placeholder={t("organization name")} />
                               </Form.Item>
                               <Form.Item
                                 name="contact_person"
                                 validateTrigger={["onSubmit", "onBlur"]}
                                 rules={[{ required: true, min: 3 }]}
                               >
-                                <Input placeholder="Contact Person" />
+                                <Input placeholder={t("contact person")} />
                               </Form.Item>
                             </>
                           )
@@ -328,12 +332,12 @@ const DonateCause: React.FC<{}> = () => {
                           rules={[
                             {
                               required: true,
-                              message: "Payment Method is required",
+                              message: t("payment method is required"),
                             },
                           ]}
                         >
-                          <StackedLabel label="Select Payment Method" select>
-                            <Select placeholder="Payment Method">
+                          <StackedLabel label={t("select payment method")} select>
+                            <Select placeholder={t("select payment method")}>
                               <Select.Option value="MTN_Rwanda">
                                 MTN Mobile Money
                               </Select.Option>
@@ -347,7 +351,7 @@ const DonateCause: React.FC<{}> = () => {
                           className="form-group phone-code"
                           validateTrigger={["onSubmit", "onBlur"]}
                           rules={[
-                            ...formPhoneValidator("Phone Number"),
+                            ...formPhoneValidator(t("phone number")),
                             {
                               validator(_rule: any, value: any) {
                                 const {
@@ -358,7 +362,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "MTN"
                                 ) {
                                   return Promise.reject(
-                                    "Should be a valid MTN Number",
+                                    t("should be a valid mtn"),
                                   );
                                 }
                                 if (
@@ -366,7 +370,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "Airtel"
                                 ) {
                                   return Promise.reject(
-                                    "Should be a valid Airtel Number",
+                                    t("should be a valid airtel"),
                                   );
                                 }
 
@@ -376,7 +380,7 @@ const DonateCause: React.FC<{}> = () => {
                           ]}
                           name="phone_number"
                         >
-                          <StackedLabel label="Phone Number" phone="+250">
+                          <StackedLabel label={t("phone number")} phone="+250">
                             <LegacyInput maxLength={9} />
                           </StackedLabel>
                         </Form.Item>
@@ -385,10 +389,10 @@ const DonateCause: React.FC<{}> = () => {
                           validateTrigger={["onSubmit", "onBlur"]}
                           rules={[{ min: 3, type: "email" }]}
                         >
-                          <Input placeholder="Email Address (Optional)" />
+                          <Input placeholder={`${t("email")} (${t("optional")})`} />
                         </Form.Item>
                         <div className="d-flex">
-                          <span className="font-weight-bold">Anonymous</span>
+                          <span className="font-weight-bold">{t("anonymous")}</span>
                           <Form.Item
                             className="form-group ml-3 mb-1"
                             validateTrigger={["onSubmit", "onBlur"]}
@@ -400,7 +404,7 @@ const DonateCause: React.FC<{}> = () => {
                         </div>
                         {isAnonymous && (
                           <p className="note mb-4">
-                            Note: Your name will not be displayed
+                            Note: {t("your name will not be displayed")}
                           </p>
                         )}
                         <Row justify="end">
@@ -410,7 +414,7 @@ const DonateCause: React.FC<{}> = () => {
                               htmlType="submit"
                               loading={loading}
                             >
-                              DONATE
+                              {t("donate")}
                             </Button>
                           </Col>
                         </Row>

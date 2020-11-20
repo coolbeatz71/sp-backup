@@ -2,6 +2,7 @@ import React from "react";
 import numeral from "numeral";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { RESET_CASHOUT_ERROR } from "redux/action-types/cause/cashout";
 
 import styles from "./index.module.scss";
@@ -32,6 +33,8 @@ const CauseCashout: React.FC<Props> = ({
   handleSubmit,
 }) => {
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const [steps] = React.useState(defaultSteps());
   const [index, setIndex] = React.useState<number>(0);
@@ -70,7 +73,7 @@ const CauseCashout: React.FC<Props> = ({
                   fontSize: "1.5rem",
                 }}
               >
-                {steps[index].title}
+                {t(steps[index].title)}
               </Col>
               <Col>
                 <Buttons
@@ -108,13 +111,13 @@ const CauseCashout: React.FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                },
+                }
               );
             },
             issue,
             steps,
             currentBalance,
-            currency,
+            currency
           )}
         </Card>
       )}

@@ -2,14 +2,17 @@ import React from "react";
 import ReactPlayer from "react-player";
 
 import { Row, Col, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 import styles from "./index.module.scss";
 
 const Video = () => {
+
+  const { t } = useTranslation();
   return (
     <div className={styles.video}>
       <div className={styles.video__text}>
-        <Typography.Title level={4}>View Save Plus video here</Typography.Title>
+        <Typography.Title level={4}>{t("view save plus video")}</Typography.Title>
       </div>
       <Row justify="space-around">
         <Col>
@@ -24,7 +27,7 @@ const Video = () => {
         </Col>
       </Row>
       <div className={styles.video__text}>
-        <Typography.Text>Android & IOS App Coming soon</Typography.Text>
+        <Typography.Text>{t("android and ios soon")}</Typography.Text>
       </div>
     </div>
   );

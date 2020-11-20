@@ -13,11 +13,11 @@ export interface StepType {
     setForm: (form: any) => void,
     cb: (data: any) => void,
     issue: boolean[],
-    steps: any[],
+    steps: any[]
   ) => any;
 }
 
-const title = "Transfer Donations";
+const title = "transfer donations";
 
 const defaultSteps = (): StepType[] => [
   {

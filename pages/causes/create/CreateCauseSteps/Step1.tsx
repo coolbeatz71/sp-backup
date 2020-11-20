@@ -12,6 +12,7 @@ import {
 } from "antd";
 
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 import StackedLabel from "components/common/StackedLabel";
 import CropImage from "components/common/CropImage";
@@ -33,6 +34,7 @@ const Step1: React.FC<Props> = ({
   setForm,
   cb,
 }) => {
+  const { t } = useTranslation();
   return (
     <Form
       ref={(ref) => setForm(ref)}
@@ -46,37 +48,39 @@ const Step1: React.FC<Props> = ({
       }}
     >
       <Form.Item>
-        <span>Start by giving us the basic information on the Cause</span>
+        <span>{t("start by providing basic cause details")}</span>
       </Form.Item>
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="name"
         rules={[
-          { required: true, message: "Cause name is required!" },
+          { required: true, message: t("cause name is required") },
           {
             min: 20,
             max: 50,
-            message:
-              "Cause name's length must be between 20 and 50 characters!",
+            message: t("cause_name_range_error", {
+              min: 800,
+              max: "1,000",
+            }),
           },
         ]}
       >
-        <StackedLabel label="Cause Name" charCount={[20, 50]}>
-          <Input placeholder="Cause Name" maxLength={50} />
+        <StackedLabel label={t("cause name")} charCount={[20, 50]}>
+          <Input placeholder={t("cause name")} maxLength={50} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
         name="category"
-        rules={[{ required: true, message: "Cause category is required!" }]}
+        rules={[{ required: true, message: t("category is required") }]}
       >
-        <StackedLabel label="Category" select>
+        <StackedLabel label={t("category")} select>
           <Select placeholder="Category">
             {categories.map((cat) => (
               <Select.Option
                 key={cat.id}
                 value={JSON.stringify({ id: cat.id, slug: cat.slug })}
               >
-                {cat.title}
+                {t(cat.title)}
               </Select.Option>
             ))}
           </Select>
@@ -89,12 +93,12 @@ const Step1: React.FC<Props> = ({
             required: true,
             type: "number",
             min: 1,
-            message: "Cause fundraising target is required!",
+            message: t("cause target is required"),
           },
         ]}
       >
-        <StackedLabel label="Cause Fundraising Target" formatNumber>
-          <InputNumber placeholder="Cause Fundraising Target" />
+        <StackedLabel label={t("cause fundraising target")} formatNumber>
+          <InputNumber placeholder={t("cause fundraising target")} />
         </StackedLabel>
       </Form.Item>
       <Row gutter={20}>
@@ -102,7 +106,7 @@ const Step1: React.FC<Props> = ({
           <Form.Item
             name="start"
             rules={[
-              { required: true, message: "Cause start is required!" },
+              { required: true, message: t("cause start date is required") },
               () => ({
                 validator(_rule, value) {
                   if ([null, undefined, ""].includes(value)) {
@@ -110,13 +114,11 @@ const Step1: React.FC<Props> = ({
                   }
 
                   if (!moment(value).isValid()) {
-                    return Promise.reject("Invalid date!");
+                    return Promise.reject(t("invalid date"));
                   }
 
                   if (moment(value).isBefore(moment().startOf("day"))) {
-                    return Promise.reject(
-                      "Cause start should not be in the past!"
-                    );
+                    return Promise.reject(t("should not be in past"));
                   }
 
                   return Promise.resolve();
@@ -124,7 +126,7 @@ const Step1: React.FC<Props> = ({
               }),
             ]}
           >
-            <StackedLabel label="Start Date" datePicker>
+            <StackedLabel label={t("start date")} datePicker>
               <DatePicker inputReadOnly />
             </StackedLabel>
           </Form.Item>
@@ -133,7 +135,7 @@ const Step1: React.FC<Props> = ({
           <Form.Item
             name="end"
             rules={[
-              { required: true, message: "Cause end is required!" },
+              { required: true, message: t("cause end date is required") },
               ({ getFieldValue }) => ({
                 validator(_rule, value) {
                   if ([null, undefined, ""].includes(value)) {
@@ -141,25 +143,25 @@ const Step1: React.FC<Props> = ({
                   }
 
                   if (!moment(value).isValid()) {
-                    return Promise.reject("Invalid date!");
+                    return Promise.reject(t("invalid date"));
                   }
 
                   const start = moment(getFieldValue("start"));
 
                   if (start.isValid() && moment(value).isBefore(start)) {
-                    return Promise.reject("Should not be before start date");
+                    return Promise.reject(
+                      t("end date should not be before start date")
+                    );
                   }
 
                   if (moment(value).isBefore(moment().startOf("day"))) {
-                    return Promise.reject("Should not be in the past");
+                    return Promise.reject(t("should not be in past"));
                   }
 
                   if (
                     moment(value).isBefore(moment().add(1, "day").endOf("day"))
                   ) {
-                    return Promise.reject(
-                      "Should be at least 2 days from today"
-                    );
+                    return Promise.reject(t("should be 2 days from now"));
                   }
 
                   return Promise.resolve();
@@ -167,7 +169,7 @@ const Step1: React.FC<Props> = ({
               }),
             ]}
           >
-            <StackedLabel label="End Date" datePicker>
+            <StackedLabel label={t("end date")} datePicker>
               <DatePicker inputReadOnly />
             </StackedLabel>
           </Form.Item>
@@ -191,7 +193,7 @@ const Step1: React.FC<Props> = ({
           <Col>{/* */}</Col>
           <Col>
             <Button type="primary" htmlType="submit">
-              NEXT
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

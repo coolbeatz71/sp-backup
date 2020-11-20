@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Button, Input, Form, Alert } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
@@ -25,6 +26,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
   const [vis, setVis] = React.useState(visible);
 
   const router = useRouter();
+  const { t } = useTranslation();
 
   const {
     loading,
@@ -37,7 +39,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
 
   return (
     <Modal
-      title="Change PIN"
+      title={t("change pin")}
       visible={vis}
       onVisible={() => {
         setVis(true);
@@ -57,25 +59,25 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
               setVis(false);
               router.reload();
             },
-            { old_password, new_password },
+            { old_password, new_password }
           )(dispatch);
         }}
       >
-        <Form.Item name="old_pin" rules={formPinValidator("Old PIN")}>
-          <StackedLabel label="Old PIN">
+        <Form.Item name="old_pin" rules={formPinValidator(t("old pin"))}>
+          <StackedLabel label={t("old pin")}>
             <Input.Password
               maxLength={5}
-              placeholder="Old PIN"
+              placeholder={t("old pin")}
               type="password"
               disabled={loading}
             />
           </StackedLabel>
         </Form.Item>
-        <Form.Item name="new_pin" rules={formPinValidator("New PIN")}>
-          <StackedLabel label="New PIN">
+        <Form.Item name="new_pin" rules={formPinValidator(t("new pin"))}>
+          <StackedLabel label={t("new pin")}>
             <Input.Password
               maxLength={5}
-              placeholder="New PIN"
+              placeholder={t("new pin")}
               type="password"
               disabled={loading}
             />
@@ -83,12 +85,12 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
         </Form.Item>
         <Form.Item
           name="confirm_pin"
-          rules={formPinMatchValidator("new_pin", "New PIN and Confirm")}
+          rules={formPinMatchValidator("new_pin", "pin_and_confirm")}
         >
-          <StackedLabel label="Confirm PIN">
+          <StackedLabel label={t("confirm pin")}>
             <Input.Password
               maxLength={5}
-              placeholder="Confirm PIN"
+              placeholder={t("confirm pin")}
               type="password"
               disabled={loading}
             />
@@ -104,7 +106,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
             <Col>{/* */}</Col>
             <Col>
               <Button type="primary" htmlType="submit" loading={loading}>
-                CHANGE PIN
+                {t("change pin").toUpperCase()}
               </Button>
             </Col>
           </Row>

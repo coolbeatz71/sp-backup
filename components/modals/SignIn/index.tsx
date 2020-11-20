@@ -9,6 +9,7 @@ import {
   Typography,
   Alert,
 } from "antd";
+import { useTranslation } from "react-i18next";
 
 import login from "redux/actions/Auth/login";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,11 +39,13 @@ const SignIn: React.FC<{}> = () => {
     ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
+  const { t } = useTranslation();
+
   const isMobile = useMedia("(max-width: 768px)");
 
   return (
     <Modal
-      title="Welcome back!"
+      title={t("welcome back")}
       visible={state && ["login"].includes(context)}
       onCloseClick={() => {
         showAuthDialog(false)(dispatch);
@@ -59,15 +62,15 @@ const SignIn: React.FC<{}> = () => {
       >
         <Form.Item
           name="phone_number"
-          rules={formPhoneValidator("Phone Number")}
+          rules={formPhoneValidator(t("phone number"))}
         >
-          <StackedLabel label="Phone Number" phone="+250" required>
+          <StackedLabel label={t("phone number")} phone="+250" required>
             <Input autoComplete="phone_number" type="tel" disabled={loading} />
           </StackedLabel>
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "PIN is required!" }]}
+          rules={[{ required: true, message: t("required") }]}
         >
           <StackedLabel label="PIN" required>
             <Input.Password
@@ -84,9 +87,9 @@ const SignIn: React.FC<{}> = () => {
         )}
         <Form.Item>
           <Button type="primary" block htmlType="submit" loading={loading}>
-            SIGN IN
+            {t("sign_in_button")}
           </Button>
-          <Divider>OR</Divider>
+          <Divider>{t("or").toUpperCase()}</Divider>
           <Row justify={isMobile ? "center" : "space-between"}>
             <Col>
               <Button
@@ -97,8 +100,8 @@ const SignIn: React.FC<{}> = () => {
                 }}
                 disabled={loading}
               >
-                Forgot PIN?&nbsp;
-                <Typography.Text underline>Reset PIN</Typography.Text>
+                {t("forgot pin")}&nbsp;
+                <Typography.Text underline>{t("reset pin")}</Typography.Text>
               </Button>
             </Col>
             <Col>
@@ -110,8 +113,10 @@ const SignIn: React.FC<{}> = () => {
                 }}
                 disabled={loading}
               >
-                Don't have an account?&nbsp;
-                <Typography.Text underline>Create account</Typography.Text>
+                {t("don't have account")}&nbsp;
+                <Typography.Text underline>
+                  {t("create account")}
+                </Typography.Text>
               </Button>
             </Col>
           </Row>

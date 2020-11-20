@@ -8,6 +8,7 @@ import { CREATE_CAUSE_PATH } from "helpers/paths";
 import notification from "utils/notification";
 import { CheckOutlined } from "@ant-design/icons";
 import { SUCCESS } from "constants/colors";
+import { useTranslation } from "react-i18next";
 
 export interface ShareProps {
   title: string;
@@ -26,6 +27,7 @@ const Share: React.FC<ShareProps> = ({
   label = true,
   hideCausePopover = () => null,
 }) => {
+  const { t } = useTranslation();
   const { pathname } = useRouter();
   const [copy, setCopy] = useState(true);
   const [, copyToClipboard] = useCopyToClipboard();
@@ -45,7 +47,7 @@ const Share: React.FC<ShareProps> = ({
 
   return (
     <div className={`${styles.share} share`}>
-      {label && <span>Share</span>}
+      {label && <span>{t("share").toUpperCase()}</span>}
       {pathname !== CREATE_CAUSE_PATH && (
         <a rel="stylesheet">
           {copy ? (
@@ -114,10 +116,10 @@ const Share: React.FC<ShareProps> = ({
         onCancel={() => setModalVisible(false)}
         footer={false}
       >
-        <h6 className="mt-4 text-center">Save plus Bill for this cause is</h6>
+        <h6 className="mt-4 text-center">{t("this cause till number is")}</h6>
         <h6 className="text-center">{tillNumber}</h6>
         <h6 className="text-center mt-4">
-          Make your donation using the USSD Code
+          {t("make your donation using ussd code")}
         </h6>
         <h6 className="mb-4 text-center">{`*777*77*${tillNumber}*Donation#`}</h6>
       </Modal>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Divider, Button } from "antd";
 import Plan from "./Plan";
 import styles from "./pricing.module.scss";
@@ -9,27 +10,26 @@ import { useMedia } from "react-use";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
-const pricingPlan = [
-  {
-    price: "free",
-    subtitle: "For cashout above 30 days",
-    description: `For causes whose duration period is greater than 30 days. Note that cash-out only happens when the cause ends.`,
-  },
-  {
-    price: "2%",
-    subtitle: "For cashout below 30 days",
-    description: `For causes whose duration period is
-     below 30 days. A 2% fee applies while the remainder is remitted to the cause creator.`,
-  },
-];
-
 const PricingCard: React.FC<{}> = ({}) => {
+  const { t } = useTranslation();
+  const pricingPlan = [
+    {
+      price: t("free"),
+      subtitle: t("for cashout above 30 days"),
+      description: t("cash_out_above_details"),
+    },
+    {
+      price: "2%",
+      subtitle: t("for cashout below 30 days"),
+      description: t("cash_out_below_details"),
+    },
+  ];
   const { push } = useRouter();
   const isMobile = useMedia("(max-width: 768px)");
   const dispatch = useDispatch();
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   return (
@@ -37,9 +37,9 @@ const PricingCard: React.FC<{}> = ({}) => {
       <div className={styles.pricingCard__header}>
         <InfoCircleOutlined />
         <p>
-          This pricing structure will start to apply on the 1st January 2021
+          {t("pricing structure apply date")}
           <br />
-          Enjoy the free beta trial period.
+          {t("enjoy free period")}
         </p>
       </div>
       <div className={styles.pricingCard__container}>
@@ -82,7 +82,9 @@ const PricingCard: React.FC<{}> = ({}) => {
             else showAuthDialog(true, "signup")(dispatch);
           }}
         >
-          {isLoggedin ? "CREATE A CAUSE" : "GET STARTED"}
+          {isLoggedin
+            ? t("create a cause").toUpperCase()
+            : t("get started").toUpperCase()}
         </Button>
       </div>
     </div>

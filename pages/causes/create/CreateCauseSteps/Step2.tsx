@@ -2,6 +2,7 @@ import React from "react";
 
 import { Row, Col, Button, Input, Form, Switch } from "antd";
 import ReactPlayer from "react-player";
+import { useTranslation } from "react-i18next";
 
 import StackedLabel from "components/common/StackedLabel";
 import VideoPlayer from "components/common/VideoPlayer";
@@ -12,6 +13,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import { Props } from "./Step1";
 
 const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
+  const { t } = useTranslation();
   return (
     <Form
       ref={(ref) => setForm(ref)}
@@ -25,26 +27,28 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       }}
     >
       <Form.Item>
-        <span>Give us detailed and elaborate information on your cause</span>
+        <span>{t("give us detailed information")}</span>
       </Form.Item>
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="summary"
         rules={[
-          { required: true, message: "Cause summary is required!" },
+          { required: true, message: t("cause summary is required") },
           {
             min: 100,
             max: 280,
-            message:
-              "Cause summary's length must be between 100 and 280 characters!",
+            message: t("cause_summary_range_error", {
+              min: 100,
+              max: 280,
+            }),
           },
         ]}
       >
-        <StackedLabel label="Summary of this cause" charCount={[100, 280]}>
+        <StackedLabel label={t("cause summary")} charCount={[100, 280]}>
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 5 }}
-            placeholder="Summary of this cause"
+            placeholder={t("cause summary")}
             maxLength={280}
           />
         </StackedLabel>
@@ -54,7 +58,9 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
         rules={[
           {
             max: 1000,
-            message: "The Video URL should be less than 1,000 characters!",
+            message: t("video_url_range_error", {
+              max: "1,000",
+            }),
           },
           () => ({
             validator(_rule: any, value: any) {
@@ -64,14 +70,12 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
               if (ReactPlayer.canPlay(value)) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                "The Video URL should be a valid Video URL!"
-              );
+              return Promise.reject(t("video_url_valid_error"));
             },
           }),
         ]}
       >
-        <StackedLabel label="Video URL (Optional)">
+        <StackedLabel label={t("video url")}>
           <Input
             type="url"
             suffix={
@@ -92,16 +96,25 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           {
             min: 800,
             max: 1000,
-            message:
-              "Cause details' length must be between 800 and 1,000 characters!",
+            message: t("cause_details_range_error", {
+              min: 800,
+              max: "1,000",
+            }),
+          },
+          {
+            required: true,
+            message: t("cause details is required"),
           },
         ]}
       >
-        <StackedLabel label="Details about the cause" charCount={[800, 1000]}>
+        <StackedLabel
+          label={t("details about the cause")}
+          charCount={[800, 1000]}
+        >
           <Input.TextArea
             className={styles.create__text_area}
             autoSize={{ minRows: 1, maxRows: 10 }}
-            placeholder="Details about the cause"
+            placeholder={t("details about the cause")}
             maxLength={1000}
           />
         </StackedLabel>
@@ -109,7 +122,7 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       <Form.Item>
         <div className={styles.create__row}>
           <div className={styles.create__row__col}>
-            <strong>Is this cause affiliated to any organization/NGO?</strong>
+            <strong>{t("affiliated")}</strong>
           </div>
           <Switch
             checked={data.affiliated}
@@ -120,11 +133,13 @@ const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       <Form.Item>
         <Row gutter={20} justify="space-between">
           <Col>
-            <Button onClick={() => cb({ step: -1 })}>PREVIOUS</Button>
+            <Button onClick={() => cb({ step: -1 })}>
+              {t("previous").toUpperCase()}
+            </Button>
           </Col>
           <Col>
             <Button type="primary" htmlType="submit">
-              NEXT
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

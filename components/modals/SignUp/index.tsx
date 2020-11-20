@@ -9,6 +9,7 @@ import {
   Alert,
   Typography,
 } from "antd";
+import { useTranslation } from "react-i18next";
 
 import signup, { sendVerificationCode } from "redux/actions/Auth/signup";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +27,8 @@ import formPinValidator from "utils/validators/form-pin-validator";
 
 const SignUp: React.FC<{}> = () => {
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const {
     currentUser,
@@ -46,7 +49,7 @@ const SignUp: React.FC<{}> = () => {
 
   return (
     <Modal
-      title="Create a save account"
+      title={t("create a save account")}
       visible={state && ["verify-phone", "signup"].includes(context)}
       onCloseClick={() => {
         showAuthDialog(false)(dispatch);
@@ -60,12 +63,10 @@ const SignUp: React.FC<{}> = () => {
           }}
         >
           <Form.Item>
-            <Typography.Text>
-              Enter the verification code sent to your phone number
-            </Typography.Text>
+            <Typography.Text>{t("enter verification code")}</Typography.Text>
           </Form.Item>
           <Form.Item name="short_code">
-            <StackedLabel label="Verification Code" required>
+            <StackedLabel label={t("verification code")} required>
               <Input disabled={loadingSignUp} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
@@ -81,9 +82,9 @@ const SignUp: React.FC<{}> = () => {
               htmlType="submit"
               loading={loadingSignUp}
             >
-              VERIFY
+              {t("verify").toUpperCase()}
             </Button>
-            <Divider>OR</Divider>
+            <Divider>{t("or").toUpperCase()}</Divider>
             <Button
               disabled={loadingSignUp}
               type="text"
@@ -92,7 +93,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              Got an account? SIGN IN with <Icon type="save" />
+              {t("got an account")} {t("sign in with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>
@@ -109,21 +110,21 @@ const SignUp: React.FC<{}> = () => {
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item name="first_name">
-                <StackedLabel label="First Name" required>
+                <StackedLabel label={t("first_name")} required>
                   <Input autoComplete="first_name" disabled={loading} />
                 </StackedLabel>
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name="last_name">
-                <StackedLabel label="Last Name" required>
+                <StackedLabel label={t("last_name")} required>
                   <Input autoComplete="last_name" disabled={loading} />
                 </StackedLabel>
               </Form.Item>
             </Col>
           </Row>
           <Form.Item name="phone_number">
-            <StackedLabel label="Phone Number" phone="+250" required>
+            <StackedLabel label={t("phone number")} phone="+250" required>
               <Input
                 autoComplete="phone_number"
                 type="tel"
@@ -137,7 +138,7 @@ const SignUp: React.FC<{}> = () => {
             </StackedLabel>
           </Form.Item>
           <Form.Item name="email">
-            <StackedLabel label="Email (Optional)">
+            <StackedLabel label={`${t("email")}(${t("optional")})`}>
               <Input type="email" autoComplete="email" disabled={loading} />
             </StackedLabel>
           </Form.Item>
@@ -148,9 +149,9 @@ const SignUp: React.FC<{}> = () => {
           )}
           <Form.Item>
             <Button type="primary" block htmlType="submit" loading={loading}>
-              CREATE ACCOUNT
+              {t("create account").toUpperCase()}
             </Button>
-            <Divider>OR</Divider>
+            <Divider>{t("or").toUpperCase()}</Divider>
             <Button
               disabled={loading}
               type="text"
@@ -159,7 +160,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              Got an account? SIGN IN with <Icon type="save" />
+              {t("got an account")} {t("sign in with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>

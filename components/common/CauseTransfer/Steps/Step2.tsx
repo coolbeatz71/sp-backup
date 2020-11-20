@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Button, Form, Result, Typography } from "antd";
 import { Props } from "./Step1";
 import { isEmpty } from "lodash";
+import { useTranslation } from "react-i18next";
 import CauseCard from "components/cards/Cause";
 import styles from "./../index.module.scss";
 import CauseProgress from "components/Cause/CauseProgress";
@@ -10,6 +11,8 @@ const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
   const [form] = Form.useForm();
 
   const { transferTo: cause } = data;
+
+  const { t } = useTranslation();
 
   return (
     <Form
@@ -23,14 +26,14 @@ const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
       className={styles.transfer__form}
     >
       <Form.Item>
-        <span>Cause information to transfer donations to</span>
+        <span>{t("cause information to transfer to")}</span>
       </Form.Item>
 
       {isEmpty(cause) ? (
         <Result
           status="error"
-          title="Cause information failed"
-          subTitle="Please check and provide valid information for the cause"
+          title={t("cause information failed")}
+          subTitle={t("cause_information_failed_text")}
           extra={[
             <Button
               danger
@@ -38,7 +41,7 @@ const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
               key="back"
               onClick={() => cb({ step: -1 })}
             >
-              Back
+              {t("back")}
             </Button>,
           ]}
         />
@@ -74,11 +77,13 @@ const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
       <Form.Item>
         <Row gutter={20} justify="space-between">
           <Col>
-            <Button onClick={() => cb({ step: -1 })}>PREVIOUS</Button>
+            <Button onClick={() => cb({ step: -1 })}>
+              {t("previous").toUpperCase()}
+            </Button>
           </Col>
           <Col>
             <Button type="primary" htmlType="submit" disabled={isEmpty(cause)}>
-              NEXT
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

@@ -11,7 +11,8 @@
     "type-check": "tsc",
     "test": "jest --coverage",
     "test:e2e": "cypress open --config-file cypress.json",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "postinstall": "cp ./constants/locales/moment/rw.js ./node_modules/moment/locale"
   },
   "dependencies": {
     "@types/color-hash": "^1.0.0",
@@ -32,8 +33,9 @@
     "color-hash": "^1.0.3",
     "crypto-js": "^4.0.0",
     "dev-rw-phone": "^1.0.0",
+    "i18next": "^19.8.4",
     "lodash": "^4.17.15",
-    "moment": "^2.26.0",
+    "moment": "^2.29.1",
     "next": "^9.5.2",
     "next-pwa": "^2.3.3",
     "nprogress": "^0.2.0",
@@ -42,6 +44,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-hook-form": "^5.7.2",
+    "react-i18next": "^11.7.3",
     "react-image-crop": "^8.6.5",
     "react-lazy-load-image-component": "^1.5.0-beta.0",
     "react-lazyload": "^3.0.0",

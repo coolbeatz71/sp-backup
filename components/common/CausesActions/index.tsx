@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { Dropdown, Menu, Button } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import ActionModal from "components/common/CauseCard/Actions/ActionModal";
 import { causeStatus } from "interfaces";
@@ -28,7 +29,7 @@ const isUneditable = (status: string, count: number) =>
 const canTransferOrCashout = (
   status: string,
   raisedAmount: number,
-  cashedOutAmount: number,
+  cashedOutAmount: number
 ) =>
   (status === causeStatus.active || status === causeStatus.paused) &&
   raisedAmount - cashedOutAmount > 0;
@@ -41,6 +42,7 @@ interface Props {
 }
 
 const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [visible, setVisible] = React.useState(false);
 
@@ -71,7 +73,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                   type="text"
                   onClick={() => handleAction(ActionType.accessCode)}
                 >
-                  View Access Code
+                  {t("view access code")}
                 </Button>
                 <Menu.Divider />
               </>
@@ -82,7 +84,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 type="text"
                 onClick={() => router.push(`/causes/${record.slug}`)}
               >
-                View Cause
+                {t("view cause")}
               </Button>
             )}
             {!isUneditable(record.status, record.edit_count) && (
@@ -93,7 +95,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                   router.push(`/causes/${record.slug}/edit`);
                 }}
               >
-                Edit Cause
+                {t("edit cause")}
               </Button>
             )}
             {record.status === causeStatus.paused ? (
@@ -102,7 +104,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 type="text"
                 onClick={() => handleAction(ActionType.resume)}
               >
-                Resume Cause
+                {t("resume cause")}
               </Button>
             ) : (
               !isUnpausable(record.status) && (
@@ -111,7 +113,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                   type="text"
                   onClick={() => handleAction(ActionType.pause)}
                 >
-                  Pause Cause
+                  {t("pause cause")}
                 </Button>
               )
             )}
@@ -122,35 +124,35 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
                 onClick={() => handleAction(ActionType.cancel)}
                 danger
               >
-                Cancel Cause
+                {t("cancel cause")}
               </Button>
             )}
 
             {canTransferOrCashout(
               record.status,
               record.raised_amount * 1,
-              record.cashed_out_amount * 1,
+              record.cashed_out_amount * 1
             ) && (
               <Button
                 className={styles.actions__menu_button}
                 type="text"
                 onClick={() => handleAction(ActionType.cashOut)}
               >
-                Cash Out
+                {t("cash out")}
               </Button>
             )}
 
             {canTransferOrCashout(
               record.status,
               record.raised_amount * 1,
-              record.cashed_out_amount * 1,
+              record.cashed_out_amount * 1
             ) && (
               <Button
                 className={styles.actions__menu_button}
                 type="text"
                 onClick={() => handleAction(ActionType.donationTransfer)}
               >
-                Transfer Donations
+                {t("transfer donations")}
               </Button>
             )}
           </Menu>

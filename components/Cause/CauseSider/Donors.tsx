@@ -13,6 +13,8 @@ import { isEmpty } from "lodash";
 import Link from "next/link";
 import { ALL_CAUSES_PATH } from "helpers/paths";
 
+import { useTranslation } from "react-i18next";
+
 interface Props {
   slug: string;
 }
@@ -20,6 +22,8 @@ interface Props {
 const Donors: React.FC<Props> = ({ slug }) => {
   const limit = 15;
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const [page, setPage] = React.useState<number>(2);
   const [search, setSearch] = React.useState<string>("");
@@ -90,7 +94,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
         style={{
           marginBottom: "1.5rem",
         }}
-        placeholder="Search"
+        placeholder={t("search")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={(e) => {
@@ -126,7 +130,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
                 />
               )}
               {!loading && !loadingMore && donors.length === 0 ? (
-                <Empty description="No donors found" />
+                <Empty description={t("no donors found")} />
               ) : (
                 <>
                   {donors.map((d, i) => (
@@ -157,7 +161,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
 
                   {donors.length >= total && donors.length >= limit && (
                     <Alert
-                      message="No more donors to load"
+                      message={t("no more donors")}
                       type="info"
                       showIcon
                       closable

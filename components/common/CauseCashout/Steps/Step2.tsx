@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Button, Input, Form, Alert } from "antd";
 import { IRootState } from "redux/initialStates";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import StackedLabel from "components/common/StackedLabel";
 import { Props } from "./Step1";
 import formPinValidator from "utils/validators/form-pin-validator";
@@ -10,8 +11,10 @@ const Step2: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
   const [form] = Form.useForm();
 
   const { loading, error } = useSelector(
-    ({ cause: { cashout } }: IRootState) => cashout,
+    ({ cause: { cashout } }: IRootState) => cashout
   );
+
+  const { t } = useTranslation();
 
   return (
     <Form
@@ -39,7 +42,7 @@ const Step2: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
 
       {issue.length > 0 && (
         <Form.Item>
-          <Alert message="The previous step has an issue:" type="error" />
+          <Alert message={t("previous step has issue")} type="error" />
         </Form.Item>
       )}
       {error && (
@@ -51,12 +54,12 @@ const Step2: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
         <Row gutter={20} justify="space-between">
           <Col>
             <Button onClick={() => cb({ step: -1 })} disabled={loading}>
-              PREVIOUS
+              {t("previous").toUpperCase()}
             </Button>
           </Col>
           <Col>
             <Button type="primary" htmlType="submit" loading={loading}>
-              CONFIRM
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

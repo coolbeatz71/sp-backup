@@ -3,6 +3,7 @@ import ReactCrop from "react-image-crop";
 import { Modal, Upload, message } from "antd";
 import moment from "moment";
 import validator from "validator";
+import { useTranslation } from "react-i18next";
 import { CameraOutlined } from "@ant-design/icons";
 
 import drawImage, { clearImage } from "./drawImage";
@@ -27,6 +28,7 @@ const CropImage: React.FC<Props> = ({
   onCancel,
   onOk,
 }) => {
+  const { t } = useTranslation();
   const [crop, setCrop] = React.useState<any>({
     aspect: isProfile ? 1 : 16 / 9,
     width: 100,
@@ -112,7 +114,7 @@ const CropImage: React.FC<Props> = ({
 
   return (
     <div className={styles.cropping} data-profile-canvas={isProfile}>
-      {!isProfile && <strong>Image</strong>}
+      {!isProfile && <strong>{t("image")}</strong>}
       {isProfile && (
         <div className={styles.cropping__profile_hint}>
           <CameraOutlined />
@@ -137,12 +139,12 @@ const CropImage: React.FC<Props> = ({
         </div>
         {!isProfile && (
           <p className={styles.cropping__upload__hint}>
-            {completedCrop ? "Change image" : "Choose an image to upload"}
+            {completedCrop ? t("change image") : t("choose image to upload")}
           </p>
         )}
       </Upload.Dragger>
       <Modal
-        title="Crop Image"
+        title={t("crop image")}
         visible={show}
         destroyOnClose
         onCancel={() => cancel(previewCanvasRef)}
@@ -165,7 +167,8 @@ const CropImage: React.FC<Props> = ({
               cancel(previewCanvasRef);
             });
         }}
-        okText="DONE"
+        okText={t("done").toUpperCase()}
+        cancelText={t("cancel")}
         okButtonProps={{
           disabled:
             !completedCrop ||

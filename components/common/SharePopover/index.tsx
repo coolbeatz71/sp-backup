@@ -11,6 +11,8 @@ import CustomIcon from "components/common/CustomIcon";
 import Modal from "components/common/Modal";
 import getPlatformUrl from "helpers/getPlatformUrl";
 
+import { useTranslation } from "react-i18next";
+
 import styles from "./index.module.scss";
 
 interface Props {
@@ -64,6 +66,8 @@ const SharePopover: React.FC<Props> = ({
 }) => {
   const [visible, setVisible] = React.useState(false);
 
+  const { t } = useTranslation();
+
   const link = `${getPlatformUrl()}/causes/${slug}`;
 
   const share = (
@@ -94,10 +98,10 @@ const SharePopover: React.FC<Props> = ({
         }
       >
         <div className={styles.share__ussd__text}>
-          <Typography>This Cause Till Number is</Typography>
+          <Typography>{t("this cause till number is")}</Typography>
           <Typography>{code}</Typography>
           <br />
-          <Typography>Make your donation using the USSD Code</Typography>
+          <Typography>{t("make your donation using ussd code")}</Typography>
           <Typography>*777*77*{code}#</Typography>
         </div>
       </Modal>
@@ -142,7 +146,7 @@ const SharePopover: React.FC<Props> = ({
       gutter={isCreateSuccess ? [24, 10] : 24}
       className={styles.share}
     >
-      {!isCreateSuccess && <Col>Share</Col>}
+      {!isCreateSuccess && <Col>{t("share")}</Col>}
       <Col>{share}</Col>
     </Row>
   ) : !disabled ? (
