@@ -1,5 +1,4 @@
 import React from "react";
-
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -18,19 +17,19 @@ export interface StepType {
     setForm: (form: any) => void,
     cb: (data: any) => void,
     issue: boolean[],
-    steps: any[],
+    steps: any[]
   ) => any;
 }
 
 export const contactStep = {
   id: "Step3",
-  title: "Contact Information",
+  title: "contact information",
   component: (
     alerts: React.ReactElement | null,
     categories: any[],
     data: { [key: string]: any },
     setForm: (form: any) => void,
-    cb: (data: any) => void,
+    cb: (data: any) => void
   ) => (
     <Step3
       alerts={alerts}
@@ -44,17 +43,17 @@ export const contactStep = {
 
 const defaultSteps = (
   isMed: boolean = false,
-  isAff: boolean = false,
+  isAff: boolean = false
 ): StepType[] => [
   {
     id: "Step1",
-    title: "Basic Information",
+    title: "basic information",
     component: (
       alerts: React.ReactElement | null,
       categories: any[],
       data,
       setForm: (form: any) => void,
-      cb,
+      cb
     ) => (
       <Step1
         alerts={alerts}
@@ -68,13 +67,13 @@ const defaultSteps = (
   ...(isMed ? [medStep] : []),
   {
     id: "Step2",
-    title: "Detailed Information",
+    title: "detailed information",
     component: (
       alerts: React.ReactElement | null,
       categories: any[],
       data,
       setForm: (form: any) => void,
-      cb,
+      cb
     ) => (
       <Step2
         alerts={alerts}
@@ -89,7 +88,7 @@ const defaultSteps = (
   ...(isAff ? [orgStep] : []),
   {
     id: "Step4",
-    title: "Payment Details",
+    title: "payment details",
     component: (
       alerts: React.ReactElement | null,
       categories: any[],
@@ -97,7 +96,7 @@ const defaultSteps = (
       setForm: (form: any) => void,
       cb,
       issue,
-      steps,
+      steps
     ) => (
       <Step4
         alerts={alerts}

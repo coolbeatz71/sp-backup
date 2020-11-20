@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
+import { useTranslation } from "react-i18next";
 import styles from "./single.module.scss";
 import { Row, Col, Typography, message, Grid } from "antd";
 import ReactPlayer from "react-player/lazy";
@@ -38,13 +39,15 @@ const SingleCause: NextPage<Props> = ({
   const dispatch = useDispatch();
 
   const { loading, data, error: _err, accessCode } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single } }: IRootState) => single
   );
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
   );
+
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (_err) setError(_err);
@@ -58,7 +61,7 @@ const SingleCause: NextPage<Props> = ({
     if (!fetched && !cause.id) {
       getSingle(
         cause?.slug,
-        accessCode ? { access_code: accessCode } : {},
+        accessCode ? { access_code: accessCode } : {}
       )(dispatch);
       setFetched(true);
     }
@@ -75,7 +78,7 @@ const SingleCause: NextPage<Props> = ({
       if (cause.edit_count === 0) {
         setEditing(edit);
       } else {
-        message.warning("This cause was already edited!");
+        message.warning(t("cause is already edited"));
         router.replace(`/causes/${data?.slug}`);
       }
     }
@@ -94,10 +97,10 @@ const SingleCause: NextPage<Props> = ({
   const contact = (
     <>
       <h4 className={styles.dashboard__content__title}>
-        CAUSE TEAM AND CONTACT
+        {t("cause team and contact")}
       </h4>
       <Typography.Paragraph className={styles.dashboard__content__paragraph}>
-        You can reach out on{" "}
+        {t("you can reach out on")}{" "}
         <Typography.Link
           href={`tel:${contactPhone}`}
           target="_blank"
@@ -105,7 +108,7 @@ const SingleCause: NextPage<Props> = ({
         >
           {format(contactPhone)}
         </Typography.Link>{" "}
-        or{" "}
+        {t("or")}{" "}
         <Typography.Link
           href={`mailto:${contactEmail}`}
           target="_blank"
@@ -130,7 +133,7 @@ const SingleCause: NextPage<Props> = ({
           <ReactPlayer controls url={cause.video} width="100%" />
         </Typography.Paragraph>
       )}
-      <h4 className={styles.dashboard__content__title}>USE OF FUNDS</h4>
+      <h4 className={styles.dashboard__content__title}>{t("use of funds")}</h4>
       <Typography.Paragraph
         className={styles.dashboard__content__paragraph__details}
       >
@@ -161,7 +164,7 @@ const SingleCause: NextPage<Props> = ({
               ) : (
                 <Error
                   status={error?.status || 500}
-                  message={error?.message || "An unknown error ocurred!"}
+                  message={error?.message || t("unknown_error")}
                 />
               )}
             </>

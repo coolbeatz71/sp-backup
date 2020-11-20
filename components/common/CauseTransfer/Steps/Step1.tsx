@@ -8,6 +8,8 @@ import formNumericValidator from "utils/validators/form-numeric-validator";
 import { isEmpty, truncate } from "lodash";
 import getSingle from "redux/actions/cause/getSingle";
 
+import { useTranslation } from "react-i18next";
+
 export interface Props {
   slug: string;
   data: any;
@@ -20,20 +22,22 @@ export interface Props {
 const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
   const CAUSES_URL: string = "/causes?purpose=donation_transfer&status=active";
 
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [isPrivate, setPrivate] = React.useState<boolean>(false);
   const [isConfirmed, setConfirmed] = React.useState<boolean>(true);
 
   const { loading: loadingUser, data: user } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const { data: causes, loading, error, fetched } = useSelector(
-    ({ cause: { all_transfer } }: IRootState) => all_transfer,
+    ({ cause: { all_transfer } }: IRootState) => all_transfer
   );
 
   const { loading: loadingCause, data: singleCause, error: _err } = useSelector(
-    ({ cause: { single_transfer } }: IRootState) => single_transfer,
+    ({ cause: { single_transfer } }: IRootState) => single_transfer
   );
 
   React.useEffect(() => {
@@ -54,7 +58,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
 
     if (access === "private" && userId !== user.id) {
       message.config({ maxCount: 1, duration: 5 });
-      message.warning("An access code is required for private cause");
+      message.warning(t("access code is required for this cause"));
     }
   };
 
@@ -76,7 +80,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
           getSingle(
             slug,
             access === "private" && access_code ? { access_code } : {},
-            "transfer",
+            "transfer"
           )(dispatch);
 
           setConfirmed(true);
@@ -91,10 +95,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
       }}
     >
       <Form.Item>
-        <span>
-          Start by providing the cause till number you want to transfer
-          donations to
-        </span>
+        <span>{t("transfer_donations_desc")}</span>
       </Form.Item>
 
       {(error || _err) && (
@@ -109,12 +110,14 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
 
       <Form.Item
         name="cause"
-        rules={[{ required: true, message: "Cause till number is required!" }]}
+        rules={[
+          { required: true, message: t("cause till number is required") },
+        ]}
         validateTrigger={["onSubmit", "onBlur"]}
       >
         <Select
           showSearch
-          placeholder="Search Cause till number"
+          placeholder={t("search cause till number")}
           optionFilterProp="children"
           onChange={onCauseChange}
           disabled={loading}
@@ -144,15 +147,15 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
         <Form.Item
           name="access_code"
           rules={[
-            { required: true, message: `Access code is required!` },
-            { min: 4, max: 4, message: `Access code must be 4 digits!` },
-            formNumericValidator("Access code"),
+            { required: true, message: t("required") },
+            { min: 4, max: 4, message: t("must be 4 digits") },
+            formNumericValidator(t("access code")),
           ]}
         >
-          <StackedLabel label="Access code">
+          <StackedLabel label={t("access code")}>
             <Input.Password
               maxLength={4}
-              placeholder="Access code"
+              placeholder={t("access code")}
               type="password"
               disabled={loading}
               onKeyPress={() => setConfirmed(false)}
@@ -171,7 +174,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
                 loading={loadingCause || loadingUser}
                 htmlType="submit"
               >
-                CONFIRM CAUSE
+                {t("confirm cause").toUpperCase()}
               </Button>
             ) : (
               <Button
@@ -180,7 +183,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
                 loading={loadingCause || loadingUser}
                 disabled={error || _err}
               >
-                NEXT
+                {t("next").toUpperCase()}
               </Button>
             )}
           </Col>

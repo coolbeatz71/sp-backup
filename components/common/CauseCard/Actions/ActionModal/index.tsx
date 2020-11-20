@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Typography, Input, Row, Col, Alert } from "antd";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import { IRootState } from "redux/initialStates";
 import { validateMessages } from "constants/validationMessages";
 import pauseCause from "redux/actions/cause/pauseCause";
@@ -50,14 +51,16 @@ const ActionModal: FC<IActionModalProps> = ({
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
-    ({ cause: { pause } }: IRootState) => pause,
+    ({ cause: { pause } }: IRootState) => pause
   );
   const { loading: loadingCancel, error: errorCancel } = useSelector(
-    ({ cause: { cancel } }: IRootState) => cancel,
+    ({ cause: { cancel } }: IRootState) => cancel
   );
   const { loading: loadingResume, error: errorResume } = useSelector(
-    ({ cause: { resume } }: IRootState) => resume,
+    ({ cause: { resume } }: IRootState) => resume
   );
+
+  const { t } = useTranslation();
 
   const handleModalClose = () => {
     closeModal();
@@ -115,37 +118,37 @@ const ActionModal: FC<IActionModalProps> = ({
     switch (context) {
       case ActionType.pause:
         return {
-          title: "Pause a Cause",
-          subTitle:
-            "By pausing this cause, donors will not be able to donate money for it again, already donated money will be remitted to you at the end date you already choose.",
-          successMessage: "Cause paused",
+          title: t("pause cause"),
+          subTitle: t("pause_cause_warning"),
+          successMessage: t("pause_success"),
         };
       case ActionType.cancel:
         return {
-          title: "Cancel a Cause",
-          subTitle:
-            "By canceling this cause it will not be visible to other users and the donations already made will be remitted to donors at the end date you already choose.",
-          successMessage: "Cause cancelled",
+          title: t("cancel cause"),
+          subTitle: t("cancel_cause_warning"),
+          successMessage: t("cancel_success"),
         };
       case ActionType.resume:
         return {
-          title: "Resume a Cause",
-          subTitle: "Are you sure to resume this cause?",
-          successMessage: "Cause resumed",
+          title: t("resume cause"),
+          subTitle: t("resume_cause_warning"),
+          successMessage: t("resume_success"),
         };
       case ActionType.accessCode:
         return {
-          title: "Access Code",
-          subTitle: `The access code for this cause is </br> <strong>${plainAccessCode}</strong>`,
+          title: t("access code"),
+          subTitle: `${t(
+            "the access code for this cause is"
+          )} </br> <strong>${plainAccessCode}</strong>`,
         };
       case ActionType.donationTransfer:
         return {
-          title: "Transfer Donations",
+          title: t("transfer donations"),
           subTitle: "",
         };
       case ActionType.cashOut:
         return {
-          title: "Cash Out",
+          title: t("cash out"),
           subTitle: "",
         };
       default:
@@ -213,7 +216,7 @@ const ActionModal: FC<IActionModalProps> = ({
                   context &&
                   context !== ActionType.accessCode && (
                     <Typography.Paragraph type="danger">
-                      To Continue Enter Your PIN
+                      {t("to continue enter your pin")}
                     </Typography.Paragraph>
                   )
                 )}
@@ -229,7 +232,7 @@ const ActionModal: FC<IActionModalProps> = ({
                           len: 5,
                           required: true,
                           pattern: /^[0-9]{5}$/,
-                          message: "PIN must be 5 digits",
+                          message: t("must have 5 digits"),
                         },
                       ]}
                       validateTrigger={["onSubmit", "onBlur"]}
@@ -253,7 +256,7 @@ const ActionModal: FC<IActionModalProps> = ({
                           }
                           type="primary"
                         >
-                          {context?.toUpperCase()}
+                          {t(context).toUpperCase()}
                         </Button>
                       </Col>
                     </Row>

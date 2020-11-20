@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { getAllCauses } from "redux/actions/cause/getAll";
@@ -45,7 +46,7 @@ const AllCauses: React.FC<Props> = ({
     fetched,
     meta: { total, page, pages },
   } = useSelector(({ cause: { all, user } }: IRootState) =>
-    myCauses ? user : all,
+    myCauses ? user : all
   );
 
   const category_id: any = query.category_id;
@@ -110,13 +111,14 @@ const AllCauses: React.FC<Props> = ({
   const renderPagination = (
     _current: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
-    originalElement: React.ReactNode,
+    originalElement: React.ReactNode
   ) => {
-    if (type === "prev" && screens.md) return <a>Previous</a>;
-    if (type === "next" && screens.md) return <a>Next</a>;
+    if (type === "prev" && screens.md) return <a>{t("previous")}</a>;
+    if (type === "next" && screens.md) return <a>{t("next")}</a>;
 
     return originalElement;
   };
+  const { t } = useTranslation();
 
   return (
     <LayoutWrapper
@@ -132,7 +134,7 @@ const AllCauses: React.FC<Props> = ({
             align="middle"
             style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
           >
-            Active Filters &nbsp;
+            {t("active filters")} &nbsp;
             {activeFilters?.map((filter, i) => (
               <Tag
                 key={`${i}-filter`}
@@ -142,14 +144,14 @@ const AllCauses: React.FC<Props> = ({
                 onClose={() => onTagClose(filter)}
                 visible={true}
               >
-                {upperFirst(filter)}&nbsp;
+                {upperFirst(t(`${filter}_causes`))}&nbsp;
               </Tag>
             ))}
           </Row>
         )}
         {myCauses && (
           <Section
-            title="Your Causes"
+            title={t("your causes")}
             icon="/images/social-care.svg"
             fetched={true}
             error={null}

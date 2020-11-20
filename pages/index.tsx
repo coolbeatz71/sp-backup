@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import Jumbotron from "components/home/Jumbotron";
 import Video from "components/home/Video";
 import Section from "components/home/Section";
@@ -22,12 +24,14 @@ const IndexPage = () => {
     ({ cause: { feed } }: IRootState) => feed,
   );
 
+  const { t } = useTranslation();
+
   return (
-    <LayoutWrapper title="Home" isHome>
+    <LayoutWrapper title={t("home")} isHome>
       <GetStarted />
       <div data-content-padding data-content-section>
         <Section
-          title="HOW IT WORKS"
+          title={t("how it works")}
           icon="/images/garden.svg"
           fetched={true}
           error={null}
@@ -37,39 +41,39 @@ const IndexPage = () => {
       </div>
       <div data-content-padding data-content-section>
         <Section
-          title="SPONSORED CAUSES"
+          title={t("sponsored causes")}
           icon="/images/heart-beat.svg"
           fetched={fetched}
           error={error}
           data={data?.causes_featured}
           more={{
-            title: "DISCOVER MORE SPONSORED CAUSES",
+            title: t("discover more sponsored causes"),
             link: "/causes?feed_type=sponsored",
           }}
         />
       </div>
       <div data-content-padding data-content-section>
         <Section
-          title="POPULAR CAUSES"
+          title={t("popular causes")}
           icon="/images/popularity.svg"
           fetched={fetched}
           error={error}
           data={data?.causes_popular}
           more={{
-            title: "DISCOVER MORE POPULAR CAUSES",
+            title: t("discover more popular causes"),
             link: "/causes?feed_type=popular",
           }}
         />
       </div>
       <div data-content-padding data-content-section>
         <Section
-          title="RECENT CAUSES"
+          title={t("recent causes")}
           icon="/images/love-birds.svg"
           fetched={fetched}
           error={error}
           data={data?.causes_recents}
           more={{
-            title: "DISCOVER MORE RECENT CAUSES",
+            title: t("discover more recent causes"),
             link: "/causes",
           }}
         />

@@ -12,10 +12,11 @@ import {
 } from "antd";
 import logout from "redux/actions/Auth/logout";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import styles from "./index.module.scss";
-import { MenuOutlined, PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, MenuOutlined, PlusOutlined } from "@ant-design/icons";
 import { Iuser } from "redux/initialStates/user";
 
 import SignUp from "components/modals/SignUp";
@@ -26,9 +27,13 @@ import ChangePin from "components/modals/ChangePin";
 import CategoryBar from "./CategoryBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SvpType } from "helpers/context";
 import { ALL_CAUSES_PATH } from "helpers/paths";
+import { IRootState } from "redux/initialStates";
+import updateProfile from "redux/actions/user/updateProfile";
+import { getLanguage } from "helpers/getLanguage";
+import i18n from "constants/locales";
 
 const { Header: GenericHeader } = Layout;
 
@@ -60,6 +65,9 @@ const Header: React.FC<Props> = ({
   const [visible, setVisible] = React.useState(false);
 
   const [noBackdrop, setNoBackdrop] = React.useState(false);
+  const { loading } = useSelector(
+    (state: IRootState) => state.user.updateProfile
+  );
 
   React.useEffect(() => {
     const webkitBackdrop =
@@ -72,6 +80,15 @@ const Header: React.FC<Props> = ({
       CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
     setNoBackdrop(!webkitBackdrop && !backdrop);
   }, []);
+
+  const { t } = useTranslation();
+
+  const userLang: "en" | "rw" = user?.currentUser?.data?.language || getLanguage();
+
+  const languages = {
+    en: "English",
+    rw: "Kinyarwanda",
+  };
 
   return (
     <GenericHeader
@@ -148,21 +165,51 @@ const Header: React.FC<Props> = ({
                         return setChangePin(true);
                       }
 
+                      if (key === "en" || key === "rw") {
+                        if(user.currentUser.isLoggedin && user.currentUser.data.id){
+                          return dispatch(
+                            updateProfile({
+                              language: `${key}`,
+                            })
+                          );
+                        }
+
+                        localStorage.setItem("USER_LANG", `${key}`);
+                        i18n.changeLanguage(`${key}`);
+                        return;
+                        
+                      }
+
                       if (key) router.push(`${key}`);
                     }}
                   >
-                    {!isHome && <Menu.Item key="/">Home</Menu.Item>}
+                    {!isHome && <Menu.Item key="/">{t("home")}</Menu.Item>}
+                    <Menu.SubMenu
+                        disabled={loading}
+                        title={
+                          <span>
+                            {languages[userLang]}
+                            {loading ? (
+                              <LoadingOutlined style={{ marginLeft: 20 }} />
+                            ) : null}
+                          </span>
+                        }
+                      >
+                        <Menu.Item key="en">English</Menu.Item>
+                        <Menu.Item key="rw">Kinyarwanda</Menu.Item>
+                      </Menu.SubMenu>
+
                     {svpProps.categories && svpProps.categories.length > 0 && (
-                      <Menu.SubMenu title={<span>Causes</span>}>
-                        <Menu.Item key={ALL_CAUSES_PATH}>All</Menu.Item>
+                      <Menu.SubMenu title={<span>{t("causes")}</span>}>
+                        <Menu.Item key={ALL_CAUSES_PATH}>{t("all")}</Menu.Item>
                         {svpProps.categories.map((category) => (
                           <Menu.Item key={`/causes?category_id=${category.id}`}>
-                            {category.title}
+                            {t(category.title)}
                           </Menu.Item>
                         ))}
                       </Menu.SubMenu>
                     )}
-                    <Menu.Item key="/pricing">Pricing</Menu.Item>
+                    <Menu.Item key="/pricing">{t("pricing")}</Menu.Item>
                     {user.currentUser.isLoggedin && !user.currentUser.data.id && (
                       <Menu.SubMenu
                         className={styles.layout__header__row__user}
@@ -201,7 +248,7 @@ const Header: React.FC<Props> = ({
                               {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
                                 ?.split(" ")
                                 .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase(),
+                                  (n: string) => n && n.charAt(0).toUpperCase()
                                 )}
                             </Avatar>
                             <Typography.Text
@@ -216,13 +263,19 @@ const Header: React.FC<Props> = ({
                           </span>
                         }
                       >
-                        <Menu.Item key="/profile">Profile</Menu.Item>
-                        <Menu.Item key="/causes/create">New Cause</Menu.Item>
-                        <Menu.Item key="/user/causes">My Causes</Menu.Item>
-                        <Menu.Item key="change-pin">Change PIN</Menu.Item>
+                        <Menu.Item key="/profile">{t("profile")}</Menu.Item>
+                        <Menu.Item key="/causes/create">
+                          {t("new cause")}
+                        </Menu.Item>
+                        <Menu.Item key="/user/causes">
+                          {t("my causes")}
+                        </Menu.Item>
+                        <Menu.Item key="change-pin">
+                          {t("change pin")}
+                        </Menu.Item>
                         <Menu.Divider />
                         <Menu.Item key="sign-out" danger>
-                          Sign Out
+                          {t("sign out")}
                         </Menu.Item>
                       </Menu.SubMenu>
                     )}
@@ -240,7 +293,7 @@ const Header: React.FC<Props> = ({
                               showAuthDialog(true, "login")(dispatch);
                             }}
                           >
-                            SIGN IN
+                            {t("sign_in_button")}
                           </Button>
                         </div>
                         <div
@@ -254,7 +307,7 @@ const Header: React.FC<Props> = ({
                               showAuthDialog(true, "signup")(dispatch);
                             }}
                           >
-                            SIGN UP
+                            {t("sign_up_button")}
                           </Button>
                         </div>
                       </>

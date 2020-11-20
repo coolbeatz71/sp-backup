@@ -1,6 +1,6 @@
 import React from "react";
 import { phone } from "dev-rw-phone";
-
+import { useTranslation } from "react-i18next";
 import { Row, Col, Button, Input, Form } from "antd";
 
 import StackedLabel from "components/common/StackedLabel";
@@ -8,6 +8,7 @@ import StackedLabel from "components/common/StackedLabel";
 import { Props } from "./Step1";
 
 const StepOrg: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
+  const { t } = useTranslation();
   return (
     <Form
       ref={(ref) => setForm(ref)}
@@ -23,31 +24,31 @@ const StepOrg: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="org_name"
-        rules={[{ required: true, message: "Name is required!" }]}
+        rules={[{ required: true, message: t("name is required") }]}
       >
-        <StackedLabel label="Name">
-          <Input placeholder="Name" />
+        <StackedLabel label={t("name")}>
+          <Input placeholder={t("name")} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
         name="org_email"
         rules={[
-          { type: "email", message: "Valid email is required!" },
-          { required: true, message: "Email is required!" },
+          { type: "email", message: t("email should be valid") },
+          { required: true, message: t("email is required") },
         ]}
       >
-        <StackedLabel label="Email">
-          <Input placeholder="Email" />
+        <StackedLabel label={t("email")}>
+          <Input placeholder={t("email")} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
         name="org_phone_number"
         rules={[
-          { required: true, message: "Phone number is required!" },
+          { required: true, message: t("phone number is required") },
           () => ({
             validator(_rule: any, value: any) {
               if (!phone(value).isOk) {
-                return Promise.reject("Phone number should be valid");
+                return Promise.reject(t("phone number should be valid"));
               }
 
               return Promise.resolve();
@@ -55,26 +56,28 @@ const StepOrg: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           }),
         ]}
       >
-        <StackedLabel label="Phone Number" phone="+250">
-          <Input placeholder="Phone Number" maxLength={9} />
+        <StackedLabel label={t("phone number")} phone="+250">
+          <Input placeholder={t("phone number")} maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
         name="org_field"
-        rules={[{ required: true, message: "Field is required!" }]}
+        rules={[{ required: true, message: t("field is required") }]}
       >
-        <StackedLabel label="Field">
-          <Input placeholder="Field" />
+        <StackedLabel label={t("field")}>
+          <Input placeholder={t("field")} />
         </StackedLabel>
       </Form.Item>
       <Form.Item>
         <Row gutter={20} justify="space-between">
           <Col>
-            <Button onClick={() => cb({ step: -1 })}>PREVIOUS</Button>
+            <Button onClick={() => cb({ step: -1 })}>
+              {t("previous").toUpperCase()}
+            </Button>
           </Col>
           <Col>
             <Button type="primary" htmlType="submit">
-              NEXT
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

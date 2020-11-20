@@ -9,6 +9,7 @@ import Actions from "components/common/CausesActions";
 import styles from "./index.module.scss";
 import { useRouter } from "next/router";
 import getCauseEndingDate from "helpers/causeEndingDate";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   cause: { [key: string]: any };
@@ -24,6 +25,8 @@ const CauseProgress: React.FC<Props> = ({
   tiny = false,
 }) => {
   const router = useRouter();
+
+  const { t } = useTranslation();
 
   const user = useSelector((state: IRootState) => state.user);
 
@@ -43,7 +46,7 @@ const CauseProgress: React.FC<Props> = ({
                 strong
               >
                 {numeral(cause.raised_amount * 1).format()} {cause.currency}{" "}
-                Raised
+                {t("raised")}
               </Typography.Text>
             </Col>
             <Col>
@@ -78,7 +81,7 @@ const CauseProgress: React.FC<Props> = ({
                 strong
               >
                 {numeral(cause.target_amount * 1).format()} {cause.currency}{" "}
-                Goal
+                {t("goal")}
               </Typography.Text>
             </Col>
             <Col>
@@ -99,7 +102,7 @@ const CauseProgress: React.FC<Props> = ({
                 onClick={() => router.push(`/causes/${cause.slug}/donate`)}
                 disabled={cause.status !== "active"}
               >
-                DONATE
+                {t("donate")}
               </Button>
               {myCause && !tiny && (
                 <Actions reload={reload} record={cause} viewing edit={edit} />

@@ -8,12 +8,9 @@ import {
   YoutubeFilled,
 } from "@ant-design/icons";
 
-const menus = [
-  { key: "https://getsave.io/", text: "Save" },
-  { key: "blog", text: "Blog" },
-  { key: "user-agreement", text: "User Agreement" },
-  { key: "privacy-policy", text: "Privacy Policy" },
-];
+import { useTranslation } from "react-i18next";
+
+
 
 const social = [
   {
@@ -40,12 +37,19 @@ const social = [
 ];
 
 const FooterItem = () => {
+  const { t } = useTranslation();
+  const menus = [
+    { key: "https://getsave.io/", text: "Save" },
+    { key: "blog", text: t("blog") },
+    { key: "user-agreement", text: t("user agreement") },
+    { key: "privacy-policy", text: t("privacy policy") },
+  ];
   return (
     <div className="footer-item">
       <img src="/logo-beta.svg" className="logo" alt="Save Plus Logo" />
       <div className="copy">
         <Typography.Text type="secondary">
-          Copyright &copy;{moment().format("YYYY")}{" "}
+          {t("copyright")} &copy;{moment().format("YYYY")}{" "}
           <a
             href="https://exuus.com/"
             target="_blank"
@@ -82,7 +86,7 @@ const FooterItem = () => {
       </Typography.Paragraph>
       <div>
         <Typography.Text type="secondary">
-          Contact us at{" "}
+          { t("contact us at") }{" "}
           <Typography.Link href="mailto:support@saveplus.io" target="_blank">
             support@saveplus.io
           </Typography.Link>

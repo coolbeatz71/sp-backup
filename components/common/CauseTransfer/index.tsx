@@ -2,6 +2,7 @@ import React from "react";
 import numeral from "numeral";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { RESET_TRANSFER_ERROR } from "redux/action-types/cause/transfer";
 import { RESET_SINGLE_CAUSE_ERROR } from "redux/action-types/cause/getSingle";
 
@@ -25,6 +26,7 @@ const CauseTransfer: React.FC<Props> = ({
   actionSuccessful,
   handleSubmit,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const [steps] = React.useState(defaultSteps());
@@ -65,7 +67,7 @@ const CauseTransfer: React.FC<Props> = ({
                   fontSize: "1.5rem",
                 }}
               >
-                {steps[index].title}
+                {t(steps[index].title)}
               </Col>
               <Col>
                 <Buttons
@@ -104,11 +106,11 @@ const CauseTransfer: React.FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                },
+                }
               );
             },
             issue,
-            steps,
+            steps
           )}
         </Card>
       )}

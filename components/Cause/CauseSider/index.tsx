@@ -25,6 +25,7 @@ import getDonors from "redux/actions/cause/donors";
 
 import styles from "./index.module.scss";
 import { ALL_CAUSES_PATH } from "helpers/paths";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   cause: { [key: string]: any };
@@ -41,6 +42,8 @@ const CauseSider: React.FC<Props> = ({
   content,
   contact,
 }) => {
+
+  const { t } = useTranslation();
   const screens = Grid.useBreakpoint();
   const comparer = React.useRef<any>(null);
   const [visible, setVisible] = React.useState(false);
@@ -125,7 +128,7 @@ const CauseSider: React.FC<Props> = ({
                     <Col flex={1}>
                       <PreDonation slug={cause.slug}>
                         <Button type="primary" block>
-                          DONATE
+                          {t("donate")}
                         </Button>
                       </PreDonation>
                     </Col>
@@ -152,7 +155,7 @@ const CauseSider: React.FC<Props> = ({
                           ellipsis
                           style={{ marginBottom: 0 }}
                         >
-                          Current Balance
+                          {t("current balance")}
                         </Typography.Paragraph>
                       </Col>
                       <Col>
@@ -199,11 +202,11 @@ const CauseSider: React.FC<Props> = ({
             {!loading && !getError && (
               <>
                 {causeDonors.length === 0 ? (
-                  <Empty description="No donors yet" />
+                  <Empty description={t("no donors yet")} />
                 ) : (
                   <>
                     <Card.Meta
-                      title={`LIST OF DONORS (${total})`}
+                      title={`${t("list of donors")} (${total})`}
                       className={styles.cause_sider__content__primary_title}
                       data-meta-not-lg={!screens.lg}
                     />
@@ -247,7 +250,7 @@ const CauseSider: React.FC<Props> = ({
                             setVisible(true);
                           }}
                         >
-                          View All
+                          {t("view all")}
                         </Button>
                       </div>
                     )}

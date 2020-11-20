@@ -4,6 +4,7 @@ import { Row, Col, Menu, Input, Dropdown, Button, Checkbox, Grid } from "antd";
 import { useRouter } from "next/router";
 import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
 
@@ -30,11 +31,11 @@ const CategoryBar: React.FC<Props> = ({
   const [fetched, setFetched] = React.useState(true);
 
   const [feed_type, setFeed_type] = React.useState<any>(
-    query?.feed_type ? `${query?.feed_type}`.split(",") : [],
+    query?.feed_type ? `${query?.feed_type}`.split(",") : []
   );
 
   const [status, setStatus] = React.useState<any>(
-    query?.status ? `${query?.status}`.split(",") : [],
+    query?.status ? `${query?.status}`.split(",") : []
   );
 
   const [visible, setVisible] = React.useState(false);
@@ -82,7 +83,9 @@ const CategoryBar: React.FC<Props> = ({
     });
   };
 
-  const categoryTitles = { [baseUrl]: "All" };
+  const { t } = useTranslation();
+
+  const categoryTitles = { [baseUrl]: capitalize(t("all")) };
   categories.map(({ id, title }) => (categoryTitles[id] = title));
 
   const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
@@ -100,7 +103,7 @@ const CategoryBar: React.FC<Props> = ({
           type="primary"
           ghost={`${category_id}` === baseUrl}
         >
-          {categoryTitles[`${category_id}`]} <DownOutlined />
+          {capitalize(t(categoryTitles[`${category_id}`]))} <DownOutlined />
         </Button>
       </Dropdown>
     );
@@ -116,9 +119,11 @@ const CategoryBar: React.FC<Props> = ({
               navigate({ category_id: key });
             }}
           >
-            <Menu.Item key={baseUrl}>{categoryTitles[baseUrl]}</Menu.Item>
+            <Menu.Item key={baseUrl}>
+              {capitalize(t(categoryTitles[baseUrl]))}
+            </Menu.Item>
             {categories.map(({ id, title }) => (
-              <Menu.Item key={id}>{title}</Menu.Item>
+              <Menu.Item key={id}>{capitalize(t(title))}</Menu.Item>
             ))}
           </Menu>
         </Wrapper>
@@ -132,7 +137,7 @@ const CategoryBar: React.FC<Props> = ({
             setVisible(v);
             if (!v && !fetched) {
               setFeed_type(
-                query?.feed_type ? `${query?.feed_type}`.split(",") : [],
+                query?.feed_type ? `${query?.feed_type}`.split(",") : []
               );
               setStatus(query?.status ? `${query?.status}`.split(",") : []);
             }
@@ -162,7 +167,7 @@ const CategoryBar: React.FC<Props> = ({
                 <Menu.Item key={key}>
                   <Checkbox checked={feed_type.includes(key)} />
                   &nbsp;&nbsp;&nbsp;
-                  {capitalize(key)}
+                  {t(`${key}_causes`)}
                 </Menu.Item>
               ))}
               <Menu.Divider />
@@ -170,7 +175,7 @@ const CategoryBar: React.FC<Props> = ({
                 <Menu.Item key={key}>
                   <Checkbox checked={status.includes(key)} />
                   &nbsp;&nbsp;&nbsp;
-                  {capitalize(key)}
+                  {t(`${key}_causes`)}
                 </Menu.Item>
               ))}
               <Menu.Divider />
@@ -195,7 +200,7 @@ const CategoryBar: React.FC<Props> = ({
                     }}
                     disabled={feed_type.length === 0 && status.length === 0}
                   >
-                    Reset
+                    {t("reset")}
                   </Button>
                 </Col>
                 <Col>
@@ -208,7 +213,7 @@ const CategoryBar: React.FC<Props> = ({
                       feed_type.length === 0 && status.length === 0 && fetched
                     }
                   >
-                    OK
+                    {t("ok")}
                   </Button>
                 </Col>
               </Row>
@@ -227,7 +232,7 @@ const CategoryBar: React.FC<Props> = ({
       <Col data-search-col={scrolled !== "" ? "scrolled" : ""}>
         <Input
           size={scrolled !== "" ? "small" : "middle"}
-          placeholder="Search"
+          placeholder={t("search")}
           prefix={<SearchOutlined />}
           allowClear={screens.lg}
           value={search}

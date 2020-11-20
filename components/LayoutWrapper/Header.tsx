@@ -9,13 +9,15 @@ import {
   Typography,
   Skeleton,
 } from "antd";
+import { useTranslation } from "react-i18next";
 import logout from "redux/actions/Auth/logout";
 import _ from "lodash";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import styles from "./index.module.scss";
-import { DownOutlined } from "@ant-design/icons";
+import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Iuser } from "redux/initialStates/user";
+import updateProfile from "redux/actions/user/updateProfile";
 
 import SignUp from "components/modals/SignUp";
 import SignIn from "components/modals/SignIn";
@@ -25,9 +27,12 @@ import ChangePin from "components/modals/ChangePin";
 import CategoryBar from "./CategoryBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SvpType } from "helpers/context";
 import { ALL_CAUSES_PATH } from "helpers/paths";
+import { IRootState } from "redux/initialStates";
+import { getLanguage } from "helpers/getLanguage";
+import i18n from "constants/locales";
 
 const { Header: GenericHeader } = Layout;
 
@@ -56,6 +61,17 @@ const Header: React.FC<Props> = ({
   const [changePin, setChangePin] = React.useState(false);
   const dispatch = useDispatch();
 
+  const { loading } = useSelector(
+    (state: IRootState) => state.user.updateProfile
+  );
+
+  const userLang: "en" | "rw" = user.currentUser.data.language || getLanguage();
+
+  const languages = {
+    en: "English",
+    rw: "Kinyarwanda",
+  };
+
   const webkitBackdrop =
     typeof CSS !== "undefined" &&
     CSS.supports &&
@@ -64,6 +80,8 @@ const Header: React.FC<Props> = ({
     typeof CSS !== "undefined" &&
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
+
+  const { t } = useTranslation();
 
   return (
     <GenericHeader
@@ -97,7 +115,7 @@ const Header: React.FC<Props> = ({
                 onClick={() => router.push("/causes/create")}
                 data-create-button={!isHome ? "over" : scrolled}
               >
-                Create a cause
+                {t("create a cause")}
               </Button>
             </Col>
           )}
@@ -121,27 +139,62 @@ const Header: React.FC<Props> = ({
                 return setChangePin(true);
               }
 
+              if (key === "en" || key === "rw") {
+                if(user.currentUser.isLoggedin && user.currentUser.data.id){
+                  return dispatch(
+                    updateProfile({
+                      language: `${key}`,
+                    })
+                  );
+                }
+
+                localStorage.setItem("USER_LANG", `${key}`);
+                i18n.changeLanguage(`${key}`);
+                return;
+                
+              }
+
               if (key) router.push(`${key}`);
             }}
           >
-            {!isHome && <Menu.Item key="/">Home</Menu.Item>}
+           <Menu.SubMenu
+                disabled={loading}
+                title={
+                  <span>
+                    {languages[userLang]}{" "}
+                    {loading ? (
+                      <LoadingOutlined
+                        style={{
+                          marginLeft: 20,
+                        }}
+                      />
+                    ) : (
+                      <DownOutlined />
+                    )}
+                  </span>
+                }
+              >
+                <Menu.Item key="en">English</Menu.Item>
+                <Menu.Item key="rw">Kinyarwanda</Menu.Item>
+              </Menu.SubMenu>
             {svpProps.categories && svpProps.categories.length > 0 && (
               <Menu.SubMenu
                 title={
                   <span>
-                    Causes <DownOutlined />
+                    {t("causes")} <DownOutlined />
                   </span>
                 }
               >
-                <Menu.Item key={ALL_CAUSES_PATH}>All</Menu.Item>
+                <Menu.Item key={ALL_CAUSES_PATH}>{t("all")}</Menu.Item>
+
                 {svpProps.categories.map((category) => (
                   <Menu.Item key={`/causes?category_id=${category.id}`}>
-                    {category.title}
+                    {t(category.title)}
                   </Menu.Item>
                 ))}
               </Menu.SubMenu>
             )}
-            <Menu.Item key="/pricing">Pricing</Menu.Item>
+            <Menu.Item key="/pricing">{t("pricing")}</Menu.Item>
             {user.currentUser.isLoggedin && !user.currentUser.data.id && (
               <Menu.SubMenu
                 className={styles.layout__header__row__user}
@@ -191,13 +244,13 @@ const Header: React.FC<Props> = ({
                   </Typography.Text>
                 </Menu.Item>
                 <Menu.Divider />
-                <Menu.Item key="/profile">Profile</Menu.Item>
-                <Menu.Item key="/causes/create">New Cause</Menu.Item>
-                <Menu.Item key="/user/causes">My Causes</Menu.Item>
-                <Menu.Item key="change-pin">Change PIN</Menu.Item>
+                <Menu.Item key="/profile">{t("profile")}</Menu.Item>
+                <Menu.Item key="/causes/create">{t("new cause")}</Menu.Item>
+                <Menu.Item key="/user/causes">{t("my causes")}</Menu.Item>
+                <Menu.Item key="change-pin">{t("change pin")}</Menu.Item>
                 <Menu.Divider />
                 <Menu.Item key="sign-out" danger>
-                  Sign Out
+                  {t("sign out")}
                 </Menu.Item>
               </Menu.SubMenu>
             )}
@@ -215,7 +268,7 @@ const Header: React.FC<Props> = ({
                 ghost
                 onClick={() => showAuthDialog(true, "login")(dispatch)}
               >
-                SIGN IN
+                {t("sign_in_button")}
               </Button>
             </Col>
             <Col>
@@ -224,7 +277,7 @@ const Header: React.FC<Props> = ({
                 type="primary"
                 onClick={() => showAuthDialog(true, "signup")(dispatch)}
               >
-                SIGN UP
+                {t("sign_up_button")}
               </Button>
             </Col>
           </>

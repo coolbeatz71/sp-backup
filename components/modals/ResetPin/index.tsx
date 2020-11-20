@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Form, Input, Button, Divider, Alert, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -21,6 +22,8 @@ import formPinMatchValidator from "utils/validators/form-pin-match-validator";
 const ResetPin: React.FC<{}> = () => {
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
+
   const [ph, setPh] = React.useState("");
 
   const {
@@ -39,7 +42,7 @@ const ResetPin: React.FC<{}> = () => {
 
   return (
     <Modal
-      title="Reset PIN"
+      title={t("reset pin")}
       visible={state && ["pin-reset", "pin-reset-update"].includes(context)}
       onCloseClick={() => {
         showAuthDialog(false)(dispatch);
@@ -70,9 +73,9 @@ const ResetPin: React.FC<{}> = () => {
           )}
           <Form.Item>
             <Button type="primary" block htmlType="submit" loading={loading}>
-              RESET PIN
+              {t("reset pin").toUpperCase()}
             </Button>
-            <Divider>OR</Divider>
+            <Divider>{t("or").toUpperCase()}</Divider>
             <Button
               disabled={loading}
               type="text"
@@ -81,7 +84,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              Remember PIN? SIGN IN with <Icon type="save" />
+              {t("remember pin")} {t("sign in with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>
@@ -93,19 +96,17 @@ const ResetPin: React.FC<{}> = () => {
           }}
         >
           <Form.Item>
-            <Typography.Text>
-              Enter the verification code sent to your phone number
-            </Typography.Text>
+            <Typography.Text>{t("enter verification code")}</Typography.Text>
           </Form.Item>
           <Form.Item name="code">
-            <StackedLabel label="Verification Code" required>
+            <StackedLabel label={t("Verification Code")} required>
               <Input disabled={loadingUpdate} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
-          <Form.Item name="new_password" rules={formPinValidator("New PIN")}>
-            <StackedLabel label="New PIN">
+          <Form.Item name="new_password" rules={formPinValidator(t("new pin"))}>
+            <StackedLabel label={t("new pin")}>
               <Input.Password
-                placeholder="New PIN"
+                placeholder={t("new pin")}
                 autoComplete="new-password"
                 disabled={loadingUpdate}
                 maxLength={5}
@@ -116,9 +117,9 @@ const ResetPin: React.FC<{}> = () => {
             name="confirm_password"
             rules={formPinMatchValidator("new_password", "New PIN and Confirm")}
           >
-            <StackedLabel label="Confirm PIN">
+            <StackedLabel label={t("confirm pin")}>
               <Input.Password
-                placeholder="Confirm PIN"
+                placeholder={t("confirm pin")}
                 autoComplete="new-password"
                 disabled={loadingUpdate}
                 maxLength={5}
@@ -137,9 +138,9 @@ const ResetPin: React.FC<{}> = () => {
               htmlType="submit"
               loading={loadingUpdate}
             >
-              RESET PIN
+              {t("reset pin").toUpperCase()}
             </Button>
-            <Divider>OR</Divider>
+            <Divider>{t("or").toUpperCase()}</Divider>
             <Button
               disabled={loadingUpdate}
               type="text"
@@ -148,7 +149,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              Remember PIN? SIGN IN with <Icon type="save" />
+              {t("remember pin")} {t("sign in with")} <Icon type="save" />
             </Button>
           </Form.Item>
         </Form>

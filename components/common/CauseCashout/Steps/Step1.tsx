@@ -1,5 +1,6 @@
 import React from "react";
 import numeral from "numeral";
+import { useTranslation } from "react-i18next";
 import { Row, Col, Button, Input, Form, InputNumber, Alert } from "antd";
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
@@ -21,13 +22,17 @@ const Step1: React.FC<Props> = ({
   currentBalance,
   currency,
 }) => {
+  const { t } = useTranslation();
   const [isMaxError, setMaxError] = React.useState<boolean>(false);
 
-  const maxErrorMsg = `The maximum cashout amount is 2,000,000 ${currency} in 24 hours.`;
+  const maxErrorMsg = t("the maximum cashout is", {
+    amount: "2,000,000 RWF",
+  });
   const maxErrorDesc = (
     <>
-      For more details email us on{" "}
-      <a href="mailto:support@saveplus.io">support@saveplus.io</a> or call on
+      {t("for more details email us")}{" "}
+      <a href="mailto:support@saveplus.io">support@saveplus.io</a>{" "}
+      {t("or call on")}
       0735240491
     </>
   );
@@ -46,7 +51,7 @@ const Step1: React.FC<Props> = ({
     >
       <Form.Item>
         <span>
-          The balance is {numeral(currentBalance).format()} {currency}
+          {t("the balance is")} {numeral(currentBalance).format()} {currency}
         </span>
       </Form.Item>
 
@@ -55,11 +60,11 @@ const Step1: React.FC<Props> = ({
         rules={[
           {
             required: true,
-            message: "The amount is required!",
+            message: t("required"),
           },
           {
             pattern: /([1-9][\d,]{2,})$$/g,
-            message: "The amount should be valid with a minimum of 100 rwf!",
+            message: t("should be 100 minimum"),
           },
           {
             type: "number",
@@ -69,9 +74,9 @@ const Step1: React.FC<Props> = ({
         ]}
         validateTrigger={["onSubmit", "onBlur"]}
       >
-        <StackedLabel label="Amount" formatNumber>
+        <StackedLabel label={t("amount")} formatNumber>
           <InputNumber
-            placeholder="Amount"
+            placeholder={t("amount")}
             onKeyUp={(e) => {
               const amount = numeral(e.currentTarget.value).value();
               setMaxError(amount > 2000000);
@@ -95,19 +100,22 @@ const Step1: React.FC<Props> = ({
       <Form.Item
         name="reason"
         rules={[
-          { required: true, message: "Reason is required!" },
+          { required: true, message: t("required") },
           {
             min: 10,
             max: 100,
-            message: "Reason's length must be between 10 and 100 characters!",
+            message: t("reason character range", {
+              min: 10,
+              max: 100,
+            }),
           },
         ]}
       >
-        <StackedLabel label="Reason" charCount={[10, 100]}>
+        <StackedLabel label={t("reason")} charCount={[10, 100]}>
           <Input.TextArea
             className={styles.steps__text_area}
             autoSize={{ minRows: 1, maxRows: 5 }}
-            placeholder="Reason"
+            placeholder={t("reason")}
             maxLength={100}
           />
         </StackedLabel>
@@ -118,7 +126,7 @@ const Step1: React.FC<Props> = ({
           <Col>{/* */}</Col>
           <Col>
             <Button type="primary" htmlType="submit">
-              NEXT
+              {t("next").toUpperCase()}
             </Button>
           </Col>
         </Row>

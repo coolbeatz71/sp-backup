@@ -2,6 +2,7 @@ import React from "react";
 import { Popover, Typography } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import numeral from "numeral";
+import { useTranslation } from "react-i18next";
 
 import styles from "./index.module.scss";
 
@@ -45,6 +46,7 @@ const StarRating: React.FC<Props> = ({
   count = 0,
   noAction = false,
 }) => {
+  const { t } = useTranslation();
   const Wrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
     noAction ? (
       <React.Fragment>{children}</React.Fragment>
@@ -60,9 +62,9 @@ const StarRating: React.FC<Props> = ({
             <Stars value={value} />
             <Typography.Text>
               <Typography.Text strong>
-                {numeral(count).format()}
+                {numeral(count).format()} &nbsp;
               </Typography.Text>
-              {count === 1 ? " Person" : " People"}
+              {count === 1 ? t("person") : t("people")}
             </Typography.Text>
           </>
         }
@@ -72,7 +74,7 @@ const StarRating: React.FC<Props> = ({
     );
   return (
     <Wrap>
-      <Stars value={value} text={noAction ? "" : "Rating:"} />
+      <Stars value={value} text={noAction ? "" : `${t("rating")}:`} />
     </Wrap>
   );
 };

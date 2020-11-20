@@ -15,6 +15,8 @@ import { clear } from "redux/actions/cause/create";
 import styles from "./index.module.scss";
 import Link from "next/link";
 
+import { useTranslation } from "react-i18next";
+
 const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
 
 const genData = (data: any) => {
@@ -71,6 +73,8 @@ const Success = () => {
 
   const d = genData(data);
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.success}>
       <Layout title="Success!" isForm>
@@ -91,11 +95,11 @@ const Success = () => {
                 >
                   {data.status === "pending" ? (
                     <>
-                      Thank you!
+                      {t("thank you")}!
                       <br />
-                      This cause is Pending for
+                      {t("cause is pending for")}
                       <br />
-                      Verification
+                      {t("verification")}
                     </>
                   ) : (
                     "Cause Created Successfully!"
@@ -120,14 +124,14 @@ const Success = () => {
                     {data.status !== "pending" && (
                       <>
                         <Typography.Paragraph>
-                          <strong>SHARE THE CAUSE</strong>
+                          <strong>{t("share the cause").toUpperCase()}</strong>
                         </Typography.Paragraph>
                         <Typography.Paragraph
                           ellipsis
                           code
                           copyable={{ text: `${data.till_number}` }}
                         >
-                          Till Number #: {data.till_number}
+                          {t("till number")} #: {data.till_number}
                         </Typography.Paragraph>
                         <SharePopover
                           standalone
@@ -140,7 +144,7 @@ const Success = () => {
                       </>
                     )}
                     <Typography.Paragraph underline>
-                      <Link href="/">BACK HOME</Link>
+                      <Link href="/">{t("back home").toUpperCase()}</Link>
                     </Typography.Paragraph>
                     {data.status !== "pending" && (
                       <Typography.Paragraph

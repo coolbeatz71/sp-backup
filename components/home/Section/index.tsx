@@ -1,32 +1,13 @@
 import React from "react";
 
+import { useTranslation } from "react-i18next";
+
 import { Typography, Row, Col, Card, Button } from "antd";
 import Cause from "components/cards/Cause";
 import CauseSkeleton from "components/cards/CauseSkeleton";
 
 import styles from "./index.module.scss";
 import Link from "next/link";
-
-const howItWorksItems = [
-  {
-    icon: "/images/beans.svg",
-    title: "Sign Up on SAVE Plus",
-    description:
-      "With just your phone number, you can sign up and start a cause on SAVE Plus. With this account you can monitor your cause(s), donate to other cause(s) and collect raised funds seamlessly.",
-  },
-  {
-    icon: "/images/seed.svg",
-    title: "Create a Cause and Donate",
-    description:
-      "Create a cause and set the target of how much you want to fund raise with ease. Once done, the cause will be viewed publicly for public causes and privately for private causes.",
-  },
-  {
-    icon: "/images/forest.svg",
-    title: "Invite Others to Donate",
-    description:
-      "After successfully creating a cause, invite friends and family to start donating. Upon hitting the target, funds are automatically disbursed to the cause creator account (MTN MoMo or Airtel Money).",
-  },
-];
 
 interface Props {
   title: string;
@@ -49,6 +30,25 @@ const Section: React.FC<Props> = ({
   myCauses = false,
   more,
 }) => {
+  const { t } = useTranslation();
+
+  const howItWorksItems = [
+    {
+      icon: "/images/beans.svg",
+      title: t("sign up on save plus"),
+      description: t("how_it_works_1"),
+    },
+    {
+      icon: "/images/seed.svg",
+      title: t("create a cause and donate"),
+      description: t("how_it_works_2"),
+    },
+    {
+      icon: "/images/forest.svg",
+      title: t("invite others to donate"),
+      description: t("how_it_works_3"),
+    },
+  ];
   return error ? (
     <div />
   ) : (
@@ -64,7 +64,7 @@ const Section: React.FC<Props> = ({
       )}
       {myCauses && (
         <Typography.Title level={4}>
-          Track all your causes here
+          {t("track all your causes here")}
         </Typography.Title>
       )}
       {howItWorks && (

@@ -1,15 +1,17 @@
 import StepOrg from "../CreateCauseSteps/StepOrg";
 import { contactStep, StepType } from "../CreateCauseSteps";
 
+import i18n from "constants/locales";
+
 export const orgStep = {
   id: "StepOrg",
-  title: "Organization/NGO Details",
+  title: i18n.t("organization details"),
   component: (
     alerts: React.ReactElement | null,
     categories: any[],
     data: any,
     setForm: (form: any) => void,
-    cb: (data: any) => void,
+    cb: (data: any) => void
   ) => (
     <StepOrg
       alerts={alerts}
@@ -24,7 +26,7 @@ export const orgStep = {
 const handleOrg = (
   steps: StepType[],
   dt: any,
-  setSteps: (param: StepType[]) => void,
+  setSteps: (param: StepType[]) => void
 ) => {
   if (
     ![null, undefined, ""].includes(dt.affiliated) &&

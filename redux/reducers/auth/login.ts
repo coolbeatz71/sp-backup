@@ -8,7 +8,7 @@ import { Iauth } from "redux/initialStates/auth";
 
 export default (
   state: Iauth,
-  { type, payload }: { type: string; payload: any },
+  { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
     case LOGIN_START:
