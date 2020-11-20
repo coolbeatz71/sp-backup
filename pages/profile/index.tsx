@@ -194,7 +194,15 @@ const Profile: React.FC<{}> = () => {
                   <Col span={12}>
                     <Form.Item
                       name="first_name"
-                      rules={[{ required: true, min: 3 }]}
+                      rules={[
+                        {
+                          required: true,
+                          min: 3,
+                          message: t("should be min", {
+                            min: 3,
+                          }),
+                        },
+                      ]}
                       validateTrigger={["onSubmit", "onBlur"]}
                     >
                       <StackedLabel label={t("first_name")} required>
@@ -206,7 +214,15 @@ const Profile: React.FC<{}> = () => {
                     <Form.Item
                       name="last_name"
                       validateTrigger={["onSubmit", "onBlur"]}
-                      rules={[{ required: true, min: 3 }]}
+                      rules={[
+                        {
+                          required: true,
+                          min: 3,
+                          message: t("should be min", {
+                            min: 3,
+                          }),
+                        },
+                      ]}
                     >
                       <StackedLabel label={t("last_name")} required>
                         <Input disabled={loading} />

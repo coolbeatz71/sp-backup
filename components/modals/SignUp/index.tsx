@@ -24,6 +24,7 @@ import StackedLabel from "components/common/StackedLabel";
 import Icon from "components/common/CustomIcon";
 
 import formPinValidator from "utils/validators/form-pin-validator";
+import formPhoneValidator from "utils/validators/form-phone-validator";
 
 const SignUp: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -109,21 +110,52 @@ const SignUp: React.FC<{}> = () => {
         >
           <Row gutter={24}>
             <Col span={12}>
-              <Form.Item name="first_name">
+              <Form.Item
+                name="first_name"
+                rules={[
+                  {
+                    required: true,
+                    message: t("required"),
+                  },
+                  {
+                    min: 3,
+                    message: t("should be min", {
+                      min: 3,
+                    }),
+                  },
+                ]}
+              >
                 <StackedLabel label={t("first_name")} required>
                   <Input autoComplete="first_name" disabled={loading} />
                 </StackedLabel>
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="last_name">
+              <Form.Item
+                name="last_name"
+                rules={[
+                  {
+                    required: true,
+                    message: t("required"),
+                  },
+                  {
+                    min: 3,
+                    message: t("should be min", {
+                      min: 3,
+                    }),
+                  },
+                ]}
+              >
                 <StackedLabel label={t("last_name")} required>
                   <Input autoComplete="last_name" disabled={loading} />
                 </StackedLabel>
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="phone_number">
+          <Form.Item
+            name="phone_number"
+            rules={formPhoneValidator(t("phone number"))}
+          >
             <StackedLabel label={t("phone number")} phone="+250" required>
               <Input
                 autoComplete="phone_number"

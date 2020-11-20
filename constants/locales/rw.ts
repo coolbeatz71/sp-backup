@@ -354,4 +354,5 @@ export default {
   save_and_plus_conn_desc:
     "Save Plus na Save n'abavukanyi bakozwe sosiyete imwe. Ushobora kwinjira muri buri sisiteme ukoresheje ibyangombwa bimwe nta nkomyi cyangwa ukagira konti imwe na sisteme",
   popular_causes: "Ibikunzwe",
+  "should be min": "Rigomba kuba rifite nibura {{min}}!",
 };
