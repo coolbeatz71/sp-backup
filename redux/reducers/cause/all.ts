@@ -31,6 +31,7 @@ export default (state: ICause, { type, payload }: Iaction) => {
           data: payload,
           error: null,
           fetched: true,
+          meta: payload.meta,
         },
       };
     case GET_ALL_CAUSES_ERROR:

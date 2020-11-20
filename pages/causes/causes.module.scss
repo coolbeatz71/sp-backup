@@ -1,38 +1,10 @@
-@import "styles/_variables";
-@import "styles/_mixins";
+@import "../../styles/colors.scss";
+@import "../../styles/dimensions.scss";
 
-.allCauses {
-  padding-top: 5rem;
-  min-height: calc(100vh - (68.5px));
-  @include mediaMd {
-    padding-top: 7.5rem;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3rem;
-    padding: 2em 8vw;
-    background: url("../../public/home-abstract-bg.svg");
-    background-size: cover;
-
-    @include mediaLg {
-      grid-gap: 2rem;
-    }
-
-    @include mediaMd {
-      display: block !important;
-      padding: 0 1.5rem;
-    }
-  }
-
-  &__illustration {
-    padding: 1em 4em;
-    margin: 4rem auto;
-
-    @include mediaMd {
-      padding: 0;
-      margin: auto;
-    }
+.causes {
+  &__pagination {
+    border: 1px solid $border;
+    padding: $padding;
+    margin: 0 !important;
   }
 }

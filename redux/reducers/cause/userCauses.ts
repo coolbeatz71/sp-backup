@@ -31,6 +31,7 @@ export default (state: ICause, { type, payload }: IAction) => {
           data: payload,
           error: null,
           fetched: true,
+          meta: payload.meta,
         },
       };
     case GET_USER_CAUSES_ERROR:

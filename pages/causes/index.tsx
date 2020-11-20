@@ -9,7 +9,7 @@ import { isEmpty, find, upperFirst } from "lodash";
 
 import validator from "validator";
 
-import { Row, Col, Result, Tag } from "antd";
+import { Row, Col, Result, Tag, Pagination, Grid } from "antd";
 
 import { SvpType } from "helpers/context";
 
@@ -20,6 +20,7 @@ import Section from "components/home/Section";
 
 import LayoutWrapper from "components/LayoutWrapper";
 import { PRIMARY } from "constants/colors";
+import styles from "./causes.module.scss";
 
 interface Props {
   svpProps: SvpType;
@@ -32,14 +33,17 @@ const AllCauses: React.FC<Props> = ({
   myCauses = false,
   baseUrl = "/causes",
 }) => {
+  const limit = 12;
   const dispatch = useDispatch();
+  const screens = Grid.useBreakpoint();
   const { asPath, query, pathname, push } = useRouter();
   const [activeFilters, setActiveFilters] = React.useState<string[]>();
 
   const {
     data,
-    /*loading,*/ fetched,
     error,
+    fetched,
+    meta: { total, page, pages },
   } = useSelector(({ cause: { all, user } }: IRootState) =>
     myCauses ? user : all,
   );
@@ -50,15 +54,17 @@ const AllCauses: React.FC<Props> = ({
   });
 
   useEffect(() => {
+    window?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
+
+  useEffect(() => {
     setActiveFilters(getActiveFilters());
   }, [query, asPath, pathname]);
 
   useEffect(() => {
-    if (myCauses) {
-      getUserCauses(asPath)(dispatch);
-    } else {
-      getAllCauses(asPath)(dispatch);
-    }
+    myCauses
+      ? getUserCauses(asPath)(dispatch, { limit })
+      : getAllCauses(asPath)(dispatch, { limit });
   }, [asPath, dispatch]);
 
   const getActiveFilters = () => {
@@ -93,6 +99,23 @@ const AllCauses: React.FC<Props> = ({
         query: { ...query, [key]: removeFilter },
       });
     }
+  };
+
+  const onPageChange = (page: number) => {
+    myCauses
+      ? getUserCauses(asPath)(dispatch, { limit, page })
+      : getAllCauses(asPath)(dispatch, { limit, page });
+  };
+
+  const renderPagination = (
+    _current: number,
+    type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
+    originalElement: React.ReactNode,
+  ) => {
+    if (type === "prev" && screens.md) return <a>Previous</a>;
+    if (type === "next" && screens.md) return <a>Next</a>;
+
+    return originalElement;
   };
 
   return (
@@ -181,6 +204,24 @@ const AllCauses: React.FC<Props> = ({
                 <Cause cause={cause} />
               </Col>
             ))}
+          </Row>
+        )}
+
+        {total && pages > 1 && (
+          <Row
+            align="middle"
+            justify="center"
+            gutter={[24, 48]}
+            data-section-row={true}
+            className={styles.causes__pagination}
+          >
+            <Pagination
+              total={total}
+              pageSize={limit}
+              hideOnSinglePage
+              onChange={onPageChange}
+              itemRender={renderPagination}
+            />
           </Row>
         )}
       </div>

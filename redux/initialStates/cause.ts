@@ -10,6 +10,7 @@ export default {
     loading: false,
     error: null,
     fetched: false,
+    meta: {},
   },
   all_transfer: {
     data: {},
@@ -28,6 +29,7 @@ export default {
     loading: false,
     error: null,
     fetched: false,
+    meta: {},
   },
   create: {
     data: {},
@@ -86,10 +88,22 @@ export interface ICauseFeed {
 }
 
 export interface ICause {
-  all: ICauseFeed;
   all_transfer: ICauseFeed;
   feed: ICauseFeed;
-  user: ICauseFeed;
+  all: {
+    data: { [key: string]: any };
+    loading: boolean;
+    error: any;
+    fetched: boolean;
+    meta: { [key: string]: any };
+  };
+  user: {
+    data: { [key: string]: any };
+    loading: boolean;
+    error: any;
+    fetched: boolean;
+    meta: { [key: string]: any };
+  };
   create: {
     data: { [key: string]: any };
     croppedImage: UploadFile[];
