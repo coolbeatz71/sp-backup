@@ -11,7 +11,7 @@ const Step3: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
   const [form] = Form.useForm();
 
   const { loading, error } = useSelector(
-    ({ cause: { transfer } }: IRootState) => transfer,
+    ({ cause: { transfer } }: IRootState) => transfer
   );
 
   const { t } = useTranslation();
@@ -54,6 +54,7 @@ const Step3: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
             maxLength={5}
             placeholder="PIN"
             type="password"
+            autoComplete="new-password"
             disabled={loading}
           />
         </StackedLabel>
