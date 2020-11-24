@@ -19,6 +19,7 @@ import { format } from "dev-rw-phone";
 import EditModal from "components/modals/EditModal";
 import CauseCard from "components/cards/Cause";
 import NotFound from "pages/404";
+import getVideoId from "get-video-id";
 
 interface Props {
   cause: { [key: string]: any };
@@ -39,12 +40,12 @@ const SingleCause: NextPage<Props> = ({
   const dispatch = useDispatch();
 
   const { loading, data, error: _err, accessCode } = useSelector(
-    ({ cause: { single } }: IRootState) => single
+    ({ cause: { single } }: IRootState) => single,
   );
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ const SingleCause: NextPage<Props> = ({
     if (!fetched && !cause.id) {
       getSingle(
         cause?.slug,
-        accessCode ? { access_code: accessCode } : {}
+        accessCode ? { access_code: accessCode } : {},
       )(dispatch);
       setFetched(true);
     }
@@ -93,6 +94,14 @@ const SingleCause: NextPage<Props> = ({
   const contactEmail = cause.organization
     ? cause.organization.email
     : cause.contact_email;
+
+  const getYoutubeVideoID = () => {
+    if (typeof cause.video === "string" && validator.isURL(cause.video)) {
+      const { id, service }: any = getVideoId(cause.video);
+      return service === "youtube" && id;
+    }
+    return false;
+  };
 
   const contact = (
     <>
@@ -130,7 +139,17 @@ const SingleCause: NextPage<Props> = ({
       </Typography.Paragraph>
       {typeof cause.video === "string" && validator.isURL(cause.video) && (
         <Typography.Paragraph className={styles.dashboard__content__video}>
-          <ReactPlayer controls url={cause.video} width="100%" />
+          {getYoutubeVideoID() ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${getYoutubeVideoID()}`}
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allowFullScreen
+            />
+          ) : (
+            <ReactPlayer controls url={cause.video} width="100%" />
+          )}
         </Typography.Paragraph>
       )}
       <h4 className={styles.dashboard__content__title}>{t("use of funds")}</h4>
