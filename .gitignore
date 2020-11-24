@@ -12,5 +12,7 @@ cypress/
 public/sw.js
 
 .vscode/
-/public/workbox-*
 report*
+
+**/public/workbox-*.js
+**/public/sw.js
