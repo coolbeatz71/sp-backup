@@ -146,6 +146,7 @@ const LayoutWrapper: React.FC<Props> = ({
         />
         <link href="/robots.txt" />
         <link rel="preconnect" href={NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL} />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <Banner
         className={styles.layout__banner}
