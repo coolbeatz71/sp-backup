@@ -140,7 +140,7 @@ const Header: React.FC<Props> = ({
               }
 
               if (key === "en" || key === "rw") {
-                if(user.currentUser.isLoggedin && user.currentUser.data.id){
+                if (user.currentUser.isLoggedin && user.currentUser.data.id) {
                   return dispatch(
                     updateProfile({
                       language: `${key}`,
@@ -151,32 +151,32 @@ const Header: React.FC<Props> = ({
                 localStorage.setItem("USER_LANG", `${key}`);
                 i18n.changeLanguage(`${key}`);
                 return;
-                
               }
 
               if (key) router.push(`${key}`);
             }}
           >
-           <Menu.SubMenu
-                disabled={loading}
-                title={
-                  <span>
-                    {languages[userLang]}{" "}
-                    {loading ? (
-                      <LoadingOutlined
-                        style={{
-                          marginLeft: 20,
-                        }}
-                      />
-                    ) : (
-                      <DownOutlined />
-                    )}
-                  </span>
-                }
-              >
-                <Menu.Item key="en">English</Menu.Item>
-                <Menu.Item key="rw">Kinyarwanda</Menu.Item>
-              </Menu.SubMenu>
+            {!isHome && <Menu.Item key="/">{t("home")}</Menu.Item>}
+            <Menu.SubMenu
+              disabled={loading}
+              title={
+                <span>
+                  {languages[userLang]}{" "}
+                  {loading ? (
+                    <LoadingOutlined
+                      style={{
+                        marginLeft: 20,
+                      }}
+                    />
+                  ) : (
+                    <DownOutlined />
+                  )}
+                </span>
+              }
+            >
+              <Menu.Item key="en">English</Menu.Item>
+              <Menu.Item key="rw">Kinyarwanda</Menu.Item>
+            </Menu.SubMenu>
             {svpProps.categories && svpProps.categories.length > 0 && (
               <Menu.SubMenu
                 title={
