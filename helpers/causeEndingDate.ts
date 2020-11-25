@@ -1,4 +1,5 @@
 import moment from "moment";
+import { upperFirst } from "lodash";
 import i18n from "constants/locales";
 
 const getCauseEndingDate = (causeEndDate: string) => {
@@ -6,7 +7,11 @@ const getCauseEndingDate = (causeEndDate: string) => {
   const ended = notEnded ? "" : "Ended ";
 
   const ddd = ended
-    ? `${i18n.t("ended")} ${moment(causeEndDate).fromNow(notEnded)}`
+    ? `${upperFirst(
+        i18n.t("ended", {
+          date: moment(causeEndDate).fromNow(notEnded),
+        })
+      )}`
     : i18n.t("togo", {
         date: moment(causeEndDate).fromNow(notEnded),
       });

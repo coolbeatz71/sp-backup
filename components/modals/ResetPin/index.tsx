@@ -18,6 +18,7 @@ import StackedLabel from "components/common/StackedLabel";
 import Icon from "components/common/CustomIcon";
 import formPinValidator from "utils/validators/form-pin-validator";
 import formPinMatchValidator from "utils/validators/form-pin-match-validator";
+import formPhoneValidator from "utils/validators/form-phone-validator";
 
 const ResetPin: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -57,8 +58,11 @@ const ResetPin: React.FC<{}> = () => {
             setPh(fph);
           }}
         >
-          <Form.Item name="phone_number">
-            <StackedLabel label="Phone Number" phone="+250" required>
+          <Form.Item
+            name="phone_number"
+            rules={formPhoneValidator(t("phone number"))}
+          >
+            <StackedLabel label={t("phone number")} phone="+250" required>
               <Input
                 autoComplete="phone_number"
                 type="tel"

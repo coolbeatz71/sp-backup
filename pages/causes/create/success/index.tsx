@@ -51,7 +51,7 @@ const genData = (data: any) => {
 
 const Success = () => {
   const { data: success } = useSelector(
-    (state: IRootState) => state.cause.create,
+    (state: IRootState) => state.cause.create
   );
 
   const [data, setData] = React.useState<any>(success);
@@ -102,7 +102,7 @@ const Success = () => {
                       {t("verification")}
                     </>
                   ) : (
-                    "Cause Created Successfully!"
+                    t("cause created successfully")
                   )}
                 </Typography.Title>
                 <Card

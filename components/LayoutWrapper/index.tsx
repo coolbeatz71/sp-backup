@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 import getPlatformUrl from "helpers/getPlatformUrl";
 
 import { HomeOutlined } from "@ant-design/icons";
@@ -55,6 +56,7 @@ const LayoutWrapper: React.FC<Props> = ({
   isForm = false,
   children,
 }) => {
+  const { t } = useTranslation();
   const { svpProps } = React.useContext(Context);
   const router = useRouter();
   const screens = useBreakpoint();
@@ -63,7 +65,7 @@ const LayoutWrapper: React.FC<Props> = ({
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
   );
 
   const dispatch = useDispatch();
@@ -74,7 +76,7 @@ const LayoutWrapper: React.FC<Props> = ({
         ? "over"
         : window.pageYOffset > 80
         ? "scrolled"
-        : "",
+        : ""
     );
   };
 
@@ -183,7 +185,7 @@ const LayoutWrapper: React.FC<Props> = ({
             title="Oooops!"
             subTitle={
               <>
-                Sorry, something went wrong.
+                {t("something wet wrong")}
                 <br />
                 {svpProps.error || user.currentUser.error.message}
               </>

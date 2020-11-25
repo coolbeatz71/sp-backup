@@ -181,7 +181,7 @@ export default {
   "your causes": "Your causes",
   private: "Private",
   togo: "{{date}} to Go",
-  ended: "Ended",
+  ended: "Ended {{date}}",
   "you can edit this cause once": "You can edit this cause only once",
   edit: "Edit",
   "your account has been created": "Your account has been created successfully",
@@ -354,4 +354,8 @@ export default {
   popular_causes: "Popular",
   "should be min": "Should be {{min}} minimum!",
   note: "Note",
+  "something went wrong":
+    "Sorry, something went wrong, please try again later!",
+  "no causes were found": "Sorry, no causes were found!",
+  "cause created successfully": "Igikorwa cyaremwe neza!",
 };

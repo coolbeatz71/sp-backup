@@ -165,7 +165,7 @@ const AllCauses: React.FC<Props> = ({
             title="Oooops!"
             subTitle={
               <div>
-                Something went wrong.
+                {t("something went wrong")}
                 <br />
                 {error.message}
               </div>
@@ -190,7 +190,7 @@ const AllCauses: React.FC<Props> = ({
           <Result
             status="404"
             title="404"
-            subTitle="Sorry, No causes were found"
+            subTitle={t("no causes were found")}
           />
         ) : (
           <Row data-section-row={data.length} gutter={[24, 48]}>
