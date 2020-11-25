@@ -94,7 +94,7 @@ export default {
   "view cause details": "Reba ibisobanuro birambuye by'igikorwa",
   field: "Icyiciro",
   "supported payment methods":
-    "Kugeza ubu twemera inkunga zinyujizwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
+    "Twemera inkunga zinyujizwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
   proceed: "Komeza",
   "donate for a cause": "Tanga inkunga ku gikorwa",
   "thank you for your support": "Murakoze ku bufasha bwanyu",
@@ -355,4 +355,5 @@ export default {
     "Save Plus na Save n'abavukanyi bakozwe sosiyete imwe. Ushobora kwinjira muri buri sisiteme ukoresheje ibyangombwa bimwe nta nkomyi cyangwa ukagira konti imwe na sisteme",
   popular_causes: "Ibikunzwe",
   "should be min": "Rigomba kuba rifite nibura {{min}}!",
+  note: "Icyitonderwa",
 };
