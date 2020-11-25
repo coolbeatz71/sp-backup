@@ -353,4 +353,5 @@ export default {
     "Save Plus and Save are sister products owned by the same company. You can sign in to both products with the same credentials seamlessly or have an account with only one product.",
   popular_causes: "Popular",
   "should be min": "Should be {{min}} minimum!",
+  note: "Note",
 };

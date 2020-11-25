@@ -117,7 +117,7 @@ const Step4: React.FC<Props> = ({
       </Form.Item>
       {data.isPrivate && (
         <Form.Item>
-          <strong>Note:</strong>{" "}
+          <strong>{t("note")}:</strong>{" "}
           {t("this cause will not be published publicly")}
         </Form.Item>
       )}
