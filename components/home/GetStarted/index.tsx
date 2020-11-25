@@ -18,10 +18,10 @@ const GetStarted = () => {
   const user = useSelector((state: IRootState) => state.user);
   const [refresh, setRefresh] = React.useState(1);
   const [status, setStatus] = React.useState("");
-  const [btn, setBtn] = React.useState(t("get started").toUpperCase());
+  const [btn, setBtn] = React.useState("get started");
 
   React.useEffect(() => {
-    setBtn(user.currentUser.isLoggedin ? t("create a cause").toUpperCase() : t("get started").toUpperCase());
+    setBtn(user.currentUser.isLoggedin ? "create a cause" : "get started");
   }, [user.currentUser.isLoggedin]);
 
   return (
@@ -64,7 +64,7 @@ const GetStarted = () => {
                 else showAuthDialog(true, "signup")(dispatch);
               }}
             >
-              {btn}
+              {t(btn)}
             </Button>
           </div>
         </Col>
