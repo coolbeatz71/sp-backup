@@ -44,8 +44,6 @@ interface Props {
   isDonate?: boolean;
 }
 
-
-
 interface FooterCoverProps {
   slug: string;
   active: boolean;
@@ -88,7 +86,7 @@ const Cause: React.FC<Props> = ({
   };
 
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none",
+    !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -256,7 +254,9 @@ const Cause: React.FC<Props> = ({
             )}
           </div>
         )}
-        {cause.access === "private" && <Badge color="#e150fd" text="Private" />}
+        {cause.access === "private" && (
+          <Badge color="#e150fd" text={t("private")} />
+        )}
         {!isView && (
           <>
             <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
@@ -274,7 +274,8 @@ const Cause: React.FC<Props> = ({
               <Row justify="space-between">
                 <Col span={16}>
                   <Typography.Text ellipsis className={styles.progress_amount}>
-                    {numeral(cause.raised_amount).format("0,0.[00]")} RWF {t("raised")}
+                    {numeral(cause.raised_amount).format("0,0.[00]")} RWF{" "}
+                    {t("raised")}
                   </Typography.Text>
                 </Col>
                 <Col>
@@ -296,7 +297,8 @@ const Cause: React.FC<Props> = ({
               <Row justify="space-between">
                 <Col className={styles.card__progress__item__goal}>
                   <Typography.Text ellipsis className={styles.progress_amount}>
-                    {numeral(cause.target_amount).format("0,0.[00]")} RWF {t("goal")}
+                    {numeral(cause.target_amount).format("0,0.[00]")} RWF{" "}
+                    {t("goal")}
                   </Typography.Text>
                 </Col>
                 <Col>

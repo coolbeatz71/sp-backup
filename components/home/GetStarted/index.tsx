@@ -64,7 +64,7 @@ const GetStarted = () => {
                 else showAuthDialog(true, "signup")(dispatch);
               }}
             >
-              {t(btn)}
+              {t(btn).toUpperCase()}
             </Button>
           </div>
         </Col>

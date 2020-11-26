@@ -94,7 +94,7 @@ export default {
   "view cause details": "Reba ibisobanuro birambuye by'igikorwa",
   field: "Icyiciro",
   "supported payment methods":
-    "Twemera inkunga zinyujizwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
+    "Kugeza ubu twemera inkunga zinyujizwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
   proceed: "Komeza",
   "donate for a cause": "Tanga inkunga ku gikorwa",
   "thank you for your support": "Murakoze ku bufasha bwanyu",
@@ -117,10 +117,10 @@ export default {
     "Dufite ibiciro binogeye buri wese. Turizera ko ibiciro byacu byoroheje kandi biboneye.",
   "pricing structure apply date":
     "Ibi biciro bizatangira gukurikizwa kuva kuya 1 Mutarama 2021.",
-  free: "Ni ubuntu",
+  free: "Ubuntu",
   "for cashout above 30 days": "Igihe amafaranga abikujwe hejuru y'iminsi 30",
   cash_out_above_details:
-    "Ku bikorwa bimara iminsi irenze 30, amafaranga abikuzwa gusa iyo igikorwa kirangiye",
+    "Menya ko Ku bikorwa bimara iminsi irenze 30, amafaranga abikuzwa gusa iyo igikorwa kirangiye",
   "for cashout below 30 days": "Igihe amafaranga abikujwe munsi y'iminsi 30",
   cash_out_below_details:
     "Ku bikorwa bimara iminsi iri munsi ya 30, hakatwa amafaranga angana na 2% asigaye agahabwa uwakoze igikorwa",
@@ -128,9 +128,9 @@ export default {
   "update your personal details": "Vugurura amakuru yawe bwite",
   profile_complete:
     "Umwirondoro wawe wuzuye ku kigero kingana na {{percentage}}%",
-  "national id": "Indangamuntu cyangwa nimero ya passport",
+  "national id": "Indangamuntu cg urupapuro rw'abajya mu mahanga",
   update: "Vugurura",
-  "welcome back": "Murakaza neza!",
+  "welcome back": "Murakaza neza nanone!",
   pin: "PIN",
   sign_in: "Injiramo",
   or: "Cyangwa",
@@ -155,13 +155,13 @@ export default {
   "this cause has been cancelled": "Iki gikorwa cyarahagaze",
   all: "Byose",
   popular: "Ibikunzwe",
-  "currently we are accepting": "Kugeza ubu twemera inkunga zinyujizwe kuri",
+  "currently we are accepting": "Twemera inkunga zinyujizwe kuri",
   and: "na",
   "visas coming soon": "VISA, Mastercard na PayPal nabyo ni vuba aha!",
   post_airtel: "gusa",
   mobile_apps_coming_soon: "App ya Android & iOS ziraza vuba",
   "amount to donate": "Amafaranga",
-  "rate this cause": "VUga kuri iki gikorwa",
+  "rate this cause": "Shyira igipimo kuri iki gikorwa",
   "your name will not be displayed": "Amazina yawe ntazagaragara",
   "this cause till number is": "Nimero iranga iki gikorwa ni",
   "make your donation using ussd code": "Tanga inkunga ukoresheje kode",
@@ -180,7 +180,7 @@ export default {
   "your causes": "Ibikorwa byawe",
   private: "Ni ibanga",
   togo: "Hasigaye {{date}}",
-  ended: "Cyarangiye",
+  ended: " {{date}} kirangiye",
   "you can edit this cause once":
     "Wahindura ibiranga iki gikorwa incuro imwe gusa",
   edit: "Vugurura",
@@ -356,4 +356,7 @@ export default {
   popular_causes: "Ibikunzwe",
   "should be min": "Rigomba kuba rifite nibura {{min}}!",
   note: "Icyitonderwa",
+  "something went wrong": "Ihangane ntibyagenze neza, mugerageze mu kanya!",
+  "no causes were found": "Ihangane, Ibikorwa ntibibonetse!",
+  "cause created successfully": "Cause created successfully!",
 };

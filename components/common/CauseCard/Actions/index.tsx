@@ -95,7 +95,7 @@ const Action: FC<ActionProps> = ({
     <div className={styles.causeCard__body__content__head}>
       {access === "private" && (
         <div className={styles.causeCard__body__content__head__private}>
-          <Badge color="#e150fd" text="Private" />
+          <Badge color="#e150fd" text={t("private")} />
         </div>
       )}
       <div className={styles.causeCard__body__content__head__actionIcon}>
