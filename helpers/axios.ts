@@ -1,6 +1,7 @@
 import axios from "axios";
 import getToken from "helpers/getToken";
 import { INVALID_TOKEN } from "constants/errorCodes";
+import { getLanguage } from "helpers/getLanguage";
 
 const token = getToken();
 
@@ -24,6 +25,7 @@ const splApi = axios.create({
   headers: {
     Authorization: token,
     platform: "save_plus_web",
+    language: getLanguage(),
   },
 });
 

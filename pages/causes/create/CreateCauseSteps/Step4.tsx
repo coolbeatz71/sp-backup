@@ -61,8 +61,8 @@ const Step4: React.FC<Props> = ({
         name="payment_account_name"
         rules={[{ required: true, message: t("payment method is required") }]}
       >
-        <StackedLabel label="Select Payment Method" select>
-          <Select placeholder="Payment Method">
+        <StackedLabel label={t("select payment method")} select>
+          <Select placeholder={t("select payment method")}>
             <Select.Option key="MTN_Rwanda" value="MTN_Rwanda">
               MTN Mobile Money
             </Select.Option>
