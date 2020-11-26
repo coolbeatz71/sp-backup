@@ -327,12 +327,12 @@ export default {
   "what is save plus bill": "Nimero y'igikorwa kuri save plus ni iy'iki?",
   save_plus_bill_desc:
     "Nimero y'igikorwa iba ari imibare 6 yihariye igenewe igikorwa runaka kuri Save Plus. Iyo nimero ikoreshwa n'abaterankunga mugutera inkunga binyuze kuri {{link}} cyangwa kode ngufi {{code}}",
-  "how is the donation process": "Uburyo bwo gutanga inkunga bumeze bute?",
+  "how is the donation process": "Uburyo bwo gutanga inkunga buteye bute?",
   donation_process_desc:
     "Watera inkunga igikorwa ukanze kuri {{donateButton}}  yicyo gikorwa, ugashyiramo umubare w'amafaranga ushaka gutanga, n'ibindi bisabwa.Ushobora gutera inkunga kugiti cyawe cyangwa nk'umuryango mugari. Wemerewe gutera inkunga bitari kukarubanda, bishatse kuvuga ko amazina yawe adashyirwa ahagaragara ku rutonde rw'abaterankunga. Tubibutse ko gutera inkunga bitari kukarubanda byemerewe umuntu ku giti cye.",
   "how secure is the payment": "Umutekano w'uburyo bwo kwibushyura urizewe?",
   payment_security_desc:
-    "Uburyo bwacu bwacu bwo kwishyura bufite umutekano, ntugire impungenge,amakuru y'ubwishyu bwawe ararinzwe.Inkunga yawe igezwa k'umugenerwagikorwa uko bikwiye.",
+    "Uburyo bwacu bwo kwishyura bufite umutekano, ntugire impungenge,amakuru y'ubwishyu bwawe ararinzwe.Inkunga yawe igezwa k'umugenerwagikorwa uko bikwiye.",
   "how often can i donate": "Nshobora gutanga inkunga inshuro zingahe?",
   how_donate_often_desc:
     "Ushobora gutera inkunga inshuro zose ushaka kugikorwa runaka cyangwa icyo aricyo cyose. Inkunga yose irakirwa igihe cyose igikorwa kirigukora.",
