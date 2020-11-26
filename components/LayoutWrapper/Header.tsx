@@ -62,7 +62,7 @@ const Header: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   const { loading } = useSelector(
-    (state: IRootState) => state.user.updateProfile
+    (state: IRootState) => state.user.updateProfile,
   );
 
   const userLang: "en" | "rw" = user.currentUser.data.language || getLanguage();
@@ -144,7 +144,7 @@ const Header: React.FC<Props> = ({
                   return dispatch(
                     updateProfile({
                       language: `${key}`,
-                    })
+                    }),
                   );
                 }
 
@@ -159,6 +159,7 @@ const Header: React.FC<Props> = ({
             {!isHome && <Menu.Item key="/">{t("home")}</Menu.Item>}
             <Menu.SubMenu
               disabled={loading}
+              popupClassName="header-row-subMenu"
               title={
                 <span>
                   {languages[userLang]}{" "}
@@ -184,6 +185,7 @@ const Header: React.FC<Props> = ({
                     {t("causes")} <DownOutlined />
                   </span>
                 }
+                popupClassName="header-row-subMenu"
               >
                 <Menu.Item key={ALL_CAUSES_PATH}>{t("all")}</Menu.Item>
 

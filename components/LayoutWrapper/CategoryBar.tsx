@@ -7,7 +7,6 @@ import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
-
 import CustomIcon from "components/common/CustomIcon";
 
 interface Props {
@@ -31,14 +30,25 @@ const CategoryBar: React.FC<Props> = ({
   const [fetched, setFetched] = React.useState(true);
 
   const [feed_type, setFeed_type] = React.useState<any>(
-    query?.feed_type ? `${query?.feed_type}`.split(",") : []
+    query?.feed_type ? `${query?.feed_type}`.split(",") : [],
   );
 
   const [status, setStatus] = React.useState<any>(
-    query?.status ? `${query?.status}`.split(",") : []
+    query?.status ? `${query?.status}`.split(",") : [],
   );
 
   const [visible, setVisible] = React.useState(false);
+
+  const scrollHandler = () => {
+    if (window.pageYOffset > 200) setVisible(false);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, [scrollHandler]);
 
   React.useEffect(() => {
     setStatus(query?.status ? `${query?.status}`.split(",") : []);
@@ -97,6 +107,7 @@ const CategoryBar: React.FC<Props> = ({
         placement="bottomLeft"
         overlay={children}
         trigger={["click"]}
+        overlayStyle={{ position: "fixed" }}
       >
         <Button
           size={scrolled !== "" ? "small" : "middle"}
@@ -137,10 +148,13 @@ const CategoryBar: React.FC<Props> = ({
             setVisible(v);
             if (!v && !fetched) {
               setFeed_type(
-                query?.feed_type ? `${query?.feed_type}`.split(",") : []
+                query?.feed_type ? `${query?.feed_type}`.split(",") : [],
               );
               setStatus(query?.status ? `${query?.status}`.split(",") : []);
             }
+          }}
+          overlayStyle={{
+            position: "fixed",
           }}
           overlay={
             <Menu

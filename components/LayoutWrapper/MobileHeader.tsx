@@ -66,7 +66,7 @@ const Header: React.FC<Props> = ({
 
   const [noBackdrop, setNoBackdrop] = React.useState(false);
   const { loading } = useSelector(
-    (state: IRootState) => state.user.updateProfile
+    (state: IRootState) => state.user.updateProfile,
   );
 
   React.useEffect(() => {
@@ -83,7 +83,8 @@ const Header: React.FC<Props> = ({
 
   const { t } = useTranslation();
 
-  const userLang: "en" | "rw" = user?.currentUser?.data?.language || getLanguage();
+  const userLang: "en" | "rw" =
+    user?.currentUser?.data?.language || getLanguage();
 
   const languages = {
     en: "English",
@@ -152,6 +153,7 @@ const Header: React.FC<Props> = ({
                 placement="bottomRight"
                 visible={visible}
                 onVisibleChange={(v) => setVisible(v)}
+                overlayStyle={{ position: "fixed" }}
                 overlay={
                   <Menu
                     className={styles.layout__header__row__menu}
@@ -166,18 +168,20 @@ const Header: React.FC<Props> = ({
                       }
 
                       if (key === "en" || key === "rw") {
-                        if(user.currentUser.isLoggedin && user.currentUser.data.id){
+                        if (
+                          user.currentUser.isLoggedin &&
+                          user.currentUser.data.id
+                        ) {
                           return dispatch(
                             updateProfile({
                               language: `${key}`,
-                            })
+                            }),
                           );
                         }
 
                         localStorage.setItem("USER_LANG", `${key}`);
                         i18n.changeLanguage(`${key}`);
                         return;
-                        
                       }
 
                       if (key) router.push(`${key}`);
@@ -185,22 +189,26 @@ const Header: React.FC<Props> = ({
                   >
                     {!isHome && <Menu.Item key="/">{t("home")}</Menu.Item>}
                     <Menu.SubMenu
-                        disabled={loading}
-                        title={
-                          <span>
-                            {languages[userLang]}
-                            {loading ? (
-                              <LoadingOutlined style={{ marginLeft: 20 }} />
-                            ) : null}
-                          </span>
-                        }
-                      >
-                        <Menu.Item key="en">English</Menu.Item>
-                        <Menu.Item key="rw">Kinyarwanda</Menu.Item>
-                      </Menu.SubMenu>
+                      disabled={loading}
+                      popupClassName="header-row-subMenu"
+                      title={
+                        <span>
+                          {languages[userLang]}
+                          {loading ? (
+                            <LoadingOutlined style={{ marginLeft: 20 }} />
+                          ) : null}
+                        </span>
+                      }
+                    >
+                      <Menu.Item key="en">English</Menu.Item>
+                      <Menu.Item key="rw">Kinyarwanda</Menu.Item>
+                    </Menu.SubMenu>
 
                     {svpProps.categories && svpProps.categories.length > 0 && (
-                      <Menu.SubMenu title={<span>{t("causes")}</span>}>
+                      <Menu.SubMenu
+                        title={<span>{t("causes")}</span>}
+                        popupClassName="header-row-subMenu"
+                      >
                         <Menu.Item key={ALL_CAUSES_PATH}>{t("all")}</Menu.Item>
                         {svpProps.categories.map((category) => (
                           <Menu.Item key={`/causes?category_id=${category.id}`}>
@@ -248,7 +256,7 @@ const Header: React.FC<Props> = ({
                               {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
                                 ?.split(" ")
                                 .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase()
+                                  (n: string) => n && n.charAt(0).toUpperCase(),
                                 )}
                             </Avatar>
                             <Typography.Text
