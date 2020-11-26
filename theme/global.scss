@@ -106,6 +106,21 @@
     top: $header-height;
   }
   @media screen and (max-width: #{$mobile-size}) {
+    position: fixed;
+    right: $padding;
+    top: $mobile-header-height;
+  }
+}
+
+[class~="header-row-subMenu"] {
+  width: 160px;
+  @media screen and (min-width: #{$lg-size}) {
+    right: $content-padding;
+    position: fixed;
+    top: $header-height;
+  }
+  @media screen and (max-width: #{$mobile-size}) {
+    position: fixed;
     right: $padding;
     top: $mobile-header-height;
   }

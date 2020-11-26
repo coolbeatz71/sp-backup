@@ -373,7 +373,7 @@
         }
       }
     }
-    @media screen and (max-width: #{$mobile-size}) {
+    @media screen and (max-width: #{$sm-mobile-size}) {
       padding: $padding 0;
       [class~="ant-menu-item-only-child"] {
         font-size: 3.6vw;

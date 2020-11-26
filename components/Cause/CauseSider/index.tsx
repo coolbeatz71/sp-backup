@@ -42,7 +42,6 @@ const CauseSider: React.FC<Props> = ({
   content,
   contact,
 }) => {
-
   const { t } = useTranslation();
   const screens = Grid.useBreakpoint();
   const comparer = React.useRef<any>(null);
@@ -145,29 +144,7 @@ const CauseSider: React.FC<Props> = ({
                 }}
                 tiny
               />
-              {myCause && (
-                <>
-                  <br />
-                  <Card>
-                    <Row align="middle">
-                      <Col flex={1}>
-                        <Typography.Paragraph
-                          ellipsis
-                          style={{ marginBottom: 0 }}
-                        >
-                          {t("current balance")}
-                        </Typography.Paragraph>
-                      </Col>
-                      <Col>
-                        <strong>
-                          {numeral(cause.current_balance).format()}{" "}
-                          {cause.currency}
-                        </strong>
-                      </Col>
-                    </Row>
-                  </Card>
-                </>
-              )}
+
               {cause.status === "active" && (
                 <>
                   <br />
@@ -185,6 +162,26 @@ const CauseSider: React.FC<Props> = ({
             </div>
           </DonationWrapper>
           {!screens.lg && content}
+
+          {myCause && (
+            <>
+              <br />
+              <Card>
+                <Row align="middle">
+                  <Col flex={1}>
+                    <Typography.Paragraph ellipsis style={{ marginBottom: 0 }}>
+                      {t("current balance")}
+                    </Typography.Paragraph>
+                  </Col>
+                  <Col>
+                    <strong>
+                      {numeral(cause.current_balance).format()} {cause.currency}
+                    </strong>
+                  </Col>
+                </Row>
+              </Card>
+            </>
+          )}
           <br />
           <Card data-not-lg={!screens.lg} bordered={screens.lg}>
             {loading && <Skeleton active />}
