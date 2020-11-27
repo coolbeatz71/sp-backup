@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
-
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { getFeed } from "redux/actions/cause/getFeed";
+import { IRootState } from "redux/initialStates";
 
 import Jumbotron from "components/home/Jumbotron";
 import Video from "components/home/Video";
 import Section from "components/home/Section";
 import GetStarted from "components/home/GetStarted";
-
-import { useDispatch, useSelector } from "react-redux";
-import { getFeed } from "redux/actions/cause/getFeed";
-import { IRootState } from "redux/initialStates";
-
 import LayoutWrapper from "components/LayoutWrapper";
 
 const IndexPage = () => {
@@ -20,7 +17,7 @@ const IndexPage = () => {
     getFeed()(dispatch);
   }, [dispatch]);
 
-  const { data, /*loading,*/ fetched, error } = useSelector(
+  const { data, fetched, error } = useSelector(
     ({ cause: { feed } }: IRootState) => feed,
   );
 

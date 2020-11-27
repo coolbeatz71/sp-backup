@@ -1,16 +1,13 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
+import { PlayCircleOutlined } from "@ant-design/icons";
 import { Row, Col, Button, Input, Form, Switch } from "antd";
 import ReactPlayer from "react-player";
-import { useTranslation } from "react-i18next";
+import { Props } from "./Step1";
+import styles from "./index.module.scss";
 
 import StackedLabel from "components/common/StackedLabel";
 import VideoPlayer from "components/common/VideoPlayer";
-
-import styles from "./index.module.scss";
-import { PlayCircleOutlined } from "@ant-design/icons";
-
-import { Props } from "./Step1";
 
 const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();

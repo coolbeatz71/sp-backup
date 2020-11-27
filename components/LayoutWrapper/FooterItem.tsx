@@ -10,8 +10,6 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-
-
 const social = [
   {
     name: "twitter",
@@ -46,7 +44,13 @@ const FooterItem = () => {
   ];
   return (
     <div className="footer-item">
-      <img src="/logo-beta.svg" className="logo" alt="Save Plus Logo" />
+      <img
+        src="/logo-beta.svg"
+        className="logo"
+        alt="Save Plus Logo"
+        width="150"
+        height="50"
+      />
       <div className="copy">
         <Typography.Text type="secondary">
           {t("copyright")} &copy;{moment().format("YYYY")}{" "}
@@ -86,7 +90,7 @@ const FooterItem = () => {
       </Typography.Paragraph>
       <div>
         <Typography.Text type="secondary">
-          { t("contact us at") }{" "}
+          {t("contact us at")}{" "}
           <Typography.Link href="mailto:support@saveplus.io" target="_blank">
             support@saveplus.io
           </Typography.Link>

@@ -1,10 +1,10 @@
 import * as React from "react";
 import styles from "./pricing.module.scss";
-import PricingCard from "../../components/Pricing";
-import Faq from "./../../components/Faq/index";
-import LayoutWrapper from "components/LayoutWrapper";
-
 import { useTranslation } from "react-i18next";
+
+import Faq from "./../../components/Faq";
+import PricingCard from "../../components/Pricing";
+import LayoutWrapper from "components/LayoutWrapper";
 
 const PricingPage: React.FC<{}> = () => {
   const { t } = useTranslation();

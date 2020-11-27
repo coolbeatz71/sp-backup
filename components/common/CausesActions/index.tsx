@@ -4,7 +4,7 @@ import { Dropdown, Menu, Button } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
-import ActionModal from "components/common/CauseCard/Actions/ActionModal";
+import ActionModal from "components/common/ActionModal";
 import { causeStatus } from "interfaces";
 
 import styles from "./index.module.scss";
@@ -29,7 +29,7 @@ const isUneditable = (status: string, count: number) =>
 const canTransferOrCashout = (
   status: string,
   raisedAmount: number,
-  cashedOutAmount: number
+  cashedOutAmount: number,
 ) =>
   (status === causeStatus.active || status === causeStatus.paused) &&
   raisedAmount - cashedOutAmount > 0;
@@ -131,7 +131,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
             {canTransferOrCashout(
               record.status,
               record.raised_amount * 1,
-              record.cashed_out_amount * 1
+              record.cashed_out_amount * 1,
             ) && (
               <Button
                 className={styles.actions__menu_button}
@@ -145,7 +145,7 @@ const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
             {canTransferOrCashout(
               record.status,
               record.raised_amount * 1,
-              record.cashed_out_amount * 1
+              record.cashed_out_amount * 1,
             ) && (
               <Button
                 className={styles.actions__menu_button}

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
 import { StepType } from "../index";
-
 import styles from "./index.module.scss";
 
 interface Props {

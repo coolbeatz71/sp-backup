@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ReactStars from "react-star-rating-component";
 import styles from "./donate.module.scss";
+import { normalize, telco } from "dev-rw-phone";
 import {
   Form,
   Select,
@@ -16,7 +17,6 @@ import {
   Input as LegacyInput,
 } from "antd";
 import { validateMessages } from "constants/validationMessages";
-import { Input } from "components/common/Input";
 import donationTypes, { donationType } from "constants/donationTypes";
 import capitalize from "helpers/capitalize";
 import phoneFormatter from "helpers/phoneNumberFormatter";
@@ -30,16 +30,16 @@ import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
+import formPhoneValidator from "utils/validators/form-phone-validator";
+import { Input } from "components/common/Input";
+import { useTranslation } from "react-i18next";
+
 import AccessCode from "components/Cause/Single/AccessCode";
 import Error from "components/common/Error";
 import Layout from "components/LayoutWrapper";
 import StackedLabel from "components/common/StackedLabel";
-import formPhoneValidator from "utils/validators/form-phone-validator";
-import { normalize, telco } from "dev-rw-phone";
 import SharePopover from "components/common/SharePopover";
 import CauseCard from "components/cards/Cause";
-
-import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -366,7 +366,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "MTN"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid mtn")
+                                    t("should be a valid mtn"),
                                   );
                                 }
                                 if (
@@ -374,7 +374,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "Airtel"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid airtel")
+                                    t("should be a valid airtel"),
                                   );
                                 }
 
