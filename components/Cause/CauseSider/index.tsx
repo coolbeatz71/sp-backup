@@ -122,7 +122,7 @@ const CauseSider: React.FC<Props> = ({
           <DonationWrapper>
             <div>
               {(myCause || cause.status === "active") && (
-                <Row gutter={[24, 24]}>
+                <Row gutter={[24, 12]}>
                   {cause.status === "active" && (
                     <Col flex={1}>
                       <PreDonation slug={cause.slug}>
@@ -147,8 +147,7 @@ const CauseSider: React.FC<Props> = ({
 
               {cause.status === "active" && (
                 <>
-                  <br />
-                  <Card>
+                  <Card className={styles.cause_sider__content__share}>
                     <SharePopover
                       slug={cause.slug}
                       code={cause.till_number}
@@ -161,12 +160,9 @@ const CauseSider: React.FC<Props> = ({
               )}
             </div>
           </DonationWrapper>
-          {!screens.lg && content}
-
           {myCause && (
             <>
-              <br />
-              <Card>
+              <Card className={styles.cause_sider__content__balance}>
                 <Row align="middle">
                   <Col flex={1}>
                     <Typography.Paragraph ellipsis style={{ marginBottom: 0 }}>
@@ -182,7 +178,9 @@ const CauseSider: React.FC<Props> = ({
               </Card>
             </>
           )}
-          <br />
+
+          {!screens.lg && content}
+          {!screens.lg && <br />}
           <Card data-not-lg={!screens.lg} bordered={screens.lg}>
             {loading && <Skeleton active />}
             {getError?.message && (

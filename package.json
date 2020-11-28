@@ -20,7 +20,7 @@
     "@types/react-image-crop": "^8.1.2",
     "@types/react-star-rating-component": "^1.4.0",
     "@types/validator": "^13.1.0",
-    "antd": "^4.7.3",
+    "antd": "^4.9.0",
     "axios": "^0.19.2",
     "canvas-confetti": "^1.2.0",
     "cogo-toast": "^4.2.3",

@@ -87,7 +87,12 @@ const Faq: FC<{}> = () => {
       expandIconPosition="right"
     >
       {questions.map((item, index) => (
-        <Panel header={item.title} key={index} className={styles.faq}>
+        <Panel
+          header={item.title}
+          key={index}
+          className={styles.faq}
+          collapsible="header"
+        >
           <div
             dangerouslySetInnerHTML={{
               __html: item.description,

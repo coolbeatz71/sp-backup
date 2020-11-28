@@ -2,7 +2,25 @@
 @import "../../../styles/dimensions.scss";
 
 .cause_sider {
+  [class~="ant-card"] {
+    margin: 12px 0;
+  }
   &__content {
+    &__share {
+      @media screen and (max-width: #{$mobile-size}) {
+        margin-top: calc(#{$padding}/ 2);
+      }
+      [class~="ant-card-body"] {
+        padding: 16px $padding;
+      }
+    }
+
+    &__balance {
+      @media screen and (max-width: #{$mobile-size}) {
+        margin-top: calc(#{$padding}/ 2);
+      }
+    }
+
     &__primary_title {
       &,
       div[class="ant-card-meta-title"] {
