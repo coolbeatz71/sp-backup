@@ -46,7 +46,7 @@ const AllCauses: React.FC<Props> = ({
     fetched,
     meta: { total, page, pages },
   } = useSelector(({ cause: { all, user } }: IRootState) =>
-    myCauses ? user : all
+    myCauses ? user : all,
   );
 
   const category_id: any = query.category_id;
@@ -111,7 +111,7 @@ const AllCauses: React.FC<Props> = ({
   const renderPagination = (
     _current: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
-    originalElement: React.ReactNode
+    originalElement: React.ReactNode,
   ) => {
     if (type === "prev" && screens.md) return <a>{t("previous")}</a>;
     if (type === "next" && screens.md) return <a>{t("next")}</a>;
@@ -130,11 +130,8 @@ const AllCauses: React.FC<Props> = ({
     >
       <div data-content-padding>
         {(!isEmpty(query.feed_type) || !isEmpty(query.status)) && (
-          <Row
-            align="middle"
-            style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
-          >
-            {t("active filters")} &nbsp;
+          <Row align="middle" className={styles.causes__filters}>
+            <span>{t("active filters")} &nbsp;</span>
             {activeFilters?.map((filter, i) => (
               <Tag
                 key={`${i}-filter`}
@@ -209,7 +206,7 @@ const AllCauses: React.FC<Props> = ({
           </Row>
         )}
 
-        {total && pages > 1 && (
+        {isEmpty(total) && pages > 1 && (
           <Row
             align="middle"
             justify="center"
