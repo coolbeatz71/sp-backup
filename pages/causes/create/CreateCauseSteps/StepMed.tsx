@@ -47,9 +47,7 @@ const StepMed: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
           <Input placeholder={t("hospital email")} />
         </StackedLabel>
       </Form.Item>
-      <Form.Item>
-        <span>{` `}</span>
-      </Form.Item>
+      <br />
       <div className={styles.create__title_separator}>
         <strong>{t("next of keen")}</strong>
       </div>

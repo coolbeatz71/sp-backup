@@ -125,11 +125,8 @@ const AllCauses: React.FC<Props> = ({
     >
       <div data-content-padding>
         {(!isEmpty(query.feed_type) || !isEmpty(query.status)) && (
-          <Row
-            align="middle"
-            style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
-          >
-            {t("active filters")} &nbsp;
+          <Row align="middle" className={styles.causes__filters}>
+            <span>{t("active filters")} &nbsp;</span>
             {activeFilters?.map((filter, i) => (
               <Tag
                 key={`${i}-filter`}
@@ -204,7 +201,7 @@ const AllCauses: React.FC<Props> = ({
           </Row>
         )}
 
-        {total && pages > 1 && (
+        {isEmpty(total) && pages > 1 && (
           <Row
             align="middle"
             justify="center"

@@ -8,15 +8,13 @@ import { useTranslation } from "react-i18next";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
 import CustomIcon from "components/common/CustomIcon";
+import { ALL_CAUSES_PATH } from "helpers/paths";
 
 interface Props {
   categories: CatType[];
   baseUrl?: string;
   scrolled: string;
 }
-
-const feed_types = ["popular", "sponsored"];
-const statuses = ["active", "pending", "paused", "cancelled", "completed"];
 
 const CategoryBar: React.FC<Props> = ({
   categories,
@@ -25,6 +23,12 @@ const CategoryBar: React.FC<Props> = ({
 }) => {
   const screens = Grid.useBreakpoint();
   const { query, pathname, asPath, push } = useRouter();
+
+  const feed_types = ["popular", "sponsored"];
+  const statuses =
+    pathname === ALL_CAUSES_PATH
+      ? ["active", "paused", "cancelled", "completed"]
+      : ["active", "pending", "paused", "cancelled", "completed"];
 
   const [search, setSearch] = React.useState<any>(query?.search || "");
   const [fetched, setFetched] = React.useState(true);

@@ -16,10 +16,12 @@
   }
 }
 
-.modal {
-  display: flex !important;
-  width: calc(#{$modal-padding} * 10) !important;
-  justify-content: center;
+@media screen and (min-width: #{$lg-size}) {
+  .modal {
+    display: flex !important;
+    width: calc(#{$modal-padding} * 10) !important;
+    justify-content: center;
+  }
 }
 
 .modal,

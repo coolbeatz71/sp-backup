@@ -97,7 +97,7 @@ const DonateCause: React.FC<{}> = () => {
   if (!isLoggedin && !isFormDataReady) setFormDataReadiness(true);
 
   const formatData = (data: IUnknownObject) => {
-    if (data.email === "") delete data.email;
+    if (isEmpty(data.email)) delete data.email;
     return {
       ...data,
       amount: serializeFormattedNumber(data.amount),

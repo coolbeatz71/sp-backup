@@ -13,4 +13,14 @@
       }
     }
   }
+  &__filters {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    span {
+      white-space: nowrap;
+    }
+  }
 }
