@@ -8,13 +8,24 @@
   }
 
   &__head {
-    &__title {
-      color: $primary !important;
-      line-height: unset !important;
+    margin-bottom: 0 !important;
+    [class~="ant-col"] {
+      padding-bottom: calc(#{$padding} / 4) !important;
     }
 
     @media screen and (max-width: #{$mobile-size}) {
       padding: 0 $padding;
+      [class~="ant-col"] {
+        padding-bottom: calc(#{$padding} / 2) !important;
+      }
+    }
+
+    &__title {
+      color: $primary !important;
+      line-height: unset !important;
+      @media screen and (max-width: #{$mobile-size}) {
+        margin-bottom: 0;
+      }
     }
   }
   &__cover {
