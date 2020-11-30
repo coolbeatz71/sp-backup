@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "antd";
-import styles from "./../skeleton.module.scss";
+import styles from "./skeleton.module.scss";
 
 const SingleCauseSkeleton: React.FC<{}> = ({}) => {
   return (

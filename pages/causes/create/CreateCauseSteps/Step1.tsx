@@ -1,5 +1,6 @@
 import React from "react";
-
+import moment from "moment";
+import { useTranslation } from "react-i18next";
 import {
   Row,
   Col,
@@ -10,9 +11,6 @@ import {
   InputNumber,
   DatePicker,
 } from "antd";
-
-import moment from "moment";
-import { useTranslation } from "react-i18next";
 
 import StackedLabel from "components/common/StackedLabel";
 import CropImage from "components/common/CropImage";
@@ -150,7 +148,7 @@ const Step1: React.FC<Props> = ({
 
                   if (start.isValid() && moment(value).isBefore(start)) {
                     return Promise.reject(
-                      t("end date should not be before start date")
+                      t("end date should not be before start date"),
                     );
                   }
 

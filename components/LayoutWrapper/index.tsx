@@ -1,19 +1,17 @@
 import React from "react";
-import { Layout, Button, Result, Grid } from "antd";
-import Head from "next/head";
+import _ from "lodash";
 import Context from "helpers/context";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+import { Layout, Button, Result, Grid } from "antd";
 import { IRootState } from "redux/initialStates";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
-import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import getPlatformUrl from "helpers/getPlatformUrl";
-
 import { HomeOutlined } from "@ant-design/icons";
 
 import Banner from "./Banner";
-
 import FooterItem from "./FooterItem";
 
 import styles from "./index.module.scss";
@@ -22,10 +20,6 @@ import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 
 const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
-
-const { useBreakpoint } = Grid;
-
-const { Footer, Content } = Layout;
 
 interface Props {
   children: any;
@@ -56,16 +50,19 @@ const LayoutWrapper: React.FC<Props> = ({
   isForm = false,
   children,
 }) => {
+  const { useBreakpoint } = Grid;
+  const { Footer, Content } = Layout;
+  const screens = useBreakpoint();
+
   const { t } = useTranslation();
   const { svpProps } = React.useContext(Context);
   const router = useRouter();
-  const screens = useBreakpoint();
 
   const [scrolled, setScrolled] = React.useState("");
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts
+    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
   const dispatch = useDispatch();
@@ -76,7 +73,7 @@ const LayoutWrapper: React.FC<Props> = ({
         ? "over"
         : window.pageYOffset > 80
         ? "scrolled"
-        : ""
+        : "",
     );
   };
 

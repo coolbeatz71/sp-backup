@@ -1,13 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
 import { Row, Col, Button, Input, Form } from "antd";
-
-import StackedLabel from "components/common/StackedLabel";
-
-import styles from "./index.module.scss";
-
 import { Props } from "./Step1";
+import styles from "./index.module.scss";
+import StackedLabel from "components/common/StackedLabel";
 
 const StepMed: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();

@@ -1,14 +1,11 @@
 import React from "react";
+import { Row, Col, Button, Input, Form, Switch, Alert, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { phone, isOk } from "dev-rw-phone";
 import { IRootState } from "redux/initialStates";
-
-import { Row, Col, Button, Input, Form, Switch, Alert, Select } from "antd";
-
-import StackedLabel from "components/common/StackedLabel";
-
 import { Props } from "./Step1";
+import StackedLabel from "components/common/StackedLabel";
 
 const Step4: React.FC<Props> = ({
   alerts,
@@ -20,7 +17,7 @@ const Step4: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { loading, error } = useSelector(
-    (state: IRootState) => state.cause.create
+    (state: IRootState) => state.cause.create,
   );
 
   const [form] = Form.useForm();
@@ -137,7 +134,7 @@ const Step4: React.FC<Props> = ({
                       <li key={`step-${ind}`}>
                         {t("step")} {ind + 1}: {steps[ind].title}
                       </li>
-                    )
+                    ),
                 )}
               </ul>
             }

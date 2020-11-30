@@ -109,9 +109,11 @@ const Header: React.FC<Props> = ({
           <Link href="/">
             <a rel="noreferrer noopener">
               <img
-                src="/images/logo-beta.svg"
+                src="/logo-beta.svg"
                 className={styles.layout__header__row__logo}
                 alt="beta logo"
+                width="150"
+                height="50"
               />
             </a>
           </Link>

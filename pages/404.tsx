@@ -1,10 +1,9 @@
 import React from "react";
 import { Result } from "antd";
-import Icon from "components/common/CustomIcon";
-
-import Layout from "components/LayoutWrapper";
-
 import styles from "./404.module.scss";
+
+import Icon from "components/common/CustomIcon";
+import Layout from "components/LayoutWrapper";
 
 interface Props {
   noWrapper?: boolean;

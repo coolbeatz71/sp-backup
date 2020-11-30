@@ -5,23 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { getAllCauses } from "redux/actions/cause/getAll";
 import { getUserCauses } from "redux/actions/cause/getUserCauses";
-
 import { isEmpty, find, upperFirst } from "lodash";
-
 import validator from "validator";
-
 import { Row, Col, Result, Tag, Pagination, Grid } from "antd";
-
 import { SvpType } from "helpers/context";
-
-import Jumbotron from "components/home/Jumbotron";
-import Cause from "components/cards/Cause";
-import CauseSkeleton from "components/cards/CauseSkeleton";
-import Section from "components/home/Section";
-
-import LayoutWrapper from "components/LayoutWrapper";
 import { PRIMARY } from "constants/colors";
 import styles from "./causes.module.scss";
+
+import Cause from "components/cards/Cause";
+import Section from "components/home/Section";
+import Jumbotron from "components/home/Jumbotron";
+import CauseSkeleton from "components/cards/CauseSkeleton";
+import LayoutWrapper from "components/LayoutWrapper";
 
 interface Props {
   svpProps: SvpType;
@@ -46,7 +41,7 @@ const AllCauses: React.FC<Props> = ({
     fetched,
     meta: { total, page, pages },
   } = useSelector(({ cause: { all, user } }: IRootState) =>
-    myCauses ? user : all
+    myCauses ? user : all,
   );
 
   const category_id: any = query.category_id;
@@ -111,7 +106,7 @@ const AllCauses: React.FC<Props> = ({
   const renderPagination = (
     _current: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
-    originalElement: React.ReactNode
+    originalElement: React.ReactNode,
   ) => {
     if (type === "prev" && screens.md) return <a>{t("previous")}</a>;
     if (type === "next" && screens.md) return <a>{t("next")}</a>;

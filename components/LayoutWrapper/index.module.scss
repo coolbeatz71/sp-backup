@@ -169,6 +169,7 @@
         & > a {
           & > img {
             width: $logo-size;
+            height: auto;
             @media screen and (max-width: #{$mobile-size}) {
               width: $mobile-logo-size;
             }

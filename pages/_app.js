@@ -1,4 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
+
+import "theme/ngprogress.scss";
+import "theme/index.css";
+import "theme/global.scss";
+import "styles/global.scss";
 
 import NProgress from "nprogress";
 import { Router } from "next/router";
@@ -9,13 +15,7 @@ import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
-import dynamic from "next/dynamic";
 import { getLanguage } from "helpers/getLanguage";
-
-import "theme/ngprogress.scss";
-import "theme/index.css";
-import "theme/global.scss";
-import "styles/global.scss";
 
 import locales from "constants/locales";
 
@@ -43,7 +43,7 @@ const InterCom = dynamic(
   },
   {
     ssr: false,
-  }
+  },
 );
 
 const MyApp = ({ Component, pageProps, svpProps }) => {
@@ -52,7 +52,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
       user: {
         currentUser: { data },
       },
-    }) => data
+    }) => data,
   );
   locales.changeLanguage(user.language || getLanguage());
   moment.locale(user.language || getLanguage());

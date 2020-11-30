@@ -1,21 +1,18 @@
 import React from "react";
+import Link from "next/link";
+import qs from "query-string";
 import { Row, Col, Card, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import qs from "query-string";
+import { useTranslation } from "react-i18next";
 import { IRootState } from "redux/initialStates";
 import getPlatformUrl from "helpers/getPlatformUrl";
-import SharePopover from "components/common/SharePopover";
-
-import Layout from "components/LayoutWrapper";
 import fire from "utils/fire-confetti";
-
 import { clear } from "redux/actions/cause/create";
-
 import styles from "./index.module.scss";
-import Link from "next/link";
 
-import { useTranslation } from "react-i18next";
+import SharePopover from "components/common/SharePopover";
+import Layout from "components/LayoutWrapper";
 
 const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
 
@@ -51,7 +48,7 @@ const genData = (data: any) => {
 
 const Success = () => {
   const { data: success } = useSelector(
-    (state: IRootState) => state.cause.create
+    (state: IRootState) => state.cause.create,
   );
 
   const [data, setData] = React.useState<any>(success);

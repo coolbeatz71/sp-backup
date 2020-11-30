@@ -1,26 +1,22 @@
 import React from "react";
-import { Row, Col, Card, Typography, message, Tag } from "antd";
 import _ from "lodash";
+import Link from "next/link";
+import { short } from "dev-rw-phone";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import i18n from "constants/locales";
+import { Row, Col, Card, Typography, message, Tag } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "redux/initialStates";
+import createCause, { clear } from "redux/actions/cause/create";
+import styles from "./index.module.scss";
+import { SvpType } from "helpers/context";
+import handleData from "./handlers";
+import defaultSteps from "./CreateCauseSteps";
 
 import Layout from "components/LayoutWrapper";
-import { IRootState } from "redux/initialStates";
-
-import styles from "./index.module.scss";
-
-import defaultSteps from "./CreateCauseSteps";
 import Buttons from "./CreateCauseSteps/Buttons";
-import { SvpType } from "helpers/context";
-import { short } from "dev-rw-phone";
-
-import handleData from "./handlers";
-import { useRouter } from "next/router";
-import createCause, { clear } from "redux/actions/cause/create";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-import Link from "next/link";
-
-import i18n from "constants/locales";
 
 const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
   children,
@@ -82,13 +78,13 @@ const Create: React.FC<Props> = ({
   svpProps,
 }) => {
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   const { t } = useTranslation();
 
   const [steps, setSteps] = React.useState(
-    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated)
+    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
   );
   const [index, setIndex] = React.useState<number>(0);
   const [data, setData] = React.useState<{ [key: string]: any }>(dt);
@@ -109,7 +105,7 @@ const Create: React.FC<Props> = ({
       message.success(
         t("successfully edited", {
           name: data.name,
-        })
+        }),
       );
       router.replace(`/user/causes/${data.slug}`);
     }
@@ -188,7 +184,7 @@ const Create: React.FC<Props> = ({
                         key,
                         typeof formattedData[key] === "string"
                           ? formattedData[key]
-                          : JSON.stringify(formattedData[key])
+                          : JSON.stringify(formattedData[key]),
                       );
                     }
                   }
@@ -196,11 +192,11 @@ const Create: React.FC<Props> = ({
                   createCause(formData)(dispatch, () => {
                     setSuccess(true);
                   });
-                }
+                },
               );
             },
             issue,
-            steps
+            steps,
           )}
         </Card>
       </Wrapper>

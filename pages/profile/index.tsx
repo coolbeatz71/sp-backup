@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { isEmpty } from "lodash";
 import styles from "./profile.module.scss";
+import Link from "next/link";
 import {
   Form,
   Button,
@@ -14,20 +16,18 @@ import {
   Input,
   Alert,
 } from "antd";
-import StackedLabel from "components/common/StackedLabel";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { RcFile } from "antd/es/upload";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
-import { isEmpty } from "lodash";
 import updateProfile from "redux/actions/user/updateProfile";
-import Link from "next/link";
 import { short } from "dev-rw-phone";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
+
+import StackedLabel from "components/common/StackedLabel";
 import Modal from "components/common/Modal";
 import CropImage from "components/common/CropImage";
-
 import LayoutWrapper from "components/LayoutWrapper";
 
 const Profile: React.FC<{}> = () => {
@@ -38,10 +38,10 @@ const Profile: React.FC<{}> = () => {
   const [avatarKey, setAvatarKey] = React.useState(0);
 
   const { isLoggedin, data, loading: dataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
   const { loading, error } = useSelector(
-    ({ user: { updateProfile } }: IRootState) => updateProfile
+    ({ user: { updateProfile } }: IRootState) => updateProfile,
   );
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const Profile: React.FC<{}> = () => {
         t("avatar should be smaller than", {
           size: "2MB",
         }),
-        "error"
+        "error",
       );
       return false;
     }
