@@ -357,5 +357,8 @@ export default {
   "something went wrong":
     "Sorry, something went wrong, please try again later!",
   "no causes were found": "Sorry, no causes were found!",
-  "cause created successfully": "Igikorwa cyaremwe neza!",
+  "cause created successfully": "Cause created successfully!",
+  "cause cover image": "Cause Cover Image",
+  "failed to load": "failed to load!",
+  "not available": "is not available!",
 };
