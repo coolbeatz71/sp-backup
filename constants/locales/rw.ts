@@ -358,5 +358,8 @@ export default {
   note: "Icyitonderwa",
   "something went wrong": "Ihangane ntibyagenze neza, mugerageze mu kanya!",
   "no causes were found": "Ihangane, Ibikorwa ntibibonetse!",
-  "cause created successfully": "Cause created successfully!",
+  "cause created successfully": "Igikorwa cyaremwe neza!",
+  "cause cover image": "Ifoto y'igikorwa",
+  "failed to load": "yanze kugaragara!",
+  "not available": "ntayihari!",
 };

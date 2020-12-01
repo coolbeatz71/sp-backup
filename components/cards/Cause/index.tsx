@@ -86,7 +86,7 @@ const Cause: React.FC<Props> = ({
   };
 
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none",
+    !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -156,10 +156,10 @@ const Cause: React.FC<Props> = ({
                     <PictureOutlined />
                   </Typography.Title>
                   <Typography.Text>
-                    Cause Cover Image
+                    {t("cause cover image")}
                     {imageStatus === "error"
-                      ? " Failed To Load!"
-                      : " Not Available!"}
+                      ? t("failed to load")
+                      : t("not available")}
                   </Typography.Text>
                 </div>
               )}
