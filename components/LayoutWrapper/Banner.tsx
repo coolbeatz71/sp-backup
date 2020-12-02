@@ -30,6 +30,7 @@ const Banner: React.FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
   return typeof banner.id !== "undefined" ? (
     <div
       className={className}
+      data-cy="banner"
       data-backdrop-not-supported={!webkitBackdrop && !backdrop}
     >
       <CustomIcon type="bell" />
