@@ -40,6 +40,7 @@ const Jumbotron: React.FC<Props> = ({ hideSignedIn = false }) => {
           <Button
             size="large"
             onClick={() => showAuthDialog(true, "signup")(dispatch)}
+            data-cy="joinUs"
           >
             {t("join us")}
           </Button>

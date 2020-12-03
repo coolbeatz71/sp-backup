@@ -59,6 +59,7 @@ const GetStarted = () => {
               type="primary"
               size="large"
               className={styles.get_started__container__button}
+              data-cy="getStarted"
               onClick={() => {
                 if (user.currentUser.isLoggedin) router.push("/causes/create");
                 else showAuthDialog(true, "signup")(dispatch);

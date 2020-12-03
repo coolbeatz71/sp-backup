@@ -1,5 +1,8 @@
 {
-    "baseUrl": "http://localhost:3000",
-    "testFiles": "**.spec.js",
-    "integrationFolder": "./tests/e2e"
+  "baseUrl": "http://localhost:3000",
+  "testFiles": ["**.spec.js", "**.spec.ts"],
+  "integrationFolder": "./tests/e2e",
+  "env": {
+    "NEXT_PUBLIC_SAVE_API_URL": "https://api-dev.getsave.io/api/v3"
+  }
 }

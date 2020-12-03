@@ -2,11 +2,17 @@ import React from "react";
 import { Provider } from "react-redux";
 import initializeStore from "redux/store";
 import App from "next/app";
-import initialStates from 'redux/initialStates';
+import initialStates from "redux/initialStates";
 
 export const withRedux = (PageComponent, { ssr = true } = {}) => {
   const WithRedux = ({ ...props }) => {
     const store = getOrInitializeStore(initialStates);
+
+    if (typeof window !== "undefined") {
+      // expose store when run in Cypress
+      if (window.Cypress) window.store = store;
+    }
+
     return (
       <Provider store={store}>
         <PageComponent {...props} />

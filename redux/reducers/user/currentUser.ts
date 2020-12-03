@@ -10,7 +10,7 @@ import { Iuser } from "redux/initialStates/user";
 
 export default (
   state: Iuser,
-  { type, payload }: { type: string; payload: any }
+  { type, payload }: { type: string; payload: any },
 ) => {
   switch (type) {
     case SET_CURRENT_USER_START:
@@ -36,7 +36,7 @@ export default (
     case SET_CURRENT_USER_SUCCESS:
       localStorage.setItem(
         "USER_LANG",
-        isEmpty(payload) ? state.currentUser.data.language : payload.language
+        isEmpty(payload) ? state.currentUser.data.language : payload.language,
       );
       return {
         ...state,
