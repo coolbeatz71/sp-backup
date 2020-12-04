@@ -5,23 +5,25 @@ import getSingle from "redux/actions/cause/getSingle";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Modal from "components/common/Modal";
+import styles from "./accessCode.module.scss";
 
 export interface AccessCodeProps {
   slug: string | string[];
   error?: any;
+  length: number;
 }
 
-const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
+const AccessCode: React.FC<AccessCodeProps> = ({ slug, error, length }) => {
   const dispatch = useDispatch();
   const { push } = useRouter();
-  const digitsToFill = Array.from({ length: 4 }, (_, index) => index);
+  const digitsToFill = Array.from({ length }, (_, index) => index);
   const inputRefs = digitsToFill.map((_) => useRef({ focus: (): any => null }));
   const [values, setValues] = useState<IUnknownObject>({});
 
   const submit = (value: IUnknownObject) => {
     const accessCode = Object.keys(value)
       .reduce((code, digit) => code + value[digit], "")
-      .slice(0, 4);
+      .slice(0, length);
     getSingle(slug, { access_code: accessCode })(dispatch);
   };
 
@@ -35,14 +37,13 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
         [name]: value[value.length - 1],
       };
       const digitsFilled = Object.keys(newValue).length;
-      const nextEmptyInput = Object.keys(newValue).find(
-        (key) => !newValue[key],
+      const nextEmptyInput = Object.keys(newValue).findIndex(
+        (key, index) => Number(index) !== Number(key)
       );
-      const nextDigitToFill = nextEmptyInput
-        ? Number(nextEmptyInput)
-        : digitsFilled;
+      const nextDigitToFill =
+        nextEmptyInput >= 0 ? Number(nextEmptyInput) : digitsFilled;
       setValues(newValue);
-      if (!nextEmptyInput && digitsFilled === digitsToFill.length) {
+      if (digitsFilled === digitsToFill.length) {
         return submit(newValue);
       }
       inputRefs[nextDigitToFill].current.focus();
@@ -61,9 +62,11 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
     }, Number(name));
     setValues(newValues);
     const inputToFocus =
-      Object.keys(newValues).length > 4 ? 3 : Object.keys(newValues).length - 1;
+      Object.keys(newValues).length > length
+        ? length - 1
+        : Object.keys(newValues).length - 1;
     inputRefs[inputToFocus].current.focus();
-    if (Object.keys(newValues).length >= 4) {
+    if (Object.keys(newValues).length >= length) {
       setTimeout(() => {
         submit(newValues);
       }, 1000);
@@ -91,15 +94,17 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error }) => {
             <Col key={`item-${digitNo}`}>
               <Input
                 size="large"
-                style={{ width: 40, textAlign: "center" }}
                 key={digitNo}
                 autoFocus={digitNo === 0}
-                className="access-code-modal__form__input"
+                className={styles.accessCode__input}
                 onChange={handleValueChange}
                 name={`${digitNo}`}
                 value={values[`${digitNo}`]}
                 onPaste={handlePaste}
                 onKeyUp={handleDelete}
+                type="number"
+                pattern="\d*"
+                inputmode="numeric"
                 // @ts-ignore: a type mismatch
                 ref={inputRefs[digitNo]}
               />

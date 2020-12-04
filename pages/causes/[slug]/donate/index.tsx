@@ -151,7 +151,7 @@ const DonateCause: React.FC<{}> = () => {
           </div>
         ) : errorCause && !accessCode ? (
           errorCause?.status === 403 || errorCause?.status === 400 ? (
-            <AccessCode slug={slug} error={errorCause} />
+            <AccessCode slug={slug} error={errorCause} length={4} />
           ) : (
             <Error
               status={errorCause.status || 500}

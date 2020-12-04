@@ -1,5 +1,12 @@
-.accessCode{
-  .input{
-    width: 50px;
+.accessCode {
+  &__input {
+    width: 40px;
+    text-align: center;
+  }
+  &__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  &__input[type=number] {
+    -moz-appearance: textfield;
   }
 }
