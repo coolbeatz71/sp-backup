@@ -359,6 +359,6 @@ export default {
   "no causes were found": "Sorry, no causes were found!",
   "cause created successfully": "Cause created successfully!",
   "cause cover image": "Cause Cover Image",
-  "failed to load": "failed to load!",
+  "failed to load": " failed to load!",
   "not available": "is not available!",
 };

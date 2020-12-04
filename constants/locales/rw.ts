@@ -360,6 +360,6 @@ export default {
   "no causes were found": "Ihangane, Ibikorwa ntibibonetse!",
   "cause created successfully": "Igikorwa cyaremwe neza!",
   "cause cover image": "Ifoto y'igikorwa",
-  "failed to load": "yanze kugaragara!",
+  "failed to load": " yanze kugaragara!",
   "not available": "ntayihari!",
 };

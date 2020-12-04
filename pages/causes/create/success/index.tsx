@@ -13,8 +13,9 @@ import styles from "./index.module.scss";
 
 import SharePopover from "components/common/SharePopover";
 import Layout from "components/LayoutWrapper";
+import getImageUrl from "helpers/getImageUrl";
 
-const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
 const genData = (data: any) => {
   if (data) {

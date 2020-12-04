@@ -4,6 +4,7 @@
   "scripts": {
     "build-css": "less-watch-compiler --run-once --enable-js --main-file=index.less theme/less/ theme/",
     "dev": "next",
+    "start:test": "NODE_ENV=test next",
     "build": "next build",
     "build:dev": "NODE_ENV=development & next build",
     "start": "next start -p 8000",
