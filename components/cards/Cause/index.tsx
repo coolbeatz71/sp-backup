@@ -34,8 +34,7 @@ import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
 import getCauseEndingDate from "helpers/causeEndingDate";
 import { causeStatus } from "interfaces";
-
-const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+import getImageUrl from "helpers/getImageUrl";
 
 interface Props {
   cause: { [key: string]: any };
@@ -75,6 +74,7 @@ const Cause: React.FC<Props> = ({
   isDonate = false,
 }) => {
   const { t } = useTranslation();
+  const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
   const donateMsg: { [key: string]: string } = {
     active: t("make a donation"),
@@ -86,7 +86,7 @@ const Cause: React.FC<Props> = ({
   };
 
   const [imageStatus, setImageStatus] = React.useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none"
+    !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
   const user = useSelector((state: IRootState) => state.user);

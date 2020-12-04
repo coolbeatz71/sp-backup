@@ -18,8 +18,9 @@ import styles from "./index.module.scss";
 
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
+import getImageUrl from "helpers/getImageUrl";
 
-const { NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = "" } = process.env;
+const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
 interface Props {
   children: any;
