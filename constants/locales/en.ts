@@ -152,7 +152,7 @@ export default {
   "this cause has been paused": "This cause has been Paused",
   "this cause has been closed": "This cause has been Closed",
   "this cause has been completed": "This cause has been completed",
-  "this cause has been cancelled": "This cause has been completed",
+  "this cause has been cancelled": "This cause has been cancelled",
   all: "All",
   popular: "Popular",
   "currently we are accepting": "Currently we are accepting",
