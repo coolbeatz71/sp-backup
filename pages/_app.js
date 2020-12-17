@@ -6,17 +6,22 @@ import "theme/index.css";
 import "theme/global.scss";
 import "styles/global.scss";
 
+import _, { isEmpty } from "lodash";
 import NProgress from "nprogress";
-import { Router } from "next/router";
+import { Router, useRouter } from "next/router";
 import Head from "next/head";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
 import { getLanguage } from "helpers/getLanguage";
-
+import IndexPage from "./index";
+import protectedRoutes from "../constants/protecedRoute";
+import getToken from "helpers/getToken";
+import getCurrentUser from "redux/actions/user/getCurrentUser";
+import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import locales from "constants/locales";
 
 const config = {
@@ -41,19 +46,39 @@ const InterCom = dynamic(
   () => {
     return import("../components/Intercom");
   },
+
   {
     ssr: false,
   },
 );
 
 const MyApp = ({ Component, pageProps, svpProps }) => {
-  const user = useSelector(
-    ({
-      user: {
-        currentUser: { data },
-      },
-    }) => data,
+  const { pathname, replace } = useRouter();
+  const dispatch = useDispatch();
+  const saveToken = getToken();
+  const [component, setComponent] = React.useState();
+
+  const { isLoggedin, data: user } = useSelector(
+    ({ user: { currentUser } }) => currentUser,
   );
+
+  React.useEffect(() => {
+    if (_.isEmpty(saveToken)) clearCurrentUser(dispatch);
+    if (!_.isEmpty(saveToken)) getCurrentUser(dispatch);
+  }, [saveToken]);
+
+  React.useEffect(() => {
+    if (_.isEmpty(saveToken) && protectedRoutes.includes(pathname)) {
+      replace("/");
+      setComponent(<IndexPage />);
+    } else if (!_.isEmpty(saveToken) && !isLoggedin && isEmpty(user)) {
+      localStorage.removeItem("save-token");
+      clearCurrentUser(dispatch);
+    } else {
+      setComponent(<Component {...pageProps} svpProps={svpProps} />);
+    }
+  }, [pathname, saveToken, user]);
+
   locales.changeLanguage(user.language || getLanguage());
   moment.locale(user.language || getLanguage());
   return (
@@ -69,7 +94,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
         <meta name="description" content="More than a crowd-funding platform" />
         <meta name="theme-color" content="#FFFFFF" />
       </Head>
-      <Component {...pageProps} svpProps={svpProps} />
+      {component}
       <InterCom />
     </Context.Provider>
   );

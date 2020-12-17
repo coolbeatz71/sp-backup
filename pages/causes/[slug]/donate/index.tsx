@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate
+    ({ cause: { donate } }: IRootState) => donate,
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch
+      dispatch,
     );
   };
 
@@ -123,7 +123,6 @@ const DonateCause: React.FC<{}> = () => {
     }
 
     if (Object.keys(changedField)[0] === "payment_method") {
-      console.log(changedField);
       if (changedField.payment_method === "MTN_Rwanda") {
         form.setFieldsValue({
           phone_number: "78",
@@ -366,7 +365,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "MTN"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid mtn")
+                                    t("should be a valid mtn"),
                                   );
                                 }
                                 if (
@@ -374,7 +373,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "Airtel"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid airtel")
+                                    t("should be a valid airtel"),
                                   );
                                 }
 
