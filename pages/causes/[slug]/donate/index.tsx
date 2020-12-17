@@ -66,11 +66,11 @@ const DonateCause: React.FC<{}> = () => {
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
   const { loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
+    ({ cause: { donate } }: IRootState) => donate
   );
 
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const DonateCause: React.FC<{}> = () => {
     const formattedData = formatData(form);
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -151,7 +151,7 @@ const DonateCause: React.FC<{}> = () => {
           </div>
         ) : errorCause && !accessCode ? (
           errorCause?.status === 403 || errorCause?.status === 400 ? (
-            <AccessCode slug={slug} error={errorCause} />
+            <AccessCode slug={slug} error={errorCause} length={4} />
           ) : (
             <Error
               status={errorCause.status || 500}
@@ -295,7 +295,7 @@ const DonateCause: React.FC<{}> = () => {
                                 rules={[{ required: true, min: 3 }]}
                                 validateTrigger={["onSubmit", "onBlur"]}
                               >
-                                <Input placeholder={t("first name")} />
+                                <Input placeholder={t("first_name")} />
                               </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -304,7 +304,7 @@ const DonateCause: React.FC<{}> = () => {
                                 validateTrigger={["onSubmit", "onBlur"]}
                                 rules={[{ required: true, min: 3 }]}
                               >
-                                <Input placeholder={t("last name")} />
+                                <Input placeholder={t("last_name")} />
                               </Form.Item>
                             </Col>
                           </Row>
@@ -366,7 +366,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "MTN"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid mtn"),
+                                    t("should be a valid mtn")
                                   );
                                 }
                                 if (
@@ -374,7 +374,7 @@ const DonateCause: React.FC<{}> = () => {
                                   telco(value) !== "Airtel"
                                 ) {
                                   return Promise.reject(
-                                    t("should be a valid airtel"),
+                                    t("should be a valid airtel")
                                   );
                                 }
 
