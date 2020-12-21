@@ -19,6 +19,8 @@ import styles from "./index.module.scss";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import getImageUrl from "helpers/getImageUrl";
+import clearCurrentUser from "redux/actions/user/clearCurrentUser";
+import { HOME_PATH } from "../../helpers/paths";
 
 const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
@@ -107,6 +109,11 @@ const LayoutWrapper: React.FC<Props> = ({
     CSS.supports &&
     CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
 
+  const clearUser = () => {
+    localStorage.removeItem("save-token");
+    clearCurrentUser(dispatch);
+  };
+
   return (
     <Layout className={styles.layout}>
       <Head>
@@ -192,10 +199,20 @@ const LayoutWrapper: React.FC<Props> = ({
               <>
                 <Button
                   type="primary"
-                  onClick={() => router.push("/")}
+                  onClick={() => {
+                    if (user.currentUser.error.status === 401) clearUser();
+                    router.push(HOME_PATH);
+                  }}
                   icon={<HomeOutlined />}
                 />
-                <Button onClick={() => router.reload()}>RELOAD</Button>
+                <Button
+                  onClick={() => {
+                    if (user.currentUser.error.status === 401) clearUser();
+                    router.reload();
+                  }}
+                >
+                  RELOAD
+                </Button>
               </>
             }
           />

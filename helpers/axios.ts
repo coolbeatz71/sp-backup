@@ -8,7 +8,6 @@ const token = getToken();
 const responseHandler = (response: any) => response.data;
 const errorHandler = (error: any) => {
   if (error?.response?.data?.code === INVALID_TOKEN) {
-    console.error("here error", error.response);
     if (process.browser) {
       localStorage.removeItem("save-token");
       window.location.href = "/";

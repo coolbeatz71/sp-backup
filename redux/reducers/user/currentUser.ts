@@ -4,6 +4,7 @@ import {
   SET_CURRENT_USER_START,
   SET_CURRENT_USER_ERROR,
   SET_CURRENT_USER_SUCCESS,
+  CLEAR_CURRENT_USER,
 } from "redux/action-types/user/currentUser";
 
 import { Iuser } from "redux/initialStates/user";
@@ -45,6 +46,18 @@ export default (
           data: payload,
           loading: false,
           fetched: true,
+          error: {},
+        },
+      };
+    case CLEAR_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          isLoggedin: false,
+          data: {},
+          loading: false,
+          fetched: false,
           error: {},
         },
       };
