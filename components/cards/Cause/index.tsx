@@ -115,7 +115,7 @@ const Cause: React.FC<Props> = ({
       </Link>
     );
 
-  const CauseCard: React.FC<{}> = () => (
+  const causeCard = () => (
     <AntdCard
       className={styles.card__container}
       data-is-view={isView}
@@ -378,10 +378,10 @@ const Cause: React.FC<Props> = ({
     return !isView && isInactive(status) ? (
       <>
         <div className={styles.card__overlay} />
-        <CauseCard />
+        {causeCard()}
       </>
     ) : (
-      <CauseCard />
+      causeCard()
     );
   };
 
