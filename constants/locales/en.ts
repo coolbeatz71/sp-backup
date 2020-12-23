@@ -52,6 +52,7 @@ export default {
   pending: "pending",
   cancelled: "cancelled",
   completed: "completed",
+  rejected: "rejected",
   paused: "paused",
   reset: "Reset",
   ok: "Ok",
