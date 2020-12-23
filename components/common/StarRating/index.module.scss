@@ -13,4 +13,12 @@
   [data-color="filled"] {
     color: $yellow;
   }
+
+  [data-color="not-filled-mono"] {
+    color: #c4c4c4;
+  }
+
+  [data-color="filled-mono"] {
+    color: #5c5c5c;
+  }
 }

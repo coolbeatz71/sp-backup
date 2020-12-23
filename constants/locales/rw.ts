@@ -53,6 +53,7 @@ export default {
   cancelled: "Cyafunzwe",
   completed: "Cyujujwe",
   paused: "Cyahagaritswe by'agateganyo",
+  rejected: "Cyarahakanwe",
   reset: "Hanagura",
   ok: "Yego",
   "make a donation": "Tanga inkunga",

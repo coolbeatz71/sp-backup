@@ -16,6 +16,7 @@ import cancelled from "./svg/cancelled";
 
 import save from "./svg/save";
 import verified from "./svg/verified";
+import verifiedGrey from "./svg/verifiedGrey";
 import ussd from "./svg/ussd";
 import config from "./svg/config";
 import bell from "./svg/bell";
@@ -34,6 +35,7 @@ const icons: { [key: string]: any } = {
   cancelled,
   save,
   verified,
+  verifiedGrey,
   ussd,
   config,
   bell,

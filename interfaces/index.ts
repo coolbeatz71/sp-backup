@@ -4,6 +4,7 @@ export enum causeStatus {
   paused = "paused",
   completed = "completed",
   cancelled = "cancelled",
+  rejected = "rejected",
 }
 
 export interface ICauseStatus {

@@ -71,7 +71,7 @@ const CauseSkeleton = () => {
       </div>
       <Row justify="space-between">
         <Col span={16} className={styles.card__stars}>
-          <StarRating value={0} count={0} noAction />
+          <StarRating status="" value={0} count={0} noAction />
         </Col>
         <Col>
           <Button type="link" size="small" className={styles.card__share}>

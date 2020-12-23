@@ -5,9 +5,11 @@ import numeral from "numeral";
 import { useTranslation } from "react-i18next";
 
 import styles from "./index.module.scss";
+import { isInactive } from "components/cards/Cause";
 
 interface Props {
   value: number;
+  status: string;
   count?: number;
   text?: string;
   noAction?: boolean;
@@ -20,6 +22,7 @@ interface Props {
 const Stars: React.FC<Props> = ({
   value,
   text,
+  status,
   onMouseEnter,
   onMouseLeave,
   onFocus,
@@ -33,16 +36,67 @@ const Stars: React.FC<Props> = ({
     onClick={onClick}
   >
     {text && <span>{text}</span>}
-    <StarFilled data-color={value >= 1 ? "filled" : "not-filled"} />
-    <StarFilled data-color={value >= 2 ? "filled" : "not-filled"} />
-    <StarFilled data-color={value >= 3 ? "filled" : "not-filled"} />
-    <StarFilled data-color={value >= 4 ? "filled" : "not-filled"} />
-    <StarFilled data-color={value >= 5 ? "filled" : "not-filled"} />
+    <StarFilled
+      data-color={
+        !isInactive(status)
+          ? value >= 1
+            ? "filled"
+            : "not-filled"
+          : value >= 1
+          ? "filled-mono"
+          : "not-filled-mono"
+      }
+    />
+    <StarFilled
+      data-color={
+        !isInactive(status)
+          ? value >= 2
+            ? "filled"
+            : "not-filled"
+          : value >= 2
+          ? "filled-mono"
+          : "not-filled-mono"
+      }
+    />
+    <StarFilled
+      data-color={
+        !isInactive(status)
+          ? value >= 3
+            ? "filled"
+            : "not-filled"
+          : value >= 3
+          ? "filled-mono"
+          : "not-filled-mono"
+      }
+    />
+    <StarFilled
+      data-color={
+        !isInactive(status)
+          ? value >= 4
+            ? "filled"
+            : "not-filled"
+          : value >= 4
+          ? "filled-mono"
+          : "not-filled-mono"
+      }
+    />
+    <StarFilled
+      data-color={
+        !isInactive(status)
+          ? value >= 5
+            ? "filled"
+            : "not-filled"
+          : value >= 5
+          ? "filled-mono"
+          : "not-filled-mono"
+      }
+    />
   </div>
 );
 
 const StarRating: React.FC<Props> = ({
   value,
+  status,
   count = 0,
   noAction = false,
 }) => {
@@ -59,7 +113,7 @@ const StarRating: React.FC<Props> = ({
             <Typography.Title level={4} style={{ marginBottom: 0 }}>
               {numeral(value).format("0.[00]")}
             </Typography.Title>
-            <Stars value={value} />
+            <Stars value={value} status={status} />
             <Typography.Text>
               <Typography.Text strong>
                 {numeral(count).format()} &nbsp;
@@ -74,7 +128,11 @@ const StarRating: React.FC<Props> = ({
     );
   return (
     <Wrap>
-      <Stars value={value} text={noAction ? "" : `${t("rating")}:`} />
+      <Stars
+        value={value}
+        text={noAction ? "" : `${t("rating")}:`}
+        status={status}
+      />
     </Wrap>
   );
 };
