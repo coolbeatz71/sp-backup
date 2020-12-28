@@ -43,6 +43,10 @@
             margin-bottom: 0px !important;
           }
         }
+
+        &:hover {
+          background: $primary-ultra-light;
+        }
       }
       [data-not-lg="true"] {
         background-color: transparent;
