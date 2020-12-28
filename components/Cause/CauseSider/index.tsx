@@ -26,6 +26,8 @@ import getDonors from "redux/actions/cause/donors";
 import styles from "./index.module.scss";
 import { ALL_CAUSES_PATH } from "helpers/paths";
 import { useTranslation } from "react-i18next";
+import { upperFirst } from "lodash";
+import { getDonationTime } from "helpers/dateFormatter";
 
 interface Props {
   cause: { [key: string]: any };
@@ -211,7 +213,7 @@ const CauseSider: React.FC<Props> = ({
                         className={styles.cause_sider__content__sidebar__item}
                       >
                         <Col flex={1}>
-                          <Typography.Paragraph ellipsis>
+                          <Typography.Text ellipsis>
                             {donor.donor_source ? (
                               <Tooltip
                                 placement="bottomLeft"
@@ -226,10 +228,23 @@ const CauseSider: React.FC<Props> = ({
                             ) : (
                               donor.user_names
                             )}
-                          </Typography.Paragraph>
+                          </Typography.Text>
                         </Col>
                         <Col>
-                          {numeral(donor.amount).format()} {cause.currency}
+                          <Row justify="end">
+                            <Typography.Text>
+                              {numeral(donor.amount).format()} {cause.currency}
+                            </Typography.Text>
+                          </Row>
+                          <Row justify="end">
+                            <Typography.Text
+                              className={
+                                styles.cause_sider__content__sidebar__item__donationTime
+                              }
+                            >
+                              {upperFirst(getDonationTime(donor.created_at))}
+                            </Typography.Text>
+                          </Row>
                         </Col>
                       </Row>
                     ))}

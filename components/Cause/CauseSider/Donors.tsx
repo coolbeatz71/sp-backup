@@ -1,7 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
-import { Input, Skeleton, Alert, Typography, Spin, Empty } from "antd";
+import {
+  Input,
+  Skeleton,
+  Alert,
+  Typography,
+  Spin,
+  Empty,
+  Row,
+  Col,
+} from "antd";
 import ReactCustomScrollbar from "react-scrollbars-custom";
 import { IRootState } from "redux/initialStates";
 import getDonors from "redux/actions/cause/donors";
@@ -131,27 +140,38 @@ const Donors: React.FC<Props> = ({ slug }) => {
               ) : (
                 <>
                   {donors.map((d, i) => (
-                    <div key={i} className={styles.donors__content__donor}>
-                      <Typography.Text ellipsis>
-                        {d.donor_source ? (
-                          <Link
-                            href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
+                    <Row key={i} className={styles.donors__content__donor}>
+                      <Col flex={1}>
+                        <Typography.Text ellipsis>
+                          {d.donor_source ? (
+                            <Link
+                              href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
+                            >
+                              {d.donor_source.till_number}
+                            </Link>
+                          ) : (
+                            d.user_names
+                          )}
+                        </Typography.Text>
+                      </Col>
+
+                      <Col>
+                        <Row justify="end">
+                          <Typography.Text>
+                            {numeral(d.amount).format()} RWF
+                          </Typography.Text>
+                        </Row>
+                        <Row justify="end">
+                          <Typography.Text
+                            className={
+                              styles.donors__content__donor__donationTime
+                            }
                           >
-                            {d.donor_source.till_number}
-                          </Link>
-                        ) : (
-                          d.user_names
-                        )}
-                      </Typography.Text>
-
-                      <Typography.Text>
-                        {numeral(d.amount).format()} RWF
-                      </Typography.Text>
-
-                      <Typography.Text>
-                        {upperFirst(getDonationTime(d.created_at))}
-                      </Typography.Text>
-                    </div>
+                            {upperFirst(getDonationTime(d.created_at))}
+                          </Typography.Text>
+                        </Row>
+                      </Col>
+                    </Row>
                   ))}
 
                   {loadingMore && (

@@ -26,14 +26,8 @@
       padding-right: 10px;
       cursor: pointer;
 
-      [class~="ant-typography"] {
-        width: 80%;
-        text-align: right;
-      }
-
-      [class~="ant-typography"]:first-of-type {
-        width: 100%;
-        text-align: left;
+      &__donationTime {
+        font-size: 8px;
       }
 
       &:hover {
