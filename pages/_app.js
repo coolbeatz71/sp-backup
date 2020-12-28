@@ -18,7 +18,7 @@ import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
 import { getLanguage } from "helpers/getLanguage";
 import IndexPage from "./index";
-import protectedRoutes from "../constants/protecedRoute";
+import protectedRoutes from "../constants/protectedRoute";
 import getToken from "helpers/getToken";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
