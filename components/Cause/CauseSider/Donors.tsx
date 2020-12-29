@@ -9,11 +9,12 @@ import moreDonors from "redux/actions/cause/moreDonors";
 import { CLEAR_SEARCH_DONORS } from "redux/action-types/cause/donors";
 
 import styles from "./Donors.module.scss";
-import { isEmpty } from "lodash";
+import { isEmpty, upperFirst } from "lodash";
 import Link from "next/link";
 import { ALL_CAUSES_PATH } from "helpers/paths";
 
 import { useTranslation } from "react-i18next";
+import { getDonationTime } from "helpers/dateFormatter";
 
 interface Props {
   slug: string;
@@ -131,7 +132,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
                 <>
                   {donors.map((d, i) => (
                     <div key={i} className={styles.donors__content__donor}>
-                      <Typography.Text>
+                      <Typography.Text ellipsis>
                         {d.donor_source ? (
                           <Link
                             href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
@@ -142,8 +143,13 @@ const Donors: React.FC<Props> = ({ slug }) => {
                           d.user_names
                         )}
                       </Typography.Text>
+
                       <Typography.Text>
                         {numeral(d.amount).format()} RWF
+                      </Typography.Text>
+
+                      <Typography.Text>
+                        {upperFirst(getDonationTime(d.created_at))}
                       </Typography.Text>
                     </div>
                   ))}

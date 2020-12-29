@@ -32,7 +32,7 @@ import CustomIcon from "components/common/CustomIcon";
 import styles from "./index.module.scss";
 import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
-import getCauseEndingDate from "helpers/causeEndingDate";
+import { getCauseEndingDate } from "helpers/dateFormatter";
 import { causeStatus } from "interfaces";
 import getImageUrl from "helpers/getImageUrl";
 

@@ -8,7 +8,7 @@ import Actions from "components/common/CausesActions";
 
 import styles from "./index.module.scss";
 import { useRouter } from "next/router";
-import getCauseEndingDate from "helpers/causeEndingDate";
+import { getCauseEndingDate } from "helpers/dateFormatter";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -57,7 +57,7 @@ const CauseProgress: React.FC<Props> = ({
                 <span>
                   {numeral(
                     ((cause.raised_amount * 1) / (cause.target_amount * 1)) *
-                      100
+                      100,
                   ).format("0,0.0")}
                   %
                 </span>
