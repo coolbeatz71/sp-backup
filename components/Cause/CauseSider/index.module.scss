@@ -47,6 +47,10 @@
         &:hover {
           background: $primary-ultra-light;
         }
+
+        &__donationTime {
+          font-size: 8px;
+        }
       }
       [data-not-lg="true"] {
         background-color: transparent;
