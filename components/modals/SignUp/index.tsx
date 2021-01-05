@@ -36,7 +36,7 @@ const SignUp: React.FC<{}> = () => {
     loading,
     error: { message: error = null },
   } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
   );
 
   const {
@@ -45,7 +45,18 @@ const SignUp: React.FC<{}> = () => {
   } = useSelector(({ auth: { signup } }: IRootState) => signup);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+  );
+
+  const gotAccountMsg = () => (
+    <>
+      {t("got an account")}{" "}
+      <span style={{ fontSize: "11px" }}>
+        <Icon type="save" />
+      </span>
+      ? &nbsp;
+      <span style={{ textDecoration: "underline" }}>{t("signin")}</span>
+    </>
   );
 
   return (
@@ -94,7 +105,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("got an account")} {t("signin with")} <Icon type="save" />
+              {gotAccountMsg()}
             </Button>
           </Form.Item>
         </Form>
@@ -192,7 +203,7 @@ const SignUp: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("got an account")} {t("signin with")} <Icon type="save" />
+              {gotAccountMsg()}
             </Button>
           </Form.Item>
         </Form>
