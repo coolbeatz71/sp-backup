@@ -38,7 +38,16 @@ const ResetPin: React.FC<{}> = () => {
   } = useSelector(({ pin: { reset_update } }: IRootState) => reset_update);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+  );
+
+  const signinWithMsg = () => (
+    <>
+      {t("remember pin")} {t("signin with")}&nbsp;
+      <span style={{ fontSize: "11px" }}>
+        <Icon type="save" />
+      </span>
+    </>
   );
 
   return (
@@ -88,7 +97,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("remember pin")} {t("signin with")} <Icon type="save" />
+              {signinWithMsg()}
             </Button>
           </Form.Item>
         </Form>
@@ -153,7 +162,7 @@ const ResetPin: React.FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {t("remember pin")} {t("signin with")} <Icon type="save" />
+              {signinWithMsg()}
             </Button>
           </Form.Item>
         </Form>

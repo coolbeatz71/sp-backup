@@ -140,6 +140,7 @@ export default {
   "don't have account": "Don't have account?",
   "create account": "Create account",
   "remember pin": "Remember PIN?",
+  signin: "Sign In",
   "signin with": "SIGN IN with",
   "enter verification code":
     "Enter the verification code sent to your phone number",
@@ -171,7 +172,7 @@ export default {
   "contact person": "Contact Person",
   "organization name": "Organization name",
   "access code": "Access Code",
-  "got an account": "Got an account?",
+  "got an account": "Got an account on",
   "create a save account": "Create a Save account",
   verify: "Verify",
   "make profile modifications":

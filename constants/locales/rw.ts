@@ -140,6 +140,7 @@ export default {
   "don't have account": "Nta konti ufite?",
   "create account": "Fungura konti",
   "remember pin": "Wibutse PIN?",
+  signin: "Injiramo",
   "signin with": "Injiramo na",
   "enter verification code":
     "Injiza umubare ngenzuzi woherejwe kuri numero za terefone",
@@ -171,7 +172,7 @@ export default {
   "contact person": "Umuntu twabaza",
   "organization name": "Izina ry'umuryango",
   "access code": "Kode yo kwinjira",
-  "got an account": "Ufite konti?",
+  "got an account": "Ufite konti kuri",
   "create a save account": "Kora Konti kuri Save",
   verify: "Emeza",
   "make profile modifications": "Gira icyo uhindura ku mwirondoro wawe",
