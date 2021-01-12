@@ -163,9 +163,6 @@
         }
       }
       & > [class~="ant-col"] {
-        // &:first-child {
-        //   max-width: calc(100vw - (#{$mobile-logo-size} + (#{$padding} * 4)));
-        // }
         & > a {
           & > img {
             width: $logo-size;
@@ -345,7 +342,6 @@
         height: auto;
       }
       [class~="copy"] {
-        margin-top: calc(#{$padding} * 0.5);
         margin-bottom: calc(#{$padding} * 0.2);
       }
       [class~="ant-menu-horizontal"] {

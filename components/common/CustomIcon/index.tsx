@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import Icon from "@ant-design/icons";
 
 import dashboard from "./svg/dashboard";
@@ -47,10 +47,7 @@ interface Props {
   type: string;
 }
 
-const CustomIcon: React.FC<Props & { [key: string]: any }> = ({
-  type,
-  ...props
-}) => {
+const CustomIcon: FC<Props & { [key: string]: any }> = ({ type, ...props }) => {
   return <Icon component={icons[type]} {...props} />;
 };
 

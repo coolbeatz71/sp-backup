@@ -1,9 +1,9 @@
-import React from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 
 import { Row, Col, Menu, Input, Dropdown, Button, Checkbox, Grid } from "antd";
 import { useRouter } from "next/router";
 import { SearchOutlined, DownOutlined } from "@ant-design/icons";
-import _ from "lodash";
+import { filter } from "lodash";
 import { useTranslation } from "react-i18next";
 import { CatType } from "helpers/context";
 import capitalize from "helpers/capitalize";
@@ -16,7 +16,7 @@ interface Props {
   scrolled: string;
 }
 
-const CategoryBar: React.FC<Props> = ({
+const CategoryBar: FC<Props> = ({
   categories,
   baseUrl = "/causes",
   scrolled,
@@ -30,31 +30,31 @@ const CategoryBar: React.FC<Props> = ({
       ? ["active", "paused", "cancelled", "completed"]
       : ["active", "pending", "paused", "cancelled", "completed"];
 
-  const [search, setSearch] = React.useState<any>(query?.search || "");
-  const [fetched, setFetched] = React.useState(true);
+  const [search, setSearch] = useState<any>(query?.search || "");
+  const [fetched, setFetched] = useState(true);
 
-  const [feed_type, setFeed_type] = React.useState<any>(
+  const [feed_type, setFeed_type] = useState<any>(
     query?.feed_type ? `${query?.feed_type}`.split(",") : [],
   );
 
-  const [status, setStatus] = React.useState<any>(
+  const [status, setStatus] = useState<any>(
     query?.status ? `${query?.status}`.split(",") : [],
   );
 
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
 
   const scrollHandler = () => {
     if (window.pageYOffset > 200) setVisible(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });
     return () => {
       window.removeEventListener("scroll", scrollHandler);
     };
   }, [scrollHandler]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setStatus(query?.status ? `${query?.status}`.split(",") : []);
     setFeed_type(query?.feed_type ? `${query?.feed_type}`.split(",") : []);
   }, [pathname, query, asPath]);
@@ -102,7 +102,7 @@ const CategoryBar: React.FC<Props> = ({
   const categoryTitles = { [baseUrl]: capitalize(t("all")) };
   categories.map(({ id, title }) => (categoryTitles[id] = title));
 
-  const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+  const Wrapper: FC<{ children: ReactElement }> = ({ children }) =>
     screens.lg ? (
       children
     ) : (
@@ -171,7 +171,7 @@ const CategoryBar: React.FC<Props> = ({
                   if (statuses.includes(`${key}`)) theKeys = [...status];
 
                   if (theKeys.includes(`${key}`)) {
-                    theKeys = _.filter(theKeys, (i) => i !== key);
+                    theKeys = filter(theKeys, (i) => i !== key);
                   } else {
                     theKeys.push(`${key}`);
                   }

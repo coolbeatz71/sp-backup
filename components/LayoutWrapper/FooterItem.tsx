@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import { Menu, Typography, Button } from "antd";
 import moment from "moment";
 import {
@@ -44,12 +44,13 @@ const FooterItem = () => {
   ];
   return (
     <div className="footer-item">
-      <img
+      <Image
+        layout="fixed"
         src="/logo-beta.svg"
         className="logo"
         alt="Save Plus Logo"
-        width="150"
-        height="50"
+        width={180}
+        height={50}
       />
       <div className="copy">
         <Typography.Text type="secondary">

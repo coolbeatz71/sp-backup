@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { format } from "dev-rw-phone";
@@ -33,8 +33,8 @@ const SingleCause: NextPage<Props> = ({
   error: er,
   edit = false,
 }) => {
-  const [cause, setCause] = React.useState(cs);
-  const [error, setError] = React.useState(er);
+  const [cause, setCause] = useState(cs);
+  const [error, setError] = useState(er);
 
   const [fetched, setFetched] = useState(error === null);
   const router = useRouter();
@@ -51,7 +51,7 @@ const SingleCause: NextPage<Props> = ({
 
   const { t } = useTranslation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (_err) setError(_err);
     if (data?.slug && !cause.id) {
       setCause(data);
@@ -59,7 +59,7 @@ const SingleCause: NextPage<Props> = ({
     }
   }, [_err, data]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!fetched && !cause.id) {
       getSingle(
         cause?.slug,
@@ -69,13 +69,13 @@ const SingleCause: NextPage<Props> = ({
     }
   }, [fetched]);
 
-  const [editing, setEditing] = React.useState(edit);
+  const [editing, setEditing] = useState(edit);
 
   const myCause =
     user.currentUser.isLoggedin &&
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (edit && cause.id) {
       if (cause.edit_count === 0) {
         setEditing(edit);

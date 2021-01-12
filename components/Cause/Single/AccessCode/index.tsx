@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FC } from "react";
 import { Input, Typography, Row, Col } from "antd";
 import { IUnknownObject } from "interfaces/unknownObject";
 import getSingle from "redux/actions/cause/getSingle";
@@ -13,7 +13,7 @@ export interface AccessCodeProps {
   length: number;
 }
 
-const AccessCode: React.FC<AccessCodeProps> = ({ slug, error, length }) => {
+const AccessCode: FC<AccessCodeProps> = ({ slug, error, length }) => {
   const dispatch = useDispatch();
   const { push } = useRouter();
   const digitsToFill = Array.from({ length }, (_, index) => index);
@@ -38,7 +38,7 @@ const AccessCode: React.FC<AccessCodeProps> = ({ slug, error, length }) => {
       };
       const digitsFilled = Object.keys(newValue).length;
       const nextEmptyInput = Object.keys(newValue).findIndex(
-        (key, index) => Number(index) !== Number(key)
+        (key, index) => Number(index) !== Number(key),
       );
       const nextDigitToFill =
         nextEmptyInput >= 0 ? Number(nextEmptyInput) : digitsFilled;

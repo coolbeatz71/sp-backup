@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import ReactCrop from "react-image-crop";
 import { Modal, Upload, message } from "antd";
 import moment from "moment";
@@ -20,7 +20,7 @@ interface Props {
   onOk: (image: any, file: any[], uploadFile: any) => void;
 }
 
-const CropImage: React.FC<Props> = ({
+const CropImage: FC<Props> = ({
   isProfile = false,
   file: fl,
   image,
@@ -29,22 +29,31 @@ const CropImage: React.FC<Props> = ({
   onOk,
 }) => {
   const { t } = useTranslation();
-  const [crop, setCrop] = React.useState<any>({
+  const [crop, setCrop] = useState<any>({
     aspect: isProfile ? 1 : 16 / 9,
     width: 100,
     unit: "%",
   });
-  const [cropped, setCropped] = React.useState<any>();
-  const [completedCrop, setCompletedCrop] = React.useState<any>(image);
-  const [preview, setPreview] = React.useState<string | ArrayBuffer | null>(
-    null,
-  );
+  const [cropped, setCropped] = useState<any>();
+  const [completedCrop, setCompletedCrop] = useState<any>(image);
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
-  const [file, setFile] = React.useState<any[]>(fl);
-  const [show, setShow] = React.useState<boolean>(false);
+  const [file, setFile] = useState<any[]>(fl);
+  const [show, setShow] = useState<boolean>(false);
 
-  const imgRef = React.useRef(null);
-  const previewCanvasRef = React.useRef(null);
+  const imgRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+
+  const cancel = useCallback((r) => {
+    setFile([]);
+    setShow(false);
+    setCropped(null);
+    setCompletedCrop(null);
+
+    clearImage(r);
+
+    onCancel();
+  }, []);
 
   const props = {
     name: "image",
@@ -65,18 +74,7 @@ const CropImage: React.FC<Props> = ({
     },
   };
 
-  const cancel = React.useCallback((r) => {
-    setFile([]);
-    setShow(false);
-    setCropped(null);
-    setCompletedCrop(null);
-
-    clearImage(r);
-
-    onCancel();
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (file.length > 0 && show) {
       const reader = new FileReader();
       reader.addEventListener("load", () => setCropped(reader.result));
@@ -84,7 +82,7 @@ const CropImage: React.FC<Props> = ({
     }
   }, [file, show]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (uploadFile instanceof File) {
       const reader = new FileReader();
       reader.addEventListener("load", () => setPreview(reader.result));
@@ -92,15 +90,15 @@ const CropImage: React.FC<Props> = ({
     }
   }, [uploadFile]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFile(fl);
   }, [fl]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCompletedCrop(image);
   }, [image]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
@@ -108,7 +106,7 @@ const CropImage: React.FC<Props> = ({
     drawImage(imgRef, previewCanvasRef, completedCrop);
   }, [completedCrop]);
 
-  const onLoad = React.useCallback((img) => {
+  const onLoad = useCallback((img) => {
     imgRef.current = img;
   }, []);
 

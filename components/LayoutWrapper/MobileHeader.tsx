@@ -1,4 +1,5 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Layout,
   Row,
@@ -11,7 +12,6 @@ import {
   Dropdown,
 } from "antd";
 import logout from "redux/actions/Auth/logout";
-import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
@@ -48,7 +48,7 @@ interface Props {
   hasBanner: boolean;
 }
 
-const Header: React.FC<Props> = ({
+const Header: FC<Props> = ({
   scrolled,
   isCategory,
   user,
@@ -59,17 +59,17 @@ const Header: React.FC<Props> = ({
   hasBanner,
 }) => {
   const router = useRouter();
-  const [changePin, setChangePin] = React.useState(false);
+  const [changePin, setChangePin] = useState(false);
   const dispatch = useDispatch();
 
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const [noBackdrop, setNoBackdrop] = React.useState(false);
+  const [noBackdrop, setNoBackdrop] = useState(false);
   const { loading } = useSelector(
     (state: IRootState) => state.user.updateProfile,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const webkitBackdrop =
       typeof CSS !== "undefined" &&
       CSS.supports &&
@@ -108,12 +108,13 @@ const Header: React.FC<Props> = ({
         <Col>
           <Link href="/">
             <a rel="noreferrer noopener">
-              <img
+              <Image
+                layout="fixed"
                 src="/logo-beta.svg"
                 className={styles.layout__header__row__logo}
                 alt="beta logo"
-                width="150"
-                height="50"
+                width={125}
+                height={55}
               />
             </a>
           </Link>

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState } from "react";
 import numeral from "numeral";
 import { useTranslation } from "react-i18next";
 import { Row, Col, Button, Input, Form, InputNumber, Alert } from "antd";
@@ -15,15 +15,9 @@ export interface Props {
   currency?: string;
 }
 
-const Step1: React.FC<Props> = ({
-  data,
-  setForm,
-  cb,
-  currentBalance,
-  currency,
-}) => {
+const Step1: FC<Props> = ({ data, setForm, cb, currentBalance, currency }) => {
   const { t } = useTranslation();
-  const [isMaxError, setMaxError] = React.useState<boolean>(false);
+  const [isMaxError, setMaxError] = useState<boolean>(false);
 
   const maxErrorMsg = t("the maximum cashout is", {
     amount: "2,000,000 RWF",

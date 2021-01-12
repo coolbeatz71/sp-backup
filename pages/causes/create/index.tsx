@@ -1,5 +1,4 @@
-import React from "react";
-import _ from "lodash";
+import { FC, ReactElement, useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 import { short } from "dev-rw-phone";
 import { useRouter } from "next/router";
@@ -18,13 +17,13 @@ import defaultSteps from "./CreateCauseSteps";
 import Layout from "components/LayoutWrapper";
 import Buttons from "./CreateCauseSteps/Buttons";
 
-const Wrapper: React.FC<{ children: React.ReactElement; edit: boolean }> = ({
+const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
   children,
   edit,
 }) => {
   const { t } = useTranslation();
   return edit ? (
-    <React.Fragment>{children}</React.Fragment>
+    <Fragment>{children}</Fragment>
   ) : (
     <Layout title={t("create a cause")} isForm>
       <div data-content-padding>
@@ -71,33 +70,28 @@ interface Props {
   svpProps: SvpType;
 }
 
-const Create: React.FC<Props> = ({
-  data: dt = {},
-  edit = false,
-  slug,
-  svpProps,
-}) => {
+const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
   const { data: userData } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   const { t } = useTranslation();
 
-  const [steps, setSteps] = React.useState(
+  const [steps, setSteps] = useState(
     defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
   );
-  const [index, setIndex] = React.useState<number>(0);
-  const [data, setData] = React.useState<{ [key: string]: any }>(dt);
-  const [refreshKey, setRefreshKey] = React.useState<number>(0);
-  const [form, setForm] = React.useState<any>();
-  const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
-  const [issue, setIssue] = React.useState<boolean[]>([]);
+  const [index, setIndex] = useState<number>(0);
+  const [data, setData] = useState<{ [key: string]: any }>(dt);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [form, setForm] = useState<any>();
+  const [okay, setOkay] = useState<{ [key: string]: boolean }>({});
+  const [issue, setIssue] = useState<boolean[]>([]);
 
-  const [success, setSuccess] = React.useState(false);
+  const [success, setSuccess] = useState(false);
 
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (success && !data.slug) {
       router.replace("/causes/create/success");
     }
@@ -113,11 +107,11 @@ const Create: React.FC<Props> = ({
 
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     clear()(dispatch);
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setData({
       ...data,
       account: short(userData.phone_number),

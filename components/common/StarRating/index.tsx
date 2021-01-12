@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, Fragment, ReactElement, MouseEvent, FocusEvent } from "react";
 import { Popover, Typography } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import numeral from "numeral";
@@ -13,13 +13,13 @@ interface Props {
   count?: number;
   text?: string;
   noAction?: boolean;
-  onMouseEnter?: (e: React.MouseEvent) => void;
-  onMouseLeave?: (e: React.MouseEvent) => void;
-  onFocus?: (e: React.FocusEvent) => void;
-  onClick?: (e: React.MouseEvent) => void;
+  onMouseEnter?: (e: MouseEvent) => void;
+  onMouseLeave?: (e: MouseEvent) => void;
+  onFocus?: (e: FocusEvent) => void;
+  onClick?: (e: MouseEvent) => void;
 }
 
-const Stars: React.FC<Props> = ({
+const Stars: FC<Props> = ({
   value,
   text,
   status,
@@ -94,16 +94,16 @@ const Stars: React.FC<Props> = ({
   </div>
 );
 
-const StarRating: React.FC<Props> = ({
+const StarRating: FC<Props> = ({
   value,
   status,
   count = 0,
   noAction = false,
 }) => {
   const { t } = useTranslation();
-  const Wrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+  const Wrap: FC<{ children: ReactElement }> = ({ children }) =>
     noAction ? (
-      <React.Fragment>{children}</React.Fragment>
+      <Fragment>{children}</Fragment>
     ) : (
       <Popover
         trigger="hover"

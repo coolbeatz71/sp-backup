@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -16,7 +16,7 @@ interface Props {
   setIndex: (param: number) => void;
 }
 
-const TT: React.FC<{ loading: boolean; title: string; children: any }> = ({
+const TT: FC<{ loading: boolean; title: string; children: any }> = ({
   loading,
   title,
   children,
@@ -24,7 +24,7 @@ const TT: React.FC<{ loading: boolean; title: string; children: any }> = ({
   return loading ? children : <Tooltip title={title}>{children}</Tooltip>;
 };
 
-const Buttons: React.FC<Props> = ({
+const Buttons: FC<Props> = ({
   steps,
   index,
   form,

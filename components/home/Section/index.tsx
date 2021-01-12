@@ -1,5 +1,4 @@
-import React from "react";
-
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Typography, Row, Col, Card, Button } from "antd";
@@ -20,7 +19,7 @@ interface Props {
   more?: { title: string; link: string };
 }
 
-const Section: React.FC<Props> = ({
+const Section: FC<Props> = ({
   title,
   icon,
   fetched,

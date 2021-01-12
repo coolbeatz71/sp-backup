@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Row, Col, Typography, Button, Grid } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ interface Props {
   hideSignedIn?: boolean;
 }
 
-const Jumbotron: React.FC<Props> = ({ hideSignedIn = false }) => {
+const Jumbotron: FC<Props> = ({ hideSignedIn = false }) => {
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
 

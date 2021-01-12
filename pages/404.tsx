@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, ReactElement } from "react";
 import { Result } from "antd";
 import styles from "./404.module.scss";
 
@@ -10,11 +10,11 @@ interface Props {
   message?: string;
 }
 
-const NotFound: React.FC<Props> = ({
+const NotFound: FC<Props> = ({
   noWrapper = false,
   message = "Page not found!",
 }) => {
-  const Wrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+  const Wrap: FC<{ children: ReactElement }> = ({ children }) =>
     !noWrapper ? (
       <Layout title={message} noFooter isError>
         {children}

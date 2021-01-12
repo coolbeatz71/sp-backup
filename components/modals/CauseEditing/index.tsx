@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import moment from "moment";
 import { short } from "dev-rw-phone";
 
@@ -16,12 +16,7 @@ interface Props {
   svpProps: SvpType;
 }
 
-const CauseEditing: React.FC<Props> = ({
-  visible,
-  onClose,
-  cause,
-  svpProps,
-}) => {
+const CauseEditing: FC<Props> = ({ visible, onClose, cause, svpProps }) => {
   const { loading } = useSelector((state: any) => state.createCause);
 
   return (

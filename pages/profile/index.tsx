@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
@@ -30,12 +30,12 @@ import Modal from "components/common/Modal";
 import CropImage from "components/common/CropImage";
 import LayoutWrapper from "components/LayoutWrapper";
 
-const Profile: React.FC<{}> = () => {
+const Profile: FC<{}> = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [successModal, setSuccessModal] = useState<boolean>(false);
-  const [avatarKey, setAvatarKey] = React.useState(0);
+  const [avatarKey, setAvatarKey] = useState(0);
 
   const { isLoggedin, data, loading: dataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,

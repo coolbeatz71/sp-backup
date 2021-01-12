@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Divider, Button } from "antd";
 import Plan from "./Plan";
@@ -10,7 +10,7 @@ import { useMedia } from "react-use";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
-const PricingCard: React.FC<{}> = ({}) => {
+const PricingCard: FC<{}> = ({}) => {
   const { t } = useTranslation();
   const pricingPlan = [
     {
@@ -29,7 +29,7 @@ const PricingCard: React.FC<{}> = ({}) => {
   const dispatch = useDispatch();
 
   const { isLoggedin } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   return (
@@ -44,7 +44,7 @@ const PricingCard: React.FC<{}> = ({}) => {
       </div>
       <div className={styles.pricingCard__container}>
         {pricingPlan.map((item, index, plans) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <div
               key={index}
               className={styles.pricingCard__container__sections}
@@ -70,7 +70,7 @@ const PricingCard: React.FC<{}> = ({}) => {
                 }}
               />
             )}
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
       <div>

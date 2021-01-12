@@ -1,5 +1,5 @@
-import React from "react";
-import _ from "lodash";
+import { FC, useContext, useEffect, useState } from "react";
+import { isEmpty } from "lodash";
 import Context from "helpers/context";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -39,7 +39,7 @@ interface Props {
   baseUrl?: string;
 }
 
-const LayoutWrapper: React.FC<Props> = ({
+const LayoutWrapper: FC<Props> = ({
   baseUrl,
   title,
   image,
@@ -58,10 +58,10 @@ const LayoutWrapper: React.FC<Props> = ({
   const screens = useBreakpoint();
 
   const { t } = useTranslation();
-  const { svpProps } = React.useContext(Context);
+  const { svpProps } = useContext(Context);
   const router = useRouter();
 
-  const [scrolled, setScrolled] = React.useState("");
+  const [scrolled, setScrolled] = useState("");
 
   const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
@@ -80,12 +80,12 @@ const LayoutWrapper: React.FC<Props> = ({
     );
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });
   }, [scrollHandler]);
 
-  React.useEffect(() => {
-    if (user.currentUser.isLoggedin && _.isEmpty(user.currentUser.data)) {
+  useEffect(() => {
+    if (user.currentUser.isLoggedin && isEmpty(user.currentUser.data)) {
       getCurrentUser(dispatch);
     }
   }, [dispatch]);

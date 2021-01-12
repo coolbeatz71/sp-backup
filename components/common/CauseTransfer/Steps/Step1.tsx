@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import { Row, Col, Button, Form, Select, Alert, Input, message } from "antd";
 import { getAllCauses } from "redux/actions/cause/getAll";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,35 +19,35 @@ export interface Props {
   steps?: any[];
 }
 
-const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
+const Step1: FC<Props> = ({ slug, data, setForm, cb }) => {
   const CAUSES_URL: string = "/causes?purpose=donation_transfer&status=active";
 
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const [isPrivate, setPrivate] = React.useState<boolean>(false);
-  const [isConfirmed, setConfirmed] = React.useState<boolean>(true);
+  const [isPrivate, setPrivate] = useState<boolean>(false);
+  const [isConfirmed, setConfirmed] = useState<boolean>(true);
 
   const { loading: loadingUser, data: user } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   const { data: causes, loading, error, fetched } = useSelector(
-    ({ cause: { all_transfer } }: IRootState) => all_transfer
+    ({ cause: { all_transfer } }: IRootState) => all_transfer,
   );
 
   const { loading: loadingCause, data: singleCause, error: _err } = useSelector(
-    ({ cause: { single_transfer } }: IRootState) => single_transfer
+    ({ cause: { single_transfer } }: IRootState) => single_transfer,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isEmpty(data.cause)) {
       const { access, userId } = JSON.parse(data?.cause);
       setPrivate(access === "private" && userId !== user.id);
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getAllCauses(CAUSES_URL, "transfer")(dispatch);
   }, [dispatch]);
 
@@ -80,7 +80,7 @@ const Step1: React.FC<Props> = ({ slug, data, setForm, cb }) => {
           getSingle(
             slug,
             access === "private" && access_code ? { access_code } : {},
-            "transfer"
+            "transfer",
           )(dispatch);
 
           setConfirmed(true);

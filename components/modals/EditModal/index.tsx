@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -32,7 +32,7 @@ interface Props {
   end: string;
 }
 
-const CauseEditing: React.FC<Props> = ({
+const CauseEditing: FC<Props> = ({
   visible,
   onClose,
   slug,
@@ -46,7 +46,7 @@ const CauseEditing: React.FC<Props> = ({
   const { push } = useRouter();
 
   const { loading, error } = useSelector(
-    ({ cause: { edit } }: IRootState) => edit
+    ({ cause: { edit } }: IRootState) => edit,
   );
 
   return (
@@ -72,7 +72,7 @@ const CauseEditing: React.FC<Props> = ({
                 end_date,
                 target_amount: dt.target,
               },
-              slug
+              slug,
             )(push, dispatch);
           } else {
             onClose(true);
@@ -120,7 +120,7 @@ const CauseEditing: React.FC<Props> = ({
 
                 if (start.isValid() && moment(value).isBefore(start)) {
                   return Promise.reject(
-                    t("end date should not be before the start date")
+                    t("end date should not be before the start date"),
                   );
                 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, FC } from "react";
 import { Input as SemanticInput } from "antd";
 import { InputProps, PasswordProps, TextAreaProps } from "antd/es/input";
 import styles from "./input.module.scss";
@@ -23,7 +23,7 @@ export interface InputInterface {
   onChange?: any;
 }
 
-const Input: React.FC<InputInterface> = (props) => {
+const Input: FC<InputInterface> = (props) => {
   const { placeholder, ...defaultProps } = props;
 
   return (
@@ -41,7 +41,7 @@ const Input: React.FC<InputInterface> = (props) => {
   );
 };
 
-const InputPhoneNumber: React.FC<InputInterface & InputProps> = (props) => {
+const InputPhoneNumber: FC<InputInterface & InputProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
   const [onFocus, setOnFocus] = useState(false);
   const [phoneTelcoIcon, setPhoneTelco] = useState("default");
@@ -109,7 +109,7 @@ const InputPhoneNumber: React.FC<InputInterface & InputProps> = (props) => {
   );
 };
 
-const InputPassword: React.FC<InputInterface & PasswordProps> = (props) => {
+const InputPassword: FC<InputInterface & PasswordProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
   const [onFocus, setOnFocus] = useState(false);
   useEffect(() => {
@@ -149,7 +149,7 @@ const InputPassword: React.FC<InputInterface & PasswordProps> = (props) => {
     </div>
   );
 };
-const TextArea: React.FC<TextAreaProps> = (props) => {
+const TextArea: FC<TextAreaProps> = (props) => {
   const { placeholder, ...defaultProps } = props;
   const [onFocus, setOnFocus] = useState(false);
 

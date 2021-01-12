@@ -1,4 +1,3 @@
-import React from "react";
 import getCauseInitialProps from "helpers/getCauseInitialProps";
 import { NextPage } from "next";
 

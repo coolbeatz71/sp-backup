@@ -1,4 +1,5 @@
-import React from "react";
+import { FC, useState } from "react";
+import Image from "next/image";
 import {
   Layout,
   Row,
@@ -11,7 +12,6 @@ import {
 } from "antd";
 import { useTranslation } from "react-i18next";
 import logout from "redux/actions/Auth/logout";
-import _ from "lodash";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
 
 import styles from "./index.module.scss";
@@ -47,7 +47,7 @@ interface Props {
   hasBanner: boolean;
 }
 
-const Header: React.FC<Props> = ({
+const Header: FC<Props> = ({
   scrolled,
   isCategory,
   user,
@@ -58,7 +58,7 @@ const Header: React.FC<Props> = ({
   hasBanner,
 }) => {
   const router = useRouter();
-  const [changePin, setChangePin] = React.useState(false);
+  const [changePin, setChangePin] = useState(false);
   const dispatch = useDispatch();
 
   const { loading } = useSelector(
@@ -95,12 +95,13 @@ const Header: React.FC<Props> = ({
         <Col flex={1}>
           <Link href="/">
             <a rel="noreferrer noopener">
-              <img
+              <Image
+                layout="intrinsic"
                 src="/logo-beta.svg"
                 className={styles.layout__header__row__logo}
                 alt="beta logo"
-                width="150"
-                height="50"
+                width={170}
+                height={70}
               />
             </a>
           </Link>

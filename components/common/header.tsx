@@ -1,11 +1,11 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import Head from "next/head";
 
 type Props = {
   title?: string;
 };
 
-const Header: React.FunctionComponent<Props> = ({ title = "Save Plus" }) => (
+const Header: FunctionComponent<Props> = ({ title = "Save Plus" }) => (
   <Head>
     <title>{title}</title>
     <link
@@ -85,7 +85,10 @@ const Header: React.FunctionComponent<Props> = ({ title = "Save Plus" }) => (
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    />
   </Head>
 );
 

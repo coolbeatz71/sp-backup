@@ -1,4 +1,4 @@
-import React from "react";
+import { cloneElement, FC, useRef, useState } from "react";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
@@ -21,7 +21,7 @@ interface Props {
   children: Element | any;
 }
 
-const StackedLabel: React.FC<Props> = ({
+const StackedLabel: FC<Props> = ({
   label,
   id = "StackedLabel",
   value = "",
@@ -35,18 +35,18 @@ const StackedLabel: React.FC<Props> = ({
   charCount,
   children,
 }) => {
-  const [status, setStatus] = React.useState(
+  const [status, setStatus] = useState(
     [null, undefined, ""].includes(value) ? "" : "__stacked",
   );
-  const [datePickerOpen, setDatePickerOpen] = React.useState(false);
-  const [selectOpen, setSelectOpen] = React.useState(false);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [selectOpen, setSelectOpen] = useState(false);
 
   const onFocus = () => setStatus("__stacked");
   const onBlur = () => {
     setStatus([null, undefined, ""].includes(value) ? "" : "__stacked");
   };
 
-  const ref = React.useRef({
+  const ref = useRef({
     click: (): any => null,
     focus: (): any => null,
   });
@@ -75,7 +75,7 @@ const StackedLabel: React.FC<Props> = ({
       className={!phone ? styles.input : styles.input__phone}
       data-char-count={charCount ? true : false}
     >
-      {React.cloneElement(children, {
+      {cloneElement(children, {
         ref,
         value,
         onChange,

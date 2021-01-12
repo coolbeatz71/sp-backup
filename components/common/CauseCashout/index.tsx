@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import numeral from "numeral";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ interface Props {
   currency: string;
 }
 
-const CauseCashout: React.FC<Props> = ({
+const CauseCashout: FC<Props> = ({
   data: dt = {},
   slug,
   actionSuccessful,
@@ -36,15 +36,15 @@ const CauseCashout: React.FC<Props> = ({
 
   const { t } = useTranslation();
 
-  const [steps] = React.useState(defaultSteps());
-  const [index, setIndex] = React.useState<number>(0);
-  const [data, setData] = React.useState<{ [key: string]: any }>(dt);
-  const [refreshKey, setRefreshKey] = React.useState<number>(0);
-  const [form, setForm] = React.useState<any>();
-  const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
-  const [issue, setIssue] = React.useState<boolean[]>([]);
+  const [steps] = useState(defaultSteps());
+  const [index, setIndex] = useState<number>(0);
+  const [data, setData] = useState<{ [key: string]: any }>(dt);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [form, setForm] = useState<any>();
+  const [okay, setOkay] = useState<{ [key: string]: boolean }>({});
+  const [issue, setIssue] = useState<boolean[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({ type: RESET_CASHOUT_ERROR });
   }, [dispatch]);
 
@@ -111,13 +111,13 @@ const CauseCashout: React.FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                }
+                },
               );
             },
             issue,
             steps,
             currentBalance,
-            currency
+            currency,
           )}
         </Card>
       )}

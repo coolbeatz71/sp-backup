@@ -1,5 +1,6 @@
-import React from "react";
+import { FC, Fragment, ReactElement, useState } from "react";
 import { upperFirst } from "lodash";
+import Image from "next/image";
 import {
   Card as AntdCard,
   Typography,
@@ -34,7 +35,7 @@ import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
 import { getCauseEndingDate } from "helpers/dateFormatter";
 import { causeStatus } from "interfaces";
-import getImageUrl from "helpers/getImageUrl";
+import { imgLoader } from "helpers/getImageUrl";
 
 interface Props {
   cause: { [key: string]: any };
@@ -46,10 +47,11 @@ interface Props {
 interface FooterCoverProps {
   slug: string;
   active: boolean;
-  children: React.ReactElement;
+  children: ReactElement;
   myCause: boolean;
 }
-const FooterCover: React.FC<FooterCoverProps> = ({
+
+const FooterCover: FC<FooterCoverProps> = ({
   slug,
   active,
   children,
@@ -76,13 +78,8 @@ export const isInactive = (status: string): boolean => {
   );
 };
 
-const Cause: React.FC<Props> = ({
-  cause,
-  isView = false,
-  isDonate = false,
-}) => {
+const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   const { t } = useTranslation();
-  const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
   const donateMsg: { [key: string]: string } = {
     active: t("make a donation"),
@@ -93,7 +90,7 @@ const Cause: React.FC<Props> = ({
     myCause: t("view cause details"),
   };
 
-  const [imageStatus, setImageStatus] = React.useState(
+  const [imageStatus, setImageStatus] = useState(
     !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
@@ -106,9 +103,9 @@ const Cause: React.FC<Props> = ({
     user.currentUser.isLoggedin &&
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
-  const LinkWrap: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+  const LinkWrap: FC<{ children: ReactElement }> = ({ children }) =>
     isView ? (
-      <React.Fragment>{children}</React.Fragment>
+      <Fragment>{children}</Fragment>
     ) : (
       <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
         {children}
@@ -147,10 +144,12 @@ const Cause: React.FC<Props> = ({
               </div>
             )}
             {imageStatus !== "none" && (
-              <img
+              <Image
+                layout="fill"
+                loader={imgLoader}
                 className={imageStatus}
                 alt="Cause Cover Image"
-                src={`${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${cause.image}`}
+                src={cause.image}
                 onError={() => {
                   setImageStatus("error");
                 }}

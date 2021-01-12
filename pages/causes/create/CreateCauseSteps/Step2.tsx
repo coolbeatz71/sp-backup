@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { Row, Col, Button, Input, Form, Switch } from "antd";
@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 import StackedLabel from "components/common/StackedLabel";
 import VideoPlayer from "components/common/VideoPlayer";
 
-const Step2: React.FC<Props> = ({ alerts, data, setForm, cb }) => {
+const Step2: FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();
   return (
     <Form

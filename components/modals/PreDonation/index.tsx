@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import Modal from "components/common/Modal";
@@ -7,11 +7,11 @@ import { Typography } from "antd";
 import Link from "next/link";
 
 interface Props {
-  children: React.ReactElement;
+  children: ReactElement;
   slug: string;
 }
 
-const PreDonation: React.FC<Props> = ({ children, slug }) => {
+const PreDonation: FC<Props> = ({ children, slug }) => {
   const { t } = useTranslation();
   return (
     <Modal
@@ -33,14 +33,13 @@ const PreDonation: React.FC<Props> = ({ children, slug }) => {
           </Typography.Link>
         </Typography.Paragraph>
         <Typography.Paragraph>
-          {t('currently we are accepting')}
+          {t("currently we are accepting")}
           <br />
           <Typography.Text strong>MTN Mobile Money</Typography.Text> {t("and")}{" "}
-          <Typography.Text strong>Airtel Money</Typography.Text> {t("post_airtel")}.
+          <Typography.Text strong>Airtel Money</Typography.Text>{" "}
+          {t("post_airtel")}.
         </Typography.Paragraph>
-        <Typography.Paragraph>
-          {t("visas coming soon")}
-        </Typography.Paragraph>
+        <Typography.Paragraph>{t("visas coming soon")}</Typography.Paragraph>
         <Link href="/causes/[slug]/donate" as={`/causes/${slug}/donate`}>
           <a style={{ textDecoration: "underline" }} rel="noreferrer noopener">
             {t("proceed")}
