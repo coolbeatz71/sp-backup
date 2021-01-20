@@ -1,5 +1,5 @@
 import { phone } from "dev-rw-phone";
-import _ from "lodash";
+import { find } from "lodash";
 import { StepType } from "../CreateCauseSteps";
 
 const handleSubmit = (
@@ -26,8 +26,8 @@ const handleSubmit = (
         return setIssue(notOk);
       }
 
-      const hasMed = _.find(steps, { id: "StepMed" });
-      const hasOrg = _.find(steps, { id: "StepOrg" });
+      const hasMed = find(steps, { id: "StepMed" });
+      const hasOrg = find(steps, { id: "StepOrg" });
 
       const toUpload: {
         [key: string]: any;

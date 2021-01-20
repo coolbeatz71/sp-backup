@@ -1,5 +1,6 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
+import Image from "next/image";
 import { Grid, Row, Col, Typography, Button, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -16,11 +17,11 @@ const GetStarted = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: IRootState) => state.user);
-  const [refresh, setRefresh] = React.useState(1);
-  const [status, setStatus] = React.useState("");
-  const [btn, setBtn] = React.useState("get started");
+  const [refresh, setRefresh] = useState(1);
+  const [status, setStatus] = useState("");
+  const [btn, setBtn] = useState("get started");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBtn(user.currentUser.isLoggedin ? "create a cause" : "get started");
   }, [user.currentUser.isLoggedin]);
 
@@ -29,7 +30,8 @@ const GetStarted = () => {
       {(screens.xs || screens.sm || screens.md) && !screens.lg && (
         <div className={styles.get_started__image_mobile}>
           <div data-home-image-ratio>
-            <img
+            <Image
+              layout="fill"
               key={refresh}
               data-home-image-ratio
               src="/images/get-started.png"
@@ -72,7 +74,8 @@ const GetStarted = () => {
         {screens.lg && (
           <Col className={styles.get_started__image}>
             <div data-home-image-ratio>
-              <img
+              <Image
+                layout="fill"
                 key={refresh}
                 data-home-image-ratio
                 src="/images/get-started.png"

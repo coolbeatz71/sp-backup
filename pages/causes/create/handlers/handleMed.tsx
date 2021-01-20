@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import StepMed from "../CreateCauseSteps/StepMed";
 import { StepType } from "../CreateCauseSteps";
 
@@ -7,11 +8,11 @@ export const medStep = {
   id: "StepMed",
   title: i18n.t("medical information"),
   component: (
-    alerts: React.ReactElement | null,
+    alerts: ReactElement | null,
     categories: any[],
     data: any,
     setForm: (form: any) => void,
-    cb: (data: any) => void
+    cb: (data: any) => void,
   ) => (
     <StepMed
       alerts={alerts}
@@ -26,7 +27,7 @@ export const medStep = {
 const handleMed = (
   steps: StepType[],
   dt: any,
-  setSteps: (param: StepType[]) => void
+  setSteps: (param: StepType[]) => void,
 ) => {
   if (
     ![null, undefined, ""].includes(dt.category) &&

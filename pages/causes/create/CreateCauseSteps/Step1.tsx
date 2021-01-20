@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, ReactElement } from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,7 +16,7 @@ import StackedLabel from "components/common/StackedLabel";
 import CropImage from "components/common/CropImage";
 
 export interface Props {
-  alerts: React.ReactElement | null;
+  alerts: ReactElement | null;
   categories?: any[];
   data: any;
   setForm: (form: any) => void;
@@ -25,13 +25,7 @@ export interface Props {
   steps?: any[];
 }
 
-const Step1: React.FC<Props> = ({
-  alerts,
-  categories = [],
-  data,
-  setForm,
-  cb,
-}) => {
+const Step1: FC<Props> = ({ alerts, categories = [], data, setForm, cb }) => {
   const { t } = useTranslation();
   return (
     <Form

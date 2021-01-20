@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC } from "react";
 import styles from "./pricing.module.scss";
 import { useTranslation } from "react-i18next";
 
@@ -6,7 +6,7 @@ import Faq from "./../../components/Faq";
 import PricingCard from "../../components/Pricing";
 import LayoutWrapper from "components/LayoutWrapper";
 
-const PricingPage: React.FC<{}> = () => {
+const PricingPage: FC<{}> = () => {
   const { t } = useTranslation();
   return (
     <LayoutWrapper title="Pricing" isForm>

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Row, Col, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 

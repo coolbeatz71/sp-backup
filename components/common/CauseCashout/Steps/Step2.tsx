@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col, Button, Input, Form, Alert } from "antd";
 import { IRootState } from "redux/initialStates";
 import { useSelector } from "react-redux";
@@ -7,11 +7,11 @@ import StackedLabel from "components/common/StackedLabel";
 import { Props } from "./Step1";
 import formPinValidator from "utils/validators/form-pin-validator";
 
-const Step2: React.FC<Props> = ({ data, setForm, cb, issue = [] }) => {
+const Step2: FC<Props> = ({ data, setForm, cb, issue = [] }) => {
   const [form] = Form.useForm();
 
   const { loading, error } = useSelector(
-    ({ cause: { cashout } }: IRootState) => cashout
+    ({ cause: { cashout } }: IRootState) => cashout,
   );
 
   const { t } = useTranslation();

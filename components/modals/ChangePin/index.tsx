@@ -1,7 +1,6 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import { Row, Col, Button, Input, Form, Alert } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
 import { useTranslation } from "react-i18next";
 
 import Modal from "components/common/Modal";
@@ -20,10 +19,10 @@ interface Props {
   onCancel: () => void;
 }
 
-const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
+const ChangePin: FC<Props> = ({ visible, onVisible, onCancel }) => {
   const dispatch = useDispatch();
 
-  const [vis, setVis] = React.useState(visible);
+  const [vis, setVis] = useState(visible);
 
   const router = useRouter();
   const { t } = useTranslation();
@@ -33,7 +32,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
     error: { message: error = null },
   } = useSelector(({ pin: { change: ch } }: IRootState) => ch);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setVis(visible);
   }, [visible]);
 
@@ -59,7 +58,7 @@ const ChangePin: React.FC<Props> = ({ visible, onVisible, onCancel }) => {
               setVis(false);
               router.reload();
             },
-            { old_password, new_password }
+            { old_password, new_password },
           )(dispatch);
         }}
       >

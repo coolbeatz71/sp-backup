@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/router";
 import { Dropdown, Menu, Button } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
@@ -41,12 +41,12 @@ interface Props {
   edit?: () => void;
 }
 
-const CausesActions: React.FC<Props> = ({ record, viewing = false }) => {
+const CausesActions: FC<Props> = ({ record, viewing = false }) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const [causeModal, setCauseModal] = React.useState<{
+  const [causeModal, setCauseModal] = useState<{
     isVisible: boolean;
     context?: ActionType | "";
     plainAccessCode?: string;

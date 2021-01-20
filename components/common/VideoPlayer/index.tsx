@@ -1,17 +1,17 @@
-import React from "react";
+import { cloneElement, FC, ReactElement, useState } from "react";
 import ReactPlayer from "react-player";
 import { Modal } from "antd";
 
 interface Props {
   url?: string;
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
-const VideoPlayer: React.FC<Props> = ({ url = "", children }) => {
-  const [visible, setVisible] = React.useState(false);
+const VideoPlayer: FC<Props> = ({ url = "", children }) => {
+  const [visible, setVisible] = useState(false);
   return (
     <>
-      {React.cloneElement(children, {
+      {cloneElement(children, {
         onClick: () => setVisible(true),
         disabled:
           [undefined, null, ""].includes(url) || !ReactPlayer.canPlay(url),

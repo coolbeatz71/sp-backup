@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col, Button, Input, Form, Switch, Alert, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { IRootState } from "redux/initialStates";
 import { Props } from "./Step1";
 import StackedLabel from "components/common/StackedLabel";
 
-const Step4: React.FC<Props> = ({
+const Step4: FC<Props> = ({
   alerts,
   data,
   setForm,

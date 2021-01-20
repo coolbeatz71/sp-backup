@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col, Button, Form, Result, Typography } from "antd";
 import { Props } from "./Step1";
 import { isEmpty } from "lodash";
@@ -7,7 +7,7 @@ import CauseCard from "components/cards/Cause";
 import styles from "./../index.module.scss";
 import CauseProgress from "components/Cause/CauseProgress";
 
-const Step2: React.FC<Props> = ({ data, setForm, cb }) => {
+const Step2: FC<Props> = ({ data, setForm, cb }) => {
   const [form] = Form.useForm();
 
   const { transferTo: cause } = data;

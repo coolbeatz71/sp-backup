@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col, Typography, Progress, Button } from "antd";
 import numeral from "numeral";
 import { useSelector } from "react-redux";
@@ -18,12 +18,7 @@ interface Props {
   tiny?: boolean;
 }
 
-const CauseProgress: React.FC<Props> = ({
-  cause,
-  reload,
-  edit,
-  tiny = false,
-}) => {
+const CauseProgress: FC<Props> = ({ cause, reload, edit, tiny = false }) => {
   const router = useRouter();
 
   const { t } = useTranslation();

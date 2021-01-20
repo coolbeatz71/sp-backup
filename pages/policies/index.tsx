@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC } from "react";
 import styles from "./policies.module.scss";
 
 const terms = [
@@ -60,7 +60,7 @@ lorem ipsum' will uncover many web sites still in their infancy. `,
   },
 ];
 
-const PoliciesPage: React.SFC<{}> = () => {
+const PoliciesPage: FC<{}> = () => {
   return (
     <div>
       <div className={styles.policies__overlay} />

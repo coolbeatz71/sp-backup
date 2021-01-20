@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Collapse } from "antd";
 import styles from "./faq.module.scss";
 import { useTranslation } from "react-i18next";

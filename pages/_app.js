@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 import "theme/ngprogress.scss";
@@ -6,7 +6,7 @@ import "theme/index.css";
 import "theme/global.scss";
 import "styles/global.scss";
 
-import _, { isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 import NProgress from "nprogress";
 import { Router, useRouter } from "next/router";
 import Head from "next/head";
@@ -56,22 +56,22 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   const { pathname, replace } = useRouter();
   const dispatch = useDispatch();
   const saveToken = getToken();
-  const [component, setComponent] = React.useState();
+  const [component, setComponent] = useState();
 
   const { isLoggedin, data: user } = useSelector(
     ({ user: { currentUser } }) => currentUser,
   );
 
-  React.useEffect(() => {
-    if (_.isEmpty(saveToken)) clearCurrentUser(dispatch);
-    if (!_.isEmpty(saveToken)) getCurrentUser(dispatch);
+  useEffect(() => {
+    if (isEmpty(saveToken)) clearCurrentUser(dispatch);
+    if (!isEmpty(saveToken)) getCurrentUser(dispatch);
   }, [saveToken]);
 
-  React.useEffect(() => {
-    if (_.isEmpty(saveToken) && protectedRoutes.includes(pathname)) {
+  useEffect(() => {
+    if (isEmpty(saveToken) && protectedRoutes.includes(pathname)) {
       replace("/");
       setComponent(<IndexPage />);
-    } else if (!_.isEmpty(saveToken) && !isLoggedin && isEmpty(user)) {
+    } else if (!isEmpty(saveToken) && !isLoggedin && isEmpty(user)) {
       localStorage.removeItem("save-token");
       clearCurrentUser(dispatch);
     } else {

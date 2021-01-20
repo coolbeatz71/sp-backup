@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import {
   Form,
   Input,
@@ -27,7 +27,7 @@ import formPhoneValidator from "utils/validators/form-phone-validator";
 
 import styles from "./index.module.scss";
 
-const SignIn: React.FC<{}> = () => {
+const SignIn: FC<{}> = () => {
   const dispatch = useDispatch();
 
   const {
@@ -36,7 +36,7 @@ const SignIn: React.FC<{}> = () => {
   } = useSelector(({ auth: { login } }: IRootState) => login);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
   );
 
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ const SignIn: React.FC<{}> = () => {
         validateTrigger={["onFinish"]}
         onFinish={(form) => {
           login({ ...form, phone_number: normalize(form.phone_number) })(
-            dispatch
+            dispatch,
           );
         }}
       >

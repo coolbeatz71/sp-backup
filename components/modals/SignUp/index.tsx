@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import {
   Form,
   Input,
@@ -26,7 +26,7 @@ import Icon from "components/common/CustomIcon";
 import formPinValidator from "utils/validators/form-pin-validator";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 
-const SignUp: React.FC<{}> = () => {
+const SignUp: FC<{}> = () => {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();

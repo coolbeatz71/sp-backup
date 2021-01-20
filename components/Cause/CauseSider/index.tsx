@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, Fragment, ReactElement, useEffect, useRef, useState } from "react";
 import {
   Card,
   Row,
@@ -33,11 +33,11 @@ interface Props {
   cause: { [key: string]: any };
   myCause: boolean;
   hasBanner: boolean;
-  content: React.ReactElement;
-  contact: React.ReactElement;
+  content: ReactElement;
+  contact: ReactElement;
 }
 
-const CauseSider: React.FC<Props> = ({
+const CauseSider: FC<Props> = ({
   cause,
   myCause,
   hasBanner,
@@ -46,12 +46,12 @@ const CauseSider: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const screens = Grid.useBreakpoint();
-  const comparer = React.useRef<any>(null);
-  const [visible, setVisible] = React.useState(false);
+  const comparer = useRef<any>(null);
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
-  const [scrolled, setScrolled] = React.useState("");
-  const [causeDonors, setCauseDonors] = React.useState<any[]>([]);
+  const [scrolled, setScrolled] = useState("");
+  const [causeDonors, setCauseDonors] = useState<any[]>([]);
 
   const {
     data: { get: donorsList },
@@ -71,19 +71,19 @@ const CauseSider: React.FC<Props> = ({
     );
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });
   }, [scrollHandler]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDonors(cause.slug, false, { limit: 5 })(dispatch);
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCauseDonors(donorsList);
   }, [donorsList]);
 
-  const Wrapper: React.FC<{ children: React.ReactElement }> = ({ children }) =>
+  const Wrapper: FC<{ children: ReactElement }> = ({ children }) =>
     screens.lg ? (
       <div
         className={styles.cause_sider}
@@ -93,18 +93,16 @@ const CauseSider: React.FC<Props> = ({
         {children}
       </div>
     ) : (
-      <React.Fragment>{children}</React.Fragment>
+      <Fragment>{children}</Fragment>
     );
 
-  const DonationWrapper: React.FC<{ children: React.ReactElement }> = ({
-    children,
-  }) =>
+  const DonationWrapper: FC<{ children: ReactElement }> = ({ children }) =>
     screens.lg ? (
       <Affix data-scrolled={scrolled} offsetTop={hasBanner ? 148 : 100}>
         {children}
       </Affix>
     ) : (
-      <React.Fragment>{children}</React.Fragment>
+      <Fragment>{children}</Fragment>
     );
 
   return (

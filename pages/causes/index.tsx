@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,7 @@ interface Props {
   baseUrl?: string;
 }
 
-const AllCauses: React.FC<Props> = ({
+const AllCauses: FC<Props> = ({
   svpProps,
   myCauses = false,
   baseUrl = "/causes",
@@ -33,7 +33,7 @@ const AllCauses: React.FC<Props> = ({
   const dispatch = useDispatch();
   const screens = Grid.useBreakpoint();
   const { asPath, query, pathname, push } = useRouter();
-  const [activeFilters, setActiveFilters] = React.useState<string[]>();
+  const [activeFilters, setActiveFilters] = useState<string[]>();
 
   const {
     data,
@@ -49,6 +49,15 @@ const AllCauses: React.FC<Props> = ({
     id: validator.isNumeric(`${category_id}`) ? category_id * 1 : category_id,
   });
 
+  const getActiveFilters = () => {
+    const { feed_type, status } = query;
+    const feedType = !isEmpty(feed_type)
+      ? feed_type?.toString().split(",")
+      : [];
+    const statuses = !isEmpty(status) ? status?.toString().split(",") : [];
+    return [...feedType, ...statuses];
+  };
+
   useEffect(() => {
     window?.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
@@ -62,15 +71,6 @@ const AllCauses: React.FC<Props> = ({
       ? getUserCauses(asPath)(dispatch, { limit })
       : getAllCauses(asPath)(dispatch, { limit });
   }, [asPath, dispatch]);
-
-  const getActiveFilters = () => {
-    const { feed_type, status } = query;
-    const feedType = !isEmpty(feed_type)
-      ? feed_type?.toString().split(",")
-      : [];
-    const statuses = !isEmpty(status) ? status?.toString().split(",") : [];
-    return [...feedType, ...statuses];
-  };
 
   const onTagClose = (filter: string) => {
     const key = Object.keys(query).find((key) => query[key].includes(filter))!;
@@ -106,7 +106,7 @@ const AllCauses: React.FC<Props> = ({
   const renderPagination = (
     _current: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
-    originalElement: React.ReactNode,
+    originalElement: ReactNode,
   ) => {
     if (type === "prev" && screens.md) return <a>{t("previous")}</a>;
     if (type === "next" && screens.md) return <a>{t("next")}</a>;

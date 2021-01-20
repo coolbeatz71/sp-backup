@@ -1,5 +1,6 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import qs from "query-string";
 import { Row, Col, Card, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +14,7 @@ import styles from "./index.module.scss";
 
 import SharePopover from "components/common/SharePopover";
 import Layout from "components/LayoutWrapper";
-import getImageUrl from "helpers/getImageUrl";
-
-const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
+import { imgLoader } from "helpers/getImageUrl";
 
 const genData = (data: any) => {
   if (data) {
@@ -52,12 +51,12 @@ const Success = () => {
     (state: IRootState) => state.cause.create,
   );
 
-  const [data, setData] = React.useState<any>(success);
+  const [data, setData] = useState<any>(success);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!success.id && !data.id) {
       router.replace("/causes/create");
     } else {
@@ -109,8 +108,10 @@ const Success = () => {
                       className={styles.dashboard__banner}
                       data-aspect-ratio=""
                     >
-                      <img
-                        src={`${NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL}/${data.image}`}
+                      <Image
+                        layout="fill"
+                        loader={imgLoader}
+                        src={data.image}
                         data-aspect-ratio=""
                         alt="cause cover"
                       />

@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import { Skeleton } from "antd";
 import styles from "./skeleton.module.scss";
 
-const SingleCauseSkeleton: React.FC<{}> = ({}) => {
+const SingleCauseSkeleton: FC<{}> = ({}) => {
   return (
     <div className={styles.skeleton__singleCause}>
       <Skeleton.Button active />

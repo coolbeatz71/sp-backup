@@ -7,7 +7,7 @@ import {
   SEND_CONFIRMATION_CODE_SUCCESS,
   SEND_CONFIRMATION_CODE_ERROR,
 } from "redux/action-types/Auth/signup";
-import lodash from "lodash";
+import { pick } from "lodash";
 import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 
@@ -50,7 +50,7 @@ export const sendVerificationCode = (data: {}) => (dispatch: any) => {
   });
 
   saveApi
-    .post("/auth/signup/send_short_code", lodash.pick(data, "phone_number"))
+    .post("/auth/signup/send_short_code", pick(data, "phone_number"))
     .then(() => {
       changeAuthContext("verify-phone")(dispatch);
       dispatch({

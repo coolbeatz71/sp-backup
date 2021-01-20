@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -43,7 +43,7 @@ import CauseCard from "components/cards/Cause";
 
 const { Text } = Typography;
 
-const DonateCause: React.FC<{}> = () => {
+const DonateCause: FC<{}> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState<donationType>("individual");

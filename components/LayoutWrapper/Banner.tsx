@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect } from "react";
 import { Button, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import CustomIcon from "components/common/CustomIcon";
@@ -16,14 +16,14 @@ interface Props {
   backdrop: boolean;
 }
 
-const Banner: React.FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
+const Banner: FC<Props> = ({ className, webkitBackdrop, backdrop }) => {
   const dispatch = useDispatch();
 
   const { data: banner } = useSelector(
     ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     getAllBroadcasts()(dispatch);
   }, [dispatch]);
 

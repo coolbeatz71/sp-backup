@@ -1,4 +1,11 @@
-import React from "react";
+import {
+  cloneElement,
+  CSSProperties,
+  FC,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 
 import { Modal as AntdModal, Typography } from "antd";
 
@@ -7,20 +14,20 @@ import Head from "next/head";
 
 interface Props {
   title?: string | string[];
-  trigger?: React.ReactElement;
+  trigger?: ReactElement;
   visible?: boolean;
   titleLevel?: 1 | 2 | 3 | 4;
   titleType?: "danger" | "secondary" | "warning";
   noTitle?: boolean;
   icon?: string;
-  iconStyle?: React.CSSProperties;
+  iconStyle?: CSSProperties;
   onVisible?: () => void;
   onCancel?: () => void;
   onCloseClick?: () => void;
-  children: string | string[] | React.ReactElement | React.ReactElement[];
+  children: string | string[] | ReactElement | ReactElement[];
 }
 
-const Modal: React.FC<Props> = ({
+const Modal: FC<Props> = ({
   title = ` `,
   trigger,
   visible: vs = false,
@@ -38,16 +45,16 @@ const Modal: React.FC<Props> = ({
   onCloseClick,
   children,
 }) => {
-  const [visible, setVisible] = React.useState(vs);
+  const [visible, setVisible] = useState(vs);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (visible !== vs) setVisible(vs);
   }, [vs]);
 
   return (
     <>
       {trigger &&
-        React.cloneElement(trigger, {
+        cloneElement(trigger, {
           onClick: () => {
             setVisible(true);
             onVisible();

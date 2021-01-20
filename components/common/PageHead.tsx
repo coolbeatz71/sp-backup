@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import Head from "next/head";
 import { IUnknownObject } from "interfaces/unknownObject";
 import getPlatformUrl from "helpers/getPlatformUrl";
@@ -7,7 +7,7 @@ export interface PageHeadProps {
   data: IUnknownObject;
 }
 
-const PageHead: React.FC<PageHeadProps> = ({ data }) => {
+const PageHead: FC<PageHeadProps> = ({ data }) => {
   return (
     <Head>
       <title>{data.name}</title>

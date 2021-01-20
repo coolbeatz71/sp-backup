@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
+import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Typography, Input, Row, Col, Alert } from "antd";
 import { useRouter } from "next/router";
@@ -51,13 +52,13 @@ const ActionModal: FC<IActionModalProps> = ({
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
-    ({ cause: { pause } }: IRootState) => pause
+    ({ cause: { pause } }: IRootState) => pause,
   );
   const { loading: loadingCancel, error: errorCancel } = useSelector(
-    ({ cause: { cancel } }: IRootState) => cancel
+    ({ cause: { cancel } }: IRootState) => cancel,
   );
   const { loading: loadingResume, error: errorResume } = useSelector(
-    ({ cause: { resume } }: IRootState) => resume
+    ({ cause: { resume } }: IRootState) => resume,
   );
 
   const { t } = useTranslation();
@@ -138,7 +139,7 @@ const ActionModal: FC<IActionModalProps> = ({
         return {
           title: t("access code"),
           subTitle: `${t(
-            "the access code for this cause is"
+            "the access code for this cause is",
           )} </br> <strong>${plainAccessCode}</strong>`,
         };
       case ActionType.donationTransfer:
@@ -194,7 +195,14 @@ const ActionModal: FC<IActionModalProps> = ({
           <div className={styles.pause__modalContent}>
             {actionSuccessful ? (
               <div className={styles.pause__modalContent__successful}>
-                <img src="/success-action.gif" alt="pause success" />
+                <Image
+                  layout="fixed"
+                  src="/success-action.gif"
+                  alt="pause success"
+                  quality={25}
+                  width={220}
+                  height={220}
+                />
               </div>
             ) : (
               <>

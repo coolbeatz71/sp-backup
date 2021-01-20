@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import numeral from "numeral";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ interface Props {
   handleSubmit: (data: Store) => void;
 }
 
-const CauseTransfer: React.FC<Props> = ({
+const CauseTransfer: FC<Props> = ({
   data: dt = {},
   slug,
   actionSuccessful,
@@ -29,15 +29,15 @@ const CauseTransfer: React.FC<Props> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [steps] = React.useState(defaultSteps());
-  const [index, setIndex] = React.useState<number>(0);
-  const [data, setData] = React.useState<{ [key: string]: any }>(dt);
-  const [refreshKey, setRefreshKey] = React.useState<number>(0);
-  const [form, setForm] = React.useState<any>();
-  const [okay, setOkay] = React.useState<{ [key: string]: boolean }>({});
-  const [issue, setIssue] = React.useState<boolean[]>([]);
+  const [steps] = useState(defaultSteps());
+  const [index, setIndex] = useState<number>(0);
+  const [data, setData] = useState<{ [key: string]: any }>(dt);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [form, setForm] = useState<any>();
+  const [okay, setOkay] = useState<{ [key: string]: boolean }>({});
+  const [issue, setIssue] = useState<boolean[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({ type: RESET_TRANSFER_ERROR });
     dispatch({ type: RESET_SINGLE_CAUSE_ERROR });
   }, [dispatch]);
@@ -106,11 +106,11 @@ const CauseTransfer: React.FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                }
+                },
               );
             },
             issue,
-            steps
+            steps,
           )}
         </Card>
       )}

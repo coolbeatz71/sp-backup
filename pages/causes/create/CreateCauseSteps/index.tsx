@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactElement } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -11,13 +11,13 @@ export interface StepType {
   id: string;
   title: string;
   component?: (
-    alerts: React.ReactElement | null,
+    alerts: ReactElement | null,
     categories: any[],
     data: any,
     setForm: (form: any) => void,
     cb: (data: any) => void,
     issue: boolean[],
-    steps: any[]
+    steps: any[],
   ) => any;
 }
 
@@ -25,11 +25,11 @@ export const contactStep = {
   id: "Step3",
   title: "contact information",
   component: (
-    alerts: React.ReactElement | null,
+    alerts: ReactElement | null,
     categories: any[],
     data: { [key: string]: any },
     setForm: (form: any) => void,
-    cb: (data: any) => void
+    cb: (data: any) => void,
   ) => (
     <Step3
       alerts={alerts}
@@ -43,17 +43,17 @@ export const contactStep = {
 
 const defaultSteps = (
   isMed: boolean = false,
-  isAff: boolean = false
+  isAff: boolean = false,
 ): StepType[] => [
   {
     id: "Step1",
     title: "basic information",
     component: (
-      alerts: React.ReactElement | null,
+      alerts: ReactElement | null,
       categories: any[],
       data,
       setForm: (form: any) => void,
-      cb
+      cb,
     ) => (
       <Step1
         alerts={alerts}
@@ -69,11 +69,11 @@ const defaultSteps = (
     id: "Step2",
     title: "detailed information",
     component: (
-      alerts: React.ReactElement | null,
+      alerts: ReactElement | null,
       categories: any[],
       data,
       setForm: (form: any) => void,
-      cb
+      cb,
     ) => (
       <Step2
         alerts={alerts}
@@ -90,13 +90,13 @@ const defaultSteps = (
     id: "Step4",
     title: "payment details",
     component: (
-      alerts: React.ReactElement | null,
+      alerts: ReactElement | null,
       categories: any[],
       data,
       setForm: (form: any) => void,
       cb,
       issue,
-      steps
+      steps,
     ) => (
       <Step4
         alerts={alerts}

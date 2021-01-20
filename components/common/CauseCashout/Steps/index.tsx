@@ -1,5 +1,3 @@
-import React from "react";
-
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 
@@ -13,7 +11,7 @@ export interface StepType {
     issue: boolean[],
     steps: any[],
     currentBalance: number,
-    currency: string
+    currency: string,
   ) => any;
 }
 
@@ -30,7 +28,7 @@ const defaultSteps = (): StepType[] => [
       [],
       [],
       currentBalance,
-      currency
+      currency,
     ) => (
       <Step1
         data={data}

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
 import {
@@ -29,16 +29,16 @@ interface Props {
   slug: string;
 }
 
-const Donors: React.FC<Props> = ({ slug }) => {
+const Donors: FC<Props> = ({ slug }) => {
   const limit = 15;
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
-  const [page, setPage] = React.useState<number>(2);
-  const [search, setSearch] = React.useState<string>("");
-  const [donors, setDonors] = React.useState<any[]>([]);
-  const [hasMoreDonors, setHasMoreDonors] = React.useState<boolean>(true);
+  const [page, setPage] = useState<number>(2);
+  const [search, setSearch] = useState<string>("");
+  const [donors, setDonors] = useState<any[]>([]);
+  const [hasMoreDonors, setHasMoreDonors] = useState<boolean>(true);
 
   const {
     data: { search: donorsList },
@@ -57,7 +57,7 @@ const Donors: React.FC<Props> = ({ slug }) => {
     getDonors(slug, true, dt ? dt : { limit, search })(dispatch);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const delayTimer = setTimeout(() => {
       if (!isEmpty(search.trim())) return searchDonors();
     }, 500);
@@ -65,16 +65,16 @@ const Donors: React.FC<Props> = ({ slug }) => {
     return () => clearTimeout(delayTimer);
   }, [dispatch, search]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({ type: CLEAR_SEARCH_DONORS });
     getDonors(slug, true, { limit })(dispatch);
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setDonors(donorsList);
   }, [donorsList]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (moreDonorsList.length !== 0) {
       setDonors([...donorsList, ...moreDonorsList]);
     }

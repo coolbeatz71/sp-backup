@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, ReactElement, useState } from "react";
 import { Popover, Button, Typography, Row, Col, message } from "antd";
 import {
   TwitterOutlined,
@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./index.module.scss";
 
 interface Props {
-  children?: React.ReactElement;
+  children?: ReactElement;
   slug: string;
   code: string;
   title: string;
@@ -28,11 +28,11 @@ interface Props {
 
 interface LinkProps {
   type: "facebook" | "whatsapp" | "twitter";
-  children: React.ReactElement;
+  children: ReactElement;
   title: string;
   link: string;
 }
-const Link: React.FC<LinkProps> = ({ type, title, link, children }) => {
+const Link: FC<LinkProps> = ({ type, title, link, children }) => {
   const t = {
     facebook: `https://www.facebook.com/sharer/sharer.php?${qs.stringify({
       display: "page",
@@ -54,7 +54,7 @@ const Link: React.FC<LinkProps> = ({ type, title, link, children }) => {
   );
 };
 
-const SharePopover: React.FC<Props> = ({
+const SharePopover: FC<Props> = ({
   children,
   slug,
   code,
@@ -64,7 +64,7 @@ const SharePopover: React.FC<Props> = ({
   isCreateSuccess = false,
   disabled = false,
 }) => {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
 
   const { t } = useTranslation();
 

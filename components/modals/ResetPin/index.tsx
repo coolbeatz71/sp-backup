@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Input, Button, Divider, Alert, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,12 +20,12 @@ import formPinValidator from "utils/validators/form-pin-validator";
 import formPinMatchValidator from "utils/validators/form-pin-match-validator";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 
-const ResetPin: React.FC<{}> = () => {
+const ResetPin: FC<{}> = () => {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
-  const [ph, setPh] = React.useState("");
+  const [ph, setPh] = useState("");
 
   const {
     loading,

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useEffect, useState } from "react";
 import { Button, Form, Input, Row, Col, Modal, message, Alert } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import StackedLabel from "components/common/StackedLabel";
@@ -20,7 +20,7 @@ interface Props {
   type?: any;
 }
 
-const PauseModal: React.FC<Props> = ({
+const PauseModal: FC<Props> = ({
   record,
   reload,
   className,
@@ -32,10 +32,10 @@ const PauseModal: React.FC<Props> = ({
 
   const dispatch = useDispatch();
 
-  const [visible, setVisible] = React.useState<boolean>(false);
-  const [password, setPassword] = React.useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (success) {
       message.success(
         `${record.status === "paused" ? "Resumed" : "Paused"} cause "${
