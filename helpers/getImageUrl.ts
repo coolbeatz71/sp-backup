@@ -6,4 +6,8 @@ export const imgLoader = ({ src, width, quality }: ImageLoaderProps) => {
   return `${getImageUrl()}/${src}?w=${width}&q=${quality || 75}`;
 };
 
+export const avatarLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+
 export default getImageUrl;

@@ -107,10 +107,26 @@
       }
     }
     &__avatar {
-      position: absolute;
-      left: $padding;
-      top: -48px;
-      border: solid 2px $light-gray;
+      &__image {
+        position: absolute;
+        left: $padding;
+        top: -48px;
+        border: solid 2px $light-gray;
+        border-radius: 100%;
+        width: 64px;
+        height: 64px;
+
+        img {
+          border-radius: 100%;
+        }
+      }
+
+      &__names {
+        position: absolute;
+        left: $padding;
+        top: -48px;
+        border: solid 2px $light-gray;
+      }
     }
     &__verified {
       display: flex;

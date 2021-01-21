@@ -173,16 +173,52 @@
           }
         }
       }
+
+      &__avatar_optimized {
+        position: relative;
+        margin-right: 4px;
+        border-radius: 100%;
+        width: 48px;
+        height: 48px;
+        top: 1rem;
+
+        &[class~="ant-skeleton"] {
+          pointer-events: none;
+          margin-right: 0px;
+          [class~="ant-skeleton-avatar"] {
+            margin-top: calc((#{$header-height} - 48px) / 2);
+          }
+        }
+
+        img {
+          border-radius: 100%;
+        }
+      }
+
       &__user {
         border-bottom-color: transparent !important;
+
+        [class~="ant-dropdown-menu-submenu-title"] {
+          display: flex;
+          align-items: center;
+          justify-items: center;
+        }
+
         &__avatar {
+          width: 32px;
+          height: 32px;
           margin-right: 4px;
+          border-radius: 100%;
           &[class~="ant-skeleton"] {
             pointer-events: none;
             margin-right: 0px;
             [class~="ant-skeleton-avatar"] {
               margin-top: calc((#{$header-height} - 48px) / 2);
             }
+          }
+
+          img {
+            border-radius: 100%;
           }
         }
         &__name {
@@ -342,8 +378,10 @@
         height: auto;
       }
       [class~="copy"] {
+        margin-top: calc(#{$padding} * 0.5);
         margin-bottom: calc(#{$padding} * 0.2);
       }
+
       [class~="ant-menu-horizontal"] {
         text-align: center;
         border-bottom-color: transparent;

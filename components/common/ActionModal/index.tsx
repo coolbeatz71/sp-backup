@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Image from "next/image";
+import Img from "react-optimized-image";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Typography, Input, Row, Col, Alert } from "antd";
 import { useRouter } from "next/router";
@@ -26,6 +26,8 @@ import { Store } from "antd/lib/form/interface";
 
 import styles from "./actionModal.module.scss";
 import { ActionType } from "components/common/CausesActions";
+
+import successGif from "public/success-action.gif";
 
 interface IActionModalProps {
   slug: string;
@@ -195,14 +197,7 @@ const ActionModal: FC<IActionModalProps> = ({
           <div className={styles.pause__modalContent}>
             {actionSuccessful ? (
               <div className={styles.pause__modalContent__successful}>
-                <Image
-                  layout="fixed"
-                  src="/success-action.gif"
-                  alt="pause success"
-                  quality={25}
-                  width={220}
-                  height={220}
-                />
+                <Img src={successGif} alt="pause success" />
               </div>
             ) : (
               <>

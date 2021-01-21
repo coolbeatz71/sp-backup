@@ -12,6 +12,7 @@
   [data-home-image-ratio] {
     display: block;
     position: relative;
+    width: 100%;
     [class~="ant-skeleton"] {
       display: flex;
       flex-direction: column;

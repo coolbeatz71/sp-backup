@@ -1,6 +1,9 @@
+import Img from "react-optimized-image";
+import verified from "public/icons/cause-verified-grey.png";
+
 const Icon = () => (
-  <img
-    src="/icons/cause-verified-grey.png"
+  <Img
+    src={verified}
     alt="verified icon"
     style={{
       width: "1em",

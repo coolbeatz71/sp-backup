@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import Image from "next/image";
+import Img from "react-optimized-image";
 import {
   Layout,
   Row,
@@ -33,6 +34,10 @@ import { ALL_CAUSES_PATH } from "helpers/paths";
 import { IRootState } from "redux/initialStates";
 import { getLanguage } from "helpers/getLanguage";
 import i18n from "constants/locales";
+import { avatarLoader } from "helpers/getImageUrl";
+import { isEmpty } from "lodash";
+
+import spLogo from "public/logo-beta.svg";
 
 const { Header: GenericHeader } = Layout;
 
@@ -83,6 +88,33 @@ const Header: FC<Props> = ({
 
   const { t } = useTranslation();
 
+  const userAvatar = () =>
+    !isEmpty(user.currentUser.data.avatar) ? (
+      <div className={styles.layout__header__row__avatar_optimized}>
+        <Image
+          priority
+          width={48}
+          height={48}
+          quality={1}
+          layout="fixed"
+          loader={avatarLoader}
+          src={user.currentUser.data.avatar}
+          alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
+        />
+      </div>
+    ) : (
+      <Avatar
+        className={styles.layout__header__row__user__avatar}
+        src={user.currentUser.data.avatar}
+        size={48}
+        alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
+      >
+        {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
+          ?.split(" ")
+          .map((n: string) => n && n.charAt(0).toUpperCase())}
+      </Avatar>
+    );
+
   return (
     <GenericHeader
       className={styles.layout__header}
@@ -95,13 +127,12 @@ const Header: FC<Props> = ({
         <Col flex={1}>
           <Link href="/">
             <a rel="noreferrer noopener">
-              <Image
-                layout="intrinsic"
-                src="/logo-beta.svg"
+              <Img
+                src={spLogo}
                 className={styles.layout__header__row__logo}
                 alt="beta logo"
-                width={170}
-                height={70}
+                width="150"
+                height="50"
               />
             </a>
           </Link>
@@ -222,19 +253,12 @@ const Header: FC<Props> = ({
                 className={styles.layout__header__row__user}
                 popupClassName="header-row-user"
                 title={
-                  <span>
-                    <Avatar
-                      className={styles.layout__header__row__user__avatar}
-                      src={user.currentUser.data.avatar}
-                      size={48}
-                      alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
-                    >
-                      {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
-                        ?.split(" ")
-                        .map((n: string) => n && n.charAt(0).toUpperCase())}
-                    </Avatar>
-                    <DownOutlined />
-                  </span>
+                  <Row>
+                    <span>{userAvatar()}</span>
+                    <span>
+                      <DownOutlined />
+                    </span>
+                  </Row>
                 }
               >
                 <Menu.Item key="/profile">
