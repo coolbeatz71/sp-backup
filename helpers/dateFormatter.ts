@@ -19,8 +19,7 @@ export const getCauseEndingDate = (causeEndDate: string) => {
   return ddd;
 };
 
-export const getDonationTime = (date: string) => {
-  return moment().diff(moment(date), "days") < 1
-    ? moment(date).format("hh:mm")
-    : moment(date).fromNow();
-};
+export const getDonationTime = (date: string) =>
+  moment().diff(moment(date), "days") < 1
+    ? moment(date).format("HH:mm")
+    : moment(date).format("DD MMM YYYY");
