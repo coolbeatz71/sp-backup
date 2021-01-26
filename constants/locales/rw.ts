@@ -95,7 +95,7 @@ export default {
   "view cause details": "Reba ibisobanuro birambuye by'igikorwa",
   field: "Icyiciro",
   "supported payment methods":
-    "Kugeza ubu twemera inkunga zinyujizwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
+    "Kugeza ubu twemera inkunga zinyujijwe kuri MTN mobile money na Airtel Money gusa.VISA, Mastercard na PayPal nabyo ni vuba aha!",
   proceed: "Komeza",
   "donate for a cause": "Tanga inkunga ku gikorwa",
   "thank you for your support": "Murakoze ku bufasha bwanyu",
@@ -157,7 +157,7 @@ export default {
   "this cause has been cancelled": "Iki gikorwa cyarahagaze",
   all: "Byose",
   popular: "Ibikunzwe",
-  "currently we are accepting": "Twemera inkunga zinyujizwe kuri",
+  "currently we are accepting": "Twemera inkunga zinyujijwe kuri",
   and: "na",
   "visas coming soon": "VISA, Mastercard na PayPal nabyo ni vuba aha!",
   post_airtel: "gusa",
