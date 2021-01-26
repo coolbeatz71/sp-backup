@@ -25,6 +25,7 @@
       &,
       div[class="ant-card-meta-title"] {
         color: $primary !important;
+        margin-bottom: 0.5rem;
       }
       &[data-meta-not-lg="true"] * {
         font-size: 14px !important;

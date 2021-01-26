@@ -126,6 +126,9 @@
         left: $padding;
         top: -48px;
         border: solid 2px $light-gray;
+        [class~="ant-avatar-string"] {
+          line-height: 60px !important;
+        }
       }
     }
     &__verified {

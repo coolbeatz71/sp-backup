@@ -141,7 +141,6 @@ const Header: FC<Props> = ({
           <Link href="/">
             <a rel="noreferrer noopener">
               <Img
-                original
                 src={spLogo}
                 className={styles.layout__header__row__logo}
                 alt="beta logo"

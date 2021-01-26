@@ -4,7 +4,7 @@ import Context from "helpers/context";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { Layout, Button, Result, Grid } from "antd";
+import { Layout, Button, Result } from "antd";
 import { IRootState } from "redux/initialStates";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import { useTranslation } from "react-i18next";
@@ -21,6 +21,7 @@ import MobileHeader from "./MobileHeader";
 import getImageUrl from "helpers/getImageUrl";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import { HOME_PATH } from "../../helpers/paths";
+import { useMedia } from "react-use";
 
 const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
@@ -53,9 +54,7 @@ const LayoutWrapper: FC<Props> = ({
   isForm = false,
   children,
 }) => {
-  const { useBreakpoint } = Grid;
   const { Footer, Content } = Layout;
-  const screens = useBreakpoint();
 
   const { t } = useTranslation();
   const { svpProps } = useContext(Context);
@@ -79,6 +78,11 @@ const LayoutWrapper: FC<Props> = ({
         : "",
     );
   };
+
+  const isLG = useMedia("(min-width: 992px)");
+  const isMD = useMedia("(min-width: 768px) AND (max-width: 992px)");
+  const isSM = useMedia("(min-width: 576px) AND (max-width: 768px)");
+  const isXS = useMedia("(max-width: 576px)");
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });
@@ -112,6 +116,36 @@ const LayoutWrapper: FC<Props> = ({
   const clearUser = () => {
     localStorage.removeItem("save-token");
     clearCurrentUser(dispatch);
+  };
+
+  const renderHeader = () => {
+    if (isLG)
+      return (
+        <Header
+          scrolled={scrolled}
+          isCategory={isCategory}
+          user={user}
+          isHome={isHome}
+          isCreate={isCreate}
+          svpProps={svpProps}
+          baseUrl={baseUrl}
+          hasBanner={typeof banner.id !== "undefined"}
+        />
+      );
+
+    if (isMD || isSM || isXS)
+      return (
+        <MobileHeader
+          scrolled={scrolled}
+          isCategory={isCategory}
+          user={user}
+          isHome={isHome}
+          isCreate={isCreate}
+          svpProps={svpProps}
+          baseUrl={baseUrl}
+          hasBanner={typeof banner.id !== "undefined"}
+        />
+      );
   };
 
   return (
@@ -168,29 +202,9 @@ const LayoutWrapper: FC<Props> = ({
         webkitBackdrop={webkitBackdrop}
         backdrop={backdrop}
       />
-      {screens.lg ? (
-        <Header
-          scrolled={scrolled}
-          isCategory={isCategory}
-          user={user}
-          isHome={isHome}
-          isCreate={isCreate}
-          svpProps={svpProps}
-          baseUrl={baseUrl}
-          hasBanner={typeof banner.id !== "undefined"}
-        />
-      ) : (
-        <MobileHeader
-          scrolled={scrolled}
-          isCategory={isCategory}
-          user={user}
-          isHome={isHome}
-          isCreate={isCreate}
-          svpProps={svpProps}
-          baseUrl={baseUrl}
-          hasBanner={typeof banner.id !== "undefined"}
-        />
-      )}
+
+      {renderHeader()}
+
       {svpProps.error || user.currentUser.error.message ? (
         <Content className={styles.layout__content} data-is-form="true">
           <Result
