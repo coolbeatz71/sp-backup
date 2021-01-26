@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
+import Image from "react-optimized-image";
 import { Grid, Row, Col, Typography, Button, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+
+import getStartedImg from "public/images/get-started.png";
 
 import styles from "./index.module.scss";
 
@@ -31,10 +33,10 @@ const GetStarted = () => {
         <div className={styles.get_started__image_mobile}>
           <div data-home-image-ratio>
             <Image
-              layout="fill"
+              webp
               key={refresh}
               data-home-image-ratio
-              src="/images/get-started.png"
+              src={getStartedImg}
               onError={() => {
                 setRefresh(refresh + 1);
                 setStatus("");
@@ -75,10 +77,10 @@ const GetStarted = () => {
           <Col className={styles.get_started__image}>
             <div data-home-image-ratio>
               <Image
-                layout="fill"
+                webp
                 key={refresh}
                 data-home-image-ratio
-                src="/images/get-started.png"
+                src={getStartedImg}
                 onError={() => {
                   setRefresh(refresh + 1);
                   setStatus("");

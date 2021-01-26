@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Image from "next/image";
+import Img from "react-optimized-image";
 import {
   Layout,
   Row,
@@ -34,6 +35,10 @@ import { IRootState } from "redux/initialStates";
 import updateProfile from "redux/actions/user/updateProfile";
 import { getLanguage } from "helpers/getLanguage";
 import i18n from "constants/locales";
+import { isEmpty } from "lodash";
+import { avatarLoader } from "helpers/getImageUrl";
+
+import spLogo from "public/logo-beta.svg";
 
 const { Header: GenericHeader } = Layout;
 
@@ -83,6 +88,33 @@ const Header: FC<Props> = ({
 
   const { t } = useTranslation();
 
+  const userAvatar = () =>
+    !isEmpty(user.currentUser.data.avatar) ? (
+      <span className={styles.layout__header__row__user__avatar}>
+        <Image
+          priority
+          width={32}
+          height={32}
+          quality={1}
+          layout="fixed"
+          loader={avatarLoader}
+          src={user.currentUser.data.avatar}
+          alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
+        />
+      </span>
+    ) : (
+      <Avatar
+        className={styles.layout__header__row__user__avatar}
+        src={user.currentUser.data.avatar}
+        size={32}
+        alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
+      >
+        {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
+          ?.split(" ")
+          .map((n: string) => n && n.charAt(0).toUpperCase())}
+      </Avatar>
+    );
+
   const userLang: "en" | "rw" =
     user?.currentUser?.data?.language || getLanguage();
 
@@ -108,13 +140,12 @@ const Header: FC<Props> = ({
         <Col>
           <Link href="/">
             <a rel="noreferrer noopener">
-              <Image
-                layout="fixed"
-                src="/logo-beta.svg"
+              <Img
+                src={spLogo}
                 className={styles.layout__header__row__logo}
                 alt="beta logo"
-                width={125}
-                height={55}
+                width="150"
+                height="50"
               />
             </a>
           </Link>
@@ -247,21 +278,8 @@ const Header: FC<Props> = ({
                         className={styles.layout__header__row__user}
                         popupClassName="header-row-user"
                         title={
-                          <span>
-                            <Avatar
-                              className={
-                                styles.layout__header__row__user__avatar
-                              }
-                              src={user.currentUser.data.avatar}
-                              size={32}
-                              alt={`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`}
-                            >
-                              {`${user.currentUser.data.first_name} ${user.currentUser.data.last_name}`
-                                ?.split(" ")
-                                .map(
-                                  (n: string) => n && n.charAt(0).toUpperCase(),
-                                )}
-                            </Avatar>
+                          <span style={{ display: "flex" }}>
+                            {userAvatar()}
                             <Typography.Text
                               strong
                               ellipsis

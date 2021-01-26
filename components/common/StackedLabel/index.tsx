@@ -1,10 +1,14 @@
 import { cloneElement, FC, useRef, useState } from "react";
+import Img from "react-optimized-image";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import { telco } from "dev-rw-phone";
 
 import styles from "./StackedLabel.module.scss";
+
+import airtel from "public/images/airtel.png";
+import mtn from "public/images/mtn.png";
 
 interface Props {
   label: string;
@@ -93,11 +97,9 @@ const StackedLabel: FC<Props> = ({
           <span className={styles.input__phone__code_prefix}>{phone}</span>
           <span className={styles.input__phone__code_suffix}>
             {["Airtel", "Tigo"].includes(telco(value)) && (
-              <img src="/images/airtel.png" alt="airtel icon" />
+              <Img src={airtel} alt="airtel icon" />
             )}
-            {["MTN"].includes(telco(value)) && (
-              <img src="/images/mtn.png" alt="mtn icon" />
-            )}
+            {["MTN"].includes(telco(value)) && <Img src={mtn} alt="mtn icon" />}
           </span>
         </>
       )}

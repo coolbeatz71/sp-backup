@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Menu, Typography, Button } from "antd";
+import Img from "react-optimized-image";
 import moment from "moment";
 import {
   TwitterOutlined,
@@ -9,6 +9,8 @@ import {
 } from "@ant-design/icons";
 
 import { useTranslation } from "react-i18next";
+
+import spLogo from "public/logo-beta.svg";
 
 const social = [
   {
@@ -44,14 +46,14 @@ const FooterItem = () => {
   ];
   return (
     <div className="footer-item">
-      <Image
-        layout="fixed"
-        src="/logo-beta.svg"
+      <Img
+        src={spLogo}
         className="logo"
         alt="Save Plus Logo"
-        width={180}
-        height={50}
+        width="150"
+        height="50"
       />
+
       <div className="copy">
         <Typography.Text type="secondary">
           {t("copyright")} &copy;{moment().format("YYYY")}{" "}

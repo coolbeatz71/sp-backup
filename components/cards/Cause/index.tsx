@@ -1,5 +1,5 @@
 import { FC, Fragment, ReactElement, useState } from "react";
-import { upperFirst } from "lodash";
+import { isEmpty, upperFirst } from "lodash";
 import Image from "next/image";
 import {
   Card as AntdCard,
@@ -35,7 +35,7 @@ import capitalize from "helpers/capitalize";
 import colors from "helpers/cause-type-colors";
 import { getCauseEndingDate } from "helpers/dateFormatter";
 import { causeStatus } from "interfaces";
-import { imgLoader } from "helpers/getImageUrl";
+import { avatarLoader, imgLoader } from "helpers/getImageUrl";
 
 interface Props {
   cause: { [key: string]: any };
@@ -112,6 +112,30 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
       </Link>
     );
 
+  const causeAvatar = () =>
+    !isEmpty(cause.user_avatar) ? (
+      <div className={styles.card__container__avatar__image}>
+        <Image
+          layout="fill"
+          quality={1}
+          loader={avatarLoader}
+          src={cause.user_avatar}
+          alt={cause.user_names}
+        />
+      </div>
+    ) : (
+      <Avatar
+        className={styles.card__container__avatar__names}
+        src={cause.user_avatar}
+        size={64}
+        alt={cause.user_names}
+      >
+        {cause.user_names
+          ?.split(" ")
+          .map((n: string) => n && n.charAt(0).toUpperCase())}
+      </Avatar>
+    );
+
   const causeCard = () => (
     <AntdCard
       className={styles.card__container}
@@ -176,18 +200,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
         data-active={isView || !isInactive(cause.status)}
         data-is-view={isView}
       />
-      {!myCause && (
-        <Avatar
-          className={styles.card__container__avatar}
-          src={cause.user_avatar}
-          size={64}
-          alt={cause.user_names}
-        >
-          {cause.user_names
-            ?.split(" ")
-            .map((n: string) => n && n.charAt(0).toUpperCase())}
-        </Avatar>
-      )}
+      {!myCause && causeAvatar()}
       <div className={styles.card__container__verified} data-my-cause={myCause}>
         {myCause && (
           <Badge

@@ -1,5 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Img from "react-optimized-image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import ReactStars from "react-star-rating-component";
@@ -40,6 +41,8 @@ import Layout from "components/LayoutWrapper";
 import StackedLabel from "components/common/StackedLabel";
 import SharePopover from "components/common/SharePopover";
 import CauseCard from "components/cards/Cause";
+
+import confeti from "public/confeti.gif";
 
 const { Text } = Typography;
 
@@ -180,9 +183,9 @@ const DonateCause: FC<{}> = () => {
                   </p>
 
                   <h4>{t("thank you")}</h4>
-                  <img
+                  <Img
                     className={styles.donate__body__form__successful__confeti}
-                    src="/confeti.gif"
+                    src={confeti}
                     alt="Confetti GIF"
                   />
 

@@ -19,5 +19,6 @@
       ],
       "plugins": ["istanbul"]
     }
-  }
+  },
+  "plugins": ["react-optimized-image/plugin"]
 }

@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import numeral from "numeral";
+import Img from "react-optimized-image";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,8 @@ import Buttons from "./Steps/Buttons";
 import handleData from "./handlers";
 import { format } from "dev-rw-phone";
 import { Store } from "antd/lib/form/interface";
+
+import checkedIcon from "public/icons/checked-round.svg";
 interface Props {
   data?: { [key: string]: any };
   slug: string;
@@ -58,7 +61,7 @@ const CauseCashout: FC<Props> = ({
             deposited to your mobile money account <br />
             {format(paymentAccountNumber)}
           </p>
-          <img src="/icons/checked-round.svg" alt="check" />
+          <Img src={checkedIcon} alt="check" />
         </div>
       ) : (
         <Card

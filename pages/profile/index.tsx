@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
 import styles from "./profile.module.scss";
+import Img from "react-optimized-image";
 import Link from "next/link";
 import {
   Form,
@@ -29,6 +30,8 @@ import StackedLabel from "components/common/StackedLabel";
 import Modal from "components/common/Modal";
 import CropImage from "components/common/CropImage";
 import LayoutWrapper from "components/LayoutWrapper";
+
+import family from "public/images/family-love.svg";
 
 const Profile: FC<{}> = () => {
   const { t } = useTranslation();
@@ -128,8 +131,8 @@ const Profile: FC<{}> = () => {
             sm={{ span: 24, offset: 0 }}
           >
             <div className={styles.profile__title}>
-              <img
-                src="/images/family-love.svg"
+              <Img
+                src={family}
                 className={styles.profile__title__icon}
                 alt="profile image"
               />

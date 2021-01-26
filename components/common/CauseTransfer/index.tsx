@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import numeral from "numeral";
+import Img from "react-optimized-image";
 import { Row, Col, Card } from "antd";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,8 @@ import Buttons from "./Steps/Buttons";
 
 import handleData from "./handlers";
 import { Store } from "antd/lib/form/interface";
+
+import checkedIcon from "public/icons/checked-round.svg";
 interface Props {
   data?: { [key: string]: any };
   slug: string;
@@ -52,7 +55,7 @@ const CauseTransfer: FC<Props> = ({
             transfered to a cause with the following till number{" "}
             {JSON.parse(data?.cause).tillNumber}
           </p>
-          <img src="/icons/checked-round.svg" alt="check" />
+          <Img src={checkedIcon} alt="check" />
         </div>
       ) : (
         <Card
