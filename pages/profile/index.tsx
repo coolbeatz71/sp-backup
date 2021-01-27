@@ -32,6 +32,7 @@ import CropImage from "components/common/CropImage";
 import LayoutWrapper from "components/LayoutWrapper";
 
 import family from "public/images/family-love.svg";
+import { getLanguage } from "helpers/getLanguage";
 
 const Profile: FC<{}> = () => {
   const { t } = useTranslation();
@@ -46,6 +47,8 @@ const Profile: FC<{}> = () => {
   const { loading, error } = useSelector(
     ({ user: { updateProfile } }: IRootState) => updateProfile,
   );
+
+  const lang = data.lang || getLanguage();
 
   useEffect(() => {
     if (!dataLoading && isLoggedin && isEmpty(data)) {
@@ -283,7 +286,7 @@ const Profile: FC<{}> = () => {
           <Typography.Title level={3}>
             {t("profile has been updated")}
           </Typography.Title>
-          <Link href="/">
+          <Link href={`/?lang=${lang}`}>
             <a rel="noreferrer noopener">{t("back home")}</a>
           </Link>
         </div>

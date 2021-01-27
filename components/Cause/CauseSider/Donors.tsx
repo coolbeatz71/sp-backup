@@ -24,6 +24,7 @@ import { ALL_CAUSES_PATH } from "helpers/paths";
 
 import { useTranslation } from "react-i18next";
 import { getDonationTime } from "helpers/dateFormatter";
+import { getLanguage } from "helpers/getLanguage";
 
 interface Props {
   slug: string;
@@ -39,6 +40,12 @@ const Donors: FC<Props> = ({ slug }) => {
   const [search, setSearch] = useState<string>("");
   const [donors, setDonors] = useState<any[]>([]);
   const [hasMoreDonors, setHasMoreDonors] = useState<boolean>(true);
+
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
+  const lang = userData.lang || getLanguage();
 
   const {
     data: { search: donorsList },
@@ -145,7 +152,7 @@ const Donors: FC<Props> = ({ slug }) => {
                         <Typography.Text ellipsis>
                           {d.donor_source ? (
                             <Link
-                              href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}`}
+                              href={`${ALL_CAUSES_PATH}/${d.donor_source.slug}?lang=${lang}`}
                             >
                               {d.donor_source.till_number}
                             </Link>

@@ -39,6 +39,7 @@ import { isEmpty } from "lodash";
 import { avatarLoader } from "helpers/getImageUrl";
 
 import spLogo from "public/logo.svg";
+import { stringifyUrl } from "query-string";
 
 const { Header: GenericHeader } = Layout;
 
@@ -116,7 +117,7 @@ const Header: FC<Props> = ({
     );
 
   const userLang: "en" | "rw" =
-    user?.currentUser?.data?.language || getLanguage();
+    router.query?.lang || user?.currentUser?.data?.language || getLanguage();
 
   const languages = {
     en: "English",
@@ -138,7 +139,7 @@ const Header: FC<Props> = ({
         className={styles.layout__header__row}
       >
         <Col>
-          <Link href="/">
+          <Link href={`/?lang=${userLang}`}>
             <a rel="noreferrer noopener">
               <Img
                 original
@@ -203,6 +204,20 @@ const Header: FC<Props> = ({
                       }
 
                       if (key === "en" || key === "rw") {
+                        const newPathname = stringifyUrl({
+                          url: router.pathname,
+                          query: { ...router.query, lang: key },
+                        });
+
+                        const newAsPath = stringifyUrl({
+                          url: router.asPath,
+                          query: { lang: key },
+                        });
+
+                        router.push(newPathname, newAsPath, {
+                          shallow: true,
+                        });
+
                         if (
                           user.currentUser.isLoggedin &&
                           user.currentUser.data.id

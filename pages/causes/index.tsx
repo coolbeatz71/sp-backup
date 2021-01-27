@@ -30,6 +30,7 @@ const AllCauses: FC<Props> = ({
   baseUrl = "/causes",
 }) => {
   const limit = 12;
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const screens = Grid.useBreakpoint();
   const { asPath, query, pathname, push } = useRouter();
@@ -113,7 +114,6 @@ const AllCauses: FC<Props> = ({
 
     return originalElement;
   };
-  const { t } = useTranslation();
 
   return (
     <LayoutWrapper

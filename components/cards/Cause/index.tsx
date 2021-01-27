@@ -36,6 +36,7 @@ import colors from "helpers/cause-type-colors";
 import { getCauseEndingDate } from "helpers/dateFormatter";
 import { causeStatus } from "interfaces";
 import { avatarLoader, imgLoader } from "helpers/getImageUrl";
+import { getLanguage } from "helpers/getLanguage";
 
 interface Props {
   cause: { [key: string]: any };
@@ -49,6 +50,7 @@ interface FooterCoverProps {
   active: boolean;
   children: ReactElement;
   myCause: boolean;
+  lang: string;
 }
 
 const FooterCover: FC<FooterCoverProps> = ({
@@ -56,9 +58,15 @@ const FooterCover: FC<FooterCoverProps> = ({
   active,
   children,
   myCause,
+  lang,
 }) => {
   return myCause ? (
-    <Link href="/causes/[slug]" as={`/causes/${slug}`}>
+    <Link
+      href={{
+        pathname: `/causes/${slug}`,
+        query: { lang },
+      }}
+    >
       <a rel="noreferrer noopener">{children}</a>
     </Link>
   ) : active ? (
@@ -80,6 +88,11 @@ export const isInactive = (status: string): boolean => {
 
 const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   const { t } = useTranslation();
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
+  const lang = userData.lang || getLanguage();
 
   const donateMsg: { [key: string]: string } = {
     active: t("make a donation"),
@@ -103,11 +116,18 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
     user.currentUser.isLoggedin &&
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
-  const LinkWrap: FC<{ children: ReactElement }> = ({ children }) =>
+  const LinkWrap: FC<{
+    children: ReactElement;
+  }> = ({ children }) =>
     isView ? (
       <Fragment>{children}</Fragment>
     ) : (
-      <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+      <Link
+        href={{
+          pathname: `/causes/${cause.slug}`,
+          query: { lang },
+        }}
+      >
         {children}
       </Link>
     );
@@ -254,7 +274,12 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
       </Row>
       {!isView && (
         <div className={styles.card__container__title} data-my-cause={myCause}>
-          <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+          <Link
+            href={{
+              pathname: `/causes/${cause.slug}`,
+              query: { lang },
+            }}
+          >
             <a rel="noreferrer noopener">
               <Typography.Title level={4} ellipsis>
                 {cause.name}
@@ -276,7 +301,12 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
       )}
       {!isView && (
         <>
-          <Link href="/causes/[slug]" as={`/causes/${cause.slug}`}>
+          <Link
+            href={{
+              pathname: `/causes/${cause.slug}`,
+              query: { lang },
+            }}
+          >
             <a rel="noreferrer noopener">
               <Typography.Paragraph
                 data-access={cause.access}
@@ -365,6 +395,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
             slug={cause.slug}
             active={cause.status === "active"}
             myCause={myCause}
+            lang={lang}
           >
             <Button
               type="text"

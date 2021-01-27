@@ -15,6 +15,7 @@ import styles from "./index.module.scss";
 import SharePopover from "components/common/SharePopover";
 import Layout from "components/LayoutWrapper";
 import { imgLoader } from "helpers/getImageUrl";
+import { getLanguage } from "helpers/getLanguage";
 
 const genData = (data: any) => {
   if (data) {
@@ -55,6 +56,11 @@ const Success = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+  const lang = userData.lang || getLanguage();
 
   useEffect(() => {
     if (!success.id && !data.id) {
@@ -143,7 +149,9 @@ const Success = () => {
                       </>
                     )}
                     <Typography.Paragraph underline>
-                      <Link href="/">{t("back home").toUpperCase()}</Link>
+                      <Link href={`/?lang=${lang}`}>
+                        {t("back home").toUpperCase()}
+                      </Link>
                     </Typography.Paragraph>
                     {data.status !== "pending" && (
                       <Typography.Paragraph

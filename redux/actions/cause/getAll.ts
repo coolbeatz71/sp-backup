@@ -1,4 +1,5 @@
 import splApi from "helpers/axios";
+import removeUrlLang from "helpers/removeUrlLang";
 import { IUnknownObject } from "interfaces/unknownObject";
 import {
   GET_ALL_CAUSES_ERROR,
@@ -13,12 +14,13 @@ export const getAllCauses = (url: string, source = "all") => (
   dispatch: any,
   params?: IUnknownObject,
 ) => {
+  const parsedUrl = removeUrlLang(url);
   dispatch({
     type:
       source === "transfer" ? TRANSFER_ALL_CAUSES_START : GET_ALL_CAUSES_START,
   });
   splApi
-    .get(url, { params })
+    .get(parsedUrl, { params })
     .then((response: any) => {
       dispatch({
         payload: response,
