@@ -56,7 +56,9 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   const { pathname, replace } = useRouter();
   const dispatch = useDispatch();
   const saveToken = getToken();
-  const [component, setComponent] = useState();
+
+  const defaultComponent = <Component {...pageProps} svpProps={svpProps} />;
+  const [component, setComponent] = useState(defaultComponent);
 
   const { isLoggedin, data: user } = useSelector(
     ({ user: { currentUser } }) => currentUser,
@@ -75,7 +77,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
       localStorage.removeItem("save-token");
       clearCurrentUser(dispatch);
     } else {
-      setComponent(<Component {...pageProps} svpProps={svpProps} />);
+      setComponent(defaultComponent);
     }
   }, [pathname, saveToken, user]);
 

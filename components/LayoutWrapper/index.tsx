@@ -131,17 +131,25 @@ const LayoutWrapper: FC<Props> = ({
         />
         <link rel="canonical" href={_url} />
         <meta name="description" content={_description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={_siteName} />
-        <meta property="og:title" content={_title} />
-        <meta property="og:image" content={_image} />
-        <meta property="og:description" content={_description} />
-        <meta property="og:url" content={_url} />
+        <meta property="og:type" content="website" key="og:type" />
+        <meta property="og:site_name" content={_siteName} key="og:sitename" />
+        <meta property="og:title" content={_title} key="og:title" />
+        <meta property="og:image" content={_image} key="og:image" />
+        <meta property="og:description" content={_description} key="og:desc" />
+        <meta property="og:url" content={_url} key="og:url" />
         {!isCause && <meta name="twitter:site" content={_twitterHandle} />}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={_title} />
-        <meta name="twitter:description" content={_description} />
-        <meta name="twitter:image" content={_image} />
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+          key="twitter:card"
+        />
+        <meta name="twitter:title" content={_title} key="twitter:title" />
+        <meta
+          name="twitter:description"
+          content={_description}
+          key="twitter:desc"
+        />
+        <meta name="twitter:image" content={_image} key="twitter:image" />
         <meta name="author" content={_author} />
         <meta name="theme-color" content="#ffffff" />
         <link
