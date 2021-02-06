@@ -38,7 +38,7 @@ import i18n from "constants/locales";
 import { isEmpty } from "lodash";
 import { avatarLoader } from "helpers/getImageUrl";
 
-import spLogo from "public/logo-beta.svg";
+import spLogo from "public/logo.svg";
 
 const { Header: GenericHeader } = Layout;
 
@@ -141,6 +141,7 @@ const Header: FC<Props> = ({
           <Link href="/">
             <a rel="noreferrer noopener">
               <Img
+                original
                 src={spLogo}
                 className={styles.layout__header__row__logo}
                 alt="beta logo"

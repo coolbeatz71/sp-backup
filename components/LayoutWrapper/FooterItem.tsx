@@ -10,7 +10,7 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-import spLogo from "public/logo-beta.svg";
+import spLogo from "public/logo.svg";
 
 const social = [
   {
