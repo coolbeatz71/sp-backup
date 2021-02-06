@@ -155,7 +155,7 @@ const LayoutWrapper: FC<Props> = ({
         <link
           id="favicon"
           rel="shortcut icon"
-          href="/icons/favicon-32x32.png"
+          href="icons/favicon-32x32.png"
           sizes="16x16 32x32 48x48"
           type="image/png"
         />

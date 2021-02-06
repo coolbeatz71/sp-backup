@@ -72,7 +72,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   useEffect(() => {
     if (isEmpty(saveToken) && protectedRoutes.includes(pathname)) {
       replace("/");
-      setComponent(<IndexPage />);
+      setComponent(<IndexPage {...pageProps} svpProps={svpProps} />);
     } else if (!isEmpty(saveToken) && !isLoggedin && isEmpty(user)) {
       localStorage.removeItem("save-token");
       clearCurrentUser(dispatch);
@@ -85,17 +85,6 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   moment.locale(user.language || getLanguage());
   return (
     <Context.Provider value={{ svpProps }}>
-      <Head>
-        <link
-          id="favicon"
-          rel="shortcut icon"
-          href="/icons/favicon-32x32.png"
-          sizes="16x16 32x32 48x48"
-          type="image/png"
-        />
-        <meta name="description" content="More than a crowd-funding platform" />
-        <meta name="theme-color" content="#FFFFFF" />
-      </Head>
       {component}
       <InterCom />
     </Context.Provider>
