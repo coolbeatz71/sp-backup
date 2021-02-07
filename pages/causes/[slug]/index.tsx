@@ -96,9 +96,11 @@ const SingleCause: NextPage<Props> = ({
     ? cause.organization.email
     : cause.contact_email;
 
+  const causeVideo = cause.video?.trim();
+
   const getYoutubeVideoID = () => {
-    if (typeof cause.video === "string" && validator.isURL(cause.video)) {
-      const { id, service }: any = getVideoId(cause.video);
+    if (typeof causeVideo === "string" && validator.isURL(causeVideo)) {
+      const { id, service }: { [key: string]: string } = getVideoId(causeVideo);
       return service === "youtube" && id;
     }
     return false;
@@ -138,7 +140,7 @@ const SingleCause: NextPage<Props> = ({
       >
         {cause.summary}
       </Typography.Paragraph>
-      {typeof cause.video === "string" && validator.isURL(cause.video) && (
+      {typeof causeVideo === "string" && validator.isURL(causeVideo) && (
         <Typography.Paragraph className={styles.dashboard__content__video}>
           {getYoutubeVideoID() ? (
             <iframe
@@ -149,7 +151,7 @@ const SingleCause: NextPage<Props> = ({
               allowFullScreen
             />
           ) : (
-            <ReactPlayer controls url={cause.video} width="100%" />
+            <ReactPlayer controls url={causeVideo} width="100%" />
           )}
         </Typography.Paragraph>
       )}

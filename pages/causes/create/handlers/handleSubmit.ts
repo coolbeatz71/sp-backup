@@ -51,7 +51,7 @@ const handleSubmit = (
       };
 
       if (!["", null, undefined].includes(data.video)) {
-        toUpload.video = data.video;
+        toUpload.video = data.video.trim();
       }
 
       if (hasOrg) {
