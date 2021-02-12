@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-import "theme/ngprogress.scss";
-import "theme/index.css";
-import "theme/global.scss";
 import "styles/global.scss";
+import "theme/global.scss";
+import "theme/ngprogress.scss";
 
 import { isEmpty } from "lodash";
 import NProgress from "nprogress";
 import { Router, useRouter } from "next/router";
-import Head from "next/head";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { withRedux } from "helpers/with-redux-store";

@@ -226,6 +226,9 @@
         }
       }
       &__menu {
+        min-width: 20vw;
+        display: flex;
+        justify-content: flex-end;
         background-color: transparent;
         border-bottom: none;
         & > li {

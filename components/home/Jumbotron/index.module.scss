@@ -63,13 +63,13 @@
       margin-right: $padding;
     }
     button {
-      -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-      box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+      border: 0;
       color: $primary;
+      background: $primary-ultra-light !important;
       &:hover {
-        color: rgba($primary, 0.3);
-        -webkit-box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+        background: $white !important;
+        -webkit-box-shadow: 0 0 0.5rem 0 rgba(173, 79, 79, 0.2);
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
       }
     }
     @media screen and (max-width: #{$mobile-size}) {
