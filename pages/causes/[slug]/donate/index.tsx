@@ -43,6 +43,7 @@ import SharePopover from "components/common/SharePopover";
 import CauseCard from "components/cards/Cause";
 
 import confeti from "public/confeti.gif";
+import { getLanguage } from "helpers/getLanguage";
 
 const { Text } = Typography;
 
@@ -75,6 +76,7 @@ const DonateCause: FC<{}> = () => {
   const { isLoggedin, data, loading: userDataLoading } = useSelector(
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
+  const lang = data.lang || getLanguage();
 
   useEffect(() => {
     if (slug && !fetched) {
@@ -189,7 +191,7 @@ const DonateCause: FC<{}> = () => {
                     alt="Confetti GIF"
                   />
 
-                  <Link href={`/causes/${slug}`}>
+                  <Link href={`/causes/${slug}?lang=${lang}`}>
                     <a rel="noreferrer noopener">{t("back to the cause")}</a>
                   </Link>
                   <div className={styles.donate__body__form__successful__share}>

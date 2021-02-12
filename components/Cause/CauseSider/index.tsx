@@ -28,6 +28,7 @@ import { ALL_CAUSES_PATH } from "helpers/paths";
 import { useTranslation } from "react-i18next";
 import { upperFirst } from "lodash";
 import { getDonationTime } from "helpers/dateFormatter";
+import { getLanguage } from "helpers/getLanguage";
 
 interface Props {
   cause: { [key: string]: any };
@@ -52,6 +53,12 @@ const CauseSider: FC<Props> = ({
 
   const [scrolled, setScrolled] = useState("");
   const [causeDonors, setCauseDonors] = useState<any[]>([]);
+
+  const { data: userData } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+
+  const lang = userData.lang || getLanguage();
 
   const {
     data: { get: donorsList },
@@ -218,7 +225,7 @@ const CauseSider: FC<Props> = ({
                                 title={donor.donor_source.name}
                               >
                                 <a
-                                  href={`${ALL_CAUSES_PATH}/${donor.donor_source.slug}`}
+                                  href={`${ALL_CAUSES_PATH}/${donor.donor_source.slug}?lang=${lang}`}
                                 >
                                   {donor.donor_source.till_number}
                                 </a>

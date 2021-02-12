@@ -15,11 +15,13 @@ import getInitialProps from "helpers/getInitialProps";
 import Context from "helpers/context";
 import "react-image-crop/dist/ReactCrop.css";
 import { getLanguage } from "helpers/getLanguage";
+import { stringifyUrl } from "query-string";
 import IndexPage from "./index";
 import protectedRoutes from "../constants/protectedRoute";
 import getToken from "helpers/getToken";
 import getCurrentUser from "redux/actions/user/getCurrentUser";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
+import updateProfile from "redux/actions/user/updateProfile";
 import locales from "constants/locales";
 
 const config = {
@@ -51,7 +53,7 @@ const InterCom = dynamic(
 );
 
 const MyApp = ({ Component, pageProps, svpProps }) => {
-  const { pathname, replace } = useRouter();
+  const { pathname, replace, query, push, asPath } = useRouter();
   const dispatch = useDispatch();
   const saveToken = getToken();
 
@@ -61,6 +63,54 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   const { isLoggedin, data: user } = useSelector(
     ({ user: { currentUser } }) => currentUser,
   );
+
+  const userLang = user.language || getLanguage();
+
+  const iniLanguage = (language) => {
+    locales.changeLanguage(language);
+    moment.locale(language);
+  };
+
+  const pushUrlLang = (language) => {
+    const newPathName = stringifyUrl({
+      url: pathname,
+      query: { ...query, lang: language },
+    });
+
+    const newAsPath = stringifyUrl({
+      url: asPath,
+      query: { lang: language },
+    });
+
+    push(newPathName, newAsPath, {
+      shallow: true,
+    });
+  };
+
+  useEffect(() => {
+    iniLanguage(userLang);
+  }, []);
+
+  useEffect(() => {
+    if (["en", "rw"].includes(query.lang)) {
+      if (isLoggedin && user.id) {
+        return dispatch(
+          updateProfile({
+            language: `${query.lang}`,
+          }),
+        );
+      }
+
+      localStorage.setItem("USER_LANG", `${query.lang}`);
+
+      iniLanguage(query.lang);
+      pushUrlLang(query.lang);
+    }
+
+    if (isEmpty(query.lang) || !["en", "rw"].includes(query.lang)) {
+      pushUrlLang(userLang);
+    }
+  }, [asPath]);
 
   useEffect(() => {
     if (isEmpty(saveToken)) clearCurrentUser(dispatch);
@@ -79,8 +129,6 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
     }
   }, [pathname, saveToken, user]);
 
-  locales.changeLanguage(user.language || getLanguage());
-  moment.locale(user.language || getLanguage());
   return (
     <Context.Provider value={{ svpProps }}>
       {component}

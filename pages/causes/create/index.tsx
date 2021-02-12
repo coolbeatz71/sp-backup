@@ -16,12 +16,14 @@ import defaultSteps from "./CreateCauseSteps";
 
 import Layout from "components/LayoutWrapper";
 import Buttons from "./CreateCauseSteps/Buttons";
+import { getLanguage } from "helpers/getLanguage";
 
 const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
   children,
   edit,
 }) => {
   const { t } = useTranslation();
+
   return edit ? (
     <Fragment>{children}</Fragment>
   ) : (
@@ -48,13 +50,18 @@ const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
 };
 
 const alerts = (editing: boolean, userData: any) => {
+  const { data } = useSelector(
+    ({ user: { currentUser } }: IRootState) => currentUser,
+  );
+  const lang = data.lang || getLanguage();
+
   return editing ? (
     <Tag icon={<ExclamationCircleOutlined />} color="warning">
       {i18n.t("you can edit this cause once")}
     </Tag>
   ) : !userData.avatar ? (
     <Tag icon={<ExclamationCircleOutlined />} color="warning">
-      <Link href="/profile">
+      <Link href={`/profile?lang=${lang}`}>
         <a rel="noreferrer noopener">
           {i18n.t("you need to update your profile first")}
         </a>

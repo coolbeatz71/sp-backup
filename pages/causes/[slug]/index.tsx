@@ -7,7 +7,7 @@ import validator from "validator";
 import { useTranslation } from "react-i18next";
 import styles from "./single.module.scss";
 import { Row, Col, Typography, message, Grid } from "antd";
-import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player";
 import getSingle from "redux/actions/cause/getSingle";
 import { IRootState } from "redux/initialStates";
 import getCauseInitialProps from "helpers/getCauseInitialProps";

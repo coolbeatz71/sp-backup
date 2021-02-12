@@ -38,6 +38,7 @@ import { avatarLoader } from "helpers/getImageUrl";
 import { isEmpty } from "lodash";
 
 import spLogo from "public/logo.svg";
+import { stringifyUrl } from "query-string";
 
 const { Header: GenericHeader } = Layout;
 
@@ -70,7 +71,8 @@ const Header: FC<Props> = ({
     (state: IRootState) => state.user.updateProfile,
   );
 
-  const userLang: "en" | "rw" = user.currentUser.data.language || getLanguage();
+  const userLang: "en" | "rw" =
+    router.query?.lang || user.currentUser.data.language || getLanguage();
 
   const languages = {
     en: "English",
@@ -125,7 +127,7 @@ const Header: FC<Props> = ({
     >
       <Row align="middle" className={styles.layout__header__row}>
         <Col flex={1}>
-          <Link href="/">
+          <Link href={`/?lang=${userLang}`}>
             <a rel="noreferrer noopener">
               <Img
                 src={spLogo}
@@ -174,6 +176,20 @@ const Header: FC<Props> = ({
               }
 
               if (key === "en" || key === "rw") {
+                const newPathname = stringifyUrl({
+                  url: router.pathname,
+                  query: { ...router.query, lang: key },
+                });
+
+                const newAsPath = stringifyUrl({
+                  url: router.asPath,
+                  query: { lang: key },
+                });
+
+                router.push(newPathname, newAsPath, {
+                  shallow: true,
+                });
+
                 if (user.currentUser.isLoggedin && user.currentUser.data.id) {
                   return dispatch(
                     updateProfile({
