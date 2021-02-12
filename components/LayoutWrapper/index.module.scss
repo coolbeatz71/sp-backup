@@ -242,6 +242,10 @@
             font-size: 0.8em;
           }
         }
+
+        @media screen and (max-width: #{$mobile-size}) {
+          flex-flow: column;
+        }
       }
       &__category {
         width: 100%;
