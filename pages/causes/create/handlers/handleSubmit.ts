@@ -74,7 +74,10 @@ const handleSubmit = (
         toUpload.next_keen_phone_number = phone(
           data.nok_phone_number,
         ).normalized;
-        toUpload.next_keen_email = data.nok_email;
+
+        if (!["", null, undefined].includes(data.nok_email)) {
+          toUpload.next_keen_email = data.nok_email;
+        }
         toUpload.next_keen_relationship = data.nok_relationship;
       }
 
