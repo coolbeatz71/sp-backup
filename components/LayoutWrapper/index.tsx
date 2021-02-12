@@ -196,6 +196,7 @@ const LayoutWrapper: FC<Props> = ({
         <link href="/robots.txt" />
         <link rel="preconnect" href={NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL} />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="icons/apple-icon.png" />
       </Head>
       <Banner
         className={styles.layout__banner}
