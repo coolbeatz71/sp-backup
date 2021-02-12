@@ -364,4 +364,7 @@ export default {
   "cause cover image": "Ifoto y'igikorwa",
   "failed to load": " yanze kugaragara!",
   "not available": "ntayihari!",
+  "donation transfer initiated": "Guhererekanya inkunga byemejwe!",
+  donation_transfer_success_description:
+    "Inkunga ingana na {{amount}} Rwf yoherejwe ku gikorwa gifite nimero {{tillNumber}}.",
 };

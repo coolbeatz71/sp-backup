@@ -49,11 +49,12 @@ const CauseTransfer: FC<Props> = ({
     <div className={styles.transfer}>
       {actionSuccessful ? (
         <div className={styles.transfer__success}>
-          <h4>Donation Transfer successfully initiated</h4>
+          <h4>{t("donation transfer initiated")}</h4>
           <p>
-            The donation of {numeral(data.amount).format("0,0.[00]")} Rwf was
-            transfered to a cause with the following till number{" "}
-            {JSON.parse(data?.cause).tillNumber}
+            {t("donation_transfer_success_description", {
+              amount: numeral(data.amount).format("0,0.[00]"),
+              tillNumber: JSON.parse(data?.cause).till_number,
+            })}
           </p>
           <Img src={checkedIcon} alt="check" />
         </div>
@@ -109,11 +110,11 @@ const CauseTransfer: FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                },
+                }
               );
             },
             issue,
-            steps,
+            steps
           )}
         </Card>
       )}

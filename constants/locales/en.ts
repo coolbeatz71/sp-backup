@@ -363,4 +363,7 @@ export default {
   "cause cover image": "Cause Cover Image",
   "failed to load": " failed to load!",
   "not available": "is not available!",
+  "donation transfer initiated": "Donation Transfer successfully initiated!",
+  donation_transfer_success_description:
+    "The donation of amount {{amount}} Rwf was successfully transfered to a cause with till number {{tillNumber}}.",
 };
