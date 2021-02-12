@@ -77,10 +77,7 @@ const StepMed: FC<Props> = ({ alerts, data, setForm, cb }) => {
       </Form.Item>
       <Form.Item
         name="nok_email"
-        rules={[
-          { type: "email", message: t("email should be valid") },
-          { required: true, message: t("email is required") },
-        ]}
+        rules={[{ type: "email", message: t("email should be valid") }]}
       >
         <StackedLabel label={t("email")}>
           <Input placeholder={t("email")} />
