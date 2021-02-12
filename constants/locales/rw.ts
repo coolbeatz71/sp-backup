@@ -367,4 +367,7 @@ export default {
   "donation transfer initiated": "Guhererekanya inkunga byemejwe!",
   donation_transfer_success_description:
     "Inkunga ingana na {{amount}} Rwf yoherejwe ku gikorwa gifite nimero {{tillNumber}}.",
+  cashout_success_description:
+    "Inkunga ingana na {{amount}} Rwf yoherejwe kuri konti ya telephone yawe {{phoneNumber}}",
+  "cashout initiated": "Kubikuza byemejwe!",
 };

@@ -55,11 +55,12 @@ const CauseCashout: FC<Props> = ({
     <div className={styles.cashout}>
       {actionSuccessful ? (
         <div className={styles.cashout__success}>
-          <h4>Cashout successfully initiated</h4>
+          <h4>{t("cashout initiated")}</h4>
           <p>
-            The amount of {numeral(data.amount).format("0,0.[00]")} Rwf was
-            deposited to your mobile money account <br />
-            {format(paymentAccountNumber)}
+            {t("cashout_success_description", {
+              amount: numeral(data.amount).format("0,0.[00]"),
+              phoneNumber: format(paymentAccountNumber),
+            })}
           </p>
           <Img src={checkedIcon} alt="check" />
         </div>
@@ -114,13 +115,13 @@ const CauseCashout: FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                },
+                }
               );
             },
             issue,
             steps,
             currentBalance,
-            currency,
+            currency
           )}
         </Card>
       )}
