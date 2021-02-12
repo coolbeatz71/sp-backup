@@ -55,16 +55,4 @@
       }
     }
   }
-
-  @include mediaMd {
-    [class~="ant-card"] {
-      [class~="ant-card-head"] {
-        padding: 0 2rem;
-      }
-
-      [class~="ant-card-body"] {
-        padding: 0 2rem;
-      }
-    }
-  }
 }

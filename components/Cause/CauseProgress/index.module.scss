@@ -20,6 +20,7 @@
         span {
           font-size: 12px;
         }
+
         &[data-is-tiny="true"] {
           line-height: 48px;
           font-size: 14px;
@@ -29,6 +30,20 @@
           }
           span {
             font-size: 10px;
+          }
+
+          @media screen and (max-width: #{$mobile-size}) {
+            font-size: 12px;
+            span {
+              font-size: 10px;
+            }
+          }
+
+          @media screen and (max-width: #{$sm-mobile-size}) {
+            font-size: 11px;
+            span {
+              font-size: 9px;
+            }
           }
         }
       }
