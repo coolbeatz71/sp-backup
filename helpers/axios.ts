@@ -35,6 +35,7 @@ export const saveApi = axios.create({
   headers: {
     Authorization: token,
     platform: "save_plus_web",
+    lang: getLanguage(),
   },
 });
 
