@@ -3,6 +3,23 @@
 
 .get_started {
   background-color: $primary-ultra-light;
+  min-height: 36.6vw;
+
+  @media screen and (max-width: #{$mobile-size}) {
+    min-height: 91vw;
+  }
+
+  img {
+    transition: opacity 450ms;
+  }
+
+  [data-img-loading="true"] {
+    opacity: 0;
+  }
+
+  [data-img-loading="false"] {
+    opacity: 1;
+  }
 
   [data-home-image-ratio] > img {
     object-fit: cover;

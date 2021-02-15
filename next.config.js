@@ -6,23 +6,27 @@ const withAntdLess = require("next-plugin-antd-less");
 
 const isProduction = process.env.NODE_ENV === "production";
 
+const optimizedImgConfig = {
+  optipng: {
+    optimizationLevel: 7,
+  },
+};
+
+const pwaConfig = {
+  pwa: {
+    disable: !isProduction,
+    dest: "public",
+    register: true,
+    runtimeCaching,
+  },
+};
+
+const antdLessConfig = {
+  lessVarsFilePath: "./theme/less/theme.less",
+};
+
 module.exports = withPlugins([
-  [optimizedImages],
-  [
-    withPWA,
-    {
-      pwa: {
-        disable: !isProduction,
-        dest: "public",
-        register: true,
-        runtimeCaching,
-      },
-    },
-  ],
-  [
-    withAntdLess,
-    {
-      lessVarsFilePath: "./theme/less/theme.less",
-    },
-  ],
+  [optimizedImages, optimizedImgConfig],
+  [withPWA, pwaConfig],
+  [withAntdLess, antdLessConfig],
 ]);

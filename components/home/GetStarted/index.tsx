@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
 import Image from "react-optimized-image";
-import { Grid, Row, Col, Typography, Button, Skeleton } from "antd";
+import { Grid, Row, Col, Typography, Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
+import getStartedLazy from "public/images/get-started-lazy.png";
 import getStartedImg from "public/images/get-started.png";
 
 import styles from "./index.module.scss";
@@ -20,31 +21,56 @@ const GetStarted = () => {
 
   const user = useSelector((state: IRootState) => state.user);
   const [refresh, setRefresh] = useState(1);
-  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [lazyLoaded, setLazyLoaded] = useState<boolean>(false);
   const [btn, setBtn] = useState("get started");
 
   useEffect(() => {
     setBtn(user.currentUser.isLoggedin ? "create a cause" : "get started");
   }, [user.currentUser.isLoggedin]);
 
+  const setImageLazyLoaded = () => {
+    const delay = 500 + Math.random() * 1500;
+    setTimeout(() => {
+      setLoading(false);
+      setLazyLoaded(true);
+    }, delay);
+  };
+
+  const getStartedLazyImage = (
+    <Image
+      webp
+      key={refresh}
+      data-home-image-ratio
+      data-img-loading={lazyLoaded}
+      src={getStartedLazy}
+      alt="illustration image"
+    />
+  );
+
+  const getStartedFullImage = (
+    <Image
+      webp
+      key={refresh}
+      data-home-image-ratio
+      data-img-loading={loading}
+      src={getStartedImg}
+      onError={() => {
+        setRefresh(refresh + 1);
+        setLoading(true);
+      }}
+      onLoad={() => setImageLazyLoaded()}
+      alt="illustration image"
+    />
+  );
+
   return (
     <div className={styles.get_started}>
       {(screens.xs || screens.sm || screens.md) && !screens.lg && (
         <div className={styles.get_started__image_mobile}>
           <div data-home-image-ratio>
-            <Image
-              webp
-              key={refresh}
-              data-home-image-ratio
-              src={getStartedImg}
-              onError={() => {
-                setRefresh(refresh + 1);
-                setStatus("");
-              }}
-              onLoad={() => setStatus("loaded")}
-              alt="illustration image"
-            />
-            {status !== "loaded" && <Skeleton.Image />}
+            {getStartedLazyImage}
+            {getStartedFullImage}
           </div>
         </div>
       )}
@@ -76,19 +102,8 @@ const GetStarted = () => {
         {screens.lg && (
           <Col className={styles.get_started__image}>
             <div data-home-image-ratio>
-              <Image
-                webp
-                key={refresh}
-                data-home-image-ratio
-                src={getStartedImg}
-                onError={() => {
-                  setRefresh(refresh + 1);
-                  setStatus("");
-                }}
-                onLoad={() => setStatus("loaded")}
-                alt="illustration image"
-              />
-              {status !== "loaded" && <Skeleton.Image />}
+              {getStartedLazyImage}
+              {getStartedFullImage}
             </div>
           </Col>
         )}
