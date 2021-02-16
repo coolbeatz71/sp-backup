@@ -190,6 +190,9 @@ const Header: FC<Props> = ({
                   shallow: true,
                 });
 
+                localStorage.setItem("USER_LANG", `${key}`);
+                i18n.changeLanguage(`${key}`);
+
                 if (user.currentUser.isLoggedin && user.currentUser.data.id) {
                   return dispatch(
                     updateProfile({
@@ -198,8 +201,6 @@ const Header: FC<Props> = ({
                   );
                 }
 
-                localStorage.setItem("USER_LANG", `${key}`);
-                i18n.changeLanguage(`${key}`);
                 return;
               }
 
