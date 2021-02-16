@@ -2,13 +2,14 @@ import {
   LOGIN_START,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
-} from "redux/action-types/Auth/login";
+  LOGIN_ERROR_CLEAR,
+} from "redux/action-types/auth/login";
 
 import { Iauth } from "redux/initialStates/auth";
 
 export default (
   state: Iauth,
-  { type, payload }: { type: string; payload: any }
+  { type, payload }: { type: string; payload: any },
 ) => {
   switch (type) {
     case LOGIN_START:
@@ -27,6 +28,14 @@ export default (
           ...state.login,
           error: payload,
           loading: false,
+        },
+      };
+    case LOGIN_ERROR_CLEAR:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          error: {},
         },
       };
     case LOGIN_SUCCESS:

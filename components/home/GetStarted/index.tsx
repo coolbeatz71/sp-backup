@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
 import getStartedImg from "public/images/get-started.png";
 

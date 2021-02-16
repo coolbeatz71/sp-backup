@@ -6,7 +6,7 @@ import { IRootState } from "redux/initialStates";
 
 import showAuthDialog, {
   changeAuthContext,
-} from "redux/actions/Auth/showAuthDialog";
+} from "redux/actions/auth/showAuthDialog";
 
 import reset from "redux/actions/pin/reset";
 import update from "redux/actions/pin/reset-update";

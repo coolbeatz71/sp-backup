@@ -11,6 +11,15 @@ import { Modal as AntdModal, Typography } from "antd";
 
 import styles from "./index.module.scss";
 import Head from "next/head";
+import { useDispatch } from "react-redux";
+import {
+  SEND_CONFIRMATION_CODE_ERROR_CLEAR,
+  SIGNUP_ERROR_CLEAR,
+} from "redux/action-types/auth/signup";
+import { LOGIN_ERROR_CLEAR } from "redux/action-types/auth/login";
+import { PIN_CHANGE_ERROR_CLEAR } from "redux/action-types/pin/change";
+import { PIN_RESET_ERROR_CLEAR } from "redux/action-types/pin/reset";
+import { PIN_RESET_UPDATE_ERROR_CLEAR } from "redux/action-types/pin/reset-update";
 
 interface Props {
   title?: string | string[];
@@ -46,10 +55,22 @@ const Modal: FC<Props> = ({
   children,
 }) => {
   const [visible, setVisible] = useState(vs);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (visible !== vs) setVisible(vs);
   }, [vs]);
+
+  useEffect(() => {
+    if (visible) {
+      dispatch({ type: SIGNUP_ERROR_CLEAR });
+      dispatch({ type: LOGIN_ERROR_CLEAR });
+      dispatch({ type: PIN_CHANGE_ERROR_CLEAR });
+      dispatch({ type: PIN_RESET_ERROR_CLEAR });
+      dispatch({ type: PIN_RESET_UPDATE_ERROR_CLEAR });
+      dispatch({ type: SEND_CONFIRMATION_CODE_ERROR_CLEAR });
+    }
+  }, [visible]);
 
   return (
     <>

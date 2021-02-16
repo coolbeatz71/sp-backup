@@ -5,7 +5,7 @@ import {
   PIN_RESET_UPDATE_SUCCESS,
 } from "redux/action-types/pin/reset-update";
 import notification from "utils/notification";
-import { changeAuthContext } from "../Auth/showAuthDialog";
+import { changeAuthContext } from "../auth/showAuthDialog";
 
 export default (data: {}) => (dispatch: any) => {
   dispatch({

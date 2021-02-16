@@ -1,5 +1,8 @@
 import { Iauth } from "redux/initialStates/auth";
-import { SHOW_AUTH_DIALOG, CHANGE_AUTH_CONTEXT } from "redux/action-types/Auth/showAuthDialog";
+import {
+  SHOW_AUTH_DIALOG,
+  CHANGE_AUTH_CONTEXT,
+} from "redux/action-types/auth/showAuthDialog";
 
 interface Iaction {
   type: string;

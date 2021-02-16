@@ -4,7 +4,7 @@ import {
   PIN_RESET_ERROR,
   PIN_RESET_SUCCESS,
 } from "redux/action-types/pin/reset";
-import { changeAuthContext } from "../Auth/showAuthDialog";
+import { changeAuthContext } from "../auth/showAuthDialog";
 
 export default (data: { [key: string]: any }) => (dispatch: any) => {
   dispatch({

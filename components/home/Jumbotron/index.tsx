@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Row, Col, Typography, Button, Grid } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "redux/initialStates";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
 import styles from "./index.module.scss";
 

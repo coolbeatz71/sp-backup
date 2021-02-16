@@ -6,7 +6,7 @@ import {
   SEND_CONFIRMATION_CODE_START,
   SEND_CONFIRMATION_CODE_SUCCESS,
   SEND_CONFIRMATION_CODE_ERROR,
-} from "redux/action-types/Auth/signup";
+} from "redux/action-types/auth/signup";
 import { pick } from "lodash";
 import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";

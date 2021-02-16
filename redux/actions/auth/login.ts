@@ -3,7 +3,7 @@ import {
   LOGIN_START,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
-} from "redux/action-types/Auth/login";
+} from "redux/action-types/auth/login";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 import showAuthDialog from "./showAuthDialog";
 

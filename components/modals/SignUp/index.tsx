@@ -11,12 +11,12 @@ import {
 } from "antd";
 import { useTranslation } from "react-i18next";
 
-import signup, { sendVerificationCode } from "redux/actions/Auth/signup";
+import signup, { sendVerificationCode } from "redux/actions/auth/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import showAuthDialog, {
   changeAuthContext,
-} from "redux/actions/Auth/showAuthDialog";
+} from "redux/actions/auth/showAuthDialog";
 import { normalize } from "dev-rw-phone";
 
 import Modal from "components/common/Modal";

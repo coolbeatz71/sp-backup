@@ -3,7 +3,7 @@ import {
   LOGOUT_START,
   LOGOUT_ERROR,
   LOGOUT_SUCCESS,
-} from "redux/action-types/Auth/logout";
+} from "redux/action-types/auth/logout";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
 
 export default (push: any, dispatch: any) => {

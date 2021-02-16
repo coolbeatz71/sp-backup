@@ -12,8 +12,8 @@ import {
   Skeleton,
 } from "antd";
 import { useTranslation } from "react-i18next";
-import logout from "redux/actions/Auth/logout";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import logout from "redux/actions/auth/logout";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
 import styles from "./index.module.scss";
 import { DownOutlined, LoadingOutlined } from "@ant-design/icons";

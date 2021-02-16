@@ -2,6 +2,7 @@ import {
   PIN_CHANGE_START,
   PIN_CHANGE_ERROR,
   PIN_CHANGE_SUCCESS,
+  PIN_CHANGE_ERROR_CLEAR,
 } from "redux/action-types/pin/change";
 
 import { IPinReset } from "redux/initialStates/pin";
@@ -27,6 +28,14 @@ export default (
           ...state.change,
           error: payload,
           loading: false,
+        },
+      };
+    case PIN_CHANGE_ERROR_CLEAR:
+      return {
+        ...state,
+        change: {
+          ...state.change,
+          error: {},
         },
       };
     case PIN_CHANGE_SUCCESS:

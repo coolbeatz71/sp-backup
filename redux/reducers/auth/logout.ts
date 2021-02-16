@@ -2,7 +2,7 @@ import {
   LOGOUT_START,
   LOGOUT_ERROR,
   LOGOUT_SUCCESS,
-} from "redux/action-types/Auth/logout";
+} from "redux/action-types/auth/logout";
 
 import { Iauth } from "redux/initialStates/auth";
 
