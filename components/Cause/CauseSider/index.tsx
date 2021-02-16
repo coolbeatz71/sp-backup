@@ -129,7 +129,10 @@ const CauseSider: FC<Props> = ({
           <DonationWrapper>
             <div>
               {(myCause || cause.status === "active") && (
-                <Row gutter={[24, 12]}>
+                <Row
+                  gutter={[24, 12]}
+                  className={styles.cause_sider__content__sidebar__button}
+                >
                   {cause.status === "active" && (
                     <Col flex={1}>
                       <PreDonation slug={cause.slug}>
