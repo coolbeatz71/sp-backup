@@ -7,6 +7,7 @@ import CauseSkeleton from "components/cards/CauseSkeleton";
 
 import styles from "./index.module.scss";
 import Link from "next/link";
+import { useMedia } from "react-use";
 
 interface Props {
   title: string;
@@ -30,6 +31,8 @@ const Section: FC<Props> = ({
   more,
 }) => {
   const { t } = useTranslation();
+
+  const isLG = useMedia("(min-width: 992px)");
 
   const howItWorksItems = [
     {
@@ -102,7 +105,7 @@ const Section: FC<Props> = ({
       )}
       {!fetched ? (
         <div data-section-scroll>
-          <Row data-section-row={3} gutter={[24, 24]}>
+          <Row data-section-row={3} gutter={[24, 24]} align="middle">
             {[1, 2, 3].map((index: number) => (
               <Col span={8} key={index}>
                 <CauseSkeleton />
@@ -114,7 +117,7 @@ const Section: FC<Props> = ({
         <div />
       ) : (
         <div data-section-scroll={data.length}>
-          <Row data-section-row="items" gutter={[24, 24]}>
+          <Row data-section-row="items" gutter={[24, 24]} align="middle">
             {data.map((cause: any, index: number) => (
               <Col span={8} key={index}>
                 <Cause cause={cause} />
@@ -125,7 +128,11 @@ const Section: FC<Props> = ({
       )}
       {fetched && data.length >= 3 && more && (
         <div data-section-scroll>
-          <Row data-section-row="more" justify="end" gutter={[24, 24]}>
+          <Row
+            data-section-row="more"
+            justify={isLG ? "end" : "start"}
+            gutter={[24, 24]}
+          >
             <Col>
               <Link href={more.link}>
                 <Button type="primary" ghost>

@@ -32,6 +32,10 @@
       }
     }
     &__sidebar {
+      &__button {
+        margin-bottom: calc(#{$padding} / 2);
+      }
+
       [data-scrolled="scrolled"] {
         [class~="ant-affix"] {
           background-color: $primary-ultra-light;
