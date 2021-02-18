@@ -33,6 +33,7 @@ interface Props {
   isCategory?: boolean;
   isCreate?: boolean;
   noFooter?: boolean;
+  noHeader?: boolean;
   isForm?: boolean;
   title?: string;
   image?: string;
@@ -50,6 +51,7 @@ const LayoutWrapper: FC<Props> = ({
   isCause = false,
   isCategory = false,
   isCreate = false,
+  noHeader = false,
   noFooter = false,
   isForm = false,
   children,
@@ -204,7 +206,7 @@ const LayoutWrapper: FC<Props> = ({
         backdrop={backdrop}
       />
 
-      {renderHeader()}
+      {!noHeader && renderHeader()}
 
       {svpProps.error || user.currentUser.error.message ? (
         <Content className={styles.layout__content} data-is-form="true">

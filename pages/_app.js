@@ -23,6 +23,7 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import updateProfile from "redux/actions/user/updateProfile";
 import locales from "constants/locales";
+import DefaultComponent from "../components/common/Default/";
 
 const config = {
   trickle: false,
@@ -57,8 +58,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   const dispatch = useDispatch();
   const saveToken = getToken();
 
-  const defaultComponent = <Component {...pageProps} svpProps={svpProps} />;
-  const [component, setComponent] = useState(defaultComponent);
+  const [component, setComponent] = useState(<DefaultComponent />);
 
   const { isLoggedin, data: user } = useSelector(
     ({ user: { currentUser } }) => currentUser,
@@ -124,9 +124,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
     } else if (!isEmpty(saveToken) && !isLoggedin && isEmpty(user)) {
       localStorage.removeItem("save-token");
       clearCurrentUser(dispatch);
-    } else {
-      setComponent(defaultComponent);
-    }
+    } else setComponent(<Component {...pageProps} svpProps={svpProps} />);
   }, [pathname, saveToken, user]);
 
   return (
