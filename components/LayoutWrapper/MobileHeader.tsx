@@ -12,9 +12,9 @@ import {
   Skeleton,
   Dropdown,
 } from "antd";
-import logout from "redux/actions/Auth/logout";
+import logout from "redux/actions/auth/logout";
 import { useTranslation } from "react-i18next";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
 import styles from "./index.module.scss";
 import { LoadingOutlined, MenuOutlined, PlusOutlined } from "@ant-design/icons";

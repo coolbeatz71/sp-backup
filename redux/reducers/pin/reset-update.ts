@@ -2,6 +2,7 @@ import {
   PIN_RESET_UPDATE_START,
   PIN_RESET_UPDATE_ERROR,
   PIN_RESET_UPDATE_SUCCESS,
+  PIN_RESET_UPDATE_ERROR_CLEAR,
 } from "redux/action-types/pin/reset-update";
 
 import { IPinReset } from "redux/initialStates/pin";
@@ -27,6 +28,14 @@ export default (
           ...state.reset_update,
           error: payload,
           loading: false,
+        },
+      };
+    case PIN_RESET_UPDATE_ERROR_CLEAR:
+      return {
+        ...state,
+        reset_update: {
+          ...state.reset_update,
+          error: {},
         },
       };
     case PIN_RESET_UPDATE_SUCCESS:

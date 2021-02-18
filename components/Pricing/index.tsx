@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useMedia } from "react-use";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 
 const PricingCard: FC<{}> = ({}) => {
   const { t } = useTranslation();

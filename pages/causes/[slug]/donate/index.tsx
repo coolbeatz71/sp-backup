@@ -29,7 +29,7 @@ import normalizeInputNumber from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
-import showAuthDialog from "redux/actions/Auth/showAuthDialog";
+import showAuthDialog from "redux/actions/auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 import { Input } from "components/common/Input";

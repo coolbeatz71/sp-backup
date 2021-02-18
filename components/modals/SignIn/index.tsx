@@ -11,13 +11,13 @@ import {
 } from "antd";
 import { useTranslation } from "react-i18next";
 
-import login from "redux/actions/Auth/login";
+import login from "redux/actions/auth/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useMedia } from "react-use";
 import { IRootState } from "redux/initialStates";
 import showAuthDialog, {
   changeAuthContext,
-} from "redux/actions/Auth/showAuthDialog";
+} from "redux/actions/auth/showAuthDialog";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";

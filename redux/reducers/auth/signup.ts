@@ -5,7 +5,9 @@ import {
   SEND_CONFIRMATION_CODE_START,
   SEND_CONFIRMATION_CODE_ERROR,
   SEND_CONFIRMATION_CODE_SUCCESS,
-} from "redux/action-types/Auth/signup";
+  SIGNUP_ERROR_CLEAR,
+  SEND_CONFIRMATION_CODE_ERROR_CLEAR,
+} from "redux/action-types/auth/signup";
 
 import { Iauth } from "redux/initialStates/auth";
 
@@ -30,6 +32,14 @@ export default (
           ...state.sendConfirmationCode,
           error: payload,
           loading: false,
+        },
+      };
+    case SEND_CONFIRMATION_CODE_ERROR_CLEAR:
+      return {
+        ...state,
+        sendConfirmationCode: {
+          ...state.sendConfirmationCode,
+          error: {},
         },
       };
     case SEND_CONFIRMATION_CODE_SUCCESS:
@@ -57,6 +67,14 @@ export default (
           ...state.signup,
           error: payload,
           loading: false,
+        },
+      };
+    case SIGNUP_ERROR_CLEAR:
+      return {
+        ...state,
+        signup: {
+          ...state.signup,
+          error: {},
         },
       };
     case SIGNUP_SUCCESS:
