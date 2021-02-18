@@ -38,7 +38,7 @@ const ResetPin: FC<{}> = () => {
   } = useSelector(({ pin: { reset_update } }: IRootState) => reset_update);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
   const signinWithMsg = () => (
@@ -112,7 +112,7 @@ const ResetPin: FC<{}> = () => {
             <Typography.Text>{t("enter verification code")}</Typography.Text>
           </Form.Item>
           <Form.Item name="code">
-            <StackedLabel label={t("Verification Code")} required>
+            <StackedLabel label={t("verification code")} required>
               <Input disabled={loadingUpdate} autoComplete="new-password" />
             </StackedLabel>
           </Form.Item>
