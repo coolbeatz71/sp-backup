@@ -59,10 +59,8 @@ const Modal: FC<Props> = ({
 
   useEffect(() => {
     if (visible !== vs) setVisible(vs);
-  }, [vs]);
 
-  useEffect(() => {
-    if (visible) {
+    if (vs) {
       dispatch({ type: SIGNUP_ERROR_CLEAR });
       dispatch({ type: LOGIN_ERROR_CLEAR });
       dispatch({ type: PIN_CHANGE_ERROR_CLEAR });
@@ -70,7 +68,7 @@ const Modal: FC<Props> = ({
       dispatch({ type: PIN_RESET_UPDATE_ERROR_CLEAR });
       dispatch({ type: SEND_CONFIRMATION_CODE_ERROR_CLEAR });
     }
-  }, [visible]);
+  }, [vs]);
 
   return (
     <>
