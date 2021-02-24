@@ -53,7 +53,7 @@ const CauseTransfer: FC<Props> = ({
           <p>
             {t("donation_transfer_success_description", {
               amount: numeral(data.amount).format("0,0.[00]"),
-              tillNumber: JSON.parse(data?.cause).till_number,
+              tillNumber: JSON.parse(data?.cause).tillNumber,
             })}
           </p>
           <Img src={checkedIcon} alt="check" />
