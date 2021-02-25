@@ -75,7 +75,8 @@ export default {
   "choose image to upload": "Hitamo ifoto",
   next: "Komeza",
   previous: "Subira inyuma",
-  required: "Ni ngombwa",
+  required: "ni ngombwa",
+  "minimum 3": "Agomba kuba byibuze inyuguti 3",
   optional: "Si ngombwa",
   "detailed information": "Amakuru arambuye",
   "give us detailed information": "Sobanura birambuye igikorwa cyawe",
@@ -110,6 +111,8 @@ export default {
   "confirm your donation": "Emeza inkunga yawe",
   "enter pin and confirm via momo":
     "Injiza PIN yawe hanyuma wemeze gutanga inkunga kuri numero yawe ya telefoni",
+  "enter credit/debit card details":
+    "Injiza ibiranga ikarita yawe hanyuma wemeze gutanga inkunga",
   "thank you": "Murakoze",
   "back home": "Subira ahabanza",
   "back to the cause": "Subira ku gikorwa",
@@ -274,6 +277,7 @@ export default {
     "Amakuru y'igikorwa ushaka gutera inkunga",
   back: "Subira inyuma",
   "should be 100 minimum": "Agomba kuba nibura 100 RWF!",
+  "should be 500 minimum": "Agomba kuba nibura 500 RWF!",
   transfer: "Hererekanya inkunga",
   "cause information failed": "Amakuru y'igikorwa afite ibibazo!",
   cause_information_failed_text:

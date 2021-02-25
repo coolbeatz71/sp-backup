@@ -16,7 +16,6 @@ import {
 import numeral from "numeral";
 import Progress from "../CauseProgress";
 import SharePopover from "components/common/SharePopover";
-import PreDonation from "components/modals/PreDonation";
 import Donors from "./Donors";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import { upperFirst } from "lodash";
 import { getDonationTime } from "helpers/dateFormatter";
 import { getLanguage } from "helpers/getLanguage";
+import { useRouter } from "next/router";
 
 interface Props {
   cause: { [key: string]: any };
@@ -50,6 +50,8 @@ const CauseSider: FC<Props> = ({
   const comparer = useRef<any>(null);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+
+  const { push } = useRouter();
 
   const [scrolled, setScrolled] = useState("");
   const [causeDonors, setCauseDonors] = useState<any[]>([]);
@@ -135,11 +137,13 @@ const CauseSider: FC<Props> = ({
                 >
                   {cause.status === "active" && (
                     <Col flex={1}>
-                      <PreDonation slug={cause.slug}>
-                        <Button type="primary" block>
-                          {t("donate")}
-                        </Button>
-                      </PreDonation>
+                      <Button
+                        type="primary"
+                        block
+                        onClick={() => push(`/causes/${cause.slug}/donate`)}
+                      >
+                        {t("donate")}
+                      </Button>
                     </Col>
                   )}
                 </Row>

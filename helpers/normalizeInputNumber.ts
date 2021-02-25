@@ -8,3 +8,7 @@ export default (value: any, previousValue: any) => {
   const prepareNumber = value.replace(/,/g, "");
   return formatNumber(prepareNumber);
 };
+
+export const sanitizeNumber = (value: string) => {
+  return Number(value.replace(/,/g, ""));
+};

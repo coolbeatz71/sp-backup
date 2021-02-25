@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ReactStars from "react-star-rating-component";
 import styles from "./donate.module.scss";
-import { normalize, telco } from "dev-rw-phone";
+import { normalize } from "dev-rw-phone";
 import {
   Form,
   Select,
@@ -25,7 +25,9 @@ import { IRootState } from "redux/initialStates";
 import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
-import normalizeInputNumber from "helpers/normalizeInputNumber";
+import normalizeInputNumber, {
+  sanitizeNumber,
+} from "helpers/normalizeInputNumber";
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
@@ -44,6 +46,7 @@ import CauseCard from "components/cards/Cause";
 
 import confeti from "public/confeti.gif";
 import { getLanguage } from "helpers/getLanguage";
+import { formNamesValidator } from "utils/validators/form-names-validators";
 
 const { Text } = Typography;
 
@@ -69,7 +72,7 @@ const DonateCause: FC<{}> = () => {
     accessCode,
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
-  const { loading, error } = useSelector(
+  const { data: donateData, loading, error } = useSelector(
     ({ cause: { donate } }: IRootState) => donate,
   );
 
@@ -86,7 +89,12 @@ const DonateCause: FC<{}> = () => {
   }, [slug, fetched]);
 
   useEffect(() => {
-    if (donationSuccessful) window?.scrollTo({ top: 0 });
+    if (donationSuccessful) {
+      window?.scrollTo({ top: 0 });
+
+      const url: string = donateData?.data?.url;
+      if (!isEmpty(url)) window?.open(url, "_blank");
+    }
   }, [donationSuccessful]);
 
   useEffect(() => {
@@ -107,7 +115,10 @@ const DonateCause: FC<{}> = () => {
       ...data,
       amount: serializeFormattedNumber(data.amount),
       phone_number: normalize(data.phone_number),
-      payment_method: getTelco(data.phone_number),
+      payment_method:
+        data.payment_method === "momo"
+          ? getTelco(data.phone_number)
+          : "Visa_MasterCard",
     };
   };
 
@@ -125,18 +136,6 @@ const DonateCause: FC<{}> = () => {
     }
     if (Object.keys(changedField)[0] === "anonymous") {
       setIsAnonymous(changedField.anonymous);
-    }
-
-    if (Object.keys(changedField)[0] === "payment_method") {
-      if (changedField.payment_method === "MTN_Rwanda") {
-        form.setFieldsValue({
-          phone_number: "78",
-        });
-      } else if (changedField.payment_method === "Airtel_Rwanda") {
-        form.setFieldsValue({
-          phone_number: "73",
-        });
-      }
     }
   };
 
@@ -176,13 +175,35 @@ const DonateCause: FC<{}> = () => {
               {donationSuccessful ? (
                 <div className={styles.donate__body__form__successful}>
                   <h5>{t("confirm your donation")}</h5>
-                  <p
-                    className={styles.donate__body__form__successful__subtitle}
-                  >
-                    {t("enter pin and confirm via momo")} &nbsp; +
-                    {form.getFieldValue("phone_number") &&
-                      phoneFormatter(form.getFieldValue("phone_number"))}{" "}
-                  </p>
+                  {isEmpty(donateData.data) ? (
+                    <p
+                      className={
+                        styles.donate__body__form__successful__subtitle
+                      }
+                    >
+                      {t("enter pin and confirm via momo")} &nbsp; +
+                      {form.getFieldValue("phone_number") &&
+                        phoneFormatter(form.getFieldValue("phone_number"))}{" "}
+                    </p>
+                  ) : (
+                    <>
+                      <p
+                        className={
+                          styles.donate__body__form__successful__subtitle
+                        }
+                      >
+                        {t("enter credit/debit card details")}
+                      </p>
+                      <Typography.Link
+                        target="_blank"
+                        href={donateData?.data?.url}
+                        style={{ textDecoration: "underline" }}
+                      >
+                        {donateData?.data?.url}
+                      </Typography.Link>
+                      <br />
+                    </>
+                  )}
 
                   <h4>{t("thank you")}</h4>
                   <Img
@@ -252,10 +273,7 @@ const DonateCause: FC<{}> = () => {
                         initialValues={{
                           ...data,
                           type: "individual",
-                          payment_method:
-                            telco(data.phone_number) === "Airtel"
-                              ? "Airtel_Rwanda"
-                              : "MTN_Rwanda",
+                          payment_method: "Visa_MasterCard",
                         }}
                       >
                         <Text type="danger" className="mb-3 d-block">
@@ -282,8 +300,15 @@ const DonateCause: FC<{}> = () => {
                               message: `${t("amount")} ${t("required")}`,
                             },
                             {
-                              pattern: /([1-9][\d,]{2,})$$/g,
-                              message: t("should be 100 minimum"),
+                              validator(_: any, value: any, callback) {
+                                if (
+                                  !isEmpty(value) &&
+                                  sanitizeNumber(value) < 500
+                                ) {
+                                  callback(t("should be 500 minimum"));
+                                }
+                                callback();
+                              },
                             },
                           ]}
                           validateTrigger={["onSubmit", "onBlur"]}
@@ -296,7 +321,10 @@ const DonateCause: FC<{}> = () => {
                             <Col span={12}>
                               <Form.Item
                                 name="first_name"
-                                rules={[{ required: true, min: 3 }]}
+                                rules={formNamesValidator(
+                                  `${t("minimum 3")}`,
+                                  `${t("required")}`,
+                                )}
                                 validateTrigger={["onSubmit", "onBlur"]}
                               >
                                 <Input placeholder={t("first_name")} />
@@ -306,7 +334,10 @@ const DonateCause: FC<{}> = () => {
                               <Form.Item
                                 name="last_name"
                                 validateTrigger={["onSubmit", "onBlur"]}
-                                rules={[{ required: true, min: 3 }]}
+                                rules={formNamesValidator(
+                                  `${t("minimum 3")}`,
+                                  `${t("required")}`,
+                                )}
                               >
                                 <Input placeholder={t("last_name")} />
                               </Form.Item>
@@ -318,14 +349,20 @@ const DonateCause: FC<{}> = () => {
                               <Form.Item
                                 name="organization_name"
                                 validateTrigger={["onSubmit", "onBlur"]}
-                                rules={[{ required: true, min: 3 }]}
+                                rules={formNamesValidator(
+                                  `${t("minimum 3")}`,
+                                  `${t("required")}`,
+                                )}
                               >
                                 <Input placeholder={t("organization name")} />
                               </Form.Item>
                               <Form.Item
                                 name="contact_person"
                                 validateTrigger={["onSubmit", "onBlur"]}
-                                rules={[{ required: true, min: 3 }]}
+                                rules={formNamesValidator(
+                                  `${t("minimum 3")}`,
+                                  `${t("required")}`,
+                                )}
                               >
                                 <Input placeholder={t("contact person")} />
                               </Form.Item>
@@ -346,11 +383,11 @@ const DonateCause: FC<{}> = () => {
                             select
                           >
                             <Select placeholder={t("select payment method")}>
-                              <Select.Option value="MTN_Rwanda">
-                                MTN Mobile Money
+                              <Select.Option value="Visa_MasterCard">
+                                Credit/Debit Card
                               </Select.Option>
-                              <Select.Option value="Airtel_Rwanda">
-                                Airtel Money
+                              <Select.Option value="momo">
+                                Mobile Money
                               </Select.Option>
                             </Select>
                           </StackedLabel>
@@ -358,34 +395,7 @@ const DonateCause: FC<{}> = () => {
                         <Form.Item
                           className="form-group phone-code"
                           validateTrigger={["onSubmit", "onBlur"]}
-                          rules={[
-                            ...formPhoneValidator(t("phone number")),
-                            {
-                              validator(_rule: any, value: any) {
-                                const {
-                                  payment_method: paymentMethod,
-                                } = form.getFieldsValue();
-                                if (
-                                  paymentMethod === "MTN_Rwanda" &&
-                                  telco(value) !== "MTN"
-                                ) {
-                                  return Promise.reject(
-                                    t("should be a valid mtn"),
-                                  );
-                                }
-                                if (
-                                  paymentMethod === "Airtel_Rwanda" &&
-                                  telco(value) !== "Airtel"
-                                ) {
-                                  return Promise.reject(
-                                    t("should be a valid airtel"),
-                                  );
-                                }
-
-                                return Promise.resolve();
-                              },
-                            },
-                          ]}
+                          rules={formPhoneValidator(t("phone number"))}
                           name="phone_number"
                         >
                           <StackedLabel label={t("phone number")} phone="+250">
