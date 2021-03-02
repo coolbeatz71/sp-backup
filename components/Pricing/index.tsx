@@ -14,14 +14,14 @@ const PricingCard: FC<{}> = ({}) => {
   const { t } = useTranslation();
   const pricingPlan = [
     {
-      price: t("free"),
-      subtitle: t("for cashout above 30 days"),
-      description: t("cash_out_above_details"),
+      price: "118 Rwf",
+      subtitle: t("donation_below_equal"),
+      description: t("donation_below_equal_details"),
     },
     {
-      price: "2%",
-      subtitle: t("for cashout below 30 days"),
-      description: t("cash_out_below_details"),
+      price: "2.5%",
+      subtitle: t("donation_above"),
+      description: t("donation_above_details"),
     },
   ];
   const { push } = useRouter();
@@ -39,7 +39,7 @@ const PricingCard: FC<{}> = ({}) => {
         <p>
           {t("pricing structure apply date")}
           <br />
-          {t("enjoy free period")}
+          {t("day_notification")}
         </p>
       </div>
       <div className={styles.pricingCard__container}>
