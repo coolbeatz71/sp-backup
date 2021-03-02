@@ -6,10 +6,11 @@ import {
 } from "redux/action-types/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
 
-export default (slug: string | string[], data: IUnknownObject, params?: IUnknownObject) => (
-  setDonationToSuccess: any,
-  dispatch: any
-) => {
+export default (
+  slug: string | string[],
+  data: IUnknownObject,
+  params?: IUnknownObject,
+) => (setDonationToSuccess: any, dispatch: any) => {
   dispatch({
     type: DONATE_CAUSE_START,
   });
@@ -23,7 +24,6 @@ export default (slug: string | string[], data: IUnknownObject, params?: IUnknown
       setDonationToSuccess(true);
     })
     .catch((error: any) => {
-      console.error("here", error);
       dispatch({
         type: DONATE_CAUSE_ERROR,
         payload: error,

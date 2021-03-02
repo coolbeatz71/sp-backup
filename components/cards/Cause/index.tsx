@@ -26,7 +26,6 @@ import { useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 
 import CausesActions from "components/common/CausesActions";
-import PreDonation from "components/modals/PreDonation";
 
 import CustomIcon from "components/common/CustomIcon";
 
@@ -70,9 +69,14 @@ const FooterCover: FC<FooterCoverProps> = ({
       <a rel="noreferrer noopener">{children}</a>
     </Link>
   ) : active ? (
-    <PreDonation slug={slug}>
+    <Link
+      href={{
+        pathname: `/causes/${slug}/donate`,
+        query: { lang },
+      }}
+    >
       <a rel="noreferrer noopener">{children}</a>
-    </PreDonation>
+    </Link>
   ) : (
     children
   );

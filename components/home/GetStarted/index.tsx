@@ -40,7 +40,6 @@ const GetStarted = () => {
   const getStartedLazyImage = (
     <Image
       webp
-      key={refresh}
       data-home-image-ratio
       data-img-loading={lazyLoaded}
       src={getStartedLazy}

@@ -75,7 +75,8 @@ export default {
   "choose image to upload": "Choose image to upload",
   next: "Next",
   previous: "Previous",
-  required: "Required",
+  required: "is required",
+  "minimum 3": "Must be at least 3 characters",
   optional: "Optional",
   "detailed information": "Detailed information",
   "give us detailed information":
@@ -111,6 +112,8 @@ export default {
   "confirm your donation": "Confirm your donation",
   "enter pin and confirm via momo":
     "Enter your PIN and confirm the payment on your phone number",
+  "enter credit/debit card details":
+    "Kindly fill in your Credit/Debit card details in the new tab to confirm the payment",
   "thank you": "Thank you",
   "back home": "Back home",
   "back to the cause": "Back to the cause",
@@ -273,6 +276,7 @@ export default {
     "Cause information to transfer donations to",
   back: "Back",
   "should be 100 minimum": "Should be valid with a minimum of 100 RWF!",
+  "should be 500 minimum": "Should be valid with a minimum of 500 RWF!",
   transfer: "Transfer",
   "cause information failed": "Cause information failed!",
   cause_information_failed_text:
