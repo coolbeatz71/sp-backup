@@ -287,7 +287,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
             }}
           >
             <a rel="noreferrer noopener">
-              <Typography.Title level={4} ellipsis>
+              <Typography.Title level={4} ellipsis data-cause-name>
                 {cause.name}
               </Typography.Title>
             </a>
@@ -302,9 +302,12 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
           )}
         </div>
       )}
-      {cause.access === "private" && (
-        <Badge color="#e150fd" text={t("private")} />
-      )}
+      <Row justify="space-between">
+        <strong data-code>{!isView && `*777*77*${cause.till_number}`}</strong>
+        {cause.access === "private" && (
+          <Badge color="#e150fd" text={t("private")} />
+        )}
+      </Row>
       {!isView && (
         <>
           <Link

@@ -2,6 +2,12 @@
 @import "../../../styles/dimensions.scss";
 
 .card {
+  [data-code="true"] {
+    color: $primary;
+  }
+  [data-cause-name="true"] {
+    margin-bottom: 0;
+  }
   &__overlay {
     position: absolute;
     top: 0;
@@ -179,9 +185,8 @@
     &__summary {
       font-size: 13px;
       height: 60px;
-      margin-top: 14px;
+      margin-top: 1rem;
       &[data-access="private"] {
-        margin-top: 4px;
         height: 40px;
       }
     }
