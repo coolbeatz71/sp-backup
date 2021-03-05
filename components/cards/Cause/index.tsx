@@ -260,22 +260,22 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
           >
             {t("by")} {cause.user_names}
           </Typography.Paragraph>
-          {cause.organization && (
-            <Typography.Paragraph
-              ellipsis={{ rows: 1 }}
-              className={styles.card__container__user}
-            >
-              {t("with")} {cause.organization.name}
-            </Typography.Paragraph>
-          )}
-          {cause.institution && (
+
+          {cause.institution ? (
             <Typography.Paragraph
               ellipsis={{ rows: 1 }}
               className={styles.card__container__user}
             >
               {t("with")} {cause.institution.name}
             </Typography.Paragraph>
-          )}
+          ) : cause.organization ? (
+            <Typography.Paragraph
+              ellipsis={{ rows: 1 }}
+              className={styles.card__container__user}
+            >
+              {t("with")} {cause.organization.name}
+            </Typography.Paragraph>
+          ) : null}
         </Col>
       </Row>
       {!isView && (
