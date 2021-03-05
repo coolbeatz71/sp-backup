@@ -57,6 +57,10 @@
       margin-bottom: 4rem;
       display: flex;
       flex-flow: column;
+
+      [class~="ant-collapse"] {
+        padding: 0 1.2rem;
+      }
       h1 {
         align-self: flex-start;
         color: $color-dark;
@@ -107,6 +111,10 @@
 
       &__faq {
         padding: 0;
+
+        [class~="ant-collapse"] {
+          padding: 0;
+        }
       }
     }
   }

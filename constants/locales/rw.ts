@@ -9,6 +9,7 @@ export default {
   "sign out": "Sohokamo",
   put_smile_1: "Shimisha inshuti",
   put_smile_2: "n'abavandimwe",
+  you_can_donate_using: "Ushobora gutanga inkunga ukoresheje",
   "create a cause": "Rema igikorwa",
   "how it works": "UKO IKORA",
   "sign up on save plus": "Fungura konti kuri Save Plus",
@@ -120,12 +121,18 @@ export default {
   pricing_plan_details:
     "Dufite ibiciro binogeye buri wese. Turizera ko ibiciro byacu byoroheje kandi biboneye.",
   "pricing structure apply date":
-    "Ibi biciro bizatangira gukurikizwa kuva kuya 1 Mutarama 2021.",
+    "Ibi biciro bizatangira gukurikizwa kuva kuya 15 Werurwe 2021.",
+  day_notification: "Ba nyiri igikorwa bazamenyeshwa mu minsi 7.",
   free: "Ubuntu",
   "for cashout above 30 days": "Igihe amafaranga abikujwe hejuru y'iminsi 30",
   cash_out_above_details:
     "Menya ko Ku bikorwa bimara iminsi irenze 30, amafaranga abikuzwa gusa iyo igikorwa kirangiye",
   "for cashout below 30 days": "Igihe amafaranga abikujwe munsi y'iminsi 30",
+  donation_below_equal: "Ku nkunga iri munsi cyangwa ingana na 5,000Rwf",
+  donation_below_equal_details: `Amafaranga (118 Rwf) yishyurwa kuri buri nkunga habariwemo umusoro ku nyungu. Menya ko uwakoze igikorwa ashobora kubikuza igihe cyose.`,
+  donation_above: "Ku nkunga iri hejuru ya 5,000Rwf",
+  donation_above_details:
+    "Amafaranga (2.5%) yishyurwa kuri buri nkunga habariwemo umusoro ku nyungu. Menya ko uwakoze igikorwa ashobora kubikuza igihe cyose.",
   cash_out_below_details:
     "Ku bikorwa bimara iminsi iri munsi ya 30, hakatwa amafaranga angana na 2% asigaye agahabwa uwakoze igikorwa",
   "your profile": "Umwirondoro wawe",

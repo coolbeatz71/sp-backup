@@ -110,11 +110,11 @@ const CauseTransfer: FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                }
+                },
               );
             },
             issue,
-            steps
+            steps,
           )}
         </Card>
       )}

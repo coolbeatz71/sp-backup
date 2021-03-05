@@ -9,6 +9,7 @@ export default {
   "sign out": "Sign Out",
   put_smile_1: "Put a smile on",
   put_smile_2: "Someone's face",
+  you_can_donate_using: "You can donate using",
   "create a cause": "Create a cause",
   "how it works": "HOW IT WORKS",
   "sign up on save plus": "Sign up on Save Plus",
@@ -121,12 +122,19 @@ export default {
   pricing_plan_details:
     "We have a flexible plan that fits everyone. We've made sure that our pricing structure is simple and transparent.",
   "pricing structure apply date":
-    "This pricing structure will start to apply on the 1st January 2021.",
+    "This pricing structure will start to apply on the 15th March 2021.",
+  day_notification: "Cause owners will be given a 7 days notification.",
   free: "Free",
   "for cashout above 30 days": "For cashout above 30 days",
   cash_out_above_details:
     "For causes whose duration period is greater than 30 days. Note that cash-out only happens when the cause ends.",
   "for cashout below 30 days": "For cashout below 30 days",
+  donation_below_equal: "For donation below or equal to 5,000 Rwf",
+  donation_below_equal_details:
+    "The fee (118 Rwf) is VAT inclusive and is charged per donation. Note that the cause owner can cash-out anytime",
+  donation_above: "For donation above 5,000 Rwf",
+  donation_above_details:
+    "The fee (2.5%) is VAT inclusive and is charged per donation. Note that the cause owner can cash-out anytime",
   cash_out_below_details:
     "For causes whose duration period is below 30 days. A 2% fee applies while the remainder is remitted to the cause creator.",
   "your profile": "Your Profile",

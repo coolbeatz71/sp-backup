@@ -11,6 +11,11 @@ import showAuthDialog from "redux/actions/auth/showAuthDialog";
 import getStartedLazy from "public/images/get-started-lazy.png";
 import getStartedImg from "public/images/get-started.png";
 
+import mtnMomo from "public/icons/mtn-momo.svg";
+import airtelMomo from "public/icons/airtel-momo.svg";
+import visa from "public/icons/visa.svg";
+import mastercard from "public/icons/mastercard.svg";
+
 import styles from "./index.module.scss";
 
 const GetStarted = () => {
@@ -96,6 +101,16 @@ const GetStarted = () => {
             >
               {t(btn).toUpperCase()}
             </Button>
+
+            <div className={styles.get_started__container__payment}>
+              <Typography.Text>{t("you_can_donate_using")}</Typography.Text>
+              <div className={styles.get_started__container__payment__content}>
+                <Image src={mtnMomo} alt="mtn momo" />
+                <Image src={airtelMomo} alt="airtel momo" />
+                <Image src={visa} alt="visa card" data-visa />
+                <Image src={mastercard} alt="master card" />
+              </div>
+            </div>
           </div>
         </Col>
         {screens.lg && (
