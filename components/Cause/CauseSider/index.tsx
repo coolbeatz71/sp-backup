@@ -1,4 +1,11 @@
-import { FC, Fragment, ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Card,
   Row,
@@ -29,6 +36,8 @@ import { upperFirst } from "lodash";
 import { getDonationTime } from "helpers/dateFormatter";
 import { getLanguage } from "helpers/getLanguage";
 import { useRouter } from "next/router";
+import ViewCount from "components/common/ViewCount";
+import CustomIcon from "components/common/CustomIcon";
 
 interface Props {
   cause: { [key: string]: any };
@@ -159,18 +168,44 @@ const CauseSider: FC<Props> = ({
                 tiny
               />
 
-              {cause.status === "active" && (
-                <>
-                  <Card className={styles.cause_sider__content__share}>
-                    <SharePopover
-                      slug={cause.slug}
-                      code={cause.till_number}
-                      title={cause.name}
-                      standalone
-                      isPrivate={cause.access === "private"}
+              <Card className={styles.cause_sider__content__ussd}>
+                <Row justify="space-between">
+                  <Col span={16}>
+                    <Button
+                      type="text"
+                      size="large"
+                      icon={<CustomIcon type="ussd" />}
                     />
-                  </Card>
-                </>
+                  </Col>
+                  <Col
+                    span={8}
+                    className={styles.cause_sider__content__ussd__till_number}
+                  >
+                    <strong>{`*777*77*${cause.till_number}#`}</strong>
+                  </Col>
+                </Row>
+              </Card>
+
+              {cause.status === "active" && (
+                <Card className={styles.cause_sider__content__share}>
+                  <Row justify="space-between">
+                    <Col span={16}>
+                      <SharePopover
+                        slug={cause.slug}
+                        code={cause.till_number}
+                        title={cause.name}
+                        standalone
+                        isPrivate={cause.access === "private"}
+                      />
+                    </Col>
+                    <Col
+                      span={8}
+                      className={styles.cause_sider__content__share__views}
+                    >
+                      <ViewCount count={2290} />
+                    </Col>
+                  </Row>
+                </Card>
               )}
             </div>
           </DonationWrapper>

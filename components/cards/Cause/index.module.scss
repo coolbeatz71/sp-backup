@@ -5,6 +5,14 @@
   [data-code="true"] {
     color: $primary;
   }
+
+  [data-active="false"] {
+    &,
+    span {
+      color: #bdbdbd;
+    }
+  }
+
   [data-cause-name="true"] {
     margin-bottom: 0;
   }
@@ -25,6 +33,12 @@
     background-color: $light-gray;
     &[data-is-view="true"] {
       background-color: transparent;
+    }
+
+    [data-is-donate="true"] {
+      span {
+        color: #fff !important;
+      }
     }
 
     &__head {
@@ -186,9 +200,6 @@
       font-size: 13px;
       height: 60px;
       margin-top: 1rem;
-      &[data-access="private"] {
-        height: 40px;
-      }
     }
     &__progress {
       margin-bottom: 1em;

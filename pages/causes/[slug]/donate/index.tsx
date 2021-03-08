@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Img from "react-optimized-image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import ReactStars from "react-star-rating-component";
+// import ReactStars from "react-star-rating-component";
 import styles from "./donate.module.scss";
 import { normalize } from "dev-rw-phone";
 import {
@@ -22,7 +22,7 @@ import donationTypes, { donationType } from "constants/donationTypes";
 import capitalize from "helpers/capitalize";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
-import rateCause from "redux/actions/cause/rateCause";
+// import rateCause from "redux/actions/cause/rateCause";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
 import normalizeInputNumber, {
@@ -31,7 +31,7 @@ import normalizeInputNumber, {
 import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
-import showAuthDialog from "redux/actions/auth/showAuthDialog";
+// import showAuthDialog from "redux/actions/auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 import { Input } from "components/common/Input";
@@ -56,7 +56,7 @@ const DonateCause: FC<{}> = () => {
   const [userType, setUserType] = useState<donationType>("individual");
   const [donationSuccessful, setDonationSuccessful] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
-  const [rating, setRating] = useState(0);
+  // const [rating, setRating] = useState(0);
   const [selectedTelco, setSelectedTelco] = useState<string>("default");
   const router = useRouter();
   const [fetched, setFetched] = useState(false);
@@ -139,11 +139,11 @@ const DonateCause: FC<{}> = () => {
     }
   };
 
-  const handleRating = (nextValue: number) => {
-    setRating(nextValue);
-    if (!isLoggedin) return showAuthDialog(true)(dispatch);
-    rateCause(slug, { rating: nextValue });
-  };
+  // const handleRating = (nextValue: number) => {
+  //   setRating(nextValue);
+  //   if (!isLoggedin) return showAuthDialog(true)(dispatch);
+  //   rateCause(slug, { rating: nextValue });
+  // };
 
   return (
     <Layout title={t("donate")}>
@@ -225,7 +225,7 @@ const DonateCause: FC<{}> = () => {
                     />
                   </div>
 
-                  <div className={styles.donate__body__form__successful__rate}>
+                  {/* <div className={styles.donate__body__form__successful__rate}>
                     <span>{t("rate this cause")}</span>
                     <ReactStars
                       starCount={5}
@@ -235,7 +235,7 @@ const DonateCause: FC<{}> = () => {
                       starColor="#F4A86C"
                       emptyStarColor="#ddd"
                     />
-                  </div>
+                  </div> */}
                   <div
                     className={
                       styles.donate__body__form__successful__comingSoon

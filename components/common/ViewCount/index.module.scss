@@ -1,0 +1,17 @@
+@import "../../../styles/colors.scss";
+
+.views {
+  color: $primary;
+  cursor: pointer;
+
+  &__count {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  [class~="anticon"] {
+    font-size: 17px;
+    margin-left: 2px;
+    vertical-align: sub;
+  }
+}
