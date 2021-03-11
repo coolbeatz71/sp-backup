@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Row, Col, Button, Input, Form } from "antd";
-import { phone } from "dev-rw-phone";
 import { useTranslation } from "react-i18next";
 import { Props } from "./Step1";
 import StackedLabel from "components/common/StackedLabel";
+import { formPhoneAndFixedValidator } from "utils/validators/form-phone-validator";
 
 const StepOrg: FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();
@@ -43,15 +43,7 @@ const StepOrg: FC<Props> = ({ alerts, data, setForm, cb }) => {
         name="org_phone_number"
         rules={[
           { required: true, message: t("phone number is required") },
-          () => ({
-            validator(_rule: any, value: any) {
-              if (!phone(value).isOk) {
-                return Promise.reject(t("phone number should be valid"));
-              }
-
-              return Promise.resolve();
-            },
-          }),
+          formPhoneAndFixedValidator(),
         ]}
       >
         <StackedLabel label={t("phone number")} phone="+250">

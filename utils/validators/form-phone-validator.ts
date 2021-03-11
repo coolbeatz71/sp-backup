@@ -1,5 +1,6 @@
 import { isOk } from "dev-rw-phone";
 import i18n from "constants/locales";
+import { isEmpty } from "lodash";
 
 const formPhoneValidator = (name: string) => [
   { required: true, message: `${name} ${i18n.t("required")}` },
@@ -15,5 +16,18 @@ const formPhoneValidator = (name: string) => [
     },
   },
 ];
+
+export const formPhoneAndFixedValidator = () => ({
+  validator(_rule: any, value: string) {
+    if (
+      !isEmpty(value) &&
+      !isOk(value) &&
+      (!value.match(/^25|5/) || value.length !== 9)
+    ) {
+      return Promise.reject(i18n.t("phone number should be valid"));
+    }
+    return Promise.resolve();
+  },
+});
 
 export default formPhoneValidator;
