@@ -175,7 +175,7 @@ export default {
   mobile_apps_coming_soon: "Mobile App on Android & iOS coming Soon",
   "amount to donate": "Amount to donate",
   "rate this cause": "Rate this cause",
-  "your name will not be displayed": "Note: Your name will not be displayed",
+  "your name will not be displayed": "Your name will not be displayed",
   "this cause till number is": "This Cause Till Number is",
   "make your donation using ussd code": "Make your donation using USSD Code",
   "no donors yet": "No donors yet",

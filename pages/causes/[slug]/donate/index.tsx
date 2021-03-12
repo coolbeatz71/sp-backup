@@ -52,6 +52,8 @@ const { Text } = Typography;
 const minMaxAmount: number = 5000;
 
 const DonateCause: FC<{}> = () => {
+  const { t } = useTranslation();
+
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState<donationType>("individual");
@@ -68,8 +70,9 @@ const DonateCause: FC<{}> = () => {
     total: 0,
   });
   const [chargeText, setChargeText] = useState<string>("");
-
-  const { t } = useTranslation();
+  const [emailPlaceholder, setEmailPlaceholder] = useState<string>(
+    `${t("email")} (${t("optional")})`,
+  );
 
   const {
     data: cause,
@@ -177,6 +180,14 @@ const DonateCause: FC<{}> = () => {
     if (Object.keys(changedField)[0] === "amount") {
       const amount = sanitizeNumber(changedField.amount);
       amount >= 500 ? getDonationFees(amount) : setCharge({ fee: 0, total: 0 });
+    }
+
+    if (Object.keys(changedField)[0] === "payment_method") {
+      setEmailPlaceholder(
+        changedField.payment_method === "Visa_MasterCard"
+          ? `${t("email")}`
+          : `${t("email")}  (${t("optional")})`,
+      );
     }
   };
 
@@ -314,7 +325,7 @@ const DonateCause: FC<{}> = () => {
                         initialValues={{
                           ...data,
                           type: "individual",
-                          payment_method: "Visa_MasterCard",
+                          payment_method: "momo",
                         }}
                       >
                         <Text type="danger" className="mb-3 d-block">
@@ -445,11 +456,26 @@ const DonateCause: FC<{}> = () => {
                         <Form.Item
                           name="email"
                           validateTrigger={["onSubmit", "onBlur"]}
-                          rules={[{ min: 3, type: "email" }]}
+                          rules={[
+                            {
+                              type: "email",
+                              message: t("email should be valid"),
+                            },
+                            ({ getFieldValue }) => ({
+                              validator(_rule, value) {
+                                const paymentMethod = getFieldValue(
+                                  "payment_method",
+                                );
+
+                                return isEmpty(value) &&
+                                  paymentMethod === "Visa_MasterCard"
+                                  ? Promise.reject(t("email is required"))
+                                  : Promise.resolve();
+                              },
+                            }),
+                          ]}
                         >
-                          <Input
-                            placeholder={`${t("email")} (${t("optional")})`}
-                          />
+                          <Input placeholder={emailPlaceholder} />
                         </Form.Item>
                         <div className={styles.donate__body__form__anonymous}>
                           <Typography.Text strong>
