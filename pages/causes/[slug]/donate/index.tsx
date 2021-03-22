@@ -28,7 +28,6 @@ import { IUnknownObject } from "interfaces/unknownObject";
 import normalizeInputNumber, {
   sanitizeNumber,
 } from "helpers/normalizeInputNumber";
-import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
 // import showAuthDialog from "redux/actions/auth/showAuthDialog";
@@ -50,7 +49,11 @@ import { formNamesValidator } from "utils/validators/form-names-validators";
 
 const { Text } = Typography;
 
+const minMaxAmount: number = 5000;
+
 const DonateCause: FC<{}> = () => {
+  const { t } = useTranslation();
+
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState<donationType>("individual");
@@ -62,8 +65,14 @@ const DonateCause: FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
   const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
   const { slug } = router.query;
-
-  const { t } = useTranslation();
+  const [charge, setCharge] = useState({
+    fee: 0,
+    total: 0,
+  });
+  const [chargeText, setChargeText] = useState<string>("");
+  const [emailPlaceholder, setEmailPlaceholder] = useState<string>(
+    `${t("email")} (${t("optional")})`,
+  );
 
   const {
     data: cause,
@@ -109,11 +118,40 @@ const DonateCause: FC<{}> = () => {
 
   if (!isLoggedin && !isFormDataReady) setFormDataReadiness(true);
 
+  useEffect(() => {
+    setChargeText(
+      charge.fee > 0
+        ? `Fee: ${charge.fee} Rwf | Total: ${charge.total} Rwf`
+        : "",
+    );
+  }, [charge, chargeText]);
+
+  const getDonationFees = (amount: number) => {
+    const fee = amount * (2.5 / 100);
+    const total = amount + fee;
+
+    if (amount >= 500) {
+      setCharge(
+        amount <= minMaxAmount
+          ? {
+              fee: 118,
+              total: amount + 118,
+            }
+          : {
+              fee: Math.floor(fee * 100) / 100,
+              total: Math.floor(total * 100) / 100,
+            },
+      );
+    } else {
+      setCharge({ fee: 0, total: 0 });
+    }
+  };
+
   const formatData = (data: IUnknownObject) => {
     if (isEmpty(data.email)) delete data.email;
     return {
       ...data,
-      amount: serializeFormattedNumber(data.amount),
+      amount: charge.total,
       phone_number: normalize(data.phone_number),
       payment_method:
         data.payment_method === "momo"
@@ -134,8 +172,22 @@ const DonateCause: FC<{}> = () => {
     if (Object.keys(changedField)[0] === "type") {
       setUserType(changedField.type);
     }
+
     if (Object.keys(changedField)[0] === "anonymous") {
       setIsAnonymous(changedField.anonymous);
+    }
+
+    if (Object.keys(changedField)[0] === "amount") {
+      const amount = sanitizeNumber(changedField.amount);
+      amount >= 500 ? getDonationFees(amount) : setCharge({ fee: 0, total: 0 });
+    }
+
+    if (Object.keys(changedField)[0] === "payment_method") {
+      setEmailPlaceholder(
+        changedField.payment_method === "Visa_MasterCard"
+          ? `${t("email")}`
+          : `${t("email")}  (${t("optional")})`,
+      );
     }
   };
 
@@ -273,7 +325,7 @@ const DonateCause: FC<{}> = () => {
                         initialValues={{
                           ...data,
                           type: "individual",
-                          payment_method: "Visa_MasterCard",
+                          payment_method: "momo",
                         }}
                       >
                         <Text type="danger" className="mb-3 d-block">
@@ -300,22 +352,21 @@ const DonateCause: FC<{}> = () => {
                               message: `${t("amount")} ${t("required")}`,
                             },
                             {
-                              validator(_: any, value: any, callback) {
-                                if (
-                                  !isEmpty(value) &&
+                              validator(_: any, value: any) {
+                                return !isEmpty(value) &&
                                   sanitizeNumber(value) < 500
-                                ) {
-                                  callback(t("should be 500 minimum"));
-                                }
-                                callback();
+                                  ? Promise.reject(t("should be 500 minimum"))
+                                  : Promise.resolve();
                               },
                             },
                           ]}
-                          validateTrigger={["onSubmit", "onBlur"]}
+                          validateTrigger={["onSubmit", "onChange"]}
                           normalize={normalizeInputNumber}
+                          extra={chargeText}
                         >
                           <Input prefix="RWF" placeholder={t("amount")} />
                         </Form.Item>
+
                         {userType === "individual" ? (
                           <Row gutter={8}>
                             <Col span={12}>
@@ -405,18 +456,33 @@ const DonateCause: FC<{}> = () => {
                         <Form.Item
                           name="email"
                           validateTrigger={["onSubmit", "onBlur"]}
-                          rules={[{ min: 3, type: "email" }]}
+                          rules={[
+                            {
+                              type: "email",
+                              message: t("email should be valid"),
+                            },
+                            ({ getFieldValue }) => ({
+                              validator(_rule, value) {
+                                const paymentMethod = getFieldValue(
+                                  "payment_method",
+                                );
+
+                                return isEmpty(value) &&
+                                  paymentMethod === "Visa_MasterCard"
+                                  ? Promise.reject(t("email is required"))
+                                  : Promise.resolve();
+                              },
+                            }),
+                          ]}
                         >
-                          <Input
-                            placeholder={`${t("email")} (${t("optional")})`}
-                          />
+                          <Input placeholder={emailPlaceholder} />
                         </Form.Item>
-                        <div className="d-flex">
-                          <span className="font-weight-bold">
+                        <div className={styles.donate__body__form__anonymous}>
+                          <Typography.Text strong>
                             {t("anonymous")}
-                          </span>
+                          </Typography.Text>
+
                           <Form.Item
-                            className="form-group ml-3 mb-1"
                             validateTrigger={["onSubmit", "onBlur"]}
                             name="anonymous"
                             valuePropName="checked"
@@ -425,7 +491,11 @@ const DonateCause: FC<{}> = () => {
                           </Form.Item>
                         </div>
                         {isAnonymous && (
-                          <p className="note mb-4">
+                          <p
+                            className={
+                              styles.donate__body__form__anonymous_text
+                            }
+                          >
                             {t("note")}: {t("your name will not be displayed")}
                           </p>
                         )}

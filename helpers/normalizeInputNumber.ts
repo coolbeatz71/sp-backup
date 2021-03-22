@@ -1,4 +1,5 @@
 import formatNumber from "./formatNumber";
+import serializeFormattedNumber from "./serializeFormattedNumber";
 
 export default (value: any, previousValue: any) => {
   if (/[a-zA-Z]/.test(value) || /[*|":<>[\]{}\-`\\()'.;@&$]/.test(value)) {
@@ -10,5 +11,5 @@ export default (value: any, previousValue: any) => {
 };
 
 export const sanitizeNumber = (value: string) => {
-  return Number(value.replace(/,/g, ""));
+  return Number(serializeFormattedNumber(value));
 };
