@@ -78,7 +78,7 @@ const GetStarted = () => {
           </div>
         </div>
       )}
-      <Row align="middle">
+      <Row>
         <Col flex={1}>
           <div
             className={styles.get_started__container}

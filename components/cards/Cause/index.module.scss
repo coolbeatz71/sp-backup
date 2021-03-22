@@ -2,6 +2,20 @@
 @import "../../../styles/dimensions.scss";
 
 .card {
+  [data-code="true"] {
+    color: $primary;
+  }
+
+  [data-active="false"] {
+    &,
+    span {
+      color: #bdbdbd;
+    }
+  }
+
+  [data-cause-name="true"] {
+    margin-bottom: 0;
+  }
   &__overlay {
     position: absolute;
     top: 0;
@@ -19,6 +33,12 @@
     background-color: $light-gray;
     &[data-is-view="true"] {
       background-color: transparent;
+    }
+
+    [data-is-donate="true"] {
+      span {
+        color: #fff !important;
+      }
     }
 
     &__head {
@@ -179,11 +199,7 @@
     &__summary {
       font-size: 13px;
       height: 60px;
-      margin-top: 14px;
-      &[data-access="private"] {
-        margin-top: 4px;
-        height: 40px;
-      }
+      margin-top: 1rem;
     }
     &__progress {
       margin-bottom: 1em;

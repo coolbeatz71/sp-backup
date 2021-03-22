@@ -13,7 +13,7 @@ import {
   Avatar,
 } from "antd";
 import { useTranslation } from "react-i18next";
-import StarRating from "components/common/StarRating";
+// import StarRating from "components/common/StarRating";
 import SharePopover from "components/common/SharePopover";
 import {
   LoadingOutlined,
@@ -36,6 +36,7 @@ import { getCauseEndingDate } from "helpers/dateFormatter";
 import { causeStatus } from "interfaces";
 import { avatarLoader, imgLoader } from "helpers/getImageUrl";
 import { getLanguage } from "helpers/getLanguage";
+import ViewCount from "components/common/ViewCount";
 
 interface Props {
   cause: { [key: string]: any };
@@ -99,7 +100,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   const lang = userData.lang || getLanguage();
 
   const donateMsg: { [key: string]: string } = {
-    active: t("make a donation"),
+    active: t("donate"),
     paused: t("paused"),
     rejected: t("rejected"),
     completed: t("completed"),
@@ -287,7 +288,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
             }}
           >
             <a rel="noreferrer noopener">
-              <Typography.Title level={4} ellipsis>
+              <Typography.Title level={4} ellipsis data-cause-name>
                 {cause.name}
               </Typography.Title>
             </a>
@@ -302,9 +303,14 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
           )}
         </div>
       )}
-      {cause.access === "private" && (
-        <Badge color="#e150fd" text={t("private")} />
-      )}
+      <Row justify="space-between">
+        <strong data-code data-active={isView || !isInactive(cause.status)}>
+          {!isView && `*777*77*${cause.till_number}#`}
+        </strong>
+        {cause.access === "private" && (
+          <Badge color="#e150fd" text={t("private")} />
+        )}
+      </Row>
       {!isView && (
         <>
           <Link
@@ -371,11 +377,15 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
           </div>
           <Row justify="space-between">
             <Col span={16}>
-              <StarRating
+              {/* must not be removed in case we bring back the rating feature */}
+              {/* <StarRating
                 value={cause.ratings * 1}
                 count={cause.raters_count * 1}
                 status={cause.status}
-              />
+              /> */}
+              <span data-active={isView || !isInactive(cause.status)}>
+                <ViewCount count={200} />
+              </span>
             </Col>
             <Col>
               <SharePopover
@@ -404,14 +414,15 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
             lang={lang}
           >
             <Button
-              type="text"
               block
               className={styles.card__container__donate}
+              data-is-donate={cause.status === "active" && !myCause}
+              type={cause.status !== "active" || myCause ? "text" : "primary"}
             >
               <Typography.Text
-                underline={cause.status === "active" || myCause}
                 strong
                 ellipsis
+                underline={cause.status !== "active" || myCause}
                 type={cause.status !== "active" ? "secondary" : undefined}
               >
                 {upperFirst(donateMsg[myCause ? "myCause" : cause.status])}

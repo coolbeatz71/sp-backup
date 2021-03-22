@@ -1,5 +1,5 @@
 import { FC, ReactElement, useState } from "react";
-import { Popover, Button, Typography, Row, Col, message } from "antd";
+import { Popover, Button, Row, Col, message } from "antd";
 import {
   TwitterOutlined,
   WhatsAppOutlined,
@@ -7,8 +7,6 @@ import {
   LinkOutlined,
 } from "@ant-design/icons";
 import qs from "query-string";
-import CustomIcon from "components/common/CustomIcon";
-import Modal from "components/common/Modal";
 import getPlatformUrl from "helpers/getPlatformUrl";
 
 import { useTranslation } from "react-i18next";
@@ -57,7 +55,6 @@ const Link: FC<LinkProps> = ({ type, title, link, children }) => {
 const SharePopover: FC<Props> = ({
   children,
   slug,
-  code,
   title,
   isPrivate = false,
   standalone = false,
@@ -84,27 +81,6 @@ const SharePopover: FC<Props> = ({
           }}
         />
       )}
-      <Modal
-        noTitle
-        onVisible={() => setVisible(false)}
-        trigger={
-          <Button
-            className={styles.share__ussd}
-            data-is-success={isCreateSuccess}
-            size="large"
-            type="text"
-            icon={<CustomIcon type="ussd" />}
-          />
-        }
-      >
-        <div className={styles.share__ussd__text}>
-          <Typography>{t("this cause till number is")}</Typography>
-          <Typography>{code}</Typography>
-          <br />
-          <Typography>{t("make your donation using ussd code")}</Typography>
-          <Typography>*777*77*{code}#</Typography>
-        </div>
-      </Modal>
       {!isPrivate && (
         <>
           <Link link={link} title={title} type="facebook">
@@ -147,7 +123,7 @@ const SharePopover: FC<Props> = ({
       className={styles.share}
     >
       {!isCreateSuccess && <Col>{t("share")}</Col>}
-      <Col>{share}</Col>
+      <Col data-share="true">{share}</Col>
     </Row>
   ) : !disabled ? (
     <Popover

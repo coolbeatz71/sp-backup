@@ -65,11 +65,14 @@
     overflow: hidden;
   }
   &__container {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
     padding-left: $content-padding;
-    padding-top: $padding;
-    padding-bottom: $padding;
+    padding-top: calc(#{$padding} + 15%);
+    padding-bottom: calc(#{$padding} + 1rem);
     &__button {
-      margin-top: calc(#{$padding} * 2);
       height: calc(#{$padding} * 2);
       width: calc(#{$padding} * 8);
     }
@@ -83,32 +86,32 @@
       }
     }
     &__payment {
-      margin-top: 3rem;
-
-      [class~="ant-typography"] {
-        font-size: 12.64px !important;
-      }
       &__content {
         margin-top: 5px;
-        width: 14rem;
+        width: 20rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         img {
-          width: 50px;
+          width: 22%;
         }
 
         [data-visa="true"] {
-          height: 20px;
+          height: 1.5rem;
         }
       }
     }
     @media screen and (max-width: #{$mobile-size}) {
       padding-left: $padding;
       padding-right: $padding;
+      padding-top: $padding;
 
       &__payment {
         margin-top: 1rem;
+        &__content {
+          width: 17.5rem;
+        }
       }
     }
   }

@@ -8,7 +8,7 @@ import {
   Divider,
   Avatar,
 } from "antd";
-import StarRating from "components/common/StarRating";
+// import StarRating from "components/common/StarRating";
 
 import styles from "./index.module.scss";
 
@@ -70,7 +70,10 @@ const CauseSkeleton = () => {
       </div>
       <Row justify="space-between">
         <Col span={16} className={styles.card__stars}>
-          <StarRating status="" value={0} count={0} noAction />
+          {/* <StarRating status="" value={0} count={0} noAction /> */}
+          <Button type="link" size="small" className={styles.card__share}>
+            &nbsp;
+          </Button>
         </Col>
         <Col>
           <Button type="link" size="small" className={styles.card__share}>

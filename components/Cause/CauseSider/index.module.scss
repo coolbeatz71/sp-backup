@@ -5,13 +5,46 @@
   [class~="ant-card"] {
     margin: 12px 0;
   }
+
   &__content {
+    &__ussd {
+      [class~="anticon"] {
+        color: $primary;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+      }
+    }
+    &__ussd,
     &__share {
+      display: flex;
       @media screen and (max-width: #{$mobile-size}) {
         margin-top: calc(#{$padding}/ 2);
       }
       [class~="ant-card-body"] {
-        padding: 16px $padding;
+        width: 100%;
+        padding: 0.5rem $padding;
+
+        [data-share="true"] {
+          padding: 0 !important;
+        }
+
+        [class~="ant-btn-icon-only"] {
+          width: 32px;
+        }
+      }
+
+      &__views {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      &__till_number {
+        color: $primary;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
       }
     }
 
