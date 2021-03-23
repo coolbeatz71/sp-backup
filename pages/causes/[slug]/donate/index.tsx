@@ -1,6 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Img from "react-optimized-image";
+import numeral from "numeral";
 import { useRouter } from "next/router";
 import Link from "next/link";
 // import ReactStars from "react-star-rating-component";
@@ -121,7 +122,9 @@ const DonateCause: FC<{}> = () => {
   useEffect(() => {
     setChargeText(
       charge.fee > 0
-        ? `Fee: ${charge.fee} Rwf | Total: ${charge.total} Rwf`
+        ? `Fee: ${numeral(charge.fee).format("0,0.0")} Rwf | Total: ${numeral(
+            charge.total,
+          ).format("0,0.0")} Rwf`
         : "",
     );
   }, [charge, chargeText]);
