@@ -1,3 +1,9 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/dimensions.scss";
+@import "../../../../styles/_mixins.scss";
+
+@include keyframe(expand);
+
 .create {
   &__title_separator {
     margin-bottom: 20px;
@@ -16,5 +22,46 @@
       display: flex;
       flex: 1;
     }
+  }
+
+  [data-payment="true"] {
+    margin-bottom: $padding;
+  }
+
+  &__switch {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(#{$padding}/ 2);
+
+    [class~="ant-form-item-label"] > label,
+    [class~="ant-form-item-label"] > label::after {
+      content: "";
+      font-weight: 600;
+      color: rgba($color: $black, $alpha: 0.65);
+    }
+
+    [class~="ant-form-item-control"] {
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+
+  &__private_note {
+    @include animation(expand);
+    font-size: 13px;
+  }
+
+  &__bank_details {
+    margin-bottom: calc(#{$padding} * 1.2);
+    @include animation(expand);
+
+    [class~="ant-typography"] {
+      display: inline-block;
+      margin-bottom: calc(#{$padding} / 4);
+    }
+  }
+
+  &__buttons {
+    margin-top: calc(#{$padding} * 2);
   }
 }
