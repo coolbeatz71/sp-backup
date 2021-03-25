@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Row, Col, Button, Input, Form } from "antd";
 import { Props } from "./Step1";
 import StackedLabel from "components/common/StackedLabel";
+import { formPhoneAndFixedValidator } from "utils/validators/form-phone-validator";
 
 const Step3: FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();
@@ -24,7 +25,10 @@ const Step3: FC<Props> = ({ alerts, data, setForm, cb }) => {
       {alerts && <Form.Item>{alerts}</Form.Item>}
       <Form.Item
         name="contact_phone_number"
-        rules={[{ required: true, message: t("phone number is required") }]}
+        rules={[
+          { required: true, message: t("phone number is required") },
+          formPhoneAndFixedValidator(),
+        ]}
       >
         <StackedLabel label={t("phone number")} phone="+250">
           <Input placeholder={t("phone number")} maxLength={9} />
@@ -33,7 +37,7 @@ const Step3: FC<Props> = ({ alerts, data, setForm, cb }) => {
       <Form.Item
         name="contact_email"
         rules={[
-          { type: "email", message: t("phone number should be valid") },
+          { type: "email", message: t("email should be valid") },
           { required: true, message: t("email is required") },
         ]}
       >

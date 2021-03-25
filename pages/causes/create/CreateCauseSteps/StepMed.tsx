@@ -4,6 +4,7 @@ import { Row, Col, Button, Input, Form } from "antd";
 import { Props } from "./Step1";
 import styles from "./index.module.scss";
 import StackedLabel from "components/common/StackedLabel";
+import { formPhoneAndFixedValidator } from "utils/validators/form-phone-validator";
 
 const StepMed: FC<Props> = ({ alerts, data, setForm, cb }) => {
   const { t } = useTranslation();
@@ -30,10 +31,13 @@ const StepMed: FC<Props> = ({ alerts, data, setForm, cb }) => {
       </Form.Item>
       <Form.Item
         name="hospital_phone_number"
-        rules={[{ required: true, message: t("name of hospital is required") }]}
+        rules={[
+          { required: true, message: t("hospital phone number is required") },
+          formPhoneAndFixedValidator(),
+        ]}
       >
         <StackedLabel label={t("hospital phone number")} phone="+250">
-          <Input placeholder={t("hospital phone number")} />
+          <Input placeholder={t("hospital phone number")} maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
@@ -69,10 +73,13 @@ const StepMed: FC<Props> = ({ alerts, data, setForm, cb }) => {
       </Form.Item>
       <Form.Item
         name="nok_phone_number"
-        rules={[{ required: true, message: t("phone number is required") }]}
+        rules={[
+          { required: true, message: t("phone number is required") },
+          formPhoneAndFixedValidator(),
+        ]}
       >
         <StackedLabel label={t("phone number")} phone="+250">
-          <Input placeholder={t("phone number")} />
+          <Input placeholder={t("phone number")} maxLength={9} />
         </StackedLabel>
       </Form.Item>
       <Form.Item
