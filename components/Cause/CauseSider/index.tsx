@@ -66,7 +66,7 @@ const CauseSider: FC<Props> = ({
   const [causeDonors, setCauseDonors] = useState<any[]>([]);
 
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const lang = userData.lang || getLanguage();
@@ -85,7 +85,7 @@ const CauseSider: FC<Props> = ({
       (!hasBanner && window.pageYOffset < 100) ||
         (hasBanner && window.pageYOffset < 148)
         ? "over"
-        : "scrolled",
+        : "scrolled"
     );
   };
 
@@ -202,7 +202,7 @@ const CauseSider: FC<Props> = ({
                       span={8}
                       className={styles.cause_sider__content__share__views}
                     >
-                      <ViewCount count={2290} />
+                      <ViewCount count={cause.views_count} />
                     </Col>
                   </Row>
                 </Card>
