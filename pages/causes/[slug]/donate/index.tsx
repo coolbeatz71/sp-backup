@@ -502,7 +502,10 @@ const DonateCause: FC<{}> = () => {
                             {t("note")}: {t("your name will not be displayed")}
                           </p>
                         )}
-                        <Row justify="end">
+                        <Row
+                          justify="end"
+                          className={styles.donate__body__form__buttons}
+                        >
                           <Col>
                             <Button
                               type="primary"

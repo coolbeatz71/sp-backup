@@ -48,10 +48,20 @@ const handleSubmit = (
           email: data.contact_email,
           phone_number: phone(data.contact_phone_number).normalized,
         },
+        accepts_card_payments: data.accepts_card_payments,
+        bank_name: data.bank_name,
+        bank_account_number: data.bank_account_number,
+        payment_account_name: data.payment_account_name,
       };
 
       if (!["", null, undefined].includes(data.video)) {
         toUpload.video = data.video.trim();
+      }
+
+      if (!data.accepts_card_payments) {
+        delete toUpload.bank_name;
+        delete toUpload.bank_account_number;
+        delete toUpload.payment_account_name;
       }
 
       if (hasOrg) {
