@@ -1,3 +1,7 @@
+@import "styles/_variables";
+@import "styles/_mixins";
+@import "../../../../styles/colors.scss";
+
 .steps {
   &__title_separator {
     margin-bottom: 20px;
@@ -23,5 +27,37 @@
     [class~="ant-alert-description"] {
       font-size: 11.5px;
     }
+  }
+
+  &__checkbox_group {
+    display: flex;
+    justify-content: flex-start;
+    height: 2.7rem;
+    margin: 1rem 0;
+    margin-bottom: 0;
+
+    [class~="ant-checkbox-wrapper"] {
+      font-size: 12px;
+    }
+  }
+
+  &__sub_title {
+    font-size: 12px;
+    display: inline-block;
+    color: rgba($color: $black, $alpha: 0.8);
+  }
+
+  &__secondary {
+    display: flex;
+    font-size: 11px;
+    margin-bottom: 0.3rem;
+  }
+
+  &__primary {
+    color: $primary;
+    font-size: 11.5px;
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
   }
 }

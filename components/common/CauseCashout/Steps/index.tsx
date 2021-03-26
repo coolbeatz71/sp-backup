@@ -1,5 +1,6 @@
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import { bankStep } from "./../handlers/handleBankDetails";
 
 export interface StepType {
   id: string;
@@ -11,13 +12,18 @@ export interface StepType {
     issue: boolean[],
     steps: any[],
     currentBalance: number,
+    currentBalanceTelco: number,
+    currentBalanceCards: number,
     currency: string,
+    isNoBankDetails: boolean,
+    slug: string,
   ) => any;
 }
 
 const title = "cash out";
 
-const defaultSteps = (): StepType[] => [
+const defaultSteps = (isNoBank: boolean): StepType[] => [
+  ...(isNoBank ? [bankStep] : []),
   {
     title,
     id: "Step1",
@@ -28,6 +34,8 @@ const defaultSteps = (): StepType[] => [
       [],
       [],
       currentBalance,
+      currentBalanceTelco,
+      currentBalanceCards,
       currency,
     ) => (
       <Step1
@@ -35,6 +43,8 @@ const defaultSteps = (): StepType[] => [
         setForm={setForm}
         cb={cb}
         currentBalance={currentBalance}
+        currentBalanceTelco={currentBalanceTelco}
+        currentBalanceCards={currentBalanceCards}
         currency={currency}
       />
     ),

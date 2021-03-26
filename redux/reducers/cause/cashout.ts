@@ -49,6 +49,11 @@ export default (state: ICause, { type, payload }: IAction) => {
           loading: false,
           error: null,
         },
+        edit: {
+          ...state.edit,
+          loading: false,
+          error: null,
+        },
       };
     default:
       return null;

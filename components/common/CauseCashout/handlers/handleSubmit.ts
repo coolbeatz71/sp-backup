@@ -1,4 +1,5 @@
 import { StepType } from "../Steps";
+import { CARD, TELCO } from "../Steps/Step1";
 
 const handleSubmit = (
   slug: string | undefined,
@@ -27,10 +28,21 @@ const handleSubmit = (
       const toUpload: {
         [key: string]: any;
       } = {
-        amount: data.amount,
-        reason: data.reason,
+        channel: data.channel,
+        amount_telco: data.amount_telco,
+        amount_cards: data.amount_cards,
         password: data.password,
       };
+
+      if (!data.amount_telco) {
+        delete toUpload.amount_telco;
+        toUpload.channel = CARD;
+      }
+
+      if (!data.amount_cards) {
+        delete toUpload.amount_cards;
+        toUpload.channel = TELCO;
+      }
 
       cb(toUpload);
     }

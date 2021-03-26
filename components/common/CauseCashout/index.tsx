@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import numeral from "numeral";
 import Img from "react-optimized-image";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Typography } from "antd";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { RESET_CASHOUT_ERROR } from "redux/action-types/cause/cashout";
@@ -22,7 +22,10 @@ interface Props {
   actionSuccessful: boolean;
   handleSubmit: (data: Store) => void;
   paymentAccountNumber?: string;
+  isNoBankDetails: boolean;
   currentBalance: number;
+  currentBalanceTelco: number;
+  currentBalanceCards: number;
   currency: string;
 }
 
@@ -32,6 +35,9 @@ const CauseCashout: FC<Props> = ({
   actionSuccessful,
   paymentAccountNumber = "",
   currentBalance = 0,
+  currentBalanceTelco = 0,
+  currentBalanceCards = 0,
+  isNoBankDetails,
   currency,
   handleSubmit,
 }) => {
@@ -39,7 +45,7 @@ const CauseCashout: FC<Props> = ({
 
   const { t } = useTranslation();
 
-  const [steps] = useState(defaultSteps());
+  const [steps] = useState(defaultSteps(isNoBankDetails));
   const [index, setIndex] = useState<number>(0);
   const [data, setData] = useState<{ [key: string]: any }>(dt);
   const [refreshKey, setRefreshKey] = useState<number>(0);
@@ -55,13 +61,26 @@ const CauseCashout: FC<Props> = ({
     <div className={styles.cashout}>
       {actionSuccessful ? (
         <div className={styles.cashout__success}>
-          <h4>{t("cashout initiated")}</h4>
-          <p>
-            {t("cashout_success_description", {
-              amount: numeral(data.amount).format("0,0.[00]"),
-              phoneNumber: format(paymentAccountNumber),
-            })}
-          </p>
+          <Typography.Title>{t("cashout initiated")}</Typography.Title>
+          {data.amount_telco && (
+            <Typography.Paragraph
+              className={styles.cashout__success__paragraph}
+            >
+              {t("cashout_success_description", {
+                amount: numeral(data.amount_telco).format("0,0.[00]"),
+                phoneNumber: format(paymentAccountNumber),
+              })}
+            </Typography.Paragraph>
+          )}
+          {data.amount_cards && (
+            <Typography.Paragraph
+              className={styles.cashout__success__paragraph}
+            >
+              {t("cashout_success_card_description", {
+                amount: numeral(data.amount_cards).format("0,0.[00]"),
+              })}
+            </Typography.Paragraph>
+          )}
           <Img src={checkedIcon} alt="check" />
         </div>
       ) : (
@@ -115,13 +134,17 @@ const CauseCashout: FC<Props> = ({
                 setOkay,
                 (formattedData) => {
                   handleSubmit(formattedData);
-                }
+                },
               );
             },
             issue,
             steps,
             currentBalance,
-            currency
+            currentBalanceTelco,
+            currentBalanceCards,
+            currency,
+            isNoBankDetails,
+            slug,
           )}
         </Card>
       )}

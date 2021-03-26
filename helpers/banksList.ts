@@ -1,0 +1,18 @@
+export const banks = [
+  "AB Bank",
+  "I&M Bank",
+  "Bank of Africa",
+  "KCB Bank",
+  "Ecobank",
+  "Urwego Bank",
+  "BPR",
+  "Equity Bank",
+  "Unguka Bank",
+  "Development Bank of Rwanda",
+  "Bank of Kigali",
+  "Zigama CSS",
+  "NCBA Bank",
+  "Access Bank",
+  "Cogebanque",
+  "Guaranty Trust Bank",
+];

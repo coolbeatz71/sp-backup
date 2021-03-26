@@ -94,6 +94,8 @@ export default {
   "payment details": "Payment details",
   "add debit/credit card": "Add Debit/Credit card payment",
   "add recipient bank details": "Add recipient bank details",
+  "add recipient bank details to cashout":
+    "Add recipient bank details to cashout Credit/Debit card donations",
   "bank name is required": "Bank name is required",
   "select bank": "Select Bank",
   "account names": "Names (As it is on the account)",
@@ -306,8 +308,17 @@ export default {
   "the balance is": "The balance is",
   "the maximum cashout is":
     "The maximum cashout amount is {{amount}} in 24 hours.",
+  "the maximun cashout amount is":
+    "The maximun cashout amount is {{amount}} Rwf",
+  "on mobile money you can cashout":
+    "On Mobile money you can cashout {{amount}} Rwf",
+  "on credit/debit card you can cashout":
+    "On Credit/Debit card you can cashout {{amount}} Rwf",
+  cashout_cards_notice:
+    "For Credit/Debit card cashout can take up to 10 days and fee of 5% will be applied",
   "for more details email us": "For more details email us on",
   "or call on": "or call on",
+  confirm_with_pin: "Confirm Cash out by providing your PIN",
   reason: "Reason",
   confirm: "Confirm",
   "reason character range":
@@ -341,7 +352,7 @@ export default {
   "profile has been updated": "Your Profile has been updated!",
   "access code is required for this cause":
     "An access code is required for this cause.",
-  "previous step has issue": "The previous step has issue:",
+  "previous step has issue": "The previous step has issue",
   "successfully edited": "Successfully edited '{{name}}'",
   faq: "FAQ",
   "enjoy free period": "Enjoy the free beta trial period.",
@@ -390,4 +401,8 @@ export default {
   "cashout initiated": "Cashout successfully initiated!",
   cashout_success_description:
     "The amount of {{amount}} Rwf was deposited to your mobile money account {{phoneNumber}}",
+  cashout_success_card_description:
+    "The amount of {{amount}} Rwf will be deposited to your bank account in less than 10 days",
+  select_cashout_channel: "Select cashout channel",
+  credit_debit_card: "Credit/Debit Card",
 };

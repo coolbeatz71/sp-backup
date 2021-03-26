@@ -7,7 +7,7 @@ import styles from "./index.module.scss";
 const ViewCount: FC<{
   count: number;
 }> = ({ count }) => {
-  const pluralize = (count: number) => (count > 1 ? "views" : "view");
+  const pluralize = (count: number) => (count !== 1 ? "views" : "view");
 
   return (
     <Typography.Text className={styles.views}>

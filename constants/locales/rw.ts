@@ -93,6 +93,8 @@ export default {
   "payment details": "Uburyo bwo kwishyura",
   "add debit/credit card": "Ongeraho ikarita yo kwishyura",
   "add recipient bank details": "Ongeraho banki y'uwakira amafaranga",
+  "add recipient bank details to cashout":
+    "Ongeraho banki y'uwakira amafaranga ubashe kubikuza ku ikarita yo Kuzigama/Kubikuza inkunga",
   "bank name is required": "Izina rya Banki ni ngombwa",
   "select bank": "Hitamo Banki",
   "account names": "Amazina (Nkuko biri kuri konti)",
@@ -306,8 +308,16 @@ export default {
   "the balance is": "Amafaranga asigaye ni",
   "the maximum cashout is":
     "Amafaranga ushobora kubikuza ni {{amount}} mu masaha 24.",
+  "the maximun cashout amount is": "Amenshi wabikuza ni {{amount}} Rwf",
+  "on mobile money you can cashout":
+    "Kuri Mobile Money ushobora kubikuza {{amount}} Rwf",
+  "on credit/debit card you can cashout":
+    "Ku ikarita yo kubitsa/Kubikuza ushobora kubikuza {{amount}} Rwf",
+  cashout_cards_notice:
+    "Ku ikarita yo kubitsa/kubikuza, kubikuza bishobora kumara iminsi 10 kandi ukishyura 5%",
   "for more details email us": "Ku bindi bisobanuro twandikire kuri",
   "or call on": "cyangwa uduhamagare kuri",
+  confirm_with_pin: "Emeza kwishyura ushyiramo PIN yawe",
   reason: "Impamvu",
   confirm: "Emeza",
   "reason character range":
@@ -342,7 +352,7 @@ export default {
   "profile has been updated": "Umwirondoro wawe wavuguruwe!",
   "access code is required for this cause":
     "Kode yo kwinjira irakenewe kuri iki gikorwa.",
-  "previous step has issue": "Intambwe ibanziriza iyi ifite ikibazo:",
+  "previous step has issue": "Intambwe ibanziriza iyi ifite ikibazo",
   "successfully edited": "Igikorwa '{{name}}' kiravuguruwe.",
   faq: "Ibibazo bikunze kubazwa",
   "enjoy free period": "Ryoherwa n'igihe cy'igerageza ku buntu.",
@@ -390,4 +400,8 @@ export default {
   cashout_success_description:
     "Inkunga ingana na {{amount}} Rwf yoherejwe kuri konti ya telephone yawe {{phoneNumber}}",
   "cashout initiated": "Kubikuza byemejwe!",
+  cashout_success_card_description:
+    "Amafaranga {{amount}} Rwf azashyirwa kuri konti ya banki yawe mu minsi itarenze 10",
+  select_cashout_channel: "Hitamo uburyo bwo kwakira amafaranga",
+  credit_debit_card: "Ikarita yo kubitsa/Kubikuza",
 };
