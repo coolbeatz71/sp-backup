@@ -94,7 +94,7 @@ export const isInactive = (status: string): boolean => {
 const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   const { t } = useTranslation();
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const lang = userData.lang || getLanguage();
@@ -109,7 +109,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   };
 
   const [imageStatus, setImageStatus] = useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none",
+    !["", null, undefined].includes(cause.image) ? "loading" : "none"
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -384,7 +384,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
                 status={cause.status}
               /> */}
               <span data-active={isView || !isInactive(cause.status)}>
-                <ViewCount count={200} />
+                <ViewCount count={cause.views_count} />
               </span>
             </Col>
             <Col>
