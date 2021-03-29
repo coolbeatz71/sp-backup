@@ -1,4 +1,5 @@
 import { phone } from "dev-rw-phone";
+import { fixedLineFormatter } from "helpers/phoneNumberFormatter";
 import { find } from "lodash";
 import { StepType } from "../CreateCauseSteps";
 
@@ -46,7 +47,7 @@ const handleSubmit = (
         affiliated: data.affiliated ? true : false,
         contact_information: {
           email: data.contact_email,
-          phone_number: phone(data.contact_phone_number).normalized,
+          phone_number: fixedLineFormatter(data.contact_phone_number),
         },
         accepts_card_payments: data.accepts_card_payments,
         bank_name: data.bank_name,
@@ -62,12 +63,14 @@ const handleSubmit = (
         delete toUpload.bank_name;
         delete toUpload.bank_account_number;
         delete toUpload.payment_account_name;
+
+        toUpload.accepts_card_payments = false;
       }
 
       if (hasOrg) {
         toUpload.organization = {
           name: data.org_name,
-          phone_number: phone(data.org_phone_number).normalized,
+          phone_number: fixedLineFormatter(data.org_phone_number),
           email: data.org_email,
           field: data.org_field,
         };
@@ -77,13 +80,13 @@ const handleSubmit = (
       if (hasMed) {
         toUpload.institution = {
           name: data.hospital,
-          phone_number: phone(data.hospital_phone_number).normalized,
+          phone_number: fixedLineFormatter(data.hospital_phone_number),
           email: data.hospital_email,
         };
         toUpload.next_keen_names = data.nok_name;
-        toUpload.next_keen_phone_number = phone(
+        toUpload.next_keen_phone_number = fixedLineFormatter(
           data.nok_phone_number,
-        ).normalized;
+        );
 
         if (!["", null, undefined].includes(data.nok_email)) {
           toUpload.next_keen_email = data.nok_email;
