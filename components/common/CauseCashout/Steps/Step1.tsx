@@ -15,10 +15,7 @@ import {
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
 import { InfoCircleOutlined } from "@ant-design/icons";
-
-export const ALL = "All";
-export const TELCO = "Telco";
-export const CARD = "Visa_MasterCard";
+import { ALL, CARD, TELCO } from "constants/channel";
 
 export interface Props {
   data: any;

@@ -21,6 +21,10 @@ interface Props {
   slug: string;
   actionSuccessful: boolean;
   handleSubmit: (data: Store) => void;
+  currentBalance: number;
+  currentBalanceTelco: number;
+  currentBalanceCards: number;
+  currency: string;
 }
 
 const CauseTransfer: FC<Props> = ({
@@ -28,6 +32,10 @@ const CauseTransfer: FC<Props> = ({
   slug,
   actionSuccessful,
   handleSubmit,
+  currentBalance = 0,
+  currentBalanceTelco = 0,
+  currentBalanceCards = 0,
+  currency,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -45,6 +53,15 @@ const CauseTransfer: FC<Props> = ({
     dispatch({ type: RESET_SINGLE_CAUSE_ERROR });
   }, [dispatch]);
 
+  const amountSum = () => {
+    if (data.amount_telco && !data.amount_cards) return data.amount_telco;
+    if (!data.amount_telco && data.amount_cards) return data.amount_cards;
+
+    if (data.amount_telco && data.amount_cards) {
+      return data.amount_telco + data.amount_cards;
+    }
+  };
+
   return (
     <div className={styles.transfer}>
       {actionSuccessful ? (
@@ -52,7 +69,7 @@ const CauseTransfer: FC<Props> = ({
           <h4>{t("donation transfer initiated")}</h4>
           <p>
             {t("donation_transfer_success_description", {
-              amount: numeral(data.amount).format("0,0.[00]"),
+              amount: numeral(amountSum()).format("0,0.[00]"),
               tillNumber: JSON.parse(data?.cause).tillNumber,
             })}
           </p>
@@ -115,6 +132,10 @@ const CauseTransfer: FC<Props> = ({
             },
             issue,
             steps,
+            currentBalance,
+            currentBalanceTelco,
+            currentBalanceCards,
+            currency,
           )}
         </Card>
       )}

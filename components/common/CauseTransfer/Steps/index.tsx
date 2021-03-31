@@ -1,6 +1,7 @@
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import Step4 from "./Step4";
 
 export interface StepType {
   id: string;
@@ -12,6 +13,10 @@ export interface StepType {
     cb: (data: any) => void,
     issue: boolean[],
     steps: any[],
+    currentBalance: number,
+    currentBalanceTelco: number,
+    currentBalanceCards: number,
+    currency: string,
   ) => any;
 }
 
@@ -35,15 +40,36 @@ const defaultSteps = (): StepType[] => [
   {
     title,
     id: "Step3",
-    component: (slug, data, setForm: (form: any) => void, cb, issue, steps) => (
+    component: (
+      _slug,
+      data,
+      setForm: (form: any) => void,
+      cb,
+      issue,
+      steps,
+      currentBalance,
+      currentBalanceTelco,
+      currentBalanceCards,
+      currency,
+    ) => (
       <Step3
-        slug={slug}
         data={data}
         setForm={setForm}
         cb={cb}
         issue={issue}
         steps={steps}
+        currentBalance={currentBalance}
+        currentBalanceTelco={currentBalanceTelco}
+        currentBalanceCards={currentBalanceCards}
+        currency={currency}
       />
+    ),
+  },
+  {
+    title,
+    id: "Step4",
+    component: (slug, data, setForm: (form: any) => void, cb) => (
+      <Step4 slug={slug} data={data} setForm={setForm} cb={cb} />
     ),
   },
 ];

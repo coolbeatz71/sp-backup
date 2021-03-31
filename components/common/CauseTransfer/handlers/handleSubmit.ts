@@ -1,3 +1,4 @@
+import { CARD, TELCO } from "constants/channel";
 import { StepType } from "../Steps";
 
 const handleSubmit = (
@@ -27,10 +28,22 @@ const handleSubmit = (
       const toUpload: {
         [key: string]: any;
       } = {
-        amount: data.amount,
+        channel: data.channel,
+        amount_telco: data.amount_telco,
+        amount_cards: data.amount_cards,
         cause_id: JSON.parse(data.cause).id,
         password: data.password,
       };
+
+      if (!data.amount_telco) {
+        delete toUpload.amount_telco;
+        toUpload.channel = CARD;
+      }
+
+      if (!data.amount_cards) {
+        delete toUpload.amount_cards;
+        toUpload.channel = TELCO;
+      }
 
       cb(toUpload);
     }
