@@ -23,7 +23,7 @@ export default (data: any, slug: string | string[]) => (
         type: EDIT_CAUSE_SUCCESS,
       });
       notification("Cause updated successfully", "success");
-      push(`/causes/${slug}`);
+      if (push) push(`/causes/${slug}`);
     })
     .catch((error) => {
       dispatch({

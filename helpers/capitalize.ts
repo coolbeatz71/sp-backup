@@ -1,3 +1,3 @@
-const capitalize = (string: string) =>
-  string ? `${string[0].toUpperCase()}${string.substr(1)}` : "";
+const capitalize = (word?: string) =>
+  word ? `${word[0].toUpperCase()}${word.substr(1)}` : "";
 export default capitalize;

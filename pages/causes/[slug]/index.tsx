@@ -179,7 +179,7 @@ const SingleCause: NextPage<Props> = ({
         ) : (
           error && (
             <>
-              {[400, 403].includes(error?.status) ? (
+              {!myCause && [400, 403].includes(error?.status) ? (
                 <AccessCode slug={cause?.slug} error={error} length={4} />
               ) : error?.status === 404 ? (
                 <NotFound noWrapper />

@@ -165,10 +165,22 @@ const CausesActions: FC<Props> = ({ record, viewing = false }) => {
         plainAccessCode={record.plain_access_code}
         paymentAccountNumber={record.payment_account_number}
         currentBalance={record.raised_amount * 1 - record.cashed_out_amount * 1}
+        currentBalanceTelco={
+          record.raised_amount_telco * 1 - record.cashed_out_amount_telco * 1
+        }
+        currentBalanceCards={
+          record.raised_amount_cards * 1 - record.cashed_out_amount_cards * 1
+        }
         currency={record.currency}
         visible={causeModal.isVisible}
         context={causeModal.context}
         closeModal={() => setCauseModal({ isVisible: false })}
+        isNoBankDetails={
+          record.raised_amount_cards * 1 - record.cashed_out_amount_cards * 1 >
+            0 &&
+          !record.bank_name &&
+          !record.bank_account_number
+        }
       />
     </>
   );
