@@ -48,6 +48,11 @@
   @media screen and (max-width: #{$mobile-size}) {
     padding: $padding;
   }
+
+  @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+    padding: $padding calc(#{$content-padding}/ 2);
+  }
+
   &[data-content-section] {
     padding: $padding 0px;
     @media screen and (max-width: #{$mobile-size}) {
@@ -60,6 +65,11 @@
         @media screen and (max-width: #{$mobile-size}) {
           margin-left: $padding;
           margin-right: $padding;
+        }
+
+        @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+          margin-left: calc(#{$content-padding}/ 2);
+          margin-right: calc(#{$content-padding}/ 2);
         }
       }
       [data-section-scroll] {
@@ -82,16 +92,14 @@
           padding-right: $content-padding;
           padding-top: $padding;
           padding-bottom: $padding;
-          &[data-section-row="more"] {
-            min-width: 100vw;
-          }
           @media screen and (max-width: #{$mobile-size}) {
             min-width: calc(#{$scroll-break} + (#{$padding} * 2));
             padding-left: $padding;
             padding-right: $padding;
-            &[data-section-row="more"] {
-              min-width: 100vw;
-            }
+          }
+
+          @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+            padding-left: calc(#{$content-padding}/ 2);
           }
         }
       }

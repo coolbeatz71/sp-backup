@@ -49,6 +49,37 @@
     }
 
     &__balance {
+      cursor: pointer;
+      [data-main-balance="true"] {
+        margin-bottom: 1rem;
+        [class~="ant-typography"] {
+          font-weight: 600;
+        }
+      }
+
+      [data-telco-balance="true"] {
+        [class~="ant-typography"],
+        span {
+          font-size: 11.5px;
+          margin-bottom: 0;
+        }
+      }
+
+      [data-cards-balance="true"] {
+        [class~="ant-typography"],
+        span {
+          font-size: 11.5px;
+          margin-bottom: 0;
+          margin-top: 0.4rem;
+        }
+      }
+
+      [data-value="true"] {
+        display: flex;
+        align-self: flex-end;
+        justify-content: flex-end;
+      }
+
       @media screen and (max-width: #{$lg-size}) {
         margin-top: calc(#{$padding}/ 2);
       }

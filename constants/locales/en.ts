@@ -333,6 +333,8 @@ export default {
   cancel_success: "Cause Cancelled",
   "to continue enter your pin": "To Continue Enter Your PIN",
   "current balance": "Current Balance",
+  "current balance telco": "Mobile money balance",
+  "current balance cards": "Credit/Debit card balance",
   sponsored_causes: "Sponsored",
   "active filters": "Active Filters",
   "no more donors": "No more donors to load!",

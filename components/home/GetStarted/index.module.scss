@@ -114,5 +114,17 @@
         }
       }
     }
+
+    @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+      padding-left: calc(#{$content-padding}/ 2);
+      padding-top: calc(#{$content-padding}/ 2);
+
+      &__payment {
+        margin-top: 1rem;
+        &__content {
+          width: 16rem;
+        }
+      }
+    }
   }
 }
