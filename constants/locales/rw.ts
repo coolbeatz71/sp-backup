@@ -341,6 +341,8 @@ export default {
   cancel_success: "Igikorwa kirahagaritswe",
   "to continue enter your pin": "Injiza PIN ukomeze",
   "current balance": "Amafaranga asigaye",
+  "current balance telco": "Asigaye kuri Mobile Money",
+  "current balance cards": "Asigaye ku ikarita yo kubitsa/kubikuza",
   sponsored_causes: "Byatewe inkunga",
   "active filters": "Ibyo wahisemo",
   "no more donors": "Nta bandi bateye inkunga!",

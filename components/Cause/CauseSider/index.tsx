@@ -19,6 +19,7 @@ import {
   Alert,
   Affix,
   Tooltip,
+  Popover,
 } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
@@ -66,7 +67,7 @@ const CauseSider: FC<Props> = ({
   const [causeDonors, setCauseDonors] = useState<any[]>([]);
 
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
 
   const lang = userData.lang || getLanguage();
@@ -85,7 +86,7 @@ const CauseSider: FC<Props> = ({
       (!hasBanner && window.pageYOffset < 100) ||
         (hasBanner && window.pageYOffset < 148)
         ? "over"
-        : "scrolled"
+        : "scrolled",
     );
   };
 
@@ -212,16 +213,52 @@ const CauseSider: FC<Props> = ({
           {myCause && (
             <>
               <Card className={styles.cause_sider__content__balance}>
-                <Row align="middle">
+                <Row align="middle" data-main-balance>
                   <Col flex={1}>
-                    <Typography.Paragraph ellipsis style={{ marginBottom: 0 }}>
-                      {t("current balance")}
-                    </Typography.Paragraph>
+                    <Typography.Text>{t("current balance")}</Typography.Text>
                   </Col>
                   <Col>
                     <strong>
                       {numeral(cause.current_balance).format()} {cause.currency}
                     </strong>
+                  </Col>
+                </Row>
+
+                <Row align="middle" data-telco-balance>
+                  <Popover content={t("current balance telco")}>
+                    <Col span={14}>
+                      <Typography.Paragraph ellipsis>
+                        {t("current balance telco")}
+                      </Typography.Paragraph>
+                    </Col>
+                  </Popover>
+                  <Col span={10} data-value>
+                    <span>
+                      {numeral(
+                        cause.raised_amount_telco * 1 -
+                          cause.cashed_out_amount_telco * 1,
+                      ).format()}{" "}
+                      {cause.currency}
+                    </span>
+                  </Col>
+                </Row>
+
+                <Row align="middle" data-cards-balance>
+                  <Popover content={t("current balance cards")}>
+                    <Col span={14}>
+                      <Typography.Paragraph ellipsis>
+                        {t("current balance cards")}
+                      </Typography.Paragraph>
+                    </Col>
+                  </Popover>
+                  <Col span={10} data-value>
+                    <span>
+                      {numeral(
+                        cause.raised_amount_cards * 1 -
+                          cause.cashed_out_amount_cards * 1,
+                      ).format()}{" "}
+                      {cause.currency}
+                    </span>
                   </Col>
                 </Row>
               </Card>

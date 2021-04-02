@@ -335,6 +335,10 @@
         }
       }
     }
+
+    @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+      padding: 0 calc(#{$content-padding}/ 2);
+    }
   }
   &__content {
     background-image: url(/images/abstract-bg.svg);

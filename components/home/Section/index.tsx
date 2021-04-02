@@ -32,7 +32,7 @@ const Section: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const isLG = useMedia("(min-width: 992px)");
+  const isXL = useMedia("(max-width: 1200px)");
 
   const howItWorksItems = [
     {
@@ -130,7 +130,7 @@ const Section: FC<Props> = ({
         <div data-section-scroll>
           <Row
             data-section-row="more"
-            justify={isLG ? "end" : "start"}
+            justify={isXL ? "start" : "end"}
             gutter={[24, 24]}
           >
             <Col>
