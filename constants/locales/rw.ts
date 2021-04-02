@@ -285,6 +285,15 @@ export default {
   "pause cause": "Subika igikorwa",
   "cancel cause": "Hagarika igikorwa",
   "transfer donations": "Hererekanya Inkunga",
+  select_transfer_channel: "Hitamo umurongo wo kohereza",
+  "the maximun transfer amount is": "Amenshi wakohereza ni {{amount}} Rwf",
+  "on mobile money you can transfer":
+    "Kuri Mobile money ushobora kohereza {{amount}} Rwf",
+  "on credit/debit card you can transfer":
+    "Kuri Ikarita yo kuzigama/kubikuza ushobora kohereza {{amount}} Rwf",
+  transfer_cards_notice:
+    "Ku ikarita yo Kubitsa/Kubikuza kohereza bitwara iminsi 10",
+  confirm_with_pin_transfer: "Emeza kohereza ushyiramo PIN yawe",
   transfer_donations_desc:
     "Tangira utanga nimero y'igikorwa ushaka guha inkunga",
   "search cause till number": "Shakisha nimero y'igikorwa",

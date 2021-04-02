@@ -201,6 +201,10 @@ const ActionModal: FC<IActionModalProps> = ({
             slug={slug}
             handleSubmit={handleSubmit}
             actionSuccessful={actionSuccessful}
+            currentBalance={currentBalance}
+            currentBalanceTelco={currentBalanceTelco}
+            currentBalanceCards={currentBalanceCards}
+            currency={currency}
           />
         ) : (
           <div className={styles.pause__modalContent}>

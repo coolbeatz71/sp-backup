@@ -1,5 +1,5 @@
+import { CARD, TELCO } from "constants/channel";
 import { StepType } from "../Steps";
-import { CARD, TELCO } from "../Steps/Step1";
 
 const handleSubmit = (
   slug: string | undefined,

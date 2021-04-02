@@ -285,6 +285,16 @@ export default {
   "pause cause": "Pause Cause",
   "cancel cause": "Cancel Cause",
   "transfer donations": "Transfer Donations",
+  select_transfer_channel: "Select transfer channel",
+  "the maximun transfer amount is":
+    "The maximun transfer amount is {{amount}} Rwf",
+  "on mobile money you can transfer":
+    "On Mobile money you can transfer  {{amount}} Rwf",
+  "on credit/debit card you can transfer":
+    "On Credit/ Debit card you can transfer {{amount}} Rwf",
+  transfer_cards_notice:
+    "For credit/debit card  transfer can take up to 10 days",
+  confirm_with_pin_transfer: "Confirm transfer by providing your PIN",
   transfer_donations_desc:
     "Start by providing the cause till number you want to transfer donations to",
   "search cause till number": "Search Cause till number",
