@@ -1,56 +1,31 @@
-import { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Img from "react-optimized-image";
-import numeral from "numeral";
 import { useRouter } from "next/router";
-import Link from "next/link";
-// import ReactStars from "react-star-rating-component";
 import styles from "./donate.module.scss";
 import { normalize } from "dev-rw-phone";
-import {
-  Form,
-  Select,
-  Row,
-  Col,
-  Switch,
-  Button,
-  Typography,
-  Spin,
-  Input as LegacyInput,
-} from "antd";
-import { validateMessages } from "constants/validationMessages";
-import donationTypes, { donationType } from "constants/donationTypes";
-import capitalize from "helpers/capitalize";
+import { Form, Row, Typography, Spin } from "antd";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
+// import ReactStars from "react-star-rating-component";
 // import rateCause from "redux/actions/cause/rateCause";
+// import showAuthDialog from "redux/actions/auth/showAuthDialog";
 import donateCause from "redux/actions/cause/donateCause";
 import { IUnknownObject } from "interfaces/unknownObject";
-import normalizeInputNumber, {
-  sanitizeNumber,
-} from "helpers/normalizeInputNumber";
 import { isEmpty } from "lodash";
 import getTelco from "helpers/getTelco";
-// import showAuthDialog from "redux/actions/auth/showAuthDialog";
 import getSingle from "redux/actions/cause/getSingle";
-import formPhoneValidator from "utils/validators/form-phone-validator";
-import { Input } from "components/common/Input";
 import { useTranslation } from "react-i18next";
+import { donationType } from "constants/donationTypes";
 
 import AccessCode from "components/Cause/Single/AccessCode";
 import Error from "components/common/Error";
 import Layout from "components/LayoutWrapper";
-import StackedLabel from "components/common/StackedLabel";
-import SharePopover from "components/common/SharePopover";
+
 import CauseCard from "components/cards/Cause";
-
-import confeti from "public/confeti.gif";
 import { getLanguage } from "helpers/getLanguage";
-import { formNamesValidator } from "utils/validators/form-names-validators";
-
-const { Text } = Typography;
-
-const minMaxAmount: number = 5000;
+import Success from "./success";
+import DonateForm from "./form";
+import serializeFormattedNumber from "helpers/serializeFormattedNumber";
 
 const DonateCause: FC<{}> = () => {
   const { t } = useTranslation();
@@ -66,11 +41,6 @@ const DonateCause: FC<{}> = () => {
   const [fetched, setFetched] = useState(false);
   const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
   const { slug } = router.query;
-  const [charge, setCharge] = useState({
-    fee: 0,
-    total: 0,
-  });
-  const [chargeText, setChargeText] = useState<string>("");
   const [emailPlaceholder, setEmailPlaceholder] = useState<string>(
     `${t("email")} (${t("optional")})`,
   );
@@ -90,6 +60,7 @@ const DonateCause: FC<{}> = () => {
     ({ user: { currentUser } }: IRootState) => currentUser,
   );
   const lang = data.lang || getLanguage();
+  const [phone, setPhone] = useState<string>(data.phone_number);
 
   useEffect(() => {
     if (slug && !fetched) {
@@ -119,43 +90,21 @@ const DonateCause: FC<{}> = () => {
 
   if (!isLoggedin && !isFormDataReady) setFormDataReadiness(true);
 
-  useEffect(() => {
-    setChargeText(
-      charge.fee > 0
-        ? `Fee: ${numeral(charge.fee).format("0,0.0")} Rwf | Total: ${numeral(
-            charge.total,
-          ).format("0,0.0")} Rwf`
-        : "",
-    );
-  }, [charge, chargeText]);
-
-  const getDonationFees = (amount: number) => {
-    const fee = amount * (2.5 / 100);
-    const total = amount + fee;
-
-    if (amount >= 500) {
-      setCharge(
-        amount <= minMaxAmount
-          ? {
-              fee: 118,
-              total: amount + 118,
-            }
-          : {
-              fee: Math.floor(fee * 100) / 100,
-              total: Math.floor(total * 100) / 100,
-            },
-      );
-    } else {
-      setCharge({ fee: 0, total: 0 });
-    }
+  const onPhoneTyping = (value: string) => {
+    setPhone(value);
   };
 
-  const formatData = (data: IUnknownObject) => {
+  const formatCountryCode = (countryCode: string) => countryCode.substring(1);
+
+  const formatData = (data: IUnknownObject): IUnknownObject => {
     if (isEmpty(data.email)) delete data.email;
     return {
       ...data,
-      amount: charge.total,
-      phone_number: normalize(data.phone_number),
+      amount: Number(serializeFormattedNumber(data.amount)),
+      phone_number:
+        data.payment_method === "momo"
+          ? normalize(data.phone_number)
+          : `${formatCountryCode(data.countryCode)}${data.phone_number_world}`,
       payment_method:
         data.payment_method === "momo"
           ? getTelco(data.phone_number)
@@ -165,6 +114,10 @@ const DonateCause: FC<{}> = () => {
 
   const handleSubmit = (form: any) => {
     const formattedData = formatData(form);
+
+    delete formattedData.countryCode;
+    delete formattedData.phone_number_world;
+
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
       dispatch,
@@ -178,11 +131,6 @@ const DonateCause: FC<{}> = () => {
 
     if (Object.keys(changedField)[0] === "anonymous") {
       setIsAnonymous(changedField.anonymous);
-    }
-
-    if (Object.keys(changedField)[0] === "amount") {
-      const amount = sanitizeNumber(changedField.amount);
-      amount >= 500 ? getDonationFees(amount) : setCharge({ fee: 0, total: 0 });
     }
 
     if (Object.keys(changedField)[0] === "payment_method") {
@@ -228,77 +176,13 @@ const DonateCause: FC<{}> = () => {
             </div>
             <div className={styles.donate__body__form}>
               {donationSuccessful ? (
-                <div className={styles.donate__body__form__successful}>
-                  <h5>{t("confirm your donation")}</h5>
-                  {isEmpty(donateData.data) ? (
-                    <p
-                      className={
-                        styles.donate__body__form__successful__subtitle
-                      }
-                    >
-                      {t("enter pin and confirm via momo")} &nbsp; +
-                      {form.getFieldValue("phone_number") &&
-                        phoneFormatter(form.getFieldValue("phone_number"))}{" "}
-                    </p>
-                  ) : (
-                    <>
-                      <p
-                        className={
-                          styles.donate__body__form__successful__subtitle
-                        }
-                      >
-                        {t("enter credit/debit card details")}
-                      </p>
-                      <Typography.Link
-                        target="_blank"
-                        href={donateData?.data?.url}
-                        style={{ textDecoration: "underline" }}
-                      >
-                        {donateData?.data?.url}
-                      </Typography.Link>
-                      <br />
-                    </>
-                  )}
-
-                  <h4>{t("thank you")}</h4>
-                  <Img
-                    className={styles.donate__body__form__successful__confeti}
-                    src={confeti}
-                    alt="Confetti GIF"
-                  />
-
-                  <Link href={`/causes/${slug}?lang=${lang}`}>
-                    <a rel="noreferrer noopener">{t("back to the cause")}</a>
-                  </Link>
-                  <div className={styles.donate__body__form__successful__share}>
-                    <SharePopover
-                      slug={cause.slug}
-                      code={cause.till_number}
-                      title={cause.name}
-                      standalone
-                      isPrivate={cause.access === "private"}
-                    />
-                  </div>
-
-                  {/* <div className={styles.donate__body__form__successful__rate}>
-                    <span>{t("rate this cause")}</span>
-                    <ReactStars
-                      starCount={5}
-                      name="rate1"
-                      value={rating}
-                      onStarClick={handleRating}
-                      starColor="#F4A86C"
-                      emptyStarColor="#ddd"
-                    />
-                  </div> */}
-                  <div
-                    className={
-                      styles.donate__body__form__successful__comingSoon
-                    }
-                  >
-                    <span>{t("mobile_apps_coming_soon")}</span>
-                  </div>
-                </div>
+                <Success
+                  form={form}
+                  slug={slug}
+                  cause={cause}
+                  donateData={donateData}
+                  lang={lang}
+                />
               ) : (
                 <>
                   {!loadingCause && !errorCause && (
@@ -320,203 +204,19 @@ const DonateCause: FC<{}> = () => {
                     <Spin />
                   ) : (
                     isFormDataReady && (
-                      <Form
+                      <DonateForm
                         form={form}
-                        validateMessages={validateMessages}
-                        onFinish={handleSubmit}
-                        onValuesChange={handleValueChange}
-                        initialValues={{
-                          ...data,
-                          type: "individual",
-                          payment_method: "momo",
-                        }}
-                      >
-                        <Text type="danger" className="mb-3 d-block">
-                          {error && error.message}
-                        </Text>
-                        <Form.Item
-                          name="type"
-                          validateTrigger={["onSubmit", "onBlur", "onChange"]}
-                          rules={[{ required: true }]}
-                        >
-                          <Select placeholder={t("type")}>
-                            {donationTypes.map((type, index) => (
-                              <Select.Option key={index} value={type}>
-                                {capitalize(t(type))}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                        <Form.Item
-                          name="amount"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t("amount")} ${t("required")}`,
-                            },
-                            {
-                              validator(_: any, value: any) {
-                                return !isEmpty(value) &&
-                                  sanitizeNumber(value) < 500
-                                  ? Promise.reject(t("should be 500 minimum"))
-                                  : Promise.resolve();
-                              },
-                            },
-                          ]}
-                          validateTrigger={["onSubmit", "onChange"]}
-                          normalize={normalizeInputNumber}
-                          extra={chargeText}
-                        >
-                          <Input prefix="RWF" placeholder={t("amount")} />
-                        </Form.Item>
-
-                        {userType === "individual" ? (
-                          <Row gutter={8}>
-                            <Col span={12}>
-                              <Form.Item
-                                name="first_name"
-                                rules={formNamesValidator(
-                                  `${t("minimum 3")}`,
-                                  `${t("required")}`,
-                                )}
-                                validateTrigger={["onSubmit", "onBlur"]}
-                              >
-                                <Input placeholder={t("first_name")} />
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item
-                                name="last_name"
-                                validateTrigger={["onSubmit", "onBlur"]}
-                                rules={formNamesValidator(
-                                  `${t("minimum 3")}`,
-                                  `${t("required")}`,
-                                )}
-                              >
-                                <Input placeholder={t("last_name")} />
-                              </Form.Item>
-                            </Col>
-                          </Row>
-                        ) : (
-                          userType === "organization" && (
-                            <>
-                              <Form.Item
-                                name="organization_name"
-                                validateTrigger={["onSubmit", "onBlur"]}
-                                rules={formNamesValidator(
-                                  `${t("minimum 3")}`,
-                                  `${t("required")}`,
-                                )}
-                              >
-                                <Input placeholder={t("organization name")} />
-                              </Form.Item>
-                              <Form.Item
-                                name="contact_person"
-                                validateTrigger={["onSubmit", "onBlur"]}
-                                rules={formNamesValidator(
-                                  `${t("minimum 3")}`,
-                                  `${t("required")}`,
-                                )}
-                              >
-                                <Input placeholder={t("contact person")} />
-                              </Form.Item>
-                            </>
-                          )
-                        )}
-                        <Form.Item
-                          name="payment_method"
-                          rules={[
-                            {
-                              required: true,
-                              message: t("payment method is required"),
-                            },
-                          ]}
-                        >
-                          <StackedLabel
-                            label={t("select payment method")}
-                            select
-                          >
-                            <Select placeholder={t("select payment method")}>
-                              <Select.Option value="Visa_MasterCard">
-                                Credit/Debit Card
-                              </Select.Option>
-                              <Select.Option value="momo">
-                                Mobile Money
-                              </Select.Option>
-                            </Select>
-                          </StackedLabel>
-                        </Form.Item>
-                        <Form.Item
-                          className="form-group phone-code"
-                          validateTrigger={["onSubmit", "onBlur"]}
-                          rules={formPhoneValidator(t("phone number"))}
-                          name="phone_number"
-                        >
-                          <StackedLabel label={t("phone number")} phone="+250">
-                            <LegacyInput maxLength={9} />
-                          </StackedLabel>
-                        </Form.Item>
-                        <Form.Item
-                          name="email"
-                          validateTrigger={["onSubmit", "onBlur"]}
-                          rules={[
-                            {
-                              type: "email",
-                              message: t("email should be valid"),
-                            },
-                            ({ getFieldValue }) => ({
-                              validator(_rule, value) {
-                                const paymentMethod = getFieldValue(
-                                  "payment_method",
-                                );
-
-                                return isEmpty(value) &&
-                                  paymentMethod === "Visa_MasterCard"
-                                  ? Promise.reject(t("email is required"))
-                                  : Promise.resolve();
-                              },
-                            }),
-                          ]}
-                        >
-                          <Input placeholder={emailPlaceholder} />
-                        </Form.Item>
-                        <div className={styles.donate__body__form__anonymous}>
-                          <Typography.Text strong>
-                            {t("anonymous")}
-                          </Typography.Text>
-
-                          <Form.Item
-                            validateTrigger={["onSubmit", "onBlur"]}
-                            name="anonymous"
-                            valuePropName="checked"
-                          >
-                            <Switch disabled={userType === "organization"} />
-                          </Form.Item>
-                        </div>
-                        {isAnonymous && (
-                          <p
-                            className={
-                              styles.donate__body__form__anonymous_text
-                            }
-                          >
-                            {t("note")}: {t("your name will not be displayed")}
-                          </p>
-                        )}
-                        <Row
-                          justify="end"
-                          className={styles.donate__body__form__buttons}
-                        >
-                          <Col>
-                            <Button
-                              type="primary"
-                              htmlType="submit"
-                              loading={loading}
-                            >
-                              {t("donate")}
-                            </Button>
-                          </Col>
-                        </Row>
-                      </Form>
+                        userType={userType}
+                        isAnonymous={isAnonymous}
+                        emailPlaceholder={emailPlaceholder}
+                        loading={loading}
+                        error={error}
+                        data={data}
+                        phone={phone}
+                        onPhoneTyping={onPhoneTyping}
+                        handleSubmit={handleSubmit}
+                        handleValueChange={handleValueChange}
+                      />
                     )
                   )}
                 </>

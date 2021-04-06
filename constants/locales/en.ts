@@ -417,4 +417,5 @@ export default {
     "The amount of {{amount}} Rwf will be deposited to your bank account in less than 10 days",
   select_cashout_channel: "Select cashout channel",
   credit_debit_card: "Credit/Debit Card",
+  country_code: "Country code",
 };

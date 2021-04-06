@@ -415,4 +415,5 @@ export default {
     "Amafaranga {{amount}} Rwf azashyirwa kuri konti ya banki yawe mu minsi itarenze 10",
   select_cashout_channel: "Hitamo uburyo bwo kwakira amafaranga",
   credit_debit_card: "Ikarita yo kubitsa/Kubikuza",
+  country_code: "Kode y'igihugu",
 };
