@@ -17,7 +17,7 @@ import getDonors from "redux/actions/cause/donors";
 import moreDonors from "redux/actions/cause/moreDonors";
 import { CLEAR_SEARCH_DONORS } from "redux/action-types/cause/donors";
 
-import styles from "./Donors.module.scss";
+import styles from "./index.module.scss";
 import { isEmpty, upperFirst } from "lodash";
 import Link from "next/link";
 import { ALL_CAUSES_PATH } from "helpers/paths";

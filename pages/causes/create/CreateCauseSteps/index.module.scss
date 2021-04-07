@@ -37,7 +37,7 @@
     [class~="ant-form-item-label"] > label::after {
       content: "";
       font-weight: 600;
-      color: rgba($color: $black, $alpha: 0.65);
+      color: $dark;
     }
 
     [class~="ant-form-item-control"] {

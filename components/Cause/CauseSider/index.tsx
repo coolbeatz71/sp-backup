@@ -19,12 +19,11 @@ import {
   Alert,
   Affix,
   Tooltip,
-  Popover,
 } from "antd";
 import numeral from "numeral";
 import Progress from "../CauseProgress";
 import SharePopover from "components/common/SharePopover";
-import Donors from "./Donors";
+import Donors from "components/Cause/CauseSider/Donors";
 
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -39,6 +38,7 @@ import { getLanguage } from "helpers/getLanguage";
 import { useRouter } from "next/router";
 import ViewCount from "components/common/ViewCount";
 import CustomIcon from "components/common/CustomIcon";
+import BalanceDetails from "./BalanceDetails";
 
 interface Props {
   cause: { [key: string]: any };
@@ -224,43 +224,7 @@ const CauseSider: FC<Props> = ({
                   </Col>
                 </Row>
 
-                <Row align="middle" data-telco-balance>
-                  <Popover content={t("current balance telco")}>
-                    <Col span={14}>
-                      <Typography.Paragraph ellipsis>
-                        {t("current balance telco")}
-                      </Typography.Paragraph>
-                    </Col>
-                  </Popover>
-                  <Col span={10} data-value>
-                    <span>
-                      {numeral(
-                        cause.raised_amount_telco * 1 -
-                          cause.cashed_out_amount_telco * 1,
-                      ).format()}{" "}
-                      {cause.currency}
-                    </span>
-                  </Col>
-                </Row>
-
-                <Row align="middle" data-cards-balance>
-                  <Popover content={t("current balance cards")}>
-                    <Col span={14}>
-                      <Typography.Paragraph ellipsis>
-                        {t("current balance cards")}
-                      </Typography.Paragraph>
-                    </Col>
-                  </Popover>
-                  <Col span={10} data-value>
-                    <span>
-                      {numeral(
-                        cause.raised_amount_cards * 1 -
-                          cause.cashed_out_amount_cards * 1,
-                      ).format()}{" "}
-                      {cause.currency}
-                    </span>
-                  </Col>
-                </Row>
+                <BalanceDetails cause={cause} />
               </Card>
             </>
           )}

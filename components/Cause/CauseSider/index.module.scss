@@ -50,6 +50,9 @@
 
     &__balance {
       cursor: pointer;
+      [class~="ant-card-body"] {
+        padding-bottom: 0.6rem;
+      }
       [data-main-balance="true"] {
         margin-bottom: 1rem;
         [class~="ant-typography"] {
@@ -59,18 +62,33 @@
 
       [data-telco-balance="true"] {
         [class~="ant-typography"],
-        span {
+        strong {
+          color: $dark;
           font-size: 11.5px;
           margin-bottom: 0;
+        }
+
+        [class~="ant-typography"] {
+          margin-left: 1.2rem;
+        }
+        strong {
+          font-size: 12px;
         }
       }
 
       [data-cards-balance="true"] {
         [class~="ant-typography"],
-        span {
+        strong {
+          color: $dark;
           font-size: 11.5px;
           margin-bottom: 0;
-          margin-top: 0.4rem;
+        }
+
+        [class~="ant-typography"] {
+          margin-left: 1.2rem;
+        }
+        strong {
+          font-size: 12px;
         }
       }
 
@@ -80,8 +98,42 @@
         justify-content: flex-end;
       }
 
+      [class~="ant-collapse-item"] {
+        padding-bottom: 0.6rem;
+      }
+
+      [class~="ant-collapse-header"] {
+        padding: 0 !important;
+        padding-bottom: 0.4rem !important;
+      }
+
+      [class~="ant-collapse-arrow"] {
+        padding: 0 !important;
+        font-size: 11px !important;
+        color: $dark !important;
+        top: 3px !important;
+        left: 0 !important;
+        right: 28rem !important;
+      }
+
+      [class~="ant-collapse-content-box"] {
+        display: flex;
+        flex-flow: column;
+        align-content: flex-end;
+        align-items: flex-end;
+        padding-bottom: 0 !important;
+        [class~="ant-typography"] {
+          color: $dark;
+          font-size: 11px;
+        }
+      }
+
       @media screen and (max-width: #{$lg-size}) {
         margin-top: calc(#{$padding}/ 2);
+
+        [class~="ant-collapse-arrow"] {
+          right: 45rem !important;
+        }
       }
     }
 
