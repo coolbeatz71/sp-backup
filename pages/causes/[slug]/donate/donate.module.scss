@@ -162,6 +162,36 @@
           }
         }
       }
+
+      &__input_country {
+        height: 4rem;
+        [class~="ant-select"] {
+          width: 7rem;
+          padding-top: 8px;
+          [class~="ant-select-selector"] {
+            height: 32px;
+          }
+        }
+        [class~="ant-select-arrow"] {
+          top: 60%;
+        }
+
+        [data-input="true"] {
+          position: absolute;
+          left: -1px;
+          width: calc(100% - 7rem + 1px);
+          margin-left: 7rem;
+          [class~="ant-input"] {
+            height: 32px;
+            border-radius: 0 3px 3px 0;
+          }
+        }
+
+        [class~="ant-form-item-explain-error"] {
+          position: relative;
+          left: -7rem;
+        }
+      }
     }
   }
   &__confirmationModal {
