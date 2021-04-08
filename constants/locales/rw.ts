@@ -131,9 +131,9 @@ export default {
   "simple plans for everyone": "Ibiciro binoze kuri buri wese",
   pricing_plan_details:
     "Dufite ibiciro binogeye buri wese. Turizera ko ibiciro byacu byoroheje kandi biboneye.",
-  "pricing structure apply date":
-    "Ibi biciro bizatangira gukurikizwa kuva kuya 15 Werurwe 2021.",
-  day_notification: "Ba nyiri igikorwa bazamenyeshwa mu minsi 7.",
+  "pricing structure apply date": "bi biciro birahita bitangira gukurikizwa.",
+  day_notification:
+    "Amafaranga azakurwa ku nkunga zakiriwe nyuma yo gushyiraho ibiciro byavuzwe.",
   free: "Ubuntu",
   "for cashout above 30 days": "Igihe amafaranga abikujwe hejuru y'iminsi 30",
   cash_out_above_details:
