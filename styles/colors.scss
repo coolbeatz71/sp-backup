@@ -5,6 +5,10 @@ $banner-bg: rgb(31, 103, 211);
 
 $white: #ffffff;
 $black: #000000;
+$dark: rgba(
+  $color: $black,
+  $alpha: 0.65,
+);
 $success: rgb(39, 185, 110);
 $danger: rgb(223, 56, 72);
 $yellow: #f4a86c;
