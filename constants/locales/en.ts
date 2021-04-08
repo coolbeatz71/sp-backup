@@ -133,8 +133,9 @@ export default {
   pricing_plan_details:
     "We have a flexible plan that fits everyone. We've made sure that our pricing structure is simple and transparent.",
   "pricing structure apply date":
-    "This pricing structure will start to apply on the 15th March 2021.",
-  day_notification: "Cause owners will be given a 7 days notification.",
+    "This pricing structure will apply effective immediately.",
+  day_notification:
+    "Fees will only apply for donations received after the said structure has been enforced.",
   free: "Free",
   "for cashout above 30 days": "For cashout above 30 days",
   cash_out_above_details:

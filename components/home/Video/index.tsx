@@ -16,7 +16,7 @@ const Video = () => {
         <Col>
           <div className={styles.video__item}>
             <iframe
-              src="https://www.youtube.com/embed/u1eWK3WMjKU"
+              src="https://www.youtube.com/embed/GRUlCsC9kJI"
               width="100%"
               height="100%"
               frameBorder="0"
