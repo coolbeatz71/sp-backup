@@ -54,6 +54,11 @@ export default (state: ICause, { type, payload }: IAction) => {
           loading: false,
           error: null,
         },
+        single_cashout: {
+          ...state.single_cashout,
+          loading: false,
+          error: null,
+        },
       };
     default:
       return null;

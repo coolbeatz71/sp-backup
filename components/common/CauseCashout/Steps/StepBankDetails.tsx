@@ -6,10 +6,10 @@ import { banks } from "helpers/banksList";
 
 import styles from "./index.module.scss";
 import edit from "redux/actions/cause/edit";
-import getSingle from "redux/actions/cause/getSingle";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
 import { isEmpty } from "lodash";
+import getSingle from "redux/actions/cause/getSingle";
 
 export interface Props {
   data: any;
@@ -29,14 +29,16 @@ const StepBankDetails: FC<Props> = ({
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const [isConfirmed, setConfirmed] = useState<boolean>(isNoBankDetails);
+  const [isConfirmed, setConfirmed] = useState<boolean>(!isNoBankDetails);
 
   const {
     accessCode,
     error: err,
     data: singleCause,
     loading: loadingCause,
-  } = useSelector(({ cause: { single } }: IRootState) => single);
+  } = useSelector(
+    ({ cause: { single_cashout } }: IRootState) => single_cashout,
+  );
 
   const { loading, data: editCause, error } = useSelector(
     ({ cause: { edit } }: IRootState) => edit,
@@ -44,7 +46,11 @@ const StepBankDetails: FC<Props> = ({
 
   useEffect(() => {
     if (isEmpty(singleCause)) {
-      getSingle(slug, accessCode ? { access_code: accessCode } : {})(dispatch);
+      getSingle(
+        slug,
+        accessCode ? { access_code: accessCode } : {},
+        "cashout",
+      )(dispatch);
     }
   }, [dispatch]);
 
@@ -70,6 +76,7 @@ const StepBankDetails: FC<Props> = ({
               accepts_card_payments: true,
             },
             slug,
+            true,
           )(false, dispatch);
 
           setConfirmed(!loading && !error);
@@ -85,12 +92,11 @@ const StepBankDetails: FC<Props> = ({
         {t("add recipient bank details to cashout")}
       </span>
 
-      {error ||
-        (err && (
-          <Form.Item>
-            <Alert message="Error" description={error || err} type="error" />
-          </Form.Item>
-        ))}
+      {(error || err) && (
+        <Form.Item>
+          <Alert message="Error" description={error || err} type="error" />
+        </Form.Item>
+      )}
 
       <Form.Item
         name="bank_name"
@@ -126,13 +132,16 @@ const StepBankDetails: FC<Props> = ({
       </Form.Item>
 
       <Form.Item>
-        <Row gutter={20} justify="space-between">
-          <Col>{}</Col>
+        <Row gutter={20} justify="end">
           <Col>
             {isConfirmed ||
             singleCause.bank_name ||
             singleCause.bank_account_number ? (
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                onClick={() => cb({ data, step: 1 })}
+                loading={loading || loadingCause}
+              >
                 {t("next").toUpperCase()}
               </Button>
             ) : (

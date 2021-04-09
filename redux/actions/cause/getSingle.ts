@@ -6,10 +6,14 @@ import {
   TRANSFER_SINGLE_CAUSE_START,
   TRANSFER_SINGLE_CAUSE_SUCCESS,
   TRANSFER_SINGLE_CAUSE_ERROR,
+  CASHOUT_SINGLE_CAUSE_START,
+  CASHOUT_SINGLE_CAUSE_SUCCESS,
+  CASHOUT_SINGLE_CAUSE_ERROR,
 } from "redux/action-types/cause/getSingle";
 import { IUnknownObject } from "interfaces/unknownObject";
 import {
   STORE_ACCESS_CODE,
+  STORE_CASHOUT_ACCESS_CODE,
   STORE_TRANSFER_ACCESS_CODE,
 } from "redux/action-types/cause/storeAccessCode";
 
@@ -22,6 +26,8 @@ export default (
     type:
       source === "transfer"
         ? TRANSFER_SINGLE_CAUSE_START
+        : source === "cashout"
+        ? CASHOUT_SINGLE_CAUSE_START
         : GET_SINGLE_CAUSE_START,
   });
   splApi
@@ -34,12 +40,16 @@ export default (
         type:
           source === "transfer"
             ? TRANSFER_SINGLE_CAUSE_SUCCESS
+            : source === "cashout"
+            ? CASHOUT_SINGLE_CAUSE_SUCCESS
             : GET_SINGLE_CAUSE_SUCCESS,
       });
       dispatch({
         type:
           source === "transfer"
             ? STORE_TRANSFER_ACCESS_CODE
+            : source === "cashout"
+            ? STORE_CASHOUT_ACCESS_CODE
             : STORE_ACCESS_CODE,
         payload: params?.access_code,
       });
@@ -49,6 +59,8 @@ export default (
         type:
           source === "transfer"
             ? TRANSFER_SINGLE_CAUSE_ERROR
+            : source === "cashout"
+            ? CASHOUT_SINGLE_CAUSE_ERROR
             : GET_SINGLE_CAUSE_ERROR,
         payload: error,
       });

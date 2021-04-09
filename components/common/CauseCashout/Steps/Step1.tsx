@@ -23,6 +23,7 @@ export interface Props {
   cb: (data: any) => void;
   issue?: boolean[];
   steps?: any[];
+  isNoBankDetails?: boolean;
   currentBalance?: number;
   currentBalanceTelco?: number;
   currentBalanceCards?: number;
@@ -36,6 +37,7 @@ const Step1: FC<Props> = ({
   currentBalance = 0,
   currentBalanceTelco = 0,
   currentBalanceCards = 0,
+  isNoBankDetails,
   currency,
 }) => {
   const { t } = useTranslation();
@@ -291,9 +293,11 @@ const Step1: FC<Props> = ({
       <Form.Item>
         <Row gutter={20} justify="space-between">
           <Col>
-            <Button onClick={() => cb({ step: -1 })}>
-              {t("previous").toUpperCase()}
-            </Button>
+            {isNoBankDetails && (
+              <Button onClick={() => cb({ step: -1 })}>
+                {t("previous").toUpperCase()}
+              </Button>
+            )}
           </Col>
           <Col>
             <Button type="primary" htmlType="submit">

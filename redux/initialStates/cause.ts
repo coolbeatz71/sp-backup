@@ -49,6 +49,12 @@ export default {
     error: "",
     accessCode: "",
   },
+  single_cashout: {
+    data: {},
+    loading: false,
+    error: "",
+    accessCode: "",
+  },
   donors: {
     data: {
       search: [],
@@ -117,6 +123,12 @@ export interface ICause {
     accessCode: string;
   };
   single_transfer: {
+    data: { [key: string]: any };
+    error: any;
+    loading: boolean;
+    accessCode: string;
+  };
+  single_cashout: {
     data: { [key: string]: any };
     error: any;
     loading: boolean;

@@ -14,6 +14,7 @@ import resumeCause from "./resumeCause";
 import transfer from "./transfer";
 import all_transfer from "./all_transfer";
 import single_transfer from "./singleTransfer";
+import single_cashout from "./singleCashout";
 import cashout from "./cashout";
 
 export default (
@@ -35,6 +36,7 @@ export default (
     ...all(state, action),
     ...all_transfer(state, action),
     ...single_transfer(state, action),
+    ...single_cashout(state, action),
   };
   const update = {
     ...pauseCause(state, action),

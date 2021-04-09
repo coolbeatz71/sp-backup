@@ -1,28 +1,30 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import numeral from "numeral";
 import Img from "react-optimized-image";
-import { Row, Col, Card, Typography } from "antd";
-import { useDispatch } from "react-redux";
+import { Row, Col, Card, Typography, Form, Alert } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { RESET_CASHOUT_ERROR } from "redux/action-types/cause/cashout";
+import getSingle from "redux/actions/cause/getSingle";
 
 import styles from "./index.module.scss";
 
 import defaultSteps from "./Steps";
 import Buttons from "./Steps/Buttons";
+import CashoutSkeleton from "./skeleton/";
 
 import handleData from "./handlers";
 import { format } from "dev-rw-phone";
 import { Store } from "antd/lib/form/interface";
 
 import checkedIcon from "public/icons/checked-round.svg";
+import { IRootState } from "redux/initialStates";
 interface Props {
   data?: { [key: string]: any };
   slug: string;
   actionSuccessful: boolean;
   handleSubmit: (data: Store) => void;
   paymentAccountNumber?: string;
-  isNoBankDetails: boolean;
   currentBalance: number;
   currentBalanceTelco: number;
   currentBalanceCards: number;
@@ -37,15 +39,22 @@ const CauseCashout: FC<Props> = ({
   currentBalance = 0,
   currentBalanceTelco = 0,
   currentBalanceCards = 0,
-  isNoBankDetails,
   currency,
   handleSubmit,
 }) => {
   const dispatch = useDispatch();
-
   const { t } = useTranslation();
 
-  const [steps] = useState(defaultSteps(isNoBankDetails));
+  const { accessCode, error, loading, data: singleCause } = useSelector(
+    ({ cause: { single_cashout } }: IRootState) => single_cashout,
+  );
+
+  const isNoBankDetails =
+    currentBalanceCards > 0 &&
+    !singleCause.bank_name &&
+    !singleCause.bank_account_number;
+
+  const [steps, setSteps] = useState(defaultSteps(isNoBankDetails));
   const [index, setIndex] = useState<number>(0);
   const [data, setData] = useState<{ [key: string]: any }>(dt);
   const [refreshKey, setRefreshKey] = useState<number>(0);
@@ -55,6 +64,18 @@ const CauseCashout: FC<Props> = ({
 
   useEffect(() => {
     dispatch({ type: RESET_CASHOUT_ERROR });
+  }, [dispatch]);
+
+  useEffect(() => {
+    setSteps(defaultSteps(isNoBankDetails));
+  }, [dispatch, singleCause]);
+
+  useEffect(() => {
+    getSingle(
+      slug,
+      accessCode ? { access_code: accessCode } : {},
+      "cashout",
+    )(dispatch);
   }, [dispatch]);
 
   return (
@@ -98,53 +119,80 @@ const CauseCashout: FC<Props> = ({
               >
                 {t(steps[index].title)}
               </Col>
-              <Col>
-                <Buttons
-                  steps={steps}
-                  index={index}
-                  form={form}
-                  okay={okay}
-                  setOkay={setOkay}
-                  setIssue={setIssue}
-                  setIndex={setIndex}
-                />
-              </Col>
+              {!error && !loading && (
+                <Col>
+                  <Buttons
+                    steps={steps}
+                    index={index}
+                    form={form}
+                    okay={okay}
+                    setOkay={setOkay}
+                    setIssue={setIssue}
+                    setIndex={setIndex}
+                  />
+                </Col>
+              )}
             </Row>
           }
         >
-          {steps[index].component!(
-            data,
-            setForm,
-            ({ step, submit = false, ...dt }) => {
-              handleData(
-                slug,
-                steps,
-                dt,
+          {singleCause && !loading && !error ? (
+            <>
+              {steps[index].component!(
                 data,
-                refreshKey,
-                index,
-                step,
-                okay,
-                !submit,
-                form,
-                setRefreshKey,
-                setIndex,
-                setIssue,
-                setData,
-                setOkay,
-                (formattedData) => {
-                  handleSubmit(formattedData);
+                setForm,
+                ({ step, submit = false, ...dt }) => {
+                  handleData(
+                    slug,
+                    steps,
+                    dt,
+                    data,
+                    refreshKey,
+                    index,
+                    step,
+                    okay,
+                    !submit,
+                    form,
+                    setRefreshKey,
+                    setIndex,
+                    setIssue,
+                    setData,
+                    setOkay,
+                    (formattedData) => {
+                      handleSubmit(formattedData);
+                    },
+                  );
                 },
-              );
-            },
-            issue,
-            steps,
-            currentBalance,
-            currentBalanceTelco,
-            currentBalanceCards,
-            currency,
-            isNoBankDetails,
-            slug,
+                issue,
+                steps,
+                currentBalance,
+                currentBalanceTelco,
+                currentBalanceCards,
+                currency,
+                isNoBankDetails,
+                slug,
+              )}
+            </>
+          ) : loading ? (
+            <CashoutSkeleton loading={loading} />
+          ) : (
+            error && (
+              <Form.Item>
+                <Alert
+                  message="Error"
+                  description={error}
+                  type="error"
+                  closeText="RETRY"
+                  onClose={() =>
+                    getSingle(
+                      slug,
+                      accessCode ? { access_code: accessCode } : {},
+                      "cashout",
+                    )(dispatch)
+                  }
+                  showIcon
+                />
+              </Form.Item>
+            )
           )}
         </Card>
       )}
