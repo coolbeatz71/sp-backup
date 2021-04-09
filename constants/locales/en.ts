@@ -419,4 +419,6 @@ export default {
   select_cashout_channel: "Select cashout channel",
   credit_debit_card: "Credit/Debit Card",
   country_code: "Country code",
+  fees: "Fees",
+  donations: "Donations",
 };

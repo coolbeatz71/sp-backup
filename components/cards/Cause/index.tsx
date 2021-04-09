@@ -37,6 +37,8 @@ import { causeStatus } from "interfaces";
 import { avatarLoader, imgLoader } from "helpers/getImageUrl";
 import { getLanguage } from "helpers/getLanguage";
 import ViewCount from "components/common/ViewCount";
+import { useRouter } from "next/router";
+import { USER_CAUSES_PATH } from "helpers/paths";
 
 interface Props {
   cause: { [key: string]: any };
@@ -51,6 +53,7 @@ interface FooterCoverProps {
   children: ReactElement;
   myCause: boolean;
   lang: string;
+  isMyCausePage: boolean;
 }
 
 const FooterCover: FC<FooterCoverProps> = ({
@@ -59,8 +62,9 @@ const FooterCover: FC<FooterCoverProps> = ({
   children,
   myCause,
   lang,
+  isMyCausePage,
 }) => {
-  return myCause ? (
+  return myCause && isMyCausePage ? (
     <Link
       href={{
         pathname: `/causes/${slug}`,
@@ -93,9 +97,12 @@ export const isInactive = (status: string): boolean => {
 
 const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   const { t } = useTranslation();
+  const { pathname } = useRouter();
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser
+    ({ user: { currentUser } }: IRootState) => currentUser,
   );
+
+  const isMyCausePage = pathname === USER_CAUSES_PATH;
 
   const lang = userData.lang || getLanguage();
 
@@ -109,7 +116,7 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
   };
 
   const [imageStatus, setImageStatus] = useState(
-    !["", null, undefined].includes(cause.image) ? "loading" : "none"
+    !["", null, undefined].includes(cause.image) ? "loading" : "none",
   );
 
   const user = useSelector((state: IRootState) => state.user);
@@ -412,20 +419,29 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
             active={cause.status === "active"}
             myCause={myCause}
             lang={lang}
+            isMyCausePage={isMyCausePage}
           >
             <Button
               block
               className={styles.card__container__donate}
-              data-is-donate={cause.status === "active" && !myCause}
-              type={cause.status !== "active" || myCause ? "text" : "primary"}
+              data-is-donate={!isMyCausePage && cause.status === "active"}
+              type={
+                isMyCausePage || cause.status !== "active" ? "text" : "primary"
+              }
             >
               <Typography.Text
                 strong
                 ellipsis
-                underline={cause.status !== "active" || myCause}
+                underline={isMyCausePage && cause.status === "active"}
                 type={cause.status !== "active" ? "secondary" : undefined}
               >
-                {upperFirst(donateMsg[myCause ? "myCause" : cause.status])}
+                {upperFirst(
+                  donateMsg[
+                    myCause && isMyCausePage && cause.status === "active"
+                      ? "myCause"
+                      : cause.status
+                  ],
+                )}
               </Typography.Text>
             </Button>
           </FooterCover>
