@@ -6,7 +6,7 @@ import {
 } from "redux/action-types/cause/edit";
 import notification from "utils/notification";
 
-export default (data: any, slug: string | string[]) => (
+export default (data: any, slug: string | string[], isBankDetails = false) => (
   push: any,
   dispatch: any,
 ) => {
@@ -15,7 +15,12 @@ export default (data: any, slug: string | string[]) => (
   });
 
   splApi
-    .put(`/causes/${slug}`, data)
+    .put(
+      isBankDetails
+        ? `/causes/${slug}?purpose=bank_details`
+        : `/causes/${slug}`,
+      data,
+    )
     .then((response: any) => {
       const payload = response.data;
       dispatch({

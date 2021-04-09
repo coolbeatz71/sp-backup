@@ -37,6 +37,7 @@ const defaultSteps = (isNoBank: boolean): StepType[] => [
       currentBalanceTelco,
       currentBalanceCards,
       currency,
+      isNoBankDetails,
     ) => (
       <Step1
         data={data}
@@ -45,6 +46,7 @@ const defaultSteps = (isNoBank: boolean): StepType[] => [
         currentBalance={currentBalance}
         currentBalanceTelco={currentBalanceTelco}
         currentBalanceCards={currentBalanceCards}
+        isNoBankDetails={isNoBankDetails}
         currency={currency}
       />
     ),

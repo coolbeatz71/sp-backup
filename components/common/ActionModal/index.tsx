@@ -37,7 +37,6 @@ interface IActionModalProps {
   currentBalanceTelco?: number;
   currentBalanceCards?: number;
   currency?: string;
-  isNoBankDetails: boolean;
   visible: boolean;
   context?: ActionType | "";
   closeModal: () => void;
@@ -51,7 +50,6 @@ const ActionModal: FC<IActionModalProps> = ({
   currentBalanceTelco = 0,
   currentBalanceCards = 0,
   currency = "Rwf",
-  isNoBankDetails = true,
   visible,
   context,
   closeModal,
@@ -192,7 +190,6 @@ const ActionModal: FC<IActionModalProps> = ({
             currentBalance={currentBalance}
             currentBalanceTelco={currentBalanceTelco}
             currentBalanceCards={currentBalanceCards}
-            isNoBankDetails={isNoBankDetails}
             currency={currency}
             actionSuccessful={actionSuccessful}
           />
