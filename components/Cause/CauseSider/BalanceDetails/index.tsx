@@ -47,20 +47,22 @@ const BalanceDetails: FC<{ cause: IUnknownObject }> = ({ cause }) => {
     <Collapse ghost defaultActiveKey={["1"]}>
       <Panel header={balanceTelco} key="1">
         <Typography.Text>
-          Donations: {numeral(cause.raised_amount_telco).format()}{" "}
+          {t("donations")}: {numeral(cause.raised_amount_telco).format()}{" "}
           {cause.currency}
         </Typography.Text>
         <Typography.Text>
-          Fees: {numeral(cause.donation_fees_telco).format()} {cause.currency}
+          {t("fees")}: {numeral(cause.donation_fees_telco).format()}{" "}
+          {cause.currency}
         </Typography.Text>
       </Panel>
       <Panel header={balanceCards} key="2">
         <Typography.Text>
-          Donations: {numeral(cause.raised_amount_cards).format()}{" "}
+          {t("donations")}: {numeral(cause.raised_amount_cards).format()}{" "}
           {cause.currency}
         </Typography.Text>
         <Typography.Text>
-          Fees: {numeral(cause.donation_fees_cards).format()} {cause.currency}
+          {t("fees")}: {numeral(cause.donation_fees_cards).format()}{" "}
+          {cause.currency}
         </Typography.Text>
       </Panel>
     </Collapse>
