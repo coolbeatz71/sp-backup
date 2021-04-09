@@ -2,12 +2,15 @@ import { FC } from "react";
 import { EyeOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 import numeral from "numeral";
+import { useTranslation } from "react-i18next";
 import styles from "./index.module.scss";
 
 const ViewCount: FC<{
   count: number;
 }> = ({ count }) => {
-  const pluralize = (count: number) => (count !== 1 ? "views" : "view");
+  const { t } = useTranslation();
+  const pluralize = (count: number) =>
+    count !== 1 ? t("views_many") : t("views_one");
 
   return (
     <Typography.Text className={styles.views}>

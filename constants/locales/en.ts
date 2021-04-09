@@ -421,4 +421,6 @@ export default {
   country_code: "Country code",
   fees: "Fees",
   donations: "Donations",
+  views_one: "view",
+  views_many: "views",
 };
