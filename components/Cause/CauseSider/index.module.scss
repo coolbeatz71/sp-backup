@@ -152,6 +152,10 @@
     &__sidebar {
       &__button {
         margin-bottom: calc(#{$padding} / 2);
+
+        @media screen and (min-width: #{$lg-size}) {
+          margin-bottom: $padding;
+        }
       }
 
       [data-scrolled="scrolled"] {

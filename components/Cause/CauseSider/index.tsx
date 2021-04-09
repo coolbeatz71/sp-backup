@@ -124,6 +124,58 @@ const CauseSider: FC<Props> = ({
       <Fragment>{children}</Fragment>
     );
 
+  const balanceCard = (
+    <Card className={styles.cause_sider__content__balance}>
+      <Row align="middle" data-main-balance>
+        <Col flex={1}>
+          <Typography.Text>{t("current balance")}</Typography.Text>
+        </Col>
+        <Col>
+          <strong>
+            {numeral(cause.current_balance).format()} {cause.currency}
+          </strong>
+        </Col>
+      </Row>
+
+      <BalanceDetails cause={cause} />
+    </Card>
+  );
+
+  const tillNumberCard = (
+    <Card className={styles.cause_sider__content__ussd}>
+      <Row justify="space-between">
+        <Col span={16}>
+          <Button type="text" size="large" icon={<CustomIcon type="ussd" />} />
+        </Col>
+        <Col
+          span={8}
+          className={styles.cause_sider__content__ussd__till_number}
+        >
+          <strong>{`*777*77*${cause.till_number}#`}</strong>
+        </Col>
+      </Row>
+    </Card>
+  );
+
+  const shareCard = (
+    <Card className={styles.cause_sider__content__share}>
+      <Row justify="space-between">
+        <Col span={16}>
+          <SharePopover
+            slug={cause.slug}
+            code={cause.till_number}
+            title={cause.name}
+            standalone
+            isPrivate={cause.access === "private"}
+          />
+        </Col>
+        <Col span={8} className={styles.cause_sider__content__share__views}>
+          <ViewCount count={cause.views_count} />
+        </Col>
+      </Row>
+    </Card>
+  );
+
   return (
     <>
       <Modal
@@ -168,66 +220,14 @@ const CauseSider: FC<Props> = ({
                 }}
                 tiny
               />
-
-              <Card className={styles.cause_sider__content__ussd}>
-                <Row justify="space-between">
-                  <Col span={16}>
-                    <Button
-                      type="text"
-                      size="large"
-                      icon={<CustomIcon type="ussd" />}
-                    />
-                  </Col>
-                  <Col
-                    span={8}
-                    className={styles.cause_sider__content__ussd__till_number}
-                  >
-                    <strong>{`*777*77*${cause.till_number}#`}</strong>
-                  </Col>
-                </Row>
-              </Card>
-
-              {cause.status === "active" && (
-                <Card className={styles.cause_sider__content__share}>
-                  <Row justify="space-between">
-                    <Col span={16}>
-                      <SharePopover
-                        slug={cause.slug}
-                        code={cause.till_number}
-                        title={cause.name}
-                        standalone
-                        isPrivate={cause.access === "private"}
-                      />
-                    </Col>
-                    <Col
-                      span={8}
-                      className={styles.cause_sider__content__share__views}
-                    >
-                      <ViewCount count={cause.views_count} />
-                    </Col>
-                  </Row>
-                </Card>
-              )}
+              {myCause && balanceCard}
+              {!myCause && tillNumberCard}
+              {!myCause && cause.status === "active" && shareCard}
             </div>
           </DonationWrapper>
-          {myCause && (
-            <>
-              <Card className={styles.cause_sider__content__balance}>
-                <Row align="middle" data-main-balance>
-                  <Col flex={1}>
-                    <Typography.Text>{t("current balance")}</Typography.Text>
-                  </Col>
-                  <Col>
-                    <strong>
-                      {numeral(cause.current_balance).format()} {cause.currency}
-                    </strong>
-                  </Col>
-                </Row>
 
-                <BalanceDetails cause={cause} />
-              </Card>
-            </>
-          )}
+          {myCause && tillNumberCard}
+          {myCause && shareCard}
 
           {!screens.lg && content}
           {!screens.lg && <br />}
