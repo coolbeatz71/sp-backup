@@ -418,4 +418,6 @@ export default {
   country_code: "Kode y'igihugu",
   fees: "Ikiguzi",
   donations: "Inkunga",
+  views_one: "yakibonye",
+  views_many: "bakibonye",
 };
