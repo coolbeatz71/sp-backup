@@ -367,7 +367,7 @@ export default {
   "successfully edited": "Igikorwa '{{name}}' kiravuguruwe.",
   faq: "Ibibazo bikunze kubazwa",
   "enjoy free period": "Ryoherwa n'igihe cy'igerageza ku buntu.",
-  "what is save plus bill": "Nimero y'igikorwa kuri save plus ni iy'iki?",
+  "what is save plus till": "Nimero y'igikorwa kuri save plus ni iy'iki?",
   save_plus_bill_desc:
     "Nimero y'igikorwa iba ari imibare 6 yihariye igenewe igikorwa runaka kuri Save Plus. Iyo nimero ikoreshwa n'abaterankunga mugutera inkunga binyuze kuri {{link}} cyangwa kode ngufi {{code}}",
   "how is the donation process": "Uburyo bwo gutanga inkunga buteye bute?",
@@ -380,7 +380,7 @@ export default {
   how_donate_often_desc:
     "Ushobora gutera inkunga inshuro zose ushaka kugikorwa runaka cyangwa icyo aricyo cyose. Inkunga yose irakirwa igihe cyose igikorwa kirigukora.",
   how_to_collect_funds_desc:
-    "Iyo intego y'igikorwa yagezweho, amafaranga ahita ajya kuri konti ( MoMo, Airtel Money cyangwa banki) ya nyirigikorwa.",
+    "Iyo intego y'igikorwa yagezweho, amafaranga ahita ajya kuri konti MoMo ya nyirigikorwa. Naho ku buryo bwa VISA cg MasterCard bishobora gufata iminsi 10.",
   "how to collect funds": "Nigute nakusanya inkunga nahawe?",
   "can i cancel a cause": "Nshobora guhagarika igikorwa cyanjye?",
   can_i_cancel_desc:
@@ -388,10 +388,10 @@ export default {
   "is save plus outside rwanda":
     "Save Plus ishobora gukoreshwa hanze y' U Rwanda?",
   save_plus_outside_desc:
-    "Kuri ubu, Save Plus irigukoreshwa mu Rwanda gusa ariko no mubindi bihugu izagerayo mugihe kiri imbere.",
-  "does it support banks": "Save Plus ikorana n'ama banki cyangwa Visa card?",
+    "Kuri ubu, Save Plus iri gukoreshwa mu Rwanda ndetse n'abanyamahanga bashobora kuyikoresha batanga inkunga bakoresheje VISA na MasterCard. Turateganya ko  no mubindi bihugu izagerayo mugihe kiri imbere.",
+  "does it support banks": "Save Plus ikorana n'ama banki cyangwa PayPal?",
   does_it_support_banks_desc:
-    "Kuri ubu uburyo bwo kwishyura ni ubwa MTN Mobile Money na Airtel Money. Vuba turatangira gukoresha ubundi buryo ( uburyo bw'ama Banki,  uburyo bwa Visa, PayPal, n'ubundi bwinshi) bwakorohereza abantu gterana inkunga.",
+    "Kuri ubu uburyo bwo kwishyura ni ubwa MTN Mobile Money.Airtel Money,VISA na MasterCard. Vuba aha turabagezaho ubundi buryo bwo gutera inkunga ukoresheje PayPal.",
   "connection between save and plus":
     "Ni Irihe huriro riri hagati ya Save Plus na Save?",
   save_and_plus_conn_desc:
