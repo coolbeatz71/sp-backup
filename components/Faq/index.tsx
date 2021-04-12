@@ -38,7 +38,7 @@ const Faq: FC<{}> = () => {
   const { t } = useTranslation();
   const questions = [
     {
-      title: t("what is save plus bill"),
+      title: t("what is save plus till"),
       description: t("save_plus_bill_desc", {
         link: "<a href='https://saveplus.io' target='_blank'>saveplus.io</a>",
         code: `*777*77*${t("till number")}*${t("amount")}#`,

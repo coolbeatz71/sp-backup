@@ -369,7 +369,7 @@ export default {
   "successfully edited": "Successfully edited '{{name}}'",
   faq: "FAQ",
   "enjoy free period": "Enjoy the free beta trial period.",
-  "what is save plus bill": "What is Save Plus Bill?",
+  "what is save plus till": "What is Save Plus Till?",
   save_plus_bill_desc:
     "Save Plus Till is a unique six digit Till number that's associated to a cause on Save plus. This Till is used by donors to donate via {{link}} or our USSD code {{code}}.",
   "how is the donation process": "What's the donation process like?",
@@ -382,18 +382,17 @@ export default {
   how_donate_often_desc:
     "You can donate as often as you like for a cause or different cause, we do not limit your donations for any cause as long as the cause is active and open for donations.",
   how_to_collect_funds_desc:
-    "The funds disbursment is automated. Once the cause hits the target the funds are automatically sent to the creator's account (MoMo, Airtel Money or Bank Account).",
+    "The funds disbursment is automated. Once the cause hits the target the funds are automatically sent to the creator's account (MTN Mobile Money) while on VISA and MasterCard might take 10 days.",
   "how to collect funds": "How do I collect funds for my cause?",
   "can i cancel a cause": "Can I cancel a cause?",
   can_i_cancel_desc:
     "Yes, a cause can be canceled any time and the creator will need to provide the reason why the cause is being cancelled. Once the cause has been successfully cancelled, the received donations are refunded to their respective donors.",
   "is save plus outside rwanda": "Is Save Plus accessible outside of Rwanda?",
   save_plus_outside_desc:
-    "Currently, Save Plus is only accessible in Rwanda and will be rolled out to other countries in the near future.",
-  "does it support banks":
-    "Does Save Plus accept bank transfers or Visa Cards?",
+    "Currently, Save Plus is only accessible in Rwanda and for those who are abroad can donate via VISA and MasterCard. Soon, it will be rolled out to other countries in the near future.",
+  "does it support banks": "Does Save Plus accept bank transfers or PayPal?",
   does_it_support_banks_desc:
-    "At the moment we're only accepting payments from MTN Mobile Money and Airtel Money. Soon, we'll start accepting other payment methods (Bank transfers, Visa payment, PayPal, etc.)",
+    "At the moment we're only accepting payments from MTN Mobile Money, Airtel Money, VISA and MasterCard. Soon, we'll start accepting payment method via PayPal.",
   "connection between save and plus":
     "What's the connection between Save Plus and Save?",
   save_and_plus_conn_desc:
