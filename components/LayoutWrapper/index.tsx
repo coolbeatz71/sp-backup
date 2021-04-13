@@ -190,8 +190,8 @@ const LayoutWrapper: FC<Props> = ({
         <meta name="theme-color" content="#ffffff" />
         <link
           id="favicon"
-          rel="shortcut icon"
-          href="icons/favicon-32x32.png"
+          rel="icon"
+          href="/icons/favicon-32x32.png"
           sizes="16x16 32x32 48x48"
           type="image/png"
         />
