@@ -33,23 +33,26 @@ const SingleCause: NextPage<Props> = ({
   error: er,
   edit = false,
 }) => {
+  const { t } = useTranslation();
+
   const [cause, setCause] = useState(cs);
   const [error, setError] = useState(er);
 
-  const [fetched, setFetched] = useState(error === null);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [fetched, setFetched] = useState(error === null);
 
+  const user = useSelector((state: IRootState) => state.user);
   const { loading, data, error: _err, accessCode } = useSelector(
     ({ cause: { single } }: IRootState) => single,
   );
-
-  const user = useSelector((state: IRootState) => state.user);
   const { data: banner } = useSelector(
     ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
   );
 
-  const { t } = useTranslation();
+  const myCause =
+    user.currentUser.isLoggedin &&
+    cause.user_id * 1 === user.currentUser.data?.id * 1;
 
   useEffect(() => {
     if (_err) setError(_err);
@@ -67,13 +70,9 @@ const SingleCause: NextPage<Props> = ({
       )(dispatch);
       setFetched(true);
     }
-  }, [fetched]);
+  }, [fetched, cause, error]);
 
   const [editing, setEditing] = useState(edit);
-
-  const myCause =
-    user.currentUser.isLoggedin &&
-    cause.user_id * 1 === user.currentUser.data?.id * 1;
 
   useEffect(() => {
     if (edit && cause.id) {
