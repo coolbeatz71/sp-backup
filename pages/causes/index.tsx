@@ -17,6 +17,7 @@ import Section from "components/home/Section";
 import Jumbotron from "components/home/Jumbotron";
 import CauseSkeleton from "components/cards/CauseSkeleton";
 import LayoutWrapper from "components/LayoutWrapper";
+import { ALL_CAUSES_PATH, USER_CAUSES_PATH } from "helpers/paths";
 
 interface Props {
   svpProps: SvpType;
@@ -68,9 +69,11 @@ const AllCauses: FC<Props> = ({
   }, [query, asPath, pathname]);
 
   useEffect(() => {
-    myCauses
-      ? getUserCauses(asPath)(dispatch, { limit })
-      : getAllCauses(asPath)(dispatch, { limit });
+    if ([USER_CAUSES_PATH, ALL_CAUSES_PATH].includes(pathname)) {
+      myCauses
+        ? getUserCauses(asPath)(dispatch, { limit })
+        : getAllCauses(asPath)(dispatch, { limit });
+    }
   }, [asPath, dispatch]);
 
   const onTagClose = (filter: string) => {
