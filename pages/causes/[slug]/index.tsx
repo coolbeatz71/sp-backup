@@ -30,20 +30,18 @@ interface Props {
 
 const SingleCause: NextPage<Props> = ({
   cause: cs,
-  error: er,
+  error: _err,
   edit = false,
 }) => {
   const { t } = useTranslation();
-
-  const [cause, setCause] = useState(cs);
-  const [error, setError] = useState(er);
-
-  const router = useRouter();
   const dispatch = useDispatch();
-  const [fetched, setFetched] = useState(error === null);
+  const [cause, setCause] = useState(cs);
+
+  const { query, replace, push } = useRouter();
+  const { slug } = query;
 
   const user = useSelector((state: IRootState) => state.user);
-  const { loading, data, error: _err, accessCode } = useSelector(
+  const { loading, data, error, accessCode } = useSelector(
     ({ cause: { single } }: IRootState) => single,
   );
   const { data: banner } = useSelector(
@@ -55,22 +53,12 @@ const SingleCause: NextPage<Props> = ({
     cause.user_id * 1 === user.currentUser.data?.id * 1;
 
   useEffect(() => {
-    if (_err) setError(_err);
-    if (data?.slug && !cause.id) {
-      setCause(data);
-      setError(null);
-    }
-  }, [_err, data]);
+    if (data?.slug && !cause.id) setCause(data);
+  }, [error, data]);
 
   useEffect(() => {
-    if (!fetched && !cause.id) {
-      getSingle(
-        cause?.slug,
-        accessCode ? { access_code: accessCode } : {},
-      )(dispatch);
-      setFetched(true);
-    }
-  }, [fetched, cause, error]);
+    getSingle(slug, accessCode ? { access_code: accessCode } : {})(dispatch);
+  }, []);
 
   const [editing, setEditing] = useState(edit);
 
@@ -80,7 +68,7 @@ const SingleCause: NextPage<Props> = ({
         setEditing(edit);
       } else {
         message.warning(t("cause is already edited"));
-        router.replace(`/causes/${data?.slug}`);
+        replace(`/causes/${slug}`);
       }
     }
   }, [edit, cause]);
@@ -168,7 +156,7 @@ const SingleCause: NextPage<Props> = ({
     <LayoutWrapper
       isCause
       isForm
-      title={error?.message || cause?.name}
+      title={_err?.message || cause?.name}
       description={cause?.summary}
       image={cause?.image}
     >
@@ -179,13 +167,13 @@ const SingleCause: NextPage<Props> = ({
           error && (
             <>
               {!myCause && [400, 403].includes(error?.status) ? (
-                <AccessCode slug={cause?.slug} error={error} length={4} />
+                <AccessCode slug={slug} error={error} length={4} />
               ) : error?.status === 404 ? (
                 <NotFound noWrapper />
               ) : (
                 <Error
                   status={error?.status || 500}
-                  message={error?.message || t("unknown_error")}
+                  message={error?.message || t("unknownerroror")}
                 />
               )}
             </>
@@ -196,7 +184,7 @@ const SingleCause: NextPage<Props> = ({
             {cause?.edit_count === 0 && (
               <EditModal
                 visible={editing}
-                onClose={() => router.push(`/causes/${cause?.slug}`)}
+                onClose={() => push(`/causes/${slug}`)}
                 slug={cause?.slug}
                 name={cause?.name}
                 target={cause?.target_amount * 1}
@@ -208,7 +196,7 @@ const SingleCause: NextPage<Props> = ({
               <Row gutter={[24, 24]} className={styles.dashboard__content}>
                 <Col span={24} lg={15}>
                   <div data-card-not-lg={!screens.lg}>
-                    <CauseCard cause={cause} isView />
+                    <CauseCard cause={data} isView />
                   </div>
                   {screens.lg && content}
                 </Col>
