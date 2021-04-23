@@ -38,7 +38,7 @@ import i18n from "constants/locales";
 import { isEmpty } from "lodash";
 import { avatarLoader } from "helpers/getImageUrl";
 
-import spLogo from "public/logo.png";
+import spLogo from "public/logo-dreamstartlabs.svg";
 import { stringifyUrl } from "query-string";
 
 const { Header: GenericHeader } = Layout;
