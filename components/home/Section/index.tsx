@@ -127,7 +127,7 @@ const Section: FC<Props> = ({
         </div>
       )}
       {fetched && data.length >= 3 && more && (
-        <div data-section-scroll>
+        <div data-section-scroll data-more>
           <Row
             data-section-row="more"
             justify={isXL ? "start" : "end"}
