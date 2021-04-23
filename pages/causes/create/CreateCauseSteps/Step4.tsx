@@ -114,7 +114,7 @@ const Step4: FC<Props> = ({
               rules={[{ required: true, message: t("bank name is required") }]}
             >
               <StackedLabel label={t("select bank")} select>
-                <Select placeholder={t("select bank")}>
+                <Select placeholder={t("select bank")} showSearch>
                   {banks.map((bank) => (
                     <Select.Option key={bank} value={bank}>
                       {bank}
