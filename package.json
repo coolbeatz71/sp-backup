@@ -32,6 +32,7 @@
     "dev-rw-phone": "^1.0.0",
     "get-video-id": "^3.1.5",
     "i18next": "19.8.4",
+    "libphonenumber-js": "^1.9.16",
     "lodash": "^4.17.15",
     "moment": "^2.29.1",
     "next": "10.0.5",
