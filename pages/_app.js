@@ -8,7 +8,7 @@ import "theme/ngprogress.scss";
 import { isEmpty } from "lodash";
 import NProgress from "nprogress";
 import { Router, useRouter } from "next/router";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useSelector, useDispatch } from "react-redux";
 import { withRedux } from "helpers/with-redux-store";
 import getInitialProps from "helpers/getInitialProps";
@@ -24,6 +24,9 @@ import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import updateProfile from "redux/actions/user/updateProfile";
 import locales from "constants/locales";
 import DefaultComponent from "../components/common/Default/";
+
+import en from "dayjs/locale/en";
+import rw from "constants/locales/dayjs/rw";
 
 const config = {
   trickle: false,
@@ -68,7 +71,7 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
 
   const iniLanguage = (language) => {
     locales.changeLanguage(language);
-    moment.locale(language);
+    dayjs.locale(language === "rw" ? rw : en);
   };
 
   const pushUrlLang = (language) => {

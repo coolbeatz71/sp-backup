@@ -1,5 +1,5 @@
 import { FC } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { short } from "dev-rw-phone";
 
 import Modal from "components/common/Modal";
@@ -39,8 +39,8 @@ const CauseEditing: FC<Props> = ({ visible, onClose, cause, svpProps }) => {
             slug: cause.category?.slug,
           }),
           target: cause.target_amount * 1,
-          start: moment(cause.start_date),
-          end: moment(cause.end_date),
+          start: dayjs(cause.start_date),
+          end: dayjs(cause.end_date),
           image: cause.image,
           summary: cause.summary,
           video: cause.video,

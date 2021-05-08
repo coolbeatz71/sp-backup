@@ -13,8 +13,7 @@
     "test:e2e:open": "cypress open --config-file cypress.json",
     "test:e2e": "cypress run",
     "coverage:e2e": "nyc report --reporter=text-summary",
-    "test:watch": "jest --watchAll",
-    "postinstall": "cp ./constants/locales/moment/rw.js ./node_modules/moment/locale"
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "@types/lodash": "^4.14.154",
@@ -29,12 +28,12 @@
     "babel-plugin-istanbul": "^6.0.0",
     "canvas-confetti": "^1.2.0",
     "cogo-toast": "^4.2.3",
+    "dayjs": "^1.10.4",
     "dev-rw-phone": "^1.0.0",
     "get-video-id": "^3.1.5",
     "i18next": "19.8.4",
     "libphonenumber-js": "^1.9.16",
     "lodash": "^4.17.15",
-    "moment": "^2.29.1",
     "next": "10.0.5",
     "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^3.0.0-canary.10",

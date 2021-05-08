@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Img from "react-optimized-image";
 import {
@@ -39,6 +40,9 @@ import { isEmpty } from "lodash";
 
 import spLogo from "public/logo-dreamstartlabs.svg";
 import { stringifyUrl } from "query-string";
+
+import en from "dayjs/locale/en";
+import rw from "constants/locales/dayjs/rw";
 
 const { Header: GenericHeader } = Layout;
 
@@ -186,12 +190,11 @@ const Header: FC<Props> = ({
                   query: { lang: key },
                 });
 
-                router.push(newPathname, newAsPath, {
-                  shallow: true,
-                });
-
-                localStorage.setItem("USER_LANG", `${key}`);
                 i18n.changeLanguage(`${key}`);
+                dayjs.locale(key === "rw" ? rw : en);
+                localStorage.setItem("USER_LANG", `${key}`);
+
+                router.push(newPathname, newAsPath, { shallow: true });
 
                 if (user.currentUser.isLoggedin && user.currentUser.data.id) {
                   return dispatch(

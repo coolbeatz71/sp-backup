@@ -1,7 +1,7 @@
 import { Menu, Typography, Button } from "antd";
 import Img from "react-optimized-image";
-import moment from "moment";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
 import {
   TwitterOutlined,
   InstagramFilled,
@@ -32,8 +32,7 @@ const social = [
   {
     name: "youtube",
     icon: <YoutubeFilled className="youtube" />,
-    url:
-      "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
+    url: "https://www.youtube.com/channel/UCvkbUBLHH69822CjWWM8D8A/?guided_help_flow=5",
   },
 ];
 
@@ -58,7 +57,7 @@ const FooterItem = () => {
 
       <div className="copy">
         <Typography.Text type="secondary">
-          {t("copyright")} &copy;{moment().format("YYYY")}{" "}
+          {t("copyright")} &copy;{dayjs().format("YYYY")}{" "}
           <a
             href="https://exuus.com/"
             target="_blank"
@@ -76,7 +75,7 @@ const FooterItem = () => {
           if (`${key}`.startsWith("http")) {
             return window.open(`${key}`, "_ blank");
           }
-          router.push(`/${ key }`);
+          router.push(`/${key}`);
         }}
       >
         {menus.map((item) => (

@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import ReactCrop from "react-image-crop";
 import { Modal, Upload, message } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import validator from "validator";
 import { useTranslation } from "react-i18next";
 import { CameraOutlined } from "@ant-design/icons";
@@ -154,9 +154,9 @@ const CropImage: FC<Props> = ({
               onOk(
                 completedCrop,
                 file,
-                new File([blob], `${moment().unix()}`, {
+                new File([blob], `${dayjs().unix()}`, {
                   type: "image/png",
-                  lastModified: moment().unix(),
+                  lastModified: dayjs().unix(),
                 }),
               );
             })

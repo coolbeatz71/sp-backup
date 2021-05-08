@@ -127,6 +127,7 @@
       }
     }
     &__avatar {
+      object-fit: cover;
       &__image {
         position: absolute;
         left: $padding;

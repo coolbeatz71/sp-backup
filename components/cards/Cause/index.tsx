@@ -141,8 +141,9 @@ const Cause: FC<Props> = ({ cause, isView = false, isDonate = false }) => {
     !isEmpty(cause.user_avatar) ? (
       <div className={styles.card__container__avatar__image}>
         <Image
-          priority
-          layout="fill"
+          layout="fixed"
+          width={60}
+          height={60}
           quality={1}
           loader={avatarLoader}
           src={cause.user_avatar}
