@@ -32,7 +32,8 @@
       color: $color-dark;
       display: flex;
       justify-content: center;
-      height: 50px;
+      height: 90px;
+     
       
 
       &__content {
@@ -48,6 +49,7 @@
         font-weight: bold;
         color: $color-dark;
         margin-top: 50px;
+        margin-bottom: 30px;
       }
 
           &__desc {
@@ -59,7 +61,7 @@
     }
 
     &__terms {
-      margin-top: 3rem;
+      margin-top: 4rem;
       margin-bottom: 4rem;
       display: flex;
       flex-flow: column;
@@ -100,8 +102,8 @@
         padding: 0;
 
         h1 {
-          font-size: 15pt;
-          margin-bottom: 1.5rem;
+          font-size: 20pt;
+          margin-bottom: 1.9rem;
         }
         &__desc {
           width: 100%;

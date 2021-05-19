@@ -9,7 +9,7 @@ const PoliciesPage: FC<{}> = () => {
   const { t } = useTranslation();
 
   return (
-    <LayoutWrapper title="policies">
+    <LayoutWrapper title="Privacy Policy">
       <div>
         <div className={styles.policies__overlay} />
         <div className={styles.policies__container}>
