@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import {
   Row,
@@ -105,11 +105,11 @@ const Step1: FC<Props> = ({ alerts, categories = [], data, setForm, cb }) => {
                     return Promise.resolve();
                   }
 
-                  if (!moment(value).isValid()) {
+                  if (!dayjs(value).isValid()) {
                     return Promise.reject(t("invalid date"));
                   }
 
-                  if (moment(value).isBefore(moment().startOf("day"))) {
+                  if (dayjs(value).isBefore(dayjs().startOf("day"))) {
                     return Promise.reject(t("should not be in past"));
                   }
 
@@ -134,24 +134,24 @@ const Step1: FC<Props> = ({ alerts, categories = [], data, setForm, cb }) => {
                     return Promise.resolve();
                   }
 
-                  if (!moment(value).isValid()) {
+                  if (!dayjs(value).isValid()) {
                     return Promise.reject(t("invalid date"));
                   }
 
-                  const start = moment(getFieldValue("start"));
+                  const start = dayjs(getFieldValue("start"));
 
-                  if (start.isValid() && moment(value).isBefore(start)) {
+                  if (start.isValid() && dayjs(value).isBefore(start)) {
                     return Promise.reject(
                       t("end date should not be before start date"),
                     );
                   }
 
-                  if (moment(value).isBefore(moment().startOf("day"))) {
+                  if (dayjs(value).isBefore(dayjs().startOf("day"))) {
                     return Promise.reject(t("should not be in past"));
                   }
 
                   if (
-                    moment(value).isBefore(moment().add(1, "day").endOf("day"))
+                    dayjs(value).isBefore(dayjs().add(1, "day").endOf("day"))
                   ) {
                     return Promise.reject(t("should be 2 days from now"));
                   }

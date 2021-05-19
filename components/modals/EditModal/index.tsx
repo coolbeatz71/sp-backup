@@ -16,7 +16,7 @@ import StackedLabel from "components/common/StackedLabel";
 import { IRootState } from "redux/initialStates";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-import moment from "moment";
+import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 
 import edit from "redux/actions/cause/edit";
@@ -60,11 +60,11 @@ const CauseEditing: FC<Props> = ({
       footer={null}
     >
       <Form
-        initialValues={{ target, end: moment(end) }}
+        initialValues={{ target, end: dayjs(end) }}
         validateTrigger={["onFinish"]}
         onFinish={(dt) => {
           const end_date = dt.end.format("YYYY-MM-DD");
-          const current_end_date = moment(end).format("YYYY-MM-DD");
+          const current_end_date = dayjs(end).format("YYYY-MM-DD");
 
           if (dt.target !== target || end_date !== current_end_date) {
             edit(
@@ -112,25 +112,23 @@ const CauseEditing: FC<Props> = ({
                   return Promise.resolve();
                 }
 
-                if (!moment(value).isValid()) {
+                if (!dayjs(value).isValid()) {
                   return Promise.reject("Invalid date!");
                 }
 
-                const start = moment(startDate);
+                const start = dayjs(startDate);
 
-                if (start.isValid() && moment(value).isBefore(start)) {
+                if (start.isValid() && dayjs(value).isBefore(start)) {
                   return Promise.reject(
                     t("end date should not be before the start date"),
                   );
                 }
 
-                if (moment(value).isBefore(moment().startOf("day"))) {
+                if (dayjs(value).isBefore(dayjs().startOf("day"))) {
                   return Promise.reject(t("should not be in past"));
                 }
 
-                if (
-                  moment(value).isBefore(moment().add(1, "day").endOf("day"))
-                ) {
+                if (dayjs(value).isBefore(dayjs().add(1, "day").endOf("day"))) {
                   return Promise.reject(t("should be 2 days from now"));
                 }
 
