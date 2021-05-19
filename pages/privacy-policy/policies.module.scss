@@ -1,17 +1,23 @@
 @import "styles/_variables";
 @import "styles/_mixins";
+@import "../../styles/dimensions.scss";
 
 .policies {
   &__overlay {
-    z-index: -1;
     position: absolute;
-    padding: 0;
-    background: $color-primary-light url("/pricing.svg");
     width: 100%;
-    height: 350px;
+    height: 100px;
+    
 
     @include mediaMd {
-      height: 350px;
+      height: 50px;
+    }
+    @include mediaLg {
+      padding: 0px $content-padding;
+    }
+
+    @include mediaXL {
+      padding: 0px $content-padding;
     }
   }
   &__container {
@@ -19,53 +25,69 @@
     flex-flow: column;
     justify-content: center;
     text-align: center;
+    background: $color-light url("/pricing-bg.svg");
+    
 
     &__header {
       color: $color-dark;
       display: flex;
       justify-content: center;
-      height: 350px;
+      height: 50px;
+      
 
       &__content {
         align-self: center;
         justify-self: center;
+        background: $color-light url("/pricing.svg");
+        width: 100%;
+        
+        
       }
       h1 {
         font-size: 25pt;
         font-weight: bold;
         color: $color-dark;
+        margin-top: 50px;
       }
-
-      &__desc {
+          &__desc {
         margin: auto;
         width: 27rem;
         font-size: 15px;
       }
+      
     }
 
     &__terms {
-      margin-top: 1rem;
+      margin-top: 3rem;
       margin-bottom: 4rem;
       display: flex;
       flex-flow: column;
+      padding: 0px $content-padding;
 
       p {
         text-align: justify;
       }
-
-      @include mediaLg {
-        padding: 2.5em;
+      h2,h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        color: $color-dark;
+        text-align: justify;
       }
-
-      @include mediaXL {
-        padding: 2em 21vw;
+      ul,dl{
+        text-align: start;
+        padding:0 3rem ;
+      }
+   
+      @media screen and (max-width: #{$mobile-size}) {
+        padding: 0px $mobile-content-padding;
+      }  
+      @media screen and (min-width: #{$lg-size}) and (max-width: #{$xl-size}) {
+        padding: 0 calc(#{$content-padding}/ 2);
       }
     }
 
     @include mediaLg {
       &__header {
-        padding: 3rem 1rem;
-
         &__desc {
           width: 55%;
         }
@@ -73,13 +95,11 @@
     }
 
     @include mediaMd {
-      padding: 0 1.5rem;
       &__header {
-        margin: 2.5rem 0 1rem 0;
         padding: 0;
 
         h1 {
-          font-size: 18pt;
+          font-size: 15pt;
           margin-bottom: 1.5rem;
         }
         &__desc {
@@ -88,7 +108,7 @@
       }
 
       &__terms {
-        padding: 0;
+        padding: 0 1.5rem 0 1.5rem;
       }
     }
   }

@@ -1,6 +1,7 @@
 import { Menu, Typography, Button } from "antd";
 import Img from "react-optimized-image";
 import moment from "moment";
+import { useRouter } from 'next/router'
 import {
   TwitterOutlined,
   InstagramFilled,
@@ -38,6 +39,7 @@ const social = [
 
 const FooterItem = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   const menus = [
     { key: "https://getsave.io/", text: "Save" },
     { key: "blog", text: t("blog") },
@@ -74,6 +76,7 @@ const FooterItem = () => {
           if (`${key}`.startsWith("http")) {
             return window.open(`${key}`, "_ blank");
           }
+          router.push(`/${ key }`);
         }}
       >
         {menus.map((item) => (
