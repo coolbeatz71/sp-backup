@@ -32,7 +32,8 @@
       color: $color-dark;
       display: flex;
       justify-content: center;
-      height: 50px;
+      height: 90px;
+     
       
 
       &__content {
@@ -48,17 +49,19 @@
         font-weight: bold;
         color: $color-dark;
         margin-top: 50px;
+        margin-bottom: 30px;
       }
+
           &__desc {
         margin: auto;
         width: 27rem;
         font-size: 15px;
       }
-      
+    
     }
 
     &__terms {
-      margin-top: 3rem;
+      margin-top: 4rem;
       margin-bottom: 4rem;
       display: flex;
       flex-flow: column;
@@ -73,7 +76,7 @@
         color: $color-dark;
         text-align: justify;
       }
-      ul,dl{
+      ul,dl,ol{
         text-align: start;
         padding:0 3rem ;
       }
@@ -89,7 +92,7 @@
     @include mediaLg {
       &__header {
         &__desc {
-          width: 55%;
+          width: 100%;
         }
       }
     }
@@ -99,8 +102,8 @@
         padding: 0;
 
         h1 {
-          font-size: 15pt;
-          margin-bottom: 1.5rem;
+          font-size: 20pt;
+          margin-bottom: 1.9rem;
         }
         &__desc {
           width: 100%;

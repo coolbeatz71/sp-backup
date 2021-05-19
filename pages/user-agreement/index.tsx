@@ -7,7 +7,7 @@ const UserAgreementPage: FC<{}> = () => {
   const { t } = useTranslation();
 
   return (
-    <LayoutWrapper title="agreements">
+    <LayoutWrapper title="User Agreement">
       <div>
         <div className={styles.agreements__overlay} />
         <div className={styles.agreements__container}>
