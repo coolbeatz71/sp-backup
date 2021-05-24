@@ -122,7 +122,9 @@ export default {
   anonymous: "Sinshaka kumenyekana",
   "confirm your donation": "Emeza inkunga yawe",
   "enter pin and confirm via momo":
-    "Injiza PIN yawe hanyuma wemeze gutanga inkunga kuri numero yawe ya telefoni",
+    "Emeza kwishyura kuri telefoni cyangwa ukande *182*7*1#",
+    "enter pin and confirm via airtel money":
+    "Emeza kwishyura kuri telefoni cyangwa ukande *182*5*8#",
   "enter credit/debit card details":
     "Injiza ibiranga ikarita yawe hanyuma wemeze gutanga inkunga",
   "thank you": "Murakoze",

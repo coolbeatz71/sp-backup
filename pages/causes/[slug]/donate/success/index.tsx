@@ -7,8 +7,7 @@ import Link from "next/link";
 import { isEmpty } from "lodash";
 
 import SharePopover from "components/common/SharePopover";
-
-import phoneFormatter from "helpers/phoneNumberFormatter";
+import getTelco from "helpers/getTelco";
 import confeti from "public/confeti.gif";
 
 import styles from "./../donate.module.scss";
@@ -29,10 +28,13 @@ const Success: FC<IProps> = ({ form, slug, cause, donateData, lang }) => {
       <h5>{t("confirm your donation")}</h5>
       {isEmpty(donateData.data) ? (
         <p className={styles.donate__body__form__successful__subtitle}>
-          {t("enter pin and confirm via momo")} &nbsp; +
-          {form.getFieldValue("phone_number") &&
-            phoneFormatter(form.getFieldValue("phone_number"))}{" "}
+         { getTelco(form.getFieldValue("phone_number")) === 'MTN_Rwanda' ? (
+          t("enter pin and confirm via momo")
+          ) : (
+          t("enter pin and confirm via airtel money")
+         )}
         </p>
+        
       ) : (
         <>
           <p className={styles.donate__body__form__successful__subtitle}>
