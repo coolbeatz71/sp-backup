@@ -123,7 +123,9 @@ export default {
   anonymous: "Anonymous",
   "confirm your donation": "Confirm your donation",
   "enter pin and confirm via momo":
-    "Enter your PIN and confirm the payment on your phone number",
+    "Confirm the payment on mobile money or dial *182*7*1#",
+  "enter pin and confirm via airtel money":
+    "Confirm the payment on mobile money or dial *182*5*8#",
   "enter credit/debit card details":
     "Kindly fill in your Credit/Debit card details in the new tab to confirm the payment",
   "thank you": "Thank you",
