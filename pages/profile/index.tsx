@@ -33,6 +33,12 @@ import LayoutWrapper from "components/LayoutWrapper";
 
 import family from "public/images/family-love.svg";
 import { getLanguage } from "helpers/getLanguage";
+import requireAuth, { checkUserAuth } from "helpers/requiresAuth";
+import { GetServerSidePropsContext } from "next";
+
+export const getServerSideProps = requireAuth(
+  async (context: GetServerSidePropsContext) => checkUserAuth(context),
+);
 
 const Profile: FC<{}> = () => {
   const { t } = useTranslation();
@@ -41,9 +47,11 @@ const Profile: FC<{}> = () => {
   const [successModal, setSuccessModal] = useState<boolean>(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
-  const { isLoggedin, data, loading: dataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
-  );
+  const {
+    isLoggedin,
+    data,
+    loading: dataLoading,
+  } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const { loading, error } = useSelector(
     ({ user: { updateProfile } }: IRootState) => updateProfile,
   );

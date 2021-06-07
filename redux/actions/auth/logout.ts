@@ -1,4 +1,5 @@
 import splApi, { saveApi } from "helpers/axios";
+import { destroyAuthCookies } from "helpers/cookies";
 import {
   LOGOUT_START,
   LOGOUT_ERROR,
@@ -15,6 +16,7 @@ export default (push: any, dispatch: any) => {
     .post("/auth/logout")
     .then(() => {
       localStorage.removeItem("save-token");
+      destroyAuthCookies("saveToken");
       splApi.defaults.headers.Authorization = "";
       saveApi.defaults.headers.Authorization = "";
       const payload = {};

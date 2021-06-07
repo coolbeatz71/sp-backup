@@ -17,6 +17,12 @@ import defaultSteps from "./CreateCauseSteps";
 import Layout from "components/LayoutWrapper";
 import Buttons from "./CreateCauseSteps/Buttons";
 import { getLanguage } from "helpers/getLanguage";
+import requireAuth, { checkUserAuth } from "helpers/requiresAuth";
+import { GetServerSidePropsContext } from "next";
+
+export const getServerSideProps = requireAuth(
+  async (context: GetServerSidePropsContext) => checkUserAuth(context),
+);
 
 const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
   children,

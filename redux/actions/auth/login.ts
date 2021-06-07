@@ -1,4 +1,6 @@
 import splApi, { saveApi } from "helpers/axios";
+import setAuthCookies from "helpers/cookies";
+
 import {
   LOGIN_START,
   LOGIN_ERROR,
@@ -17,6 +19,7 @@ export default (data: {}) => (dispatch: any) => {
     .then((response: any) => {
       let { token } = response.data;
       token = `JWT ${token}`;
+      setAuthCookies(token);
       localStorage.setItem("save-token", token);
       splApi.defaults.headers.Authorization = token;
       saveApi.defaults.headers.Authorization = token;

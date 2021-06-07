@@ -23,7 +23,6 @@ import getCurrentUser from "redux/actions/user/getCurrentUser";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import updateProfile from "redux/actions/user/updateProfile";
 import locales from "constants/locales";
-import DefaultComponent from "../components/common/Default/";
 
 import en from "dayjs/locale/en";
 import rw from "constants/locales/dayjs/rw";
@@ -61,7 +60,9 @@ const MyApp = ({ Component, pageProps, svpProps }) => {
   const dispatch = useDispatch();
   const saveToken = getToken();
 
-  const [component, setComponent] = useState(<DefaultComponent />);
+  const [component, setComponent] = useState(
+    <Component {...pageProps} svpProps={svpProps} />,
+  );
 
   const { isLoggedin, data: user } = useSelector(
     ({ user: { currentUser } }) => currentUser,

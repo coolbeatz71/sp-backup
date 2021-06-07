@@ -10,6 +10,7 @@ import {
 import { pick } from "lodash";
 import showAuthDialog, { changeAuthContext } from "./showAuthDialog";
 import { SET_CURRENT_USER_SUCCESS } from "redux/action-types/user/currentUser";
+import setAuthCookies from "helpers/cookies";
 
 export default (data: {}) => (dispatch: any) => {
   dispatch({
@@ -21,6 +22,7 @@ export default (data: {}) => (dispatch: any) => {
     .then((response: any) => {
       let { token } = response.data;
       token = `JWT ${token}`;
+      setAuthCookies(token);
       localStorage.setItem("save-token", token);
       splApi.defaults.headers.Authorization = token;
       saveApi.defaults.headers.Authorization = token;

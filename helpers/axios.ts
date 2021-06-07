@@ -2,6 +2,7 @@ import axios from "axios";
 import getToken from "helpers/getToken";
 import { INVALID_TOKEN } from "constants/errorCodes";
 import { getLanguage } from "helpers/getLanguage";
+import { destroyAuthCookies } from "./cookies";
 
 const token = getToken();
 
@@ -11,7 +12,7 @@ const errorHandler = (error: any) => {
     if (process.browser) {
       localStorage.removeItem("save-token");
       window.location.href = "/";
-    }
+    } else destroyAuthCookies("saveToken");
   }
   const errorResponse: any = error.response
     ? error.response.data
