@@ -18,21 +18,21 @@ export default (state: IAllBroadcasts, { type, payload }: IAction) => {
         ...state,
         broadcasts: {
           ...state.broadcasts,
-          data: {},
+          data: [],
           loading: true,
           error: null,
           fetched: false,
         },
       };
     case GET_ALL_BROADCASTS_SUCCESS:
-      let data = {};
+      let data = [];
 
       if (payload.data.length > 0 && process.browser) {
         const closedBroadcastIds = JSON.parse(
           localStorage.getItem("save-closedBroadcastIds") || "[]",
         );
         if (!closedBroadcastIds.includes(payload.data[0].id)) {
-          data = payload.data[0];
+          data = payload.data;
         }
       }
 
@@ -61,7 +61,7 @@ export default (state: IAllBroadcasts, { type, payload }: IAction) => {
         ...state,
         broadcasts: {
           ...state.broadcasts,
-          data: {},
+          data: [],
         },
       };
     default:

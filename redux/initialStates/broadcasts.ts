@@ -1,6 +1,6 @@
 export default {
   broadcasts: {
-    data: {},
+    data: [],
     loading: false,
     error: null,
     fetched: false,
@@ -9,7 +9,7 @@ export default {
 
 export interface IAllBroadcasts {
   broadcasts: {
-    data: { [key: string]: any };
+    data: { [key: string]: any }[];
     loading: boolean;
     error: any;
     fetched: boolean;
