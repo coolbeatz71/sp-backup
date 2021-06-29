@@ -58,13 +58,13 @@ const ActionModal: FC<IActionModalProps> = ({
   const dispatch = useDispatch();
   const [actionSuccessful, setActionSuccessful] = useState<boolean>(false);
   const { loading: loadingPause, error: errorPause } = useSelector(
-    ({ cause: { pause } }: IRootState) => pause,
+    ({ cause: { pause } }: IRootState) => pause
   );
   const { loading: loadingCancel, error: errorCancel } = useSelector(
-    ({ cause: { cancel } }: IRootState) => cancel,
+    ({ cause: { cancel } }: IRootState) => cancel
   );
   const { loading: loadingResume, error: errorResume } = useSelector(
-    ({ cause: { resume } }: IRootState) => resume,
+    ({ cause: { resume } }: IRootState) => resume
   );
 
   const { t } = useTranslation();
@@ -145,7 +145,7 @@ const ActionModal: FC<IActionModalProps> = ({
         return {
           title: t("access code"),
           subTitle: `${t(
-            "the access code for this cause is",
+            "the access code for this cause is"
           )} </br> <strong>${plainAccessCode}</strong>`,
         };
       case ActionType.donationTransfer:

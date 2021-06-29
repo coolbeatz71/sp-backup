@@ -424,144 +424,207 @@ export default {
   donations: "Donations",
   views_one: "view",
   views_many: "views",
-  privacy_policy:"Privacy Policy",
+  privacy_policy: "Privacy Policy",
   personal_information: "1. Personal Information",
   collection_of_personal_information: "2. Collection of Personal Information",
-  personal_information_desc:
-    `Exuus Ltd. values your privacy. This privacy policy explains what personal and other information is collected through our website {{exuus}} ,(the “Site”) and our mobile application (collectively, {{getsave}} and {{saveplus}} Exuus Ltd., the owner, and operator of SAVE is committed to your right to privacy and security of your personal identity with respect to your right to use SAVE. Accordingly, we have prepared this privacy policy statement to describe our collection, use, and disclosure of your personal information through SAVE. When you use our service (including website and mobile application), we may collect and use your related information. This policy intends to inform you how we use and protect the personally identifiable information that is collected from End-User using the service “SAVE”. `,
-    personal_information_desc1:" For purposes of this policy, this information is termed “private information”, and is consistent with the Rwandan Constitution of 2003 as amended up to date (under art.22) which protects personal private information. If the related information was not provided, otherwise you may not register as our user to use some of our services or we may not be able to operate effectively and provide you with the best experiences from our services. So we have developed a Privacy Policy that covers aspects of how we collect, use, disclose, transfer and store your information. Please take a moment to familiarize yourself with our privacy practices and let us know if you have any questions. ",
-  collection_of_personal_information_desc: "We use reasonable measures to maintain the security of your Personal Information. However, no company, organization, or online community, including the Company or the App, can fully eliminate security risks associated with personal information.",
-  Information_provided:"Information You Provide",
-  Information_provided_desc1:"In order to create an account with SAVE, we require information to verify your identity as a part of the registration process including:",
-  Information_provided_desc2:"Upon receiving a request to deactivate your account information, we will immediately disconnect all connections to your financial institution, along with all personal information that you have provided upon the registration for your account.  This means that the account information that you have provided is no longer retrievable and that you will have to create a new account or re-activate your account in the event that, subsequent to your request to delete the account, you elect to again register for the App.",
+  personal_information_desc: `Exuus Ltd. values your privacy. This privacy policy explains what personal and other information is collected through our website {{exuus}} ,(the “Site”) and our mobile application (collectively, {{getsave}} and {{saveplus}} Exuus Ltd., the owner, and operator of SAVE is committed to your right to privacy and security of your personal identity with respect to your right to use SAVE. Accordingly, we have prepared this privacy policy statement to describe our collection, use, and disclosure of your personal information through SAVE. When you use our service (including website and mobile application), we may collect and use your related information. This policy intends to inform you how we use and protect the personally identifiable information that is collected from End-User using the service “SAVE”. `,
+  personal_information_desc1:
+    " For purposes of this policy, this information is termed “private information”, and is consistent with the Rwandan Constitution of 2003 as amended up to date (under art.22) which protects personal private information. If the related information was not provided, otherwise you may not register as our user to use some of our services or we may not be able to operate effectively and provide you with the best experiences from our services. So we have developed a Privacy Policy that covers aspects of how we collect, use, disclose, transfer and store your information. Please take a moment to familiarize yourself with our privacy practices and let us know if you have any questions. ",
+  collection_of_personal_information_desc:
+    "We use reasonable measures to maintain the security of your Personal Information. However, no company, organization, or online community, including the Company or the App, can fully eliminate security risks associated with personal information.",
+  Information_provided: "Information You Provide",
+  Information_provided_desc1:
+    "In order to create an account with SAVE, we require information to verify your identity as a part of the registration process including:",
+  Information_provided_desc2:
+    "Upon receiving a request to deactivate your account information, we will immediately disconnect all connections to your financial institution, along with all personal information that you have provided upon the registration for your account.  This means that the account information that you have provided is no longer retrievable and that you will have to create a new account or re-activate your account in the event that, subsequent to your request to delete the account, you elect to again register for the App.",
   Names: "Names",
-ID_number:"ID number",
-Date_of_Birth:"Date of Birth",
-Occupation:"Occupation",
-Phone_Number:"Phone Number",
-Email_Address:"Email Address",
-Gender:"Gender",
-Marital_Status:"Marital Status",
-Level_of_Education:"Level of Education",
-Address:"Address",
-Ubudehe_category:"Ubudehe category",
-Next_of_Kin_names_relationship_phone_num:" Next of Kin names, relationship and Phone number",
-Number_of_children:"Number of children",
-Number_of_dependents:"Number of dependents",
-Bank_Account:" Bank Account",
-MTN_Mobile_Money_or_Airtel_Money_Account:"MTN Mobile Money or Airtel Money Account",
+  ID_number: "ID number",
+  Date_of_Birth: "Date of Birth",
+  Occupation: "Occupation",
+  Phone_Number: "Phone Number",
+  Email_Address: "Email Address",
+  Gender: "Gender",
+  Marital_Status: "Marital Status",
+  Level_of_Education: "Level of Education",
+  Address: "Address",
+  Ubudehe_category: "Ubudehe category",
+  Next_of_Kin_names_relationship_phone_num:
+    " Next of Kin names, relationship and Phone number",
+  Number_of_children: "Number of children",
+  Number_of_dependents: "Number of dependents",
+  Bank_Account: " Bank Account",
+  MTN_Mobile_Money_or_Airtel_Money_Account:
+    "MTN Mobile Money or Airtel Money Account",
   Transaction_history: "Transaction history",
   Disclaimer: "Disclaimer",
-  disclaimer_desc:"We do not read your savings account balance. Therefore, the amount shown as money saved in the App may not be reflective of the money in your account. This information simply reflects the money that you have saved from SAVE and does not attempt to accurately state the total balance in your savings account.",
+  disclaimer_desc:
+    "We do not read your savings account balance. Therefore, the amount shown as money saved in the App may not be reflective of the money in your account. This information simply reflects the money that you have saved from SAVE and does not attempt to accurately state the total balance in your savings account.",
   Use_of_Personal_Information: "Use of Personal Information",
-  "We collect your personal information to": "We collect your personal information to:",
+  "We collect your personal information to":
+    "We collect your personal information to:",
   "Provide the Services to you": "Provide the Services to you.",
-  "Notify you about your account activity": "Notify you about your account activity",
+  "Notify you about your account activity":
+    "Notify you about your account activity",
   "Process transactions": "Process transactions",
   "For credit scoring": "For credit scoring",
-  "Provide customer support and resolve disputes": "Provide customer support and resolve disputes",
-  "Identify, prevent, and report potentially prohibited fraudulent, or illegal activities": "Identify, prevent, and report potentially prohibited fraudulent, or illegal activities",
-  "Customize and improve your experience and the Services": "Customize and improve your experience and the Services",
-  "Notify you about important changes to the User Agreement terms and conditions": "Notify you about important changes to the User Agreement terms and conditions",
-  "Any other purpose that we disclose to you in the course of providing the Services to you": "Any other purpose that we disclose to you in the course of providing the Services to you",
-  "We can also share your personal data with a third party entity with your consent": "We can also share your personal data with a third party entity with your consent",
-  "Personal data can also be shared with facilitating organizations such as NGOs": "Personal data can also be shared with facilitating organizations such as NGOs",
-  Use_of_Personal_Information_last_paragraph:"If you don't agree with any term in this Privacy Policy, please do not use the service. By downloading, or interacting with our website or other Services, you agree to the collection and use of your information in accordance with this Privacy Policy.",
+  "Provide customer support and resolve disputes":
+    "Provide customer support and resolve disputes",
+  "Identify, prevent, and report potentially prohibited fraudulent, or illegal activities":
+    "Identify, prevent, and report potentially prohibited fraudulent, or illegal activities",
+  "Customize and improve your experience and the Services":
+    "Customize and improve your experience and the Services",
+  "Notify you about important changes to the User Agreement terms and conditions":
+    "Notify you about important changes to the User Agreement terms and conditions",
+  "Any other purpose that we disclose to you in the course of providing the Services to you":
+    "Any other purpose that we disclose to you in the course of providing the Services to you",
+  "We can also share your personal data with a third party entity with your consent":
+    "We can also share your personal data with a third party entity with your consent",
+  "Personal data can also be shared with facilitating organizations such as NGOs":
+    "Personal data can also be shared with facilitating organizations such as NGOs",
+  Use_of_Personal_Information_last_paragraph:
+    "If you don't agree with any term in this Privacy Policy, please do not use the service. By downloading, or interacting with our website or other Services, you agree to the collection and use of your information in accordance with this Privacy Policy.",
   Privacy_Questions: "3. Privacy Questions",
-  privacy_question_description:`If you have any questions or concerns about Exuus 's Privacy Policy or data processing or if you would like to make a complaint about a possible breach of local privacy laws, please contact us at {{email}} or {{email1}}. `,
+  privacy_question_description: `If you have any questions or concerns about Exuus 's Privacy Policy or data processing or if you would like to make a complaint about a possible breach of local privacy laws, please contact us at {{email}} or {{email1}}. `,
   Update: "4. Update",
-  update_description:"Exuus may update its Privacy Policy from time to time, which will not reduce your rights under this Privacy Policy. When we change the policy in a material way, a notice will be posted on our website along with the updated Privacy Policy. If you do not agree to any modifications to this Policy, you could immediately stop all use of all the Services. Your continued use of the Service following the posting of any modifications to this Policy will constitute your acceptance of the revised Policy.",
+  update_description:
+    "Exuus may update its Privacy Policy from time to time, which will not reduce your rights under this Privacy Policy. When we change the policy in a material way, a notice will be posted on our website along with the updated Privacy Policy. If you do not agree to any modifications to this Policy, you could immediately stop all use of all the Services. Your continued use of the Service following the posting of any modifications to this Policy will constitute your acceptance of the revised Policy.",
   user_agreement: "User agreement",
   accepting_terms: "1. Accepting the Terms",
   accepting_terms_description1: `By using the information, tools, features, and functionality located on {{exuus}} and exuus owned products accessible via {{getsave}}, {{saveplus}}, etc you are agreeing to be bound by the following terms and conditions ("Terms of Service" for the products herein referred to as the “Service”). If you wish to become a User or Member in a saving group and make use of the Service, you must read this Agreement and indicate your acceptance during the Registration process.`,
-  accepting_terms_description2:"You may not use the Service and you may not accept this Agreement if you are not of a legal age to form a binding contract with Exuus Ltd.{{break}} Violation of any of the terms below will result in the deactivation or deletion of your Account.",
+  accepting_terms_description2:
+    "You may not use the Service and you may not accept this Agreement if you are not of a legal age to form a binding contract with Exuus Ltd.{{break}} Violation of any of the terms below will result in the deactivation or deletion of your Account.",
   description_of_service: "2. Description of the Service",
-  description_of_service_desc:`The Service “SAVE.” is a digital platform that financially empowers saving groups sustainably with a collective & decentralized ledger. It varies from Cashless transactions, Credit scoring, Know Your Customers to E-Recording.{{break}} SAVE platform has five interconnected plans designed for different users. `,
+  description_of_service_desc: `The Service “SAVE.” is a digital platform that financially empowers saving groups sustainably with a collective & decentralized ledger. It varies from Cashless transactions, Credit scoring, Know Your Customers to E-Recording.{{break}} SAVE platform has five interconnected plans designed for different users. `,
   for_smart_phone_users: "(for smart-phones users)",
-  description_of_service_desc2:"The Service is provided to you by Exuus Ltd, a private company incorporated under the laws of the Republic of Rwanda as a valuable tool to assist you, your group or organization to manage cashless transactions while making their data accessible. It is not intended to provide legal, tax or financial advice.",
-  Definition_of_Different_Saving_Groups_Type: "3. Definition of Different Saving Groups Type",
-  Definition_of_Different_Saving_Groups_Type_desc:"SAVE has identified 3 different types of saving groups that are accommodated on the application:",
+  description_of_service_desc2:
+    "The Service is provided to you by Exuus Ltd, a private company incorporated under the laws of the Republic of Rwanda as a valuable tool to assist you, your group or organization to manage cashless transactions while making their data accessible. It is not intended to provide legal, tax or financial advice.",
+  Definition_of_Different_Saving_Groups_Type:
+    "3. Definition of Different Saving Groups Type",
+  Definition_of_Different_Saving_Groups_Type_desc:
+    "SAVE has identified 3 different types of saving groups that are accommodated on the application:",
   Supervised: "Supervised",
-  Supervised_description: "All Saving groups with the following characteristics qualify for the Supervised type:",
-  "Supervised_ul_li_1": "Affiliated to an NGO (Local or International) through a project",
-  "Supervised_ul_li_2": "Being monitored and receives financial literacy support from an NGO",
-  "Supervised_ul_li_3": "The saving group has an appointed committee that makes decisions related to the collective wallet withdrawal transactions.",
-  "Supervised_ul_li_4": "The Group is created through an agent affiliated to the facilitating NGO. This happens through SAVE Collector App.",
+  Supervised_description:
+    "All Saving groups with the following characteristics qualify for the Supervised type:",
+  Supervised_ul_li_1:
+    "Affiliated to an NGO (Local or International) through a project",
+  Supervised_ul_li_2:
+    "Being monitored and receives financial literacy support from an NGO",
+  Supervised_ul_li_3:
+    "The saving group has an appointed committee that makes decisions related to the collective wallet withdrawal transactions.",
+  Supervised_ul_li_4:
+    "The Group is created through an agent affiliated to the facilitating NGO. This happens through SAVE Collector App.",
   Graduated: "Graduated",
-  Graduated_description: "All Saving groups with the following characteristics qualify for the Graduated type:",
-  "Graduated_ul_li_1":"Affiliated to any other organization that’s not an NGO ",
-  "Graduated_ul_li_2":"The saving group has an appointed committee that makes decisions related to the collective wallet withdrawal transactions",
-  "Graduated_ul_li_3":"The Group is created through an agent/admin affiliated to the facilitating organization other than an NGO. This happens through SAVE Collector App.",
+  Graduated_description:
+    "All Saving groups with the following characteristics qualify for the Graduated type:",
+  Graduated_ul_li_1: "Affiliated to any other organization that’s not an NGO ",
+  Graduated_ul_li_2:
+    "The saving group has an appointed committee that makes decisions related to the collective wallet withdrawal transactions",
+  Graduated_ul_li_3:
+    "The Group is created through an agent/admin affiliated to the facilitating organization other than an NGO. This happens through SAVE Collector App.",
   Independent: "Independent",
-  Independent_description: " All Saving groups with the following characteristics qualify for the Independent type:",
-  "Independent_ul_li_1":"No direct affiliated to any other organization",
-  "Independent_ul_li_2":"Dire affiliation to SAVE as the organization",
-  "Independent_ul_li_3":"The saving group doesn’t have an appointed committee that makes decisions related to the collective wallet withdrawal transactions. All members have equal power when it comes to collective wallet withdrawal transactions.",
-  "Independent_ul_li_4":"The Group is independently created by any member who can invite other members to join.",
-  "Independent_ul_li_5":"Other members can only join by consent. This happens by accepting or declining an invitation. ",
+  Independent_description:
+    " All Saving groups with the following characteristics qualify for the Independent type:",
+  Independent_ul_li_1: "No direct affiliated to any other organization",
+  Independent_ul_li_2: "Dire affiliation to SAVE as the organization",
+  Independent_ul_li_3:
+    "The saving group doesn’t have an appointed committee that makes decisions related to the collective wallet withdrawal transactions. All members have equal power when it comes to collective wallet withdrawal transactions.",
+  Independent_ul_li_4:
+    "The Group is independently created by any member who can invite other members to join.",
+  Independent_ul_li_5:
+    "Other members can only join by consent. This happens by accepting or declining an invitation. ",
   Service_Fee: "4. Service Fee",
-  "SAVE service fee is split into 4 plans": "SAVE service fee is split into 4 plans",
-  Free_Plan:"Free Plan",
-  Basic_Plan:"Basic Plan",
-  Standard_Plan:"Standard Plan",
+  "SAVE service fee is split into 4 plans":
+    "SAVE service fee is split into 4 plans",
+  Free_Plan: "Free Plan",
+  Basic_Plan: "Basic Plan",
+  Standard_Plan: "Standard Plan",
   Premium_Plan: "Premium Plan",
   "for Supervised saving groups": "for Supervised saving groups",
-  "for both graduated and independent groups": "for both graduated and independent groups",
+  "for both graduated and independent groups":
+    "for both graduated and independent groups",
   "for NGOs": "for NGOs",
-  "for Private organization or Financial Service Providers":"for Private organization or Financial Service Providers (FSPs)",
-  "For more details feel free to refer to":`For more details feel free to refer to {{getsave}} {{break}} This section also includes our FAQ.`,
-  "Privacy and your Personal Information": "5. Privacy and your Personal Information",
-  "Privacy and your Personal Information description": "Exuus Ltd will not sell, exchange, or release any of your personal information or financial information to any third party without your express permission or as required by law or court or governmental order. For information about Exuus’ data protection practices, please read Exuus’ Privacy and Security Policy, which is hereby incorporated into this Agreement. The policy may be updated from time to time at our discretion. Changes will be effective upon posting to the site.",
+  "for Private organization or Financial Service Providers":
+    "for Private organization or Financial Service Providers (FSPs)",
+  "For more details feel free to refer to": `For more details feel free to refer to {{getsave}} {{break}} This section also includes our FAQ.`,
+  "Privacy and your Personal Information":
+    "5. Privacy and your Personal Information",
+  "Privacy and your Personal Information description":
+    "Exuus Ltd will not sell, exchange, or release any of your personal information or financial information to any third party without your express permission or as required by law or court or governmental order. For information about Exuus’ data protection practices, please read Exuus’ Privacy and Security Policy, which is hereby incorporated into this Agreement. The policy may be updated from time to time at our discretion. Changes will be effective upon posting to the site.",
   Your_Registration: "6. Your Registration",
-  your_registration_desc: "Your account must be registered by a human and have an active mobile money wallet tied to a personal telephone number and ID number.  To access our platform, you have a variety of options ranging from:",
-  "Downloading the app from Google Play": "Downloading the app from Google Play or App Store available to users on Android and iOS.",
+  your_registration_desc:
+    "Your account must be registered by a human and have an active mobile money wallet tied to a personal telephone number and ID number.  To access our platform, you have a variety of options ranging from:",
+  "Downloading the app from Google Play":
+    "Downloading the app from Google Play or App Store available to users on Android and iOS.",
   "Via our USSD code accessible via": "Via our USSD code accessible via *777#",
-  "Via the web dashboard accessible via": "- Via the web dashboard accessible via {{getsave}}",
-  "To access SAVE, you will need to sign-up by": "To access SAVE, you will need to sign-up by filling in your phone number/email and choosing the PIN/Password then proceed to fill out the required user information details. Additionally, you must be 16 years of age or older to register for SAVE. ",
-  "You can access your funds in two forms": "You can access your funds in two forms",
-  your_registration_desc_2:"This is when a member is receiving money from his/her savings group. A request by the member is made and approved by the committee (in the case of both supervised & graduated saving groups) and all members (in the case of independent saving groups). Once the request has unanimous approval (which is authenticated by PINs of approving members) money is moved from the collective account (SAVE) to the individual/member's account.",
-  "The Cash-Out has various forms, including but not limited to": "The Cash-Out has various forms, including but not limited to:",
-  Loan:"Loan",
-Social_Fund:"Social Fund",
-Bulk_withdrawal:"Bulk withdrawal", 
-Share_Out:"Share Out",
+  "Via the web dashboard accessible via":
+    "- Via the web dashboard accessible via {{getsave}}",
+  "To access SAVE, you will need to sign-up by":
+    "To access SAVE, you will need to sign-up by filling in your phone number/email and choosing the PIN/Password then proceed to fill out the required user information details. Additionally, you must be 16 years of age or older to register for SAVE. ",
+  "You can access your funds in two forms":
+    "You can access your funds in two forms",
+  your_registration_desc_2:
+    "This is when a member is receiving money from his/her savings group. A request by the member is made and approved by the committee (in the case of both supervised & graduated saving groups) and all members (in the case of independent saving groups). Once the request has unanimous approval (which is authenticated by PINs of approving members) money is moved from the collective account (SAVE) to the individual/member's account.",
+  "The Cash-Out has various forms, including but not limited to":
+    "The Cash-Out has various forms, including but not limited to:",
+  Loan: "Loan",
+  Social_Fund: "Social Fund",
+  Bulk_withdrawal: "Bulk withdrawal",
+  Share_Out: "Share Out",
   Etc: "Etc.",
-your_registration_desc_3:`You agree and understand that you are responsible for maintaining the confidentiality of your PIN which allows you to access the Service. By providing us with your email address and the telephone number you agree to receive all required notices electronically, to that email address or telephone number. It is your responsibility to update or change that address, as appropriate. {{break}}
+  your_registration_desc_3: `You agree and understand that you are responsible for maintaining the confidentiality of your PIN which allows you to access the Service. By providing us with your email address and the telephone number you agree to receive all required notices electronically, to that email address or telephone number. It is your responsibility to update or change that address, as appropriate. {{break}}
                            If you become aware of any unauthorized use of your Registration Information, you agree to notify Exuus immediately at the email address  {{supportEmail}} or call us on the following lines:7777 (our hotline), +250 788 381 810 or +250 785 489 992. `,
-"Your Use of the Service and Responsibilities": "7. Your Use of the Service and Responsibilities",
-Your_Use_of_the_Service_and_Responsibilities_description:`Your signup is free of charge. SAVE is integrated into a financial institution via APIs integration. This is mainly to allow digital financial transactions. {{break}}
+  "Your Use of the Service and Responsibilities":
+    "7. Your Use of the Service and Responsibilities",
+  Your_Use_of_the_Service_and_Responsibilities_description: `Your signup is free of charge. SAVE is integrated into a financial institution via APIs integration. This is mainly to allow digital financial transactions. {{break}}
 Exuus’ Service will accept funds saved using Mobile Money, Airtel Money or bank transfer through our bank partner and shall be directly deposited in their respective Saving Groups Virtual Joint Account/wallet with a partner bank (Access bank Rwanda PLC, etc). {{break}}
 Exuus’ service through the help/assistance of the bank partner will facilitate the creation of the Saving Groups Virtual Joint Account/wallet. {{break}} This Virtual Joint Accounts/wallets will be completely separate from exuus collection account (also labelled as Save collection account) and will only contain the saving group’s money/funds. {{break}}You shall provide clear and accurate information for the purpose of the service. {{break}}
 You shall promptly provide Exuus with any information related to any dispute may arise within the Saving Group for timely assistance. By failing to do so, Exuus shall be excused from any related liability. {{break}} Your access and use of SAVE service provided by Exuus may be interrupted from time to time for any of several reasons, including, without limitation, the malfunction of your telephone, periodic updating or other actions that Exuus, in its sole discretion, may elect to take. `,
   Online_Alerts_and_Disclaimer: "8. Online Alerts and Disclaimer",
-  Online_Alerts_and_Disclaimer_description:`Exuus may from time to time provide automatic alerts and voluntary account-related alerts. Automatic alerts may be sent to you following certain changes made online to your SAVE account, such as a change in your Registration Information. {{break}}
+  Online_Alerts_and_Disclaimer_description: `Exuus may from time to time provide automatic alerts and voluntary account-related alerts. Automatic alerts may be sent to you following certain changes made online to your SAVE account, such as a change in your Registration Information. {{break}}
   You understand and agree that any alerts provided to you through the Service may be delayed or prevented by a variety of factors. Exuus does its best to provide alerts in a timely manner with accurate information. However, we neither guarantee the delivery nor the accuracy of the content of any alert. You also agree that Exuus shall not be liable for any delays, failure to deliver, or misdirected delivery of any alert; for any errors in the content of an alert; or for any actions taken or not taken by you or any third party in reliance on an alert.`,
-  Rights_You_Grant_to_Us:"9. Rights You Grant to Us",
-  Rights_You_Grant_to_Us_description:"By submitting information, data, sign-up information and other content to Exuus through the Service, you are licensing that content to Exuus solely for the purpose of providing the Service. Exuus may use and store the content, but only to provide the Service to you. By submitting this content to Exuus, you represent that you are entitled to submit it to Exuus for use for this purpose, without any obligation by Exuus to pay any fees or other limitations.",
-  Exuus_Intellectual_Property_Rights:"10. Exuus’ Intellectual Property Rights",
+  Rights_You_Grant_to_Us: "9. Rights You Grant to Us",
+  Rights_You_Grant_to_Us_description:
+    "By submitting information, data, sign-up information and other content to Exuus through the Service, you are licensing that content to Exuus solely for the purpose of providing the Service. Exuus may use and store the content, but only to provide the Service to you. By submitting this content to Exuus, you represent that you are entitled to submit it to Exuus for use for this purpose, without any obligation by Exuus to pay any fees or other limitations.",
+  Exuus_Intellectual_Property_Rights: "10. Exuus’ Intellectual Property Rights",
   Exuus_Intellectual_Property_Rights_description: `The contents of exuus.com & getsave.io, including its "look and feel" (e.g., text, graphics, images, logos and button icons), photographs, editorial content, notices, software, and other material are protected under Rwandan Laws applicable to copyright and trademark and other laws. Any distribution, reprint or electronic reproduction of any content from exuus.com & getsave.io in whole or in part for any other purpose is expressly prohibited without our prior written consent.`,
   Access_and_Interference: "11. Access and Interference",
-  Access_and_Interference_description:"You warrant that you will not access or use the Service in any unlawful manner, for any unlawful purpose or in violation of these terms and conditions or applicable laws, rules, and regulations. You agree that you will be responsible for all usage of the Service through your account.",
-  Disclaimer_of_Representations_and_Warranties:"12. Disclaimer of Representations and Warranties ",
+  Access_and_Interference_description:
+    "You warrant that you will not access or use the Service in any unlawful manner, for any unlawful purpose or in violation of these terms and conditions or applicable laws, rules, and regulations. You agree that you will be responsible for all usage of the Service through your account.",
+  Disclaimer_of_Representations_and_Warranties:
+    "12. Disclaimer of Representations and Warranties ",
   Disclaimer_of_Representations_and_Warranties_description: `Exuus provides the service on an "as is" and "as available" basis and grants no warranties of any kind, whether express, implied, statutory or otherwise. To the maximum extent permitted by applicable law the Company specifically disclaims any implied warranty of merchantability, fitness for a particular purpose or non-infringement.`,
-  "Not a Financial Planner, Broker or Tax Advisor": "13. Not a Financial Planner, Broker or Tax Advisor",
-  "Not a Financial Planner, Broker or Tax Advisor description": "Neither Exuus nor its service is intended to provide legal, tax or financial advice. Exuus is not a financial planner, broker or tax advisor. The Service is intended only to assist you and your group in a collective and decentralized decision-making for sustainable saving and is broad in scope. Exuus only provides an easy platform for Saving Groups to manage cashless transactions while making their data accessible to facilitating agencies and linking groups to both Mobile Network Operators & Financial Service Providers.",
+  "Not a Financial Planner, Broker or Tax Advisor":
+    "13. Not a Financial Planner, Broker or Tax Advisor",
+  "Not a Financial Planner, Broker or Tax Advisor description":
+    "Neither Exuus nor its service is intended to provide legal, tax or financial advice. Exuus is not a financial planner, broker or tax advisor. The Service is intended only to assist you and your group in a collective and decentralized decision-making for sustainable saving and is broad in scope. Exuus only provides an easy platform for Saving Groups to manage cashless transactions while making their data accessible to facilitating agencies and linking groups to both Mobile Network Operators & Financial Service Providers.",
   Limitations_on_Exuus_Liability: "14. Limitations on Exuus’ Liability",
-  Limitations_on_Exuus_Liability_description: "Exuus shall in no event be responsible or liable to you or to any third party, whether in contract, warranty, tort (including negligence) or otherwise, for any indirect, special, incidental, consequential, exemplary, liquidated or punitive damages, including but not limited to loss of profit, revenue or business, arising in whole or in part from your access to exuus.com & getsave.io, your use of the service or this agreement, even if Exuus has been advised of the possibility of such damages.",
-  Your_Indemnification_of_Exuus:"15. Your Indemnification of Exuus",
-  Your_Indemnification_of_Exuus_description: "You agree to defend, indemnify and hold harmless Exuus, its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, demands, and expenses (including but not limited to attorneys’ fees) arising from (i) your use of and access to the Service or any Content that you post thereon; (ii) your violation of any term of this Agreement or your representations and warranties set forth above; or (iii) your violation of any third party rights, including without limitation any copyright, property, or privacy rights.",
-  Ending_your_relationship_with_Exuus: "16. Ending your relationship with Exuus",
-  Ending_your_relationship_with_Exuus_description: "This Agreement will continue to apply until terminated by either you or Exuus as set out below. If you want to terminate your legal agreement with Exuus (SAVE App), you may do so by closing your account for the Service by reporting the withdrawal to Us using the relevant tools available on this Service, within the withdrawal term. If We make it possible for You to declare Your withdrawal via electronic/digital means, then after receiving such a declaration, We send immediate confirmation of receipt.",
-  Ending_your_relationship_with_Exuus_ul_li_1: "Once a saving group is created, the length of the cycle is specified.",
-  Ending_your_relationship_with_Exuus_ul_li_2:"The group or members cannot share-out before the saving cycle has reached its limit. ",
-  Ending_your_relationship_with_Exuus_ul_li_3: "A saving group can share-out at the end or after the cycle has exceeded its length. ",
-  Ending_your_relationship_with_Exuus_ul_li_4: "You can leave the group(s) you have been added to if there are no pending dues to the saving group. All your savings plus the incurred interest will be remitted to your MTN mobile money account or Airtel Money",
-  Ending_your_relationship_with_Exuus_ul_li_5: "Once you become inactive and stop saving you will have to wait until the end of the saving cycle to get your Savings.",
-  Ending_your_relationship_with_Exuus_ul_li_6: "You can be deactivated upon request made via email or phone call to our team. This can only apply if you have no pending dues to the saving groups you are part of and to the Service.",
+  Limitations_on_Exuus_Liability_description:
+    "Exuus shall in no event be responsible or liable to you or to any third party, whether in contract, warranty, tort (including negligence) or otherwise, for any indirect, special, incidental, consequential, exemplary, liquidated or punitive damages, including but not limited to loss of profit, revenue or business, arising in whole or in part from your access to exuus.com & getsave.io, your use of the service or this agreement, even if Exuus has been advised of the possibility of such damages.",
+  Your_Indemnification_of_Exuus: "15. Your Indemnification of Exuus",
+  Your_Indemnification_of_Exuus_description:
+    "You agree to defend, indemnify and hold harmless Exuus, its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, demands, and expenses (including but not limited to attorneys’ fees) arising from (i) your use of and access to the Service or any Content that you post thereon; (ii) your violation of any term of this Agreement or your representations and warranties set forth above; or (iii) your violation of any third party rights, including without limitation any copyright, property, or privacy rights.",
+  Ending_your_relationship_with_Exuus:
+    "16. Ending your relationship with Exuus",
+  Ending_your_relationship_with_Exuus_description:
+    "This Agreement will continue to apply until terminated by either you or Exuus as set out below. If you want to terminate your legal agreement with Exuus (SAVE App), you may do so by closing your account for the Service by reporting the withdrawal to Us using the relevant tools available on this Service, within the withdrawal term. If We make it possible for You to declare Your withdrawal via electronic/digital means, then after receiving such a declaration, We send immediate confirmation of receipt.",
+  Ending_your_relationship_with_Exuus_ul_li_1:
+    "Once a saving group is created, the length of the cycle is specified.",
+  Ending_your_relationship_with_Exuus_ul_li_2:
+    "The group or members cannot share-out before the saving cycle has reached its limit. ",
+  Ending_your_relationship_with_Exuus_ul_li_3:
+    "A saving group can share-out at the end or after the cycle has exceeded its length. ",
+  Ending_your_relationship_with_Exuus_ul_li_4:
+    "You can leave the group(s) you have been added to if there are no pending dues to the saving group. All your savings plus the incurred interest will be remitted to your MTN mobile money account or Airtel Money",
+  Ending_your_relationship_with_Exuus_ul_li_5:
+    "Once you become inactive and stop saving you will have to wait until the end of the saving cycle to get your Savings.",
+  Ending_your_relationship_with_Exuus_ul_li_6:
+    "You can be deactivated upon request made via email or phone call to our team. This can only apply if you have no pending dues to the saving groups you are part of and to the Service.",
   Modifications_and_Miscellaneous: "Modifications and Miscellaneous",
-  Modifications_and_Miscellaneous_description: "Exuus may modify this Agreement from time to time. Any and all changes to this Agreement will be posted on the getsave.io site. In addition, the Agreement will always indicate the date it was last revised. You are deemed to accept and agree to be bound by any changes to the Agreement when you use the Service after those changes are posted.{{break}}All covenants, agreements, representations, and warranties made in this Agreement shall survive your acceptance of this Agreement and the termination of this Agreement.{{break}}This Agreement represents the entire understanding and agreement between you and Exuus regarding the subject matter of the same and supersedes all other previous agreements.{{break}}",
+  Modifications_and_Miscellaneous_description:
+    "Exuus may modify this Agreement from time to time. Any and all changes to this Agreement will be posted on the getsave.io site. In addition, the Agreement will always indicate the date it was last revised. You are deemed to accept and agree to be bound by any changes to the Agreement when you use the Service after those changes are posted.{{break}}All covenants, agreements, representations, and warranties made in this Agreement shall survive your acceptance of this Agreement and the termination of this Agreement.{{break}}This Agreement represents the entire understanding and agreement between you and Exuus regarding the subject matter of the same and supersedes all other previous agreements.{{break}}",
   Final_Provisions: "Final Provisions",
-  Final_Provisions_description:`If You have any grievances in connection with a product (in accordance with the article on warranties and conformity) and/or about other aspects of Our service, You can submit a complaint by using the contact information provided in section 6.  {{break}}    
+  Final_Provisions_description: `If You have any grievances in connection with a product (in accordance with the article on warranties and conformity) and/or about other aspects of Our service, You can submit a complaint by using the contact information provided in section 6.  {{break}}    
   We will respond to the complaint as soon as possible, and in any case within 3 working days after having received it in the language you have concluded the transaction. If it is not yet possible for Us to formulate a substantive reaction to the complaint by that time, We will confirm receipt of the complaint within 3 working days after having received it and give an indication of the term within which it expects to be able to give a substantive or definitive reaction to Your complaint. {{break}}
-  This Agreement will be governed by the laws of the Republic of Rwanda. By using the Service, You agree that the applicable national laws will govern these Terms and any dispute of any sort that might arise between You and Us. Insofar as not dictated otherwise by mandatory law, any disputes ensuing from the Agreement will be submitted to the competent Rwandan court in Rwanda.   `
+  This Agreement will be governed by the laws of the Republic of Rwanda. By using the Service, You agree that the applicable national laws will govern these Terms and any dispute of any sort that might arise between You and Us. Insofar as not dictated otherwise by mandatory law, any disputes ensuing from the Agreement will be submitted to the competent Rwandan court in Rwanda.   `,
+  "recipient account": "Recipient Account",
 };
