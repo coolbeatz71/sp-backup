@@ -12,10 +12,13 @@ import {
   Checkbox,
   Typography,
 } from "antd";
+import { format } from "dev-rw-phone";
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { ALL, CARD, TELCO } from "constants/channel";
+import { IRootState } from "redux/initialStates";
+import { useSelector } from "react-redux";
 
 export interface Props {
   data: any;
@@ -44,6 +47,10 @@ const Step1: FC<Props> = ({
   const [isMaxError, setMaxError] = useState<boolean>(false);
   const [channelErr, setChannelErr] = useState<boolean>(false);
 
+  const { data: singleCause } = useSelector(
+    ({ cause: { single_cashout } }: IRootState) => single_cashout
+  );
+
   const [checkedChannel, setCheckedChannel] = useState<string[]>(
     data?.channel
       ? [data?.channel]
@@ -55,7 +62,7 @@ const Step1: FC<Props> = ({
             : currentBalanceTelco > 0 && currentBalanceCards > 0
             ? ALL
             : TELCO,
-        ],
+        ]
   );
 
   const maxErrorMsg = t("the maximum cashout is", {
@@ -81,7 +88,7 @@ const Step1: FC<Props> = ({
 
     const valuesToRemove = [ALL, value];
     const filtered = checkedChannel.filter(
-      (el) => !valuesToRemove.includes(el),
+      (el) => !valuesToRemove.includes(el)
     );
 
     setChannelErr(false);
@@ -229,6 +236,17 @@ const Step1: FC<Props> = ({
                   }}
                 />
               </StackedLabel>
+              <Typography.Text className={styles.steps__primary}>
+                <div className={styles.steps__row}>
+                  <div className={styles.steps__col} style={{ marginRight: 5 }}>
+                    <InfoCircleOutlined />
+                  </div>
+                  <div className={styles.steps__col}>
+                    {t("recipient account")}:{" "}
+                    {format(singleCause.payment_account_number)}
+                  </div>
+                </div>
+              </Typography.Text>
             </Form.Item>
           </>
         )}
@@ -265,6 +283,17 @@ const Step1: FC<Props> = ({
               >
                 <InputNumber autoComplete="off" placeholder={t("amount")} />
               </StackedLabel>
+              <Typography.Text className={styles.steps__primary}>
+                <div className={styles.steps__row}>
+                  <div className={styles.steps__col} style={{ marginRight: 5 }}>
+                    <InfoCircleOutlined />
+                  </div>
+                  <div className={styles.steps__col}>
+                    {t("recipient account")}:{" "}
+                    {`${singleCause.bank_name} (${singleCause.bank_account_number})`}
+                  </div>
+                </div>
+              </Typography.Text>
             </Form.Item>
 
             <Typography.Text className={styles.steps__primary}>

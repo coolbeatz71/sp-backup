@@ -45,8 +45,13 @@ const CauseCashout: FC<Props> = ({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { accessCode, error, loading, data: singleCause } = useSelector(
-    ({ cause: { single_cashout } }: IRootState) => single_cashout,
+  const {
+    accessCode,
+    error,
+    loading,
+    data: singleCause,
+  } = useSelector(
+    ({ cause: { single_cashout } }: IRootState) => single_cashout
   );
 
   const isNoBankDetails =
@@ -74,7 +79,7 @@ const CauseCashout: FC<Props> = ({
     getSingle(
       slug,
       accessCode ? { access_code: accessCode } : {},
-      "cashout",
+      "cashout"
     )(dispatch);
   }, [dispatch]);
 
@@ -159,7 +164,7 @@ const CauseCashout: FC<Props> = ({
                     setOkay,
                     (formattedData) => {
                       handleSubmit(formattedData);
-                    },
+                    }
                   );
                 },
                 issue,
@@ -169,7 +174,7 @@ const CauseCashout: FC<Props> = ({
                 currentBalanceCards,
                 currency,
                 isNoBankDetails,
-                slug,
+                slug
               )}
             </>
           ) : loading ? (
@@ -186,7 +191,7 @@ const CauseCashout: FC<Props> = ({
                     getSingle(
                       slug,
                       accessCode ? { access_code: accessCode } : {},
-                      "cashout",
+                      "cashout"
                     )(dispatch)
                   }
                   showIcon

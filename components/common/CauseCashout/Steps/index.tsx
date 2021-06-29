@@ -16,7 +16,7 @@ export interface StepType {
     currentBalanceCards: number,
     currency: string,
     isNoBankDetails: boolean,
-    slug: string,
+    slug: string
   ) => any;
 }
 
@@ -37,7 +37,7 @@ const defaultSteps = (isNoBank: boolean): StepType[] => [
       currentBalanceTelco,
       currentBalanceCards,
       currency,
-      isNoBankDetails,
+      isNoBankDetails
     ) => (
       <Step1
         data={data}

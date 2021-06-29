@@ -14,7 +14,7 @@ const Step2: FC<Props> = ({ data, setForm, cb, issue = [] }) => {
   const [channelErr, setChannelErr] = useState<boolean>(false);
 
   const { loading, error } = useSelector(
-    ({ cause: { cashout } }: IRootState) => cashout,
+    ({ cause: { cashout } }: IRootState) => cashout
   );
 
   const { t } = useTranslation();
