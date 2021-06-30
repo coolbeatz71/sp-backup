@@ -44,9 +44,6 @@ const SingleCause: NextPage<Props> = ({
   const { loading, data, error, accessCode } = useSelector(
     ({ cause: { single } }: IRootState) => single,
   );
-  const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
-  );
 
   const myCause =
     user.currentUser.isLoggedin &&
@@ -206,7 +203,7 @@ const SingleCause: NextPage<Props> = ({
                     myCause={myCause}
                     content={content}
                     contact={contact}
-                    hasBanner={typeof banner.id !== "undefined"}
+                    hasBanner={false}
                   />
                 </Col>
               </Row>

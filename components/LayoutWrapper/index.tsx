@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { isEmpty } from "lodash";
 import Context from "helpers/context";
 import Head from "next/head";
@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import getPlatformUrl from "helpers/getPlatformUrl";
 import { HomeOutlined } from "@ant-design/icons";
 
-import Banner from "./Banner";
 import FooterItem from "./FooterItem";
 
 import styles from "./index.module.scss";
@@ -22,6 +21,7 @@ import getImageUrl from "helpers/getImageUrl";
 import clearCurrentUser from "redux/actions/user/clearCurrentUser";
 import { HOME_PATH } from "../../helpers/paths";
 import { useMedia } from "react-use";
+import Story from "components/Story";
 
 const NEXT_PUBLIC_SAVE_PLUS_IMAGES_URL = getImageUrl() || "";
 
@@ -65,9 +65,6 @@ const LayoutWrapper: FC<Props> = ({
   const [scrolled, setScrolled] = useState("");
 
   const user = useSelector((state: IRootState) => state.user);
-  const { data: banner } = useSelector(
-    ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
-  );
 
   const dispatch = useDispatch();
 
@@ -106,15 +103,6 @@ const LayoutWrapper: FC<Props> = ({
   const _title = title || "";
   const _twitterHandle = "@SavePlusHQ";
 
-  const webkitBackdrop =
-    typeof CSS !== "undefined" &&
-    CSS.supports &&
-    CSS.supports("( -webkit-backdrop-filter: saturate(180%) blur(20px) )");
-  const backdrop =
-    typeof CSS !== "undefined" &&
-    CSS.supports &&
-    CSS.supports("( backdrop-filter: saturate(180%) blur(20px) )");
-
   const clearUser = () => {
     localStorage.removeItem("save-token");
     clearCurrentUser(dispatch);
@@ -131,7 +119,7 @@ const LayoutWrapper: FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
-          hasBanner={typeof banner.id !== "undefined"}
+          hasBanner={false}
         />
       );
 
@@ -145,7 +133,7 @@ const LayoutWrapper: FC<Props> = ({
           isCreate={isCreate}
           svpProps={svpProps}
           baseUrl={baseUrl}
-          hasBanner={typeof banner.id !== "undefined"}
+          hasBanner={false}
         />
       );
   };
@@ -200,11 +188,7 @@ const LayoutWrapper: FC<Props> = ({
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="icons/apple-icon.png" />
       </Head>
-      <Banner
-        className={styles.layout__banner}
-        webkitBackdrop={webkitBackdrop}
-        backdrop={backdrop}
-      />
+      <Story />
 
       {!noHeader && renderHeader()}
 
@@ -248,7 +232,7 @@ const LayoutWrapper: FC<Props> = ({
           data-is-category={isCategory}
           data-is-form={isForm}
           data-is-error={isError}
-          data-has-banner={typeof banner.id !== "undefined"}
+          data-has-banner={false}
         >
           {children}
         </Content>
