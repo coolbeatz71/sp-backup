@@ -486,146 +486,46 @@ export default {
   Update: "4. Impinduka",
   update_description:
     "Exuus Ltd ishobora guhindura iyi politiki igihe icyo aricyo cyose bitagize icyo bibangamira cyangwa ngo bigabanye uburenganzira bwawe bukubiyemo. Mu gihe iyi politike ihindutse ku buryo bugaragara, tuzifashisha itangazo rigaragaza impinduka, turishyire ku rubuga rwacu rwa interineti mukoresha riri kumwe na politiki nshya ivuguruye. Uramutse utemeranya natwe ku mpinduka zabaye kuri politiki, ushobora guhita uhagarika gukoresha serivisi zacu zose. Nabwo kandi uramutse ukomeje gukoresha serivise nyuma yizo mpinduka, biba bisobanuye neza ko wemeye ibirimo. ",
-  user_agreement: "Amasezerano y'imikoranire",
-  accepting_terms: "1. Kwemera amabwiriza",
-  accepting_terms_description1: `Mu gihe ukoresheje amakuru, ibikoresho, ibirango, hamwe n’imikorere biri ku rubuga {{exuus}} n’izindi mbuga zishamikiyeho nka {{getsave}}, {{saveplus}}, uba wemeye kugengwa n’ibikubiye mu mabwiriza akurikira (“Amabwiriza agenga igicuruzwa, muri aya masezerano cyiswe “Serivise”). Uramutse wifuza gukoresha iyi gahunda cyangwa kuba Umunyamuryango mu itsinda ryo kuzigama no kugurizanya, ugomba kubanza gusoma no kugaragaza ko wemeye kuyubaha no kugengwa nayo mu gihe cyo kwiyandikisha. `,
-  accepting_terms_description2:
-    "Ushobora kudakoresha iyi Serivisi no kutemera aya masezerano igihe cyose udafite imyaka y’ubukure iteganwa n’itegeko bikaba bitakwemerera kugirana amasezerano na Exuus Ltd. {{break}}Kutubahiriza ingingo iyo ariyo yose igize aya masezerano, bishobora kukuviramo guhagarikwa cyangwa gufungirwa konti yawe burundu. ",
-  description_of_service: "2.	Ibiranga Serivisi",
-  description_of_service_desc: `Serivisi ya “SAVE” ni uburyo bugezweho bw’ikoranabuhanga bufasha mu buryo burambye amatsinda yo kuzigama no kugurizanya, kugira uburyo buhurije hamwe kandi bwegereye abaturage bwo kwegeranya no kwirindira imisanzu. {{break}}
-                               Ubu buryo burimo ibyiciro binyuranye byuzuzanya uhereye ku ihanahana ry’amafaranga hifashishijwe ikoranabuhanga (Cashless transactions), kubona amakuru akumenyesha ko ubikije cyangwa amafaranga (Credit scoring), kumenya abaguzi bawe n’uburyo bwo kubandika hadakoreshejwe impapuro (e-recording). 
-                               Ikoranabuhanga rya SAVE rikoze ku buryo rishobora gukoreshwa mu buryo butanu bunyuranye kandi bwuzuzanya, n’abantu batandukanye aribwo kuburikira:`,
-  for_smart_phone_users:
-    "hifashishwa telefoni zigezweho (for smart-phones users)",
-  description_of_service_desc2:
-    "Iyi serivisi uyigezwaho na Exuus Ltd., ikigo cy’ubucuruzi cyigenga, cyanditswe mu buryo bwemewe n’amatageko y’u Rwanda. Iyi serivisi ikaba igamije gukufasha wowe ubwawe, itsinda, cyangwa ibigo gucunga neza ihererekanya ry’amafaranga amatsinda yizigamira hifashishijwe ikoranabuhanga n’ihererekanya ry’amakuru mu buryo bwihuse. Iyi serivisi ntabwo igamije na busa kukugira inama mu bijyanye n’amategeko, imisoro cyangwa inama ku bucuruzi bwawe. ",
-  Definition_of_Different_Saving_Groups_Type:
-    "3. Igisobanuro k’ubwoko bunyuranye bw’amatsinda y’ubwizigame ",
-  Definition_of_Different_Saving_Groups_Type_desc:
-    "SAVE ifite ubwoko 3 bw’amatsinda bwakomatanyirijwe ku rubuga rumwe: ",
-  Supervised: "Itsinda rikurikiranywa",
-  Supervised_description:
-    "Amatsinda yose arangwa n’ibi bikurikira, abarizwa mu bwoko bw’akurikiranywa:",
-  Supervised_ul_li_1:
-    "Rishamikiye ku miryango itari iya leta (yo mu gihugu cyangwa mvamahanga) biciye mu mushinga",
-  Supervised_ul_li_2:
-    "Rikurikiranwa kandi ryakira ubufasha bw’inyigisho-ngiro ku mari buturuka mu muryango utari uwa leta",
-  Supervised_ul_li_3:
-    "Itsinda ryashyizeho komite irifasha gufata ibyemezo birebana n’uko amafarana abikuzwa",
-  Supervised_ul_li_4:
-    "Itsinda ryavutse rishingiye k’umuntu umwe uhagarariye abandi (agent) nawe akaba ashamikiye ku muryango utari uwa leta. Ibi bikorerwao kuri SAVE Collector App.  ",
-  Graduated: "Itsinda ryisumbuye",
-  Graduated_description:
-    "Amatsinda yose arangwa n’ibi bikurikira, abarizwa mu bwoko bw’ayisumbuye:",
-  Graduated_ul_li_1:
-    "Ashamikiye ku kigo icyo aricyo cyose kitari umuryango wa leta",
-  Graduated_ul_li_2:
-    "Itsinda ryashyizeho komite ishyiraho ibyemezo birebana n’uko amafaranga abikuzwa ",
-  Graduated_ul_li_3:
-    "Itsinda ryavutse rishingiye k’umuntu umwe uhagarariye abandi (agent) nawe akaba ashamikiye ku kigo kitari umuryango wa leta. Ibi bikorerwa kuri SAVE Collector App.  ",
-  Independent: "Itsinda ryigenga",
-  Independent_description:
-    " Amatsinda yose arangwa n’ibi bikurikira, abarizwa mu bwoko bw’ayigenda:",
-  Independent_ul_li_1: "Adashamikiye ku muryango uwo ariwo wose",
-  Independent_ul_li_2: "Itsinda rishamikiye kuri SAVE bidaciye ahandi",
-  Independent_ul_li_3:
-    "Itsinda ridafite komite ishyiraho ibyemezo birebana n’uko amafarana abikuzwa. Icyo gihe abanyamuryango bose baba bafite uburenganzira bungana iyo bigeze igihe cyo kugena uburyo rusange bw’uko amafarana abikuzwa",
-  Independent_ul_li_4:
-    "Itsinda ryatangijwe n’umuntu umwe ku giti cye, ushobora gukangurira abandi kumugana bagakora itsinda",
-  Independent_ul_li_5:
-    "Igihe umuntu umwe yatangije itsinda abandi bashobora kumusaba kuba abayamuryango. Ubusabe bushobora kwemerwa cyangwa bugahakanwa. ",
-  Service_Fee: "4. Ikiguzi cya Serivisi",
-  "SAVE service fee is split into 4 plans":
-    "Ikiguzi cya Serivisi kiri mu byiciro 4",
-  Free_Plan: "Icyiciro cy’ubuntu(Free plan)",
-  Basic_Plan: "Icyiciro cy’intangiriro(Basic plan) ",
-  Standard_Plan: "Icyiciro fatizo(Standard plan) ",
-  Premium_Plan: "Icyiciro cy'ikirenga(Premium plan)",
-  "for Supervised saving groups": "ku matsinda akurikiranywa",
-  "for both graduated and independent groups":
-    "ku matsinda yisumbuye nayigenda",
-  "for NGOs": "ku miryango itari iya Leta",
-  "for Private organization or Financial Service Providers":
-    "ku bigo byigenga cyangwa ibigo by’ubucuruzi bitanga serivisi z’imari ",
-  "For more details feel free to refer to": `Ku bindi bisobanuro wakwifashisha  {{getsave}} {{break}} Iki gika nacyo gifite ibisubizo ku bibazo bitandukanye abantu bibaza.`,
-  "Privacy and your Personal Information":
-    "5. Amakuru y’ibanga, aranga umuntu n’imikoreshereze yayo",
-  "Privacy and your Personal Information description": `Exuus Ltd. ntizigera icuruza, ihanahana cyangwa se ngo itange amakuru yawe bwite cyangwa ajyane n’ubucuruzi utabitangiye uburenganzira cyangwa ngo bibe ari amabwiriza ya leta cyangwa icyemezo cy’urukiko. {{break}} Ku yandi makuru ajyanye n’uburyo Exuus Ltd irinda amakuru, wasoma  ingamba zashyizweho zigamije kurinda amakuru y’ibanga n’umutekano wa porogaramu ukoresha wizigamira, bikubiye muri aya masazerano. {{break}}
-  Ingamba zivugwa hano zishobora kuvugururwa igihe icyo aricyo cyose nta nama ugishijwe. Impinduka kuri izo ngamba zitangira kubahirizwa zikimara gushyirwa ku rubuga. `,
-  Your_Registration: "6. Uko biyandikisha",
-  your_registration_desc: `Konti yawe igomba kuba yanditswe kandi ifite n’uburyo buyishamikiyeho bukwemerera kohereza no kwakira  amafaranga (mobile money wallet). Ubwo buryo bugomba kuba buhujwe na nomero ya telefoni hamwe n’indangamuntu byawe.{{break}}
-  Kugira ngo ushobore gukoresha uru ruguba, ufite uburyo butandukanye bukurikira:`,
-  "Downloading the app from Google Play":
-    "Gushyira muri telephone yawe apurikasiyo (application) uyikuye kuri google play cyangwa App store ku bakoresha Android na iOS.",
-  "Via our USSD code accessible via":
-    "Hari ugukoresha umurongo mugufi *777# ugakurikiza amabwiriza",
-  "Via the web dashboard accessible via":
-    "- Kubakoresha mudasobwa muradusanga kuri  {{getsave}}",
-  "To access SAVE, you will need to sign-up by":
-    "Kugira ngo ushobore gukoresha SAVE, ugomba kwiyandikisha ukoresheje nomero ya telefoni/email, ugahitamo umubare w’ibanga/ijambo ry’ibanga ubundi ukuzuza amakuru yandi asabwa. Byongeye kandi, ugomba kuba ufite nibura imyaka 16 y’ubukure cyangwa uyirengeje kugirango wiyandikishe muri SAVE.  ",
-  "You can access your funds in two forms":
-    "Ushobora kugira uburenganzira ku mafaranga yawe mu buryo bubiri",
-  your_registration_desc_2:
-    "Igihe umunyamuryango yakira amafaranga ava mu itsinda ryo kuzigama. Ubusabe bw’umunyamuryango bukorwa kandi bukemezwa na komite (ku matsinda agenzurwa n’ayisumbuye) mu gihe ku matsinda yigenga, byemezwa n’abanyamuryango bose. Mu gihe ubwo busabe bwemejwe ku bwiganze bw’abanyamuryango (byerekanywe  n’imibare y’ibanga y’abagize itsinda), amafaranga ahita avanwa kuri konti ihuriweho n’itsinda (SAVE) akajya kuri konti yawe bwite.",
-  "The Cash-Out has various forms, including but not limited to":
-    "Isohorwa ry’amafaranga riri mu buryo bwinshi bukurikira:",
-  Loan: "Inguzanyo",
-  Social_Fund: "Ingoboka",
-  Bulk_withdrawal: "Kubikuriza hamwe nk’itsinda",
-  Share_Out: "Gusaranganya imarishingiro(Kugabana) ",
-  Etc: "N'ubundi",
-  your_registration_desc_3: `Ugomba kwemera no kumva ko biri mu nshingano zawe kubika kure/guhisha umubare w’ibanga ugufasha kubona serivisi. Iyo uduhaye email na nomero ya telefoni byawe, uba wemeye bidasubirwaho ko dushobora kukoherereza amakuru ya service twifashishije iyo email cyangwa telefoni. {{break}}
-                        Ni inshingano zawe kutumenyesha uko bikwiye igihe wahinduye nomero ya telefoni cyangwa email byawe. {{break}}
-                        Uramutse umenye uwaba akoresha mu buryo butemewe umwirondoro wawe, ugomba kubimenyesha Exuus Ltd. ukibimenya, ukoresheje email {{supportEmail}} cyangwa umurongo wa telefoni: +250 788 381 810 or +250 785 489 992. `,
-  "Your Use of the Service and Responsibilities": "7.	Ikoreshwa rya Serivisi",
-  Your_Use_of_the_Service_and_Responsibilities_description:
-    "Kwiyandikisha nta kiguzi bisaba. SAVE yahujwe n’ibigo by’imari hifashishijwe ikoranabuhanga. Ibi bikaba bifasha ihererekanywa ry’amafaranga hakoreshejwe ikoranabuhanga. Gukoresha  kwawe SAVE bishobora kugira imbogamizi igihe icyo aricyo cyose ku mpamvu nyinshi zinyuranye, zirimo nk’uburwayi bwa telefoni yawe, ivugurura cyangwa ikindi gikorwa cyagenwa na Exuus itakugishije inama. ",
-  Online_Alerts_and_Disclaimer: "8.	Imenyekanisha no kwemera amasezerano",
-  Online_Alerts_and_Disclaimer_description: `Exuus ishobora kujya ikumenyesha impinduka zabaye cyangwa ikuburira ibijyanye na konti yawe hifashishijwe konti yawe. Ibyo birimo nk’ihinduka ry’amakuru ya konti yawe wakoresheje wiyandika. {{break}}
-                                           Bikaba bivuga ko ayo makuru akuburira ashobora gutinda kukugeraho bitewe n’impamvu zinyuranye. {{break}}
-                                           Exuus ikoresha uburyo bwose bushoboka ngo ikuburire ku gihe yifashishije amakuru y’impamo. Ariko nanone ntabwo twakwizeza ko bizakugereraho ku gihe cyangwa ngo bibe bidafite ubusembwa na busa. Uremera neza ko Exuus itazaryozwa ubucyerererwe, kutagerwaho, kuyoba kw’amakuru, ubusembwa ku makuru, cyanywa ikindi gikorwa cyakorwa n’undi uwo ariwe wese utari muri aya masazerano kandi icyo gikorwa cye kibangamiye amakuru wagenewe. `,
-  Rights_You_Grant_to_Us: "9.	Uburenganzira uduhaye",
-  Rights_You_Grant_to_Us_description:
-    "Iyo uduhaye amakuru wiyandikisha kuri iyi servisi, uba uduhaye uburenganzira bwo kuyakoresha. Exuus ishobora kuyakoresha no kuyabika ariko byose bigamije kuguha serivisi wifuza. Iyo woherereje Exuus amakuru, biba byemeza ko ufite ububasha bwo kuyohereza mu nyungu zo kuguha service, bikaba bitavuze ko Exuus ifite inshingano zo kuguha ikiguzi cyayo cyangwa ngo aze aherekejwe n’imbogambizi izo arizo zose. ",
-  Exuus_Intellectual_Property_Rights:
-    "10.	Uburenganzira ku mutungo bwite mu by’ubwenge bwa Exuus",
-  Exuus_Intellectual_Property_Rights_description: `Ibikubiye muri exuus.com & getsave.io, yaba uko igaragara ku ishusho (urugero: inyandiko, graphics, amashusho, n’ibirango), amafoto, imfashanyigisho, amabwiriza, porogaramu, n’ibindi bikoresho byayo birengewe n’Itegeko rigamije kurengera umutungo bwite mu by’ubwenge ry’u Rwanda hamwe n’andi mategeko. {{break}} Gukwirakwiza, gusubiramo, cyangwa kwigana ibyo ukuye   ku rubuga exuus.com & getsave.io, haba mu buryo bwuzuye cyangwa bucagase,  bigakorwa nta ruhushya rwanditse rwatanzwe kandi bikozwe ku nyungu zinyuranye niza Exuus, birabujijwe.  `,
-  Access_and_Interference: "11.	Ikoreshaneza",
-  Access_and_Interference_description:
-    "Urahamya neza ko utazakoresha iyi serivisi mu buryo bunyuranyije n’itegeko cyangwa se ukica imwe mu ngigo z’aya masezerano, amategeko ngederwaho, n’amabwiriza. Uremera ko uzirengera ingaruka z’ikoreshwa rya serivisi muri konti yawe.",
-  Disclaimer_of_Representations_and_Warranties: "12.	Kutemera ubwishingire ",
-  Disclaimer_of_Representations_and_Warranties_description: `Exuus iguha serivisi uko iri kandi iboneka, ikaba itakwizeza garanti iyariyo yose yaba iyanditse cyangwa itanditse. Exuus nta buryozwe izemera bwa garanti ishingiye k’uko serivisi iteye. `,
-  "Not a Financial Planner, Broker or Tax Advisor":
-    "13.	Exuus si ikigo gitanga Inama mu bucuruzi ",
-  "Not a Financial Planner, Broker or Tax Advisor description":
-    "Haba Exuus cyangwa serivisi yayo ntibigamije kuguha ubujyanama mu by’amategeko, imisoro cyangwa icungamutungo. Exuus ntabwo ari umucungamutungo, uhagarariye umucungamutungo (agent) cyangwa umujyanama w’imisoro. Iyi serivisi igamije gusa kugufasha wowe n’itsinda ubarizwamo,  gukorera hamwe ku nyungu rusange zirambye. Exuus iha urubuga amatsinda rwo kubasha kwizigamira hakoreshejwe ikoranabuhanga rihujwe n’ibigo by’imari  na sosiyeti z’itumanaho. ",
-  Limitations_on_Exuus_Liability: "14.	Imbibi ku buryozwe bwa Exuus",
-  Limitations_on_Exuus_Liability_description:
-    "Exuus ntizigera na rimwe iryozwa ku nyungu zawe cyangwa izundi wese utari muri aya masezerano, haba uburyozwe bushingiye ku masezerano, iicyizere, uburangare, cyangwa izindi ngaruka zaba izisanzwe cyangwa izidasanzwe, ingaruka zitunguranye, ingaruka zikomotse ku zindi, igihombo, uburyozwe, zifite aho zihurira n’ikoreshwa rya serivisi ya Exuus.com & getsave.io, nubwo bwose Exuus yaba yarabibwiwe mbere ko bizabaho. ",
-  Your_Indemnification_of_Exuus: "15.	Indishyi zihabwa Exuus",
-  Your_Indemnification_of_Exuus_description:
-    "Uremera neza ko ugomba kurengera no kutabangamira Exuus, abakozi bayo, abayobozi bayo,  abayobozi bakuru bayo, intumwa zayo igihe cyose haboneka ubusabe, ubwangizi, inshingano, igihombo, uburyozwe, ideni, ubusabe, hamwe n’ubwishyu (burimo igihombo cy’umunyamategeko) byakomoka (i) kuburyo ukoresha serivisi n’ibyo ushyiraho; (ii) kwica rimwe mu ngingo z’aya masezerano; cyangwa se (iii) kwica bumwe mu burenganzira bw’abandi bantu batari muri aya masezerano burebana n’ umutungo bwite mu by’ubwenge. ",
-  Ending_your_relationship_with_Exuus: "16.	Iseswa ry’amasezerano na Exuus",
-  Ending_your_relationship_with_Exuus_description:
-    "Aya masezerano azakomeza gukoreshwa kugeza igihe rumwe mu mpade ziyagize, wowe cyangwa Exuus ruyasheshe nkuko biteganywa mu ngingo zikurikira. {{ break }}Ushatse gusesa amasezerano na Exuus (SAVE App), wakoresha buryo bwo gufunga konti yawe ya serivisi. ",
-  Ending_your_relationship_with_Exuus_ul_li_1:
-    "Igihe kizwi itsinda rizamara kirangiye",
-  Ending_your_relationship_with_Exuus_ul_li_2:
-    "Itsinda, cyangwa abanyamuryango baryo ntibashobora kugabana imarishingiro igihe cyose igihe istinda rizamara kitararangira.",
-  Ending_your_relationship_with_Exuus_ul_li_3:
-    "Itsinda, cyangwa abanyamuryango baryo ntibashobora kugabana imarishingiro igihe cyose igihe bihaye rizamara cyarengeranye. ",
-  Ending_your_relationship_with_Exuus_ul_li_4:
-    "Ushobora kuva mu itsinda washyizwemo mu gihe nta mwenda urifitiye. ",
-  Ending_your_relationship_with_Exuus_ul_li_5:
-    "Mu gihe wahisemo kuva mu itsinda cyangwa ugahagirika gutanga imisanzu, ugomba gutegereza igihe cy’ihetura ry’itangwa ry’imisanzu kugirango ubone imisanzu yawe.",
-  Ending_your_relationship_with_Exuus_ul_li_6:
-    "Ushobora gusaba gukurwa mu itsinda ukoresheje email cyangwa ugahamagara kuri telefoni ya Exuus Ltd. Ibi bishoboka gusa mu gihe nta myenda ufitiye itsinda cyangwa serivisi.",
-  Modifications_and_Miscellaneous:
-    "17.	Impinduka ku masezerano n’utuntu n’utundi",
-  Modifications_and_Miscellaneous_description: `Exuus ishobora guhindura aya masezerano igihe icyo aricyo cyose. Impinduka zose zigaragazwa ku rubuga getsave.io. Icyiyongereyeho, aya masezerano azajya agaragaza itariki aheruka guhindurirwaho.{{break}} 
-  Uremera ko impinduka zizakorwa kuri aya masezerano, zizaba zigize amasezerano nazo kandi ko uzagengwa nayo mu gihe cyose ukoresha serivisi. {{break}}Ibigize aya masezerano, ibyemeranyijweho, garanti, n’ibindi byagenwe gukomeza nyuma y’aya masezerano bizakomeza kugira ako gaciro nta nkomyi. 
-  Aya masezerano niyo yonyine akozwe hagati yawe na Exuus ku nyungu zavuzwe harugu kandi akaba asimbuye andi yose yaba yarayabanjirije.`,
-  Final_Provisions: "",
-  Final_Provisions_description: "",
-  "recipient account": "Konti y'uwakira",
+    user_agreement:"Amabwiriza ku mikoreshereze",
+    accepting_terms: "1. Kwemera amabwiriza",
+    accepting_terms_description1: `Mu gihe ukoresheje amakuru, ibikoresho, ibirango, hamwe n’imikoreshereze biri ku rubuga {{exuus}} n’izindi mbuga zishamikiyeho nka {{saveplus}}), uba wemeye kugengwa n’ibikubiye mu mabwiriza akurikira (“Amabwiriza agenga igicuruzwa, muri aya masezerano cyiswe “Serivise”). Uramutse wifuza gukoresha iyi gahunda, ugomba kubanza gusoma no kugaragaza ko wemeye kugengwa nayo mu gihe cyo kwiyandikisha. {{break}} 
+    Ushobora kudakoresha iyi Serivisi no kutemera aya masezerano igihe cyose udafite imyaka y’ubukure iteganwa n’itegeko bikaba bitakwemerera kugirana amasezerano na Exuus Ltd.`,
+    accepting_terms_description2:"Kutubahiriza ingingo iyo ariyo yose igize aya masezerano, bishobora kukuviramo guhagarikwa cyangwa gusiba impamvu yawe ikangurira abantu gutanga ubufasha.",
+    description_of_service:"2. Ibiranga Serivisi",
+    description_of_service_desc:`Serivisi ya “Save Plus” ni uburyo koranabuhanga wakwifashisha ukoresheje urubuga {{saveplus}} cyangwa se uburyo bwa telefoni budasaba murandasi ukanda *777*77# kugira ngo ube wagira uruhare rwawe utanga ku bikorwa bishyigikira umuhango y’ihamba(gutabara), ibirori by’ubukwe, igikorwa cyo kugira neza, igikorwa cyo gufasha umurwayi cyangwa izindi mpamvu nziza zo gufasha. {{break}} Serivisi ya “Save Plus” ni urubuga umuntu, ikigo cyangwa imiryango itabongamiye kuri leta (wiswe “Uwateguye gahunda y’Ubufasha”) yifashisha mu gutangiza gahunda yo gukusanya impano z’amafaranga (byiswe “Impano”) ziturutse mu bantu bifuza gutanga ubufasha batanga impano. 
+    “Save Plus” ubwayo si uburyo bwifashishwa mu kohereza kwakira amafaranga cyangwa ngo ibe yaba ifite uburyo ibika amafaranga. Ahubwo Save Plus ikorana n’ibindi bigo by’ubucuruzi (biswe “Ufasha mu guhanahana amafaranga”) bisanzwe byemerewe kwakira, kohereza, no kubika amafaranga bikayifasha muri icyo gikorwa cyo guhererekanya impano z’amafaranga zishyigikira impamvu nziza runaka. Ukaba rero wemera ko kwifashisha abafasha mu guhanahana amafaranga bigize serivisi tuguha kandi tukaba duhanahana amakuru yawe nabo kugirango turusheho kugushafa neza muri serivisi. {{break}}
+    Mu gihe wifashishije Save Plus, ushyiraho impamvu yawe ikeneye ubufasha, utanga impano y’amafaranga cyangwa usabye kujya muri gahunda runaka bifitanye isano, uba wemeye kugengwa n’amabwiriza yacu agenga iyi serivisi.`,
+   description_of_service_desc2:"Iyi serivisi uyigezwaho na Exuus Ltd., ikigo cy’ubucuruzi cyigenga, cyanditswe mu buryo bwemewe n’amatageko y’u Rwanda. Iyi ni serivisi gitanga mu rwego rw’impamvu zavuzwe haruguru, ikaba rero itigamije na busa kukugira inama mu bijyanye n’amategeko, imisoro cyangwa inama ku bucuruzi bwawe.",
+   Access_to_the_Services:"3. Uko uhabwa Serivisi",
+   Access_to_the_Services_desc:`Wifashishije nimero ya telefoni yawe, wakwinjira, ukanatangiza impamvu yawe ikeneye ubufasha kuri Save Plus. Hamwe niyo konti yawe wabasha gukomeza kubona amakuru ajyanye n’impamvu watangije, wabasha gutanga impano z’amafaranga mu zindi mpamvu zateguwe n’abandi kandi ukaba wanakira inkuka yamafaranga yavuyemo utarinze kujya kure. {{break}} Wanabasha nawe gukora indi mpamvu yawe yihariye mu gihe usanze itarateganyijwe mu ziri ku rutonde rwa {{saveplus}} cyo gihe ushyizeho indi yihariye, kugira ngo undi umuntu ayibone bizasaba ijambobanga tukoherereza iyo ukimara gutangiza impamvu ikeneye ubufasha kugirango iryo jambobanga ujye uryoherereza uwo wifuza ko abona impamvu wateguye. {{break}}
+   Icyo gihe abatanga impano bifashishije USSD kuko idakenera murandasi, bo bashobora kuguha impano yabo batiriwe bifashisha ijambobanga. {{break}}Abatanga impano baba bafite uburyo bwo kubikora amazina yabo ntagaragare. Icyo gihe Save Plus ntigaragaza amazina yabo, ahubwo igaragaza nimero za telefoni zabo mu buryo bujimije hamwe n’umubare w’amafaranga batanze. {{break}} Ntusabwa kuba ufite konti yacu kugirango utange impano y’amafaranga ku mpamvu ikeneye inkunga wihitiyemo, ahubwo kugira ngo wowe ushyireho impamvu yawe ikeneye inkunga, ugomba kubanza kwiyandikisha kuri {{saveplus}}
+   Urasabwa kuduha amakuru y’impamo, yuzuye kandi avuguruye arimo amazina nyayo, izina ry’ikigo niba ari ikigo gisaba, nimero ya telefoni, umubare w’ibanga wihitiyemo, nimero y’indangamuntu cyangwa ya pasiporo, nimero ya konti ya banki hamwe na imeli yanyu. {{break}} Urubuga rwa Save Plus rufite uburyo buduha ubushobozi bwo (i) kugenzura, (ii) guhagarika, (iii) kuguraho impamvu isaba impano mu gihe biri ngombwa.`,
+   Service_Fee:"4. Ikiguzi cya serivisi",
+   Service_Fee_desc:"Nubwo bwose nta kiguzi usabwa mu gutangiza impamvu ikeneye inkuga, hari igikugizi fatizo gishobora gukurikizwa igihe biri ngombwa kuwutangije impamvu.",
+   No_Solicitation_and_Sponsorship:"5. Ubu si uburyo bwo kugira uwo dukangurira gutanga inkuga",
+   No_Solicitation_and_Sponsorship_desc:`Save Plus ifasha abantu muri gahunda yo gukusanya inkunga z’amafaranga. Ibi ikabikora itanga ikoranabuhanga ryifashishwa mu guhuza abifuza gutanga impano n’abateguye impamvu isaba inkunga. Serivisi ubwayo ntiyagenewe gukangurira rubanda gutanga impano y’amafarana ku nyunyu z’umuntu uwariwe wese, ikigo, cyangwa urwero kuko Save Plus atariko kazi kayo. {{break}} Igihe ukoresheje izi serivisi uba wumvise neza kandi ukanemera ko Save Plus itazirengera uko wakoresheje impano zawe cyangwa umubare w’amafaranga yakusanyinjwe n’uwateguye impamvu isaba inkunga, gahunda yo gusunya iyo nkunga, cyangwa iyo gahunda ubwayo. {{break}}
+   Save Plus ishobora ku bwende bwayo guhitamo gushyigikira impamvu yo kwegeranya inkunga.  Bibaye bityo bizagaragazwa n’akamenyetso gasa n’icyatsi kibisi kagaraga ku mpamvu kanditseho “Cyatewe Inkunga”. {{break}} Uramutse umenye uwaba akoresha mu buryo butemewe umwirondoro wawe, ugomba kubimenyesha Exuus Ltd ukibimenya, ugakoresha email {{saveplusEmail}} cyangwa ukaduhamagara ku umurongo wa telefoni:+250 788 381 810  cyangwa +250 785 489 992.`,
+   Your_Use_of_the_Service_and_Responsibilities:"6. Uko ukoresha servisi n’inshingano zawe",
+   Your_Use_of_the_Service_and_Responsibilities_desc:`Amakuru yose n’ibikubiye muri Save Plus bijyanye na serivisi n’ibyifashishwa nk’amakuru akuyobora uko serivisi itangwa, Save Plus ntabwo ifite gihamya ko ayo makuru ari ay’impamo, yuzuye, ko atataye agaciro cyangwa ko wayarambirizaho cyangwa ngo urambirize ku biyakubiyemo. {{break}} Nta gikubiye muri ibi kigamije kuguha ubujyanama mu by’icungamutungo, amategeko, imisoro cyangwa indi nama z’umwuga. {{break}} Mbere yo kugira icyemezo ufata ku gutangiza gahunda yo gukangurira abantu gutanga impano, gufasha, gutanga impano y’amafaranga cyangwa andi makuru ajyanye na serivisi, wakabanje kubanza kugisha inama umujyanama wawe. Amakuru yose n’ibiyakubiyemo wakoresha ushaka serivisi urabyirengera. {{break}}
+   Exuus iguha serivisi uko iri kandi iboneka, ikaba itakwizeza garanti iyariyo yose yaba iyanditse cyangwa itanditse. Exuus nta buryozwe izemera bwa garanti ishingiye k’uko serivisi iteye. `,
+   Content_Usage:"7. Uko ibikubiye mu amakuru byagaragara",
+   Content_Usage_desc:`Bimwe mu bikorwa byawe ukoresha serivisi bishobora kugaragarira rubanda (“Amakuru y’ukoresha serivisi”). Ibyo birimo nk’amakuru ushyira ku rubuga ku buryo bugaragarira bose (ibisobanuro kuri serivisi, inyandiko, umuziki, ijwi, amakuru, mushungurabishushanyo, ibitekerezo, amafoto, videwo, amashusho, ibirango by’ubucuruzi, ibimenyetso cyangwa ikindi kintu washyiraho ushaka serivisi cyangwa amakuru wasangiza abandi bakoresha iyo seriisi. Icyiyongera kuri ibyo ni umwirondoro w’ukoresha serivisi ukubiyemo amazina yombi, imeri, izina ry’ikigo cyasabye serivisi, amakuru ku mibereho hamwe n’andi makuru washyizeho yakwifashishwa kugira ngo horoshywe ikoreshwa rya serivisi.{{break}}
+    Ibikubiye muri exuus.com & getsave.io, yaba uko igaragara ku ishusho (urugero: inyandiko, mushungurabishushanyo, amashusho, n’ibirango), amafoto, imfashanyigisho, amabwiriza, porogaramu, n’ibindi bikoresho byayo birengewe n’Itegeko rigamije kurengera umutungo bwite mu by’ubwenge ry’u Rwanda hamwe n’andi mategeko. {{break}} Urugero, nkuwateguye gahunda yo guhamagarira abantu gufasha, ushobora kuba washyira amakuru yawe yihariye afatwa nk’ibanga ajyanye nk’igihe uherukira kujya mu bitaro. Ikindi nk’utanga impano, ushobora guhitamo kugaragaza inkunga yawe kuwashaka kumenya ayo makuru wese. Umuntu wese usoma ayo makuru ashobora kuyakoresha cyangwa kuyasakaza ku bandi bantu cyangwa ibigo tutabizi cyangwa ngo nawe ubimenye kimwe nuko na murandasi ubwayo yabitangariza. {{break}} 
+    Kuri iyo mpamvu turagukangurira kwitwararika kudashyira amakuru yawe y’ibanga mu gihe ukoresha serivisi. {{break}} Ku yandi makuru ajyanye n’uburyo Exuus Ltd irinda amakuru, wasoma  ingamba zashyizweho zigamije kurinda amakuru y’ibanga n’umutekano wa porogaramu, biri ku rubuga rwacu. `,
+    Rights_You_Grant_to_Us:"8. Uburenganzira uduhaye ku makuru yawe",
+    Rights_You_Grant_to_Us_description:`Iyo uduhaye amakuru wiyandikisha kuri iyi servisi, uba uduhaye uburenganzira bwo kuyakoresha. Exuus ishobora kuyakoresha no kuyabika ariko byose bigamije kuguha serivisi wifuza. Iyo woherereje Exuus amakuru, biba byemeza ko ufite ububasha bwo kuyohereza mu nyungu zo kuguha service, bikaba bitavuze ko Exuus ifite inshingano zo kuguha ikiguzi cyayo cyangwa ngo aze aherekejwe n’imbogambizi izo arizo zose. `,
+    Exuus_Intellectual_Property_Rights:"9. Ubumenyi mu by’ubwenge bwa Exuus",
+   Exuus_Intellectual_Property_Rights_description:`Ibikubiye muri {{saveplus}}, yaba “uko igaragara nuko isa ku ishusho” (urugero: inyandiko, graphics, amashusho, n’ibirango), amafoto, imfashanyigisho, amabwiriza, porogaramu, n’ibindi bikoresho byayo birengewe n’Itegeko rigamije kurengera umutungo bwite mu by’ubwenge ry’u Rwanda hamwe n’andi mategeko. Gukwirakwiza, gusubiramo, cyangwa kwigana ibyo ukuye   ku rubuga {{saveplus}}, haba mu buryo bwuzuye cyangwa bucagase,  bigakorwa nta ruhushya rwanditse rwatanzwe kandi bikozwe ku nyungu zinyuranye niza Exuus, birabujijwe.  `,
+   Modifications_and_Miscellaneous:"10. Impinduka ku masezerano n’utuntu n’utundi",
+   Modifications_and_Miscellaneous_description:`Exuus ishobora guhindura aya mabwiriza igihe icyo aricyo cyose. Impinduka zose zigaragazwa ku rubuga {{saveplus}}. Icyiyongereyeho, aya masezerano azajya agaragaza itariki aheruka guhindurirwaho. Uremera ko impinduka zizakorwa kuri aya masezerano, zizaba zigize amasezerano kandi ko uzagengwa nayo mu gihe cyose ukoresha iyi serivisi. {{break}} Ibigize aya masezerano, ibyemeranyijweho, garanti, n’ibindi byagenwe gukomeza nyuma y’aya masezerano bizakomeza kugira ako gaciro nta nkomyi.{{break}} Aya masezerano niyo yonyine akozwe hagati yawe na Exuus ku nyungu zavuzwe harugu kandi akaba asimbuye andi yose yaba yarayabanjirije. `,
+   Final_Provisions:"11. Ingingo za nyuma",
+   Final_Provisions_description:`Uramutse ugize ibitakunogeye bifite aho bihuriye n’iyi serivisi, watwoherereza ikibazo mwagize mukoresheje amakuru yacu mufite mu gika cya 5.{{break}} Tuzabasubiza ku kibazo muzaba mufite mu gihe gito gishoboka, kandi uko byagenda kose mugomba kubona igisubizo kiri rurimi mwakoresheje mu gihe kitarenze iminsi itatu ikurikira umunsi ikibazo cyatugereyeho. {{break}}Igihe kandi bibaye ngombwa ko tutabasha kubaha igisubizo gikwiye mu gihe gikwiye, tuzabamenyesha ko twakiriye ikibazo cyanyu mu gihe kitari munsi ya ya minsi itatu, tunabahe icyerekezo cy’igihe ikibazo kizaba cyabonewe igisubizo nyacyo. {{break}}Aya masezerano azagengwa n’amategeko ya Repubulika y’u Rwanda. Mu gihe ukoresheje iyi serivisi, uba wemeye ko aya masezerano hamwe n’ibyayakomokaho byose nk’amakimbirane byagengwa n’amategeko y’igihugu. {{break}}
+   Mu gihe nta rindi tegeko ribibuza, amakimbirane akomoka kuri aya masezerano azakemurwa n’inkiko z’u Rwanda. `,
+  
+  
+  
+  
+  
+  
+    "recipient account": "Konti y'uwakira",
 };
