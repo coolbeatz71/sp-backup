@@ -13,10 +13,12 @@ import Stories from "react-insta-stories";
 import styles from "./index.module.scss";
 import ReactPlayer from "react-player";
 import { isEmpty, truncate } from "lodash";
+import dayjs from "dayjs";
 
 const Story: FC<{}> = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState<boolean>(true);
+  const [closedDiffHours, setClosedDiffHours] = useState<number>(0);
 
   const { data } = useSelector(
     ({ broadcasts: { broadcasts } }: IRootState) => broadcasts,
@@ -24,6 +26,11 @@ const Story: FC<{}> = () => {
 
   useEffect(() => {
     getAllBroadcasts()(dispatch);
+    if (process.browser) {
+      const closed = localStorage.getItem("save-closed-timestamp");
+      const closedTime = dayjs.unix(Number(closed));
+      setClosedDiffHours(dayjs().diff(closedTime, "h"));
+    }
   }, [dispatch]);
 
   const getFileType = (mimeType: string) => {
@@ -31,12 +38,8 @@ const Story: FC<{}> = () => {
   };
 
   const onClose = () => {
-    const closedBroadcastIds = JSON.parse(
-      localStorage.getItem("save-closedBroadcastIds") || "[]",
-    );
-    const newClosed = [...closedBroadcastIds, data[0].id];
     clearAllBroadcasts()(dispatch);
-    localStorage.setItem("save-closedBroadcastIds", JSON.stringify(newClosed));
+    localStorage.setItem("save-closed-timestamp", dayjs().unix().toString());
   };
 
   const stories = data?.map((item) => ({
@@ -44,8 +47,18 @@ const Story: FC<{}> = () => {
       return (
         <Row className={styles.story__container}>
           <div className={styles.story__container__action}>
-            <Button type="default" shape="circle" icon={<LeftOutlined />} />
-            <Button type="default" shape="circle" icon={<RightOutlined />} />
+            <Button
+              type="default"
+              shape="circle"
+              icon={<LeftOutlined />}
+              size="small"
+            />
+            <Button
+              type="default"
+              shape="circle"
+              icon={<RightOutlined />}
+              size="small"
+            />
           </div>
           <Col span={24} className={styles.story__container__img}>
             {getFileType(item.mimetype) === "image" ? (
@@ -72,7 +85,7 @@ const Story: FC<{}> = () => {
     },
   }));
 
-  return !isEmpty(data) ? (
+  return !isEmpty(data) && closedDiffHours >= 6 ? (
     <>
       <Modal
         visible={visible}
