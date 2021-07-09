@@ -60,4 +60,17 @@
     margin-top: 0.5rem;
     margin-bottom: 2rem;
   }
+
+  &__wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+
+    &__notice {
+      position: absolute;
+      top: 120%;
+      color: $primary;
+      font-size: 11.5px;
+      display: inline-block;
+    }
+  }
 }

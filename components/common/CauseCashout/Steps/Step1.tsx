@@ -51,6 +51,8 @@ const Step1: FC<Props> = ({
     ({ cause: { single_cashout } }: IRootState) => single_cashout
   );
 
+  console.log({ singleCause });
+
   const [checkedChannel, setCheckedChannel] = useState<string[]>(
     data?.channel
       ? [data?.channel]
@@ -95,12 +97,15 @@ const Step1: FC<Props> = ({
     setCheckedChannel(checked ? [...checkedChannel, value] : filtered);
   };
 
+  console.log("CASHOUT DATA", data);
+
   return (
     <Form
       initialValues={data}
       ref={(ref) => setForm(ref)}
       validateTrigger={["onFinish"]}
       onValuesChange={(dt) => {
+        console.log({ dt });
         cb({ ...dt, step: 0 });
       }}
       onFinish={(dt) => {
@@ -204,39 +209,41 @@ const Step1: FC<Props> = ({
                 amount: numeral(currentBalanceTelco).format("0,0.[00]"),
               })}
             </Typography.Text>
-            <Form.Item
-              name="amount_telco"
-              rules={[
-                {
-                  required: true,
-                  message: `${t("amount")} ${t("required")}`,
-                },
-                {
-                  pattern: /([1-9][\d,]{2,})$$/g,
-                  message: t("should be 100 minimum"),
-                },
-                {
-                  type: "number",
-                  max: 2000000,
-                  message: " ",
-                },
-              ]}
-              validateTrigger={["onSubmit", "onBlur"]}
-            >
-              <StackedLabel
-                label={`${t("amount")} (${capitalize(currency)})`}
-                formatNumber
+            <div className={styles.steps__wrapper}>
+              <Form.Item
+                name="amount_telco"
+                rules={[
+                  {
+                    required: true,
+                    message: `${t("amount")} ${t("required")}`,
+                  },
+                  {
+                    pattern: /([1-9][\d,]{2,})$$/g,
+                    message: t("should be 100 minimum"),
+                  },
+                  {
+                    type: "number",
+                    max: 2000000,
+                    message: " ",
+                  },
+                ]}
+                validateTrigger={["onSubmit", "onBlur"]}
               >
-                <InputNumber
-                  autoComplete="off"
-                  placeholder={t("amount")}
-                  onKeyUp={(e) => {
-                    const amount = numeral(e.currentTarget.value).value();
-                    setMaxError(amount > 2000000);
-                  }}
-                />
-              </StackedLabel>
-              <Typography.Text className={styles.steps__primary}>
+                <StackedLabel
+                  label={`${t("amount")} (${capitalize(currency)})`}
+                  formatNumber
+                >
+                  <InputNumber
+                    autoComplete="off"
+                    placeholder={t("amount")}
+                    onKeyUp={(e) => {
+                      const amount = numeral(e.currentTarget.value).value();
+                      setMaxError(amount > 2000000);
+                    }}
+                  />
+                </StackedLabel>
+              </Form.Item>
+              <Typography.Text className={styles.steps__wrapper__notice}>
                 <div className={styles.steps__row}>
                   <div className={styles.steps__col} style={{ marginRight: 5 }}>
                     <InfoCircleOutlined />
@@ -247,7 +254,7 @@ const Step1: FC<Props> = ({
                   </div>
                 </div>
               </Typography.Text>
-            </Form.Item>
+            </div>
           </>
         )}
 
@@ -262,28 +269,29 @@ const Step1: FC<Props> = ({
                 amount: numeral(currentBalanceCards).format("0,0.[00]"),
               })}
             </Typography.Text>
-
-            <Form.Item
-              name="amount_cards"
-              rules={[
-                {
-                  required: true,
-                  message: `${t("amount")} ${t("required")}`,
-                },
-                {
-                  pattern: /([1-9][\d,]{2,})$$/g,
-                  message: t("should be 100 minimum"),
-                },
-              ]}
-              validateTrigger={["onSubmit", "onBlur"]}
-            >
-              <StackedLabel
-                label={`${t("amount")} (${capitalize(currency)})`}
-                formatNumber
+            <div className={styles.steps__wrapper}>
+              <Form.Item
+                name="amount_cards"
+                rules={[
+                  {
+                    required: true,
+                    message: `${t("amount")} ${t("required")}`,
+                  },
+                  {
+                    pattern: /([1-9][\d,]{2,})$$/g,
+                    message: t("should be 100 minimum"),
+                  },
+                ]}
+                validateTrigger={["onSubmit", "onBlur"]}
               >
-                <InputNumber autoComplete="off" placeholder={t("amount")} />
-              </StackedLabel>
-              <Typography.Text className={styles.steps__primary}>
+                <StackedLabel
+                  label={`${t("amount")} (${capitalize(currency)})`}
+                  formatNumber
+                >
+                  <InputNumber autoComplete="off" placeholder={t("amount")} />
+                </StackedLabel>
+              </Form.Item>
+              <Typography.Text className={styles.steps__wrapper__notice}>
                 <div className={styles.steps__row}>
                   <div className={styles.steps__col} style={{ marginRight: 5 }}>
                     <InfoCircleOutlined />
@@ -294,7 +302,7 @@ const Step1: FC<Props> = ({
                   </div>
                 </div>
               </Typography.Text>
-            </Form.Item>
+            </div>
 
             <Typography.Text className={styles.steps__primary}>
               <Row>
