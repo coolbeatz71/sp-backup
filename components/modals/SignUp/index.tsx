@@ -17,7 +17,7 @@ import { IRootState } from "redux/initialStates";
 import showAuthDialog, {
   changeAuthContext,
 } from "redux/actions/auth/showAuthDialog";
-import { normalize } from "dev-rw-phone";
+import { normalize } from "@exuus/rwanda-phone-utils";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
@@ -36,7 +36,7 @@ const SignUp: FC<{}> = () => {
     loading,
     error: { message: error = null },
   } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
   );
 
   const {
@@ -45,7 +45,7 @@ const SignUp: FC<{}> = () => {
   } = useSelector(({ auth: { signup } }: IRootState) => signup);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
   const gotAccountMsg = () => (

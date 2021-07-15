@@ -1,8 +1,8 @@
-import { isOk, phone } from "dev-rw-phone";
+import phone, { isValid } from "@exuus/rwanda-phone-utils";
 
 const phoneFormatter = (
   phoneNumber: string,
-  option?: "substract" | "append",
+  option?: "substract" | "append"
 ): string => {
   if (option) {
     if (option === "append" && phoneNumber.startsWith("7"))
@@ -16,7 +16,7 @@ const phoneFormatter = (
 };
 
 export const fixedLineFormatter = (phoneNumber: string) => {
-  return isOk(phoneNumber)
+  return isValid(phoneNumber)
     ? phone(phoneNumber).normalized
     : `250${phoneNumber}`;
 };

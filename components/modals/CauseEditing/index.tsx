@@ -1,6 +1,6 @@
 import { FC } from "react";
 import dayjs from "dayjs";
-import { short } from "dev-rw-phone";
+import { short } from "@exuus/rwanda-phone-utils";
 
 import Modal from "components/common/Modal";
 import { SvpType } from "helpers/context";

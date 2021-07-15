@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { format } from "dev-rw-phone";
+import { format } from "@exuus/rwanda-phone-utils";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { useTranslation } from "react-i18next";
@@ -42,7 +42,7 @@ const SingleCause: NextPage<Props> = ({
 
   const user = useSelector((state: IRootState) => state.user);
   const { loading, data, error, accessCode } = useSelector(
-    ({ cause: { single } }: IRootState) => single,
+    ({ cause: { single } }: IRootState) => single
   );
 
   const myCause =

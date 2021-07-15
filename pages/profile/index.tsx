@@ -22,7 +22,7 @@ import { RcFile } from "antd/es/upload";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import updateProfile from "redux/actions/user/updateProfile";
-import { short } from "dev-rw-phone";
+import { short } from "@exuus/rwanda-phone-utils";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 
@@ -37,7 +37,7 @@ import requireAuth, { checkUserAuth } from "helpers/requiresAuth";
 import { GetServerSidePropsContext } from "next";
 
 export const getServerSideProps = requireAuth(
-  async (context: GetServerSidePropsContext) => checkUserAuth(context),
+  async (context: GetServerSidePropsContext) => checkUserAuth(context)
 );
 
 const Profile: FC<{}> = () => {
@@ -53,7 +53,7 @@ const Profile: FC<{}> = () => {
     loading: dataLoading,
   } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const { loading, error } = useSelector(
-    ({ user: { updateProfile } }: IRootState) => updateProfile,
+    ({ user: { updateProfile } }: IRootState) => updateProfile
   );
 
   const lang = data.lang || getLanguage();
@@ -120,7 +120,7 @@ const Profile: FC<{}> = () => {
         t("avatar should be smaller than", {
           size: "2MB",
         }),
-        "error",
+        "error"
       );
       return false;
     }

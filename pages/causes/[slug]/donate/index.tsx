@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styles from "./donate.module.scss";
-import { normalize } from "dev-rw-phone";
+import { normalize } from "@exuus/rwanda-phone-utils";
 import { Form, Row, Typography, Spin } from "antd";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
@@ -42,7 +42,7 @@ const DonateCause: FC<{}> = () => {
   const [isFormDataReady, setFormDataReadiness] = useState<boolean>(false);
   const { slug } = router.query;
   const [emailPlaceholder, setEmailPlaceholder] = useState<string>(
-    `${t("email")} (${t("optional")})`,
+    `${t("email")} (${t("optional")})`
   );
 
   const {
@@ -52,13 +52,17 @@ const DonateCause: FC<{}> = () => {
     accessCode,
   } = useSelector(({ cause: { single } }: IRootState) => single);
 
-  const { data: donateData, loading, error } = useSelector(
-    ({ cause: { donate } }: IRootState) => donate,
-  );
+  const {
+    data: donateData,
+    loading,
+    error,
+  } = useSelector(({ cause: { donate } }: IRootState) => donate);
 
-  const { isLoggedin, data, loading: userDataLoading } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
-  );
+  const {
+    isLoggedin,
+    data,
+    loading: userDataLoading,
+  } = useSelector(({ user: { currentUser } }: IRootState) => currentUser);
   const lang = data.lang || getLanguage();
   const [phone, setPhone] = useState<string>(data.phone_number);
 
@@ -98,6 +102,10 @@ const DonateCause: FC<{}> = () => {
 
   const formatData = (data: IUnknownObject): IUnknownObject => {
     if (isEmpty(data.email)) delete data.email;
+
+    const telco = getTelco(data.phone_number);
+
+    console.log({ telco });
     return {
       ...data,
       amount: Number(serializeFormattedNumber(data.amount)),
@@ -118,9 +126,11 @@ const DonateCause: FC<{}> = () => {
     delete formattedData.countryCode;
     delete formattedData.phone_number_world;
 
+    console.log({ formattedData });
+
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
-      dispatch,
+      dispatch
     );
   };
 
@@ -137,7 +147,7 @@ const DonateCause: FC<{}> = () => {
       setEmailPlaceholder(
         changedField.payment_method === "Visa_MasterCard"
           ? `${t("email")}`
-          : `${t("email")}  (${t("optional")})`,
+          : `${t("email")}  (${t("optional")})`
       );
     }
   };

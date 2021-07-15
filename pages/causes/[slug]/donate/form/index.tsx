@@ -29,7 +29,7 @@ import { Input } from "components/common/Input";
 import StackedLabel from "components/common/StackedLabel";
 
 import styles from "./../donate.module.scss";
-import { isOk, short } from "dev-rw-phone";
+import { isValid, short } from "@exuus/rwanda-phone-utils";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -80,7 +80,7 @@ const DonateForm: FC<IProps> = ({
         ...data,
         type: "individual",
         payment_method: "momo",
-        phone_number_world: isOk(data.phone_number)
+        phone_number_world: isValid(data.phone_number)
           ? short(data.phone_number)
           : "",
       }}
@@ -131,7 +131,7 @@ const DonateForm: FC<IProps> = ({
               name="first_name"
               rules={formNamesValidator(
                 `${t("minimum 3")}`,
-                `${t("required")}`,
+                `${t("required")}`
               )}
               validateTrigger={["onSubmit", "onBlur"]}
             >
@@ -144,7 +144,7 @@ const DonateForm: FC<IProps> = ({
               validateTrigger={["onSubmit", "onBlur"]}
               rules={formNamesValidator(
                 `${t("minimum 3")}`,
-                `${t("required")}`,
+                `${t("required")}`
               )}
             >
               <Input placeholder={t("last_name")} />
@@ -159,7 +159,7 @@ const DonateForm: FC<IProps> = ({
               validateTrigger={["onSubmit", "onBlur"]}
               rules={formNamesValidator(
                 `${t("minimum 3")}`,
-                `${t("required")}`,
+                `${t("required")}`
               )}
             >
               <Input placeholder={t("organization name")} />
@@ -169,7 +169,7 @@ const DonateForm: FC<IProps> = ({
               validateTrigger={["onSubmit", "onBlur"]}
               rules={formNamesValidator(
                 `${t("minimum 3")}`,
-                `${t("required")}`,
+                `${t("required")}`
               )}
             >
               <Input placeholder={t("contact person")} />

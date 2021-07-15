@@ -14,7 +14,7 @@ import Buttons from "./Steps/Buttons";
 import CashoutSkeleton from "./skeleton/";
 
 import handleData from "./handlers";
-import { format } from "dev-rw-phone";
+import { format } from "@exuus/rwanda-phone-utils";
 import { Store } from "antd/lib/form/interface";
 
 import checkedIcon from "public/icons/checked-round.svg";

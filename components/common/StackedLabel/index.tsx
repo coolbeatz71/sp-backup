@@ -3,7 +3,7 @@ import Img from "react-optimized-image";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
-import { telco } from "dev-rw-phone";
+import { telco } from "@exuus/rwanda-phone-utils";
 
 import styles from "./StackedLabel.module.scss";
 
@@ -40,7 +40,7 @@ const StackedLabel: FC<Props> = ({
   children,
 }) => {
   const [status, setStatus] = useState(
-    [null, undefined, ""].includes(value) ? "" : "__stacked",
+    [null, undefined, ""].includes(value) ? "" : "__stacked"
   );
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
@@ -96,10 +96,12 @@ const StackedLabel: FC<Props> = ({
         <>
           <span className={styles.input__phone__code_prefix}>{phone}</span>
           <span className={styles.input__phone__code_suffix}>
-            {["Airtel", "Tigo"].includes(telco(value)) && (
+            {["Airtel", "Tigo"].includes(telco(value) as string) && (
               <Img src={airtel} alt="airtel icon" />
             )}
-            {["MTN"].includes(telco(value)) && <Img src={mtn} alt="mtn icon" />}
+            {["MTN"].includes(telco(value) as string) && (
+              <Img src={mtn} alt="mtn icon" />
+            )}
           </span>
         </>
       )}
@@ -121,7 +123,7 @@ const StackedLabel: FC<Props> = ({
           {`${
             typeof value === "string" ? numeral(value.length).format() : 0
           }/${numeral(
-            typeof charCount === "number" ? charCount : charCount[1],
+            typeof charCount === "number" ? charCount : charCount[1]
           ).format()}`}
         </div>
       )}

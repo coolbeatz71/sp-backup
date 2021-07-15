@@ -1,4 +1,4 @@
-import { isOk } from "dev-rw-phone";
+import { isValid } from "@exuus/rwanda-phone-utils";
 import parsePhoneNumber, { CountryCode } from "libphonenumber-js";
 import i18n from "constants/locales";
 import { isEmpty } from "lodash";
@@ -12,7 +12,8 @@ const formPhoneValidator = (name: string) => [
         return Promise.resolve();
       }
 
-      if (!isOk(value)) return Promise.reject(`${name} ${i18n.t("invalid")}`);
+      if (!isValid(value))
+        return Promise.reject(`${name} ${i18n.t("invalid")}`);
 
       return Promise.resolve();
     },
@@ -35,14 +36,14 @@ export const formWorldPhoneValidator = (name: string, countryCode: string) => [
 
       if (!countryCode && value.match(reg)) {
         return Promise.reject(
-          `${i18n.t("country_code")} ${i18n.t("required")}`,
+          `${i18n.t("country_code")} ${i18n.t("required")}`
         );
       }
 
       if (countryCode && value) {
         const fullPhone = `${countryCode}${value}`;
         const country = countryList.find(
-          (country) => country.dial_code === countryCode,
+          (country) => country.dial_code === countryCode
         );
         const code = country?.code as CountryCode;
 
@@ -60,7 +61,7 @@ export const formPhoneAndFixedValidator = () => ({
   validator(_rule: any, value: string) {
     if (
       !isEmpty(value) &&
-      !isOk(value) &&
+      !isValid(value) &&
       (!value.match(/^25|5/) || value.length !== 9)
     ) {
       return Promise.reject(i18n.t("phone number should be valid"));
