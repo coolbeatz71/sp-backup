@@ -43,7 +43,7 @@ const AllCauses: FC<Props> = ({
     fetched,
     meta: { total, page, pages },
   } = useSelector(({ cause: { all, user } }: IRootState) =>
-    myCauses ? user : all,
+    myCauses ? user : all
   );
 
   const category_id: any = query.category_id;
@@ -110,7 +110,7 @@ const AllCauses: FC<Props> = ({
   const renderPagination = (
     _current: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
-    originalElement: ReactNode,
+    originalElement: ReactNode
   ) => {
     if (type === "prev" && screens.md) return <a>{t("previous")}</a>;
     if (type === "next" && screens.md) return <a>{t("next")}</a>;

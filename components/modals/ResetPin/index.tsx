@@ -11,7 +11,7 @@ import showAuthDialog, {
 import reset from "redux/actions/pin/reset";
 import update from "redux/actions/pin/reset-update";
 
-import { normalize } from "dev-rw-phone";
+import { normalize } from "@exuus/rwanda-phone-utils";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
@@ -62,7 +62,7 @@ const ResetPin: FC<{}> = () => {
         <Form
           validateTrigger={["onFinish"]}
           onFinish={({ phone_number }) => {
-            const fph = normalize(phone_number);
+            const fph: any = normalize(phone_number);
             reset({ phone_number: fph })(dispatch);
             setPh(fph);
           }}

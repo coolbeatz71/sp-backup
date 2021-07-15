@@ -1,6 +1,6 @@
 import { FC, ReactElement, useState, useEffect, Fragment } from "react";
 import Link from "next/link";
-import { short } from "dev-rw-phone";
+import { short } from "@exuus/rwanda-phone-utils";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import i18n from "constants/locales";
@@ -21,7 +21,7 @@ import requireAuth, { checkUserAuth } from "helpers/requiresAuth";
 import { GetServerSidePropsContext } from "next";
 
 export const getServerSideProps = requireAuth(
-  async (context: GetServerSidePropsContext) => checkUserAuth(context),
+  async (context: GetServerSidePropsContext) => checkUserAuth(context)
 );
 
 const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
@@ -57,7 +57,7 @@ const Wrapper: FC<{ children: ReactElement; edit: boolean }> = ({
 
 const alerts = (editing: boolean, userData: any) => {
   const { data } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
   const lang = data.lang || getLanguage();
 
@@ -85,13 +85,13 @@ interface Props {
 
 const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
   const { data: userData } = useSelector(
-    ({ user: { currentUser } }: IRootState) => currentUser,
+    ({ user: { currentUser } }: IRootState) => currentUser
   );
 
   const { t } = useTranslation();
 
   const [steps, setSteps] = useState(
-    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated),
+    defaultSteps(edit && dt.category_id === 1, edit && dt.affiliated)
   );
   const [index, setIndex] = useState<number>(0);
   const [data, setData] = useState<{ [key: string]: any }>(dt);
@@ -112,7 +112,7 @@ const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
       message.success(
         t("successfully edited", {
           name: data.name,
-        }),
+        })
       );
       router.replace(`/user/causes/${data.slug}`);
     }
@@ -191,7 +191,7 @@ const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
                         key,
                         typeof formattedData[key] === "string"
                           ? formattedData[key]
-                          : JSON.stringify(formattedData[key]),
+                          : JSON.stringify(formattedData[key])
                       );
                     }
                   }
@@ -199,11 +199,11 @@ const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
                   createCause(formData)(dispatch, () => {
                     setSuccess(true);
                   });
-                },
+                }
               );
             },
             issue,
-            steps,
+            steps
           )}
         </Card>
       </Wrapper>

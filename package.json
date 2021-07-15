@@ -16,6 +16,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@exuus/rwanda-phone-utils": "^1.0.4",
     "@types/lodash": "^4.14.154",
     "@types/numeral": "0.0.28",
     "@types/react-image-crop": "^8.1.2",
@@ -29,7 +30,6 @@
     "canvas-confetti": "^1.2.0",
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.10.4",
-    "dev-rw-phone": "^1.0.0",
     "get-video-id": "^3.1.5",
     "i18next": "19.8.4",
     "libphonenumber-js": "^1.9.16",

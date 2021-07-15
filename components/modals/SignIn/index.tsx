@@ -22,7 +22,7 @@ import showAuthDialog, {
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
 
-import { normalize } from "dev-rw-phone";
+import { normalize } from "@exuus/rwanda-phone-utils";
 import formPhoneValidator from "utils/validators/form-phone-validator";
 
 import styles from "./index.module.scss";
@@ -36,7 +36,7 @@ const SignIn: FC<{}> = () => {
   } = useSelector(({ auth: { login } }: IRootState) => login);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
   );
 
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ const SignIn: FC<{}> = () => {
         validateTrigger={["onFinish"]}
         onFinish={(form) => {
           login({ ...form, phone_number: normalize(form.phone_number) })(
-            dispatch,
+            dispatch
           );
         }}
       >

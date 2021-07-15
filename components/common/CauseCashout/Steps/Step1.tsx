@@ -12,7 +12,7 @@ import {
   Checkbox,
   Typography,
 } from "antd";
-import { format } from "dev-rw-phone";
+import { format } from "@exuus/rwanda-phone-utils";
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
 import { InfoCircleOutlined } from "@ant-design/icons";

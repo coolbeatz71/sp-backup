@@ -1,4 +1,4 @@
-import { phone } from "dev-rw-phone";
+import phone from "@exuus/rwanda-phone-utils";
 import { fixedLineFormatter } from "helpers/phoneNumberFormatter";
 import { find } from "lodash";
 import { StepType } from "../CreateCauseSteps";
@@ -9,7 +9,7 @@ const handleSubmit = (
   okay: { [key: string]: boolean },
   setIssue: (param: boolean[]) => void,
   data: any,
-  cb: (param: { [key: string]: any }) => void,
+  cb: (param: { [key: string]: any }) => void
 ) => {
   const notOk: boolean[] = [];
 
@@ -17,7 +17,7 @@ const handleSubmit = (
     steps.map((stp, index) => {
       notOk[index] = !okay[stp.id];
       return stp;
-    }),
+    })
   ).then(() => {
     if (notOk.includes(true)) {
       setIssue(notOk);
@@ -85,7 +85,7 @@ const handleSubmit = (
         };
         toUpload.next_keen_names = data.nok_name;
         toUpload.next_keen_phone_number = fixedLineFormatter(
-          data.nok_phone_number,
+          data.nok_phone_number
         );
 
         if (!["", null, undefined].includes(data.nok_email)) {
