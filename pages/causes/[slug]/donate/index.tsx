@@ -126,8 +126,6 @@ const DonateCause: FC<{}> = () => {
     delete formattedData.countryCode;
     delete formattedData.phone_number_world;
 
-    console.log({ formattedData });
-
     donateCause(slug, formattedData, { access_code: accessCode })(
       setDonationSuccessful,
       dispatch
