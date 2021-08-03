@@ -37,7 +37,7 @@ const handleSubmit = (
         name: data.name,
         payment_method:
           phone(data.account).telco === "MTN" ? "MTN_Rwanda" : "Airtel_Rwanda",
-        payment_account_number: phone(data.account).normalized,
+        payment_account_number: phone(data.account).unformatted,
         summary: data.summary,
         description: data.details,
         target_amount: data.target,

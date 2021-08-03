@@ -13,7 +13,7 @@ import {
 import { capitalize, isEmpty } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import phone, { isValid } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { IRootState } from "redux/initialStates";
 import { Props } from "./Step1";
 import StackedLabel from "components/common/StackedLabel";
@@ -65,15 +65,21 @@ const Step4: FC<Props> = ({
             },
             () => ({
               validator(_rule: any, value: any) {
-                if (value.startsWith("78") && phone(value).telco !== "MTN") {
+                if (
+                  value.startsWith("78") &&
+                  PhoneUtils(value).telco !== "MTN"
+                ) {
                   return Promise.reject("Should be a valid MTN Number");
                 }
 
-                if (value.match(/^7[23]/) && phone(value).telco !== "Airtel") {
+                if (
+                  value.match(/^7[23]/) &&
+                  PhoneUtils(value).telco !== "Airtel"
+                ) {
                   return Promise.reject(t("should be a valid airtel"));
                 }
 
-                if (!isEmpty(value) && !isValid(value)) {
+                if (!isEmpty(value) && !PhoneUtils(value).isValid) {
                   return Promise.reject(t("phone number should be valid"));
                 }
                 return Promise.resolve();

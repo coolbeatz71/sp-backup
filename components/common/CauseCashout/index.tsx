@@ -14,7 +14,7 @@ import Buttons from "./Steps/Buttons";
 import CashoutSkeleton from "./skeleton/";
 
 import handleData from "./handlers";
-import { format } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { Store } from "antd/lib/form/interface";
 
 import checkedIcon from "public/icons/checked-round.svg";
@@ -94,7 +94,7 @@ const CauseCashout: FC<Props> = ({
             >
               {t("cashout_success_description", {
                 amount: numeral(data.amount_telco).format("0,0.[00]"),
-                phoneNumber: format(paymentAccountNumber),
+                phoneNumber: PhoneUtils(paymentAccountNumber).formatted,
               })}
             </Typography.Paragraph>
           )}

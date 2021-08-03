@@ -17,7 +17,7 @@ import { IRootState } from "redux/initialStates";
 import showAuthDialog, {
   changeAuthContext,
 } from "redux/actions/auth/showAuthDialog";
-import { normalize } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 
 import Modal from "components/common/Modal";
 import StackedLabel from "components/common/StackedLabel";
@@ -115,7 +115,7 @@ const SignUp: FC<{}> = () => {
           onFinish={({ phone_number, ...form }) => {
             sendVerificationCode({
               ...form,
-              phone_number: normalize(phone_number),
+              phone_number: PhoneUtils(phone_number).unformatted,
             })(dispatch);
           }}
         >

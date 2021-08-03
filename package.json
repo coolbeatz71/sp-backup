@@ -16,7 +16,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
-    "@exuus/rwanda-phone-utils": "^1.0.5",
+    "@exuus/rwanda-phone-utils": "^1.0.9",
     "@types/lodash": "^4.14.154",
     "@types/numeral": "0.0.28",
     "@types/react-image-crop": "^8.1.2",
