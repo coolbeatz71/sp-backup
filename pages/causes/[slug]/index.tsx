@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { format } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { useTranslation } from "react-i18next";
@@ -102,7 +102,7 @@ const SingleCause: NextPage<Props> = ({
           target="_blank"
           style={{ textDecoration: "underline" }}
         >
-          {format(contactPhone)}
+          {PhoneUtils(contactPhone).formatted}
         </Typography.Link>{" "}
         {t("or")}{" "}
         <Typography.Link

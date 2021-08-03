@@ -1,6 +1,6 @@
 import { FC } from "react";
 import dayjs from "dayjs";
-import { short } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 
 import Modal from "components/common/Modal";
 import { SvpType } from "helpers/context";
@@ -45,19 +45,19 @@ const CauseEditing: FC<Props> = ({ visible, onClose, cause, svpProps }) => {
           summary: cause.summary,
           video: cause.video,
           details: cause.description,
-          account: short(cause.phone_number),
+          account: PhoneUtils(cause.phone_number).short,
           isPrivate: cause.access === "private",
           hospital: cause.institution?.name,
-          hospital_phone_number: short(cause.institution?.phone_number),
+          hospital_phone_number: PhoneUtils(cause.institution?.phone_number).short,
           hospital_email: cause.institution?.email,
           nok_name: cause.next_keen_names,
           nok_relationship: cause.next_keen_relationship,
-          nok_phone_number: short(cause.next_keen_phone_number),
+          nok_phone_number: PhoneUtils(cause.next_keen_phone_number).short,
           nok_email: cause.next_keen_email,
           affiliated: typeof (cause.organization_id * 1) === "number",
           org_name: cause.organization?.name,
           org_email: cause.organization?.email,
-          org_phone_number: short(cause.organization?.phone_number),
+          org_phone_number: PhoneUtils(cause.organization?.phone_number).short,
           org_field: cause.organization?.field,
         }}
       />

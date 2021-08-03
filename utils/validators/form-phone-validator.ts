@@ -1,4 +1,4 @@
-import { isValid } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import parsePhoneNumber, { CountryCode } from "libphonenumber-js";
 import i18n from "constants/locales";
 import { isEmpty } from "lodash";
@@ -12,7 +12,7 @@ const formPhoneValidator = (name: string) => [
         return Promise.resolve();
       }
 
-      if (!isValid(value))
+      if (!PhoneUtils(value).isValid)
         return Promise.reject(`${name} ${i18n.t("invalid")}`);
 
       return Promise.resolve();
@@ -61,7 +61,7 @@ export const formPhoneAndFixedValidator = () => ({
   validator(_rule: any, value: string) {
     if (
       !isEmpty(value) &&
-      !isValid(value) &&
+      !PhoneUtils(value).isValid &&
       (!value.match(/^25|5/) || value.length !== 9)
     ) {
       return Promise.reject(i18n.t("phone number should be valid"));

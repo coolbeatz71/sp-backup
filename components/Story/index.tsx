@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Button, Col, Modal, Row } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
@@ -42,65 +42,72 @@ const Story: FC<{}> = () => {
     localStorage.setItem("save-closed-timestamp", dayjs().unix().toString());
   };
 
-  const stories = data?.map((item) => ({
-    content: () => {
-      return (
-        <Row className={styles.story__container}>
-          <div className={styles.story__container__action}>
-            <Button
-              type="default"
-              shape="circle"
-              icon={<LeftOutlined />}
-              size="small"
-            />
-            <Button
-              type="default"
-              shape="circle"
-              icon={<RightOutlined />}
-              size="small"
-            />
-          </div>
-          <Col span={24} className={styles.story__container__img}>
-            {getFileType(item.mimetype) === "image" ? (
-              <img src={item.media} />
-            ) : (
-              <ReactPlayer
-                playing
-                width="100%"
-                height="100%"
-                controls={false}
-                url={item.media}
-              />
-            )}
-          </Col>
-          <Col span={24} className={styles.story__container__desc}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: truncate(item.text, { length: 230 }),
-              }}
-            />
-          </Col>
-        </Row>
-      );
-    },
-  }));
+  const imgStory = (media: string) => <img src={media} />;
+  const videoStory = (media: string) => (
+    <ReactPlayer
+      playing
+      width="100%"
+      height="100%"
+      controls={false}
+      url={media}
+    />
+  );
+
+  const content = (children: ReactElement, text: string) => (
+    <Row className={styles.story__container}>
+      <div className={styles.story__container__action}>
+        <Button
+          type="default"
+          shape="circle"
+          icon={<LeftOutlined />}
+          size="small"
+        />
+        <Button
+          type="default"
+          shape="circle"
+          icon={<RightOutlined />}
+          size="small"
+        />
+      </div>
+      <Col span={24} className={styles.story__container__img}>
+        {children}
+      </Col>
+      <Col span={24} className={styles.story__container__desc}>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: truncate(text, { length: 230 }),
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
+  const stories = data?.map((item) =>
+    getFileType(item.mimetype) === "image"
+      ? {
+          content: () => content(imgStory(item.media), item.text),
+          duration: 10000,
+        }
+      : {
+          content: () => content(videoStory(item.media), item.text),
+          duration: 30000,
+        },
+  );
 
   return !isEmpty(data) && closedDiffHours >= 6 ? (
-    <>
-      <Modal
-        visible={visible}
-        footer={false}
-        className={styles.story}
-        destroyOnClose
-        onCancel={() => {
-          onClose();
-          setVisible(false);
-        }}
-        maskClosable={false}
-      >
-        <Stories stories={stories} defaultInterval={20000} width="100%" loop />
-      </Modal>
-    </>
+    <Modal
+      visible={visible}
+      footer={false}
+      className={styles.story}
+      destroyOnClose
+      onCancel={() => {
+        onClose();
+        setVisible(false);
+      }}
+      maskClosable={false}
+    >
+      <Stories stories={stories} width="100%" loop />
+    </Modal>
   ) : null;
 };
 

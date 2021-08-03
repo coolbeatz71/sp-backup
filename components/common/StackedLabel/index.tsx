@@ -3,7 +3,7 @@ import Img from "react-optimized-image";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import numeral from "numeral";
-import { telco } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 
 import styles from "./StackedLabel.module.scss";
 
@@ -96,10 +96,10 @@ const StackedLabel: FC<Props> = ({
         <>
           <span className={styles.input__phone__code_prefix}>{phone}</span>
           <span className={styles.input__phone__code_suffix}>
-            {["Airtel", "Tigo"].includes(telco(value) as string) && (
+            {["Airtel", "Tigo"].includes(PhoneUtils(value).telco as string) && (
               <Img src={airtel} alt="airtel icon" />
             )}
-            {["MTN"].includes(telco(value) as string) && (
+            {["MTN"].includes(PhoneUtils(value).telco as string) && (
               <Img src={mtn} alt="mtn icon" />
             )}
           </span>

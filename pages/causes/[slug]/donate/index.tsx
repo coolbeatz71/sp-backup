@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styles from "./donate.module.scss";
-import { normalize } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { Form, Row, Typography, Spin } from "antd";
 import phoneFormatter from "helpers/phoneNumberFormatter";
 import { IRootState } from "redux/initialStates";
@@ -111,7 +111,7 @@ const DonateCause: FC<{}> = () => {
       amount: Number(serializeFormattedNumber(data.amount)),
       phone_number:
         data.payment_method === "momo"
-          ? normalize(data.phone_number)
+          ? PhoneUtils(data.phone_number).unformatted
           : `${formatCountryCode(data.countryCode)}${data.phone_number_world}`,
       payment_method:
         data.payment_method === "momo"

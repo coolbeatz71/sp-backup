@@ -22,7 +22,7 @@ import { RcFile } from "antd/es/upload";
 import { validateMessages } from "constants/validationMessages";
 import { IRootState } from "redux/initialStates";
 import updateProfile from "redux/actions/user/updateProfile";
-import { short } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { IUnknownObject } from "interfaces/unknownObject";
 import notification from "utils/notification";
 
@@ -68,7 +68,7 @@ const Profile: FC<{}> = () => {
   const onSubmit = (form: any) => {
     const formattedData: { [key: string]: any } = {
       ...form,
-      phone_number: short(form.phone_number),
+      phone_number: PhoneUtils(form.phone_number).short,
     };
     const formData = new FormData();
     Object.keys(formattedData).forEach((key) => {
@@ -80,7 +80,7 @@ const Profile: FC<{}> = () => {
   const formattedData = () => {
     return {
       ...data,
-      phone_number: short(data.phone_number),
+      phone_number: PhoneUtils(data.phone_number).short,
     };
   };
 

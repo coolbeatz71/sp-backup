@@ -12,7 +12,7 @@ import {
   Checkbox,
   Typography,
 } from "antd";
-import { format } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import StackedLabel from "components/common/StackedLabel";
 import styles from "./index.module.scss";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -96,8 +96,6 @@ const Step1: FC<Props> = ({
     setChannelErr(false);
     setCheckedChannel(checked ? [...checkedChannel, value] : filtered);
   };
-
-  console.log("CASHOUT DATA", data);
 
   return (
     <Form
@@ -250,7 +248,7 @@ const Step1: FC<Props> = ({
                   </div>
                   <div className={styles.steps__col}>
                     {t("recipient account")}:{" "}
-                    {format(singleCause.payment_account_number)}
+                    {PhoneUtils(singleCause.payment_account_number).formatted}
                   </div>
                 </div>
               </Typography.Text>

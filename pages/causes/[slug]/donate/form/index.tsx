@@ -29,7 +29,7 @@ import { Input } from "components/common/Input";
 import StackedLabel from "components/common/StackedLabel";
 
 import styles from "./../donate.module.scss";
-import { isValid, short } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -80,8 +80,8 @@ const DonateForm: FC<IProps> = ({
         ...data,
         type: "individual",
         payment_method: "momo",
-        phone_number_world: isValid(data.phone_number)
-          ? short(data.phone_number)
+        phone_number_world: PhoneUtils(data.phone_number).isValid
+          ? PhoneUtils(data.phone_number).short
           : "",
       }}
     >

@@ -1,6 +1,6 @@
 import { FC, ReactElement, useState, useEffect, Fragment } from "react";
 import Link from "next/link";
-import { short } from "@exuus/rwanda-phone-utils";
+import PhoneUtils from "@exuus/rwanda-phone-utils";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import i18n from "constants/locales";
@@ -127,9 +127,9 @@ const Create: FC<Props> = ({ data: dt = {}, edit = false, slug, svpProps }) => {
   useEffect(() => {
     setData({
       ...data,
-      account: short(userData.phone_number),
+      account: PhoneUtils(userData.phone_number).short,
       contact_email: userData.email,
-      contact_phone_number: short(userData.phone_number),
+      contact_phone_number: PhoneUtils(userData.phone_number).short,
     });
   }, [userData]);
 

@@ -1,4 +1,4 @@
-import phone, { isValid } from "@exuus/rwanda-phone-utils";
+import Phone from "@exuus/rwanda-phone-utils";
 
 const phoneFormatter = (
   phoneNumber: string,
@@ -16,8 +16,8 @@ const phoneFormatter = (
 };
 
 export const fixedLineFormatter = (phoneNumber: string) => {
-  return isValid(phoneNumber)
-    ? phone(phoneNumber).normalized
+  return Phone(phoneNumber).isValid
+    ? Phone(phoneNumber).unformatted
     : `250${phoneNumber}`;
 };
 
