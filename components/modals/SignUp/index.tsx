@@ -36,7 +36,7 @@ const SignUp: FC<{}> = () => {
     loading,
     error: { message: error = null },
   } = useSelector(
-    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode
+    ({ auth: { sendConfirmationCode } }: IRootState) => sendConfirmationCode,
   );
 
   const {
@@ -45,10 +45,10 @@ const SignUp: FC<{}> = () => {
   } = useSelector(({ auth: { signup } }: IRootState) => signup);
 
   const { state, context } = useSelector(
-    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog
+    ({ auth: { showAuthDialog } }: IRootState) => showAuthDialog,
   );
 
-  const gotAccountMsg = () => (
+  const gotAccountMsg = (
     <>
       {t("got an account")}{" "}
       <span style={{ fontSize: "11px" }}>
@@ -57,6 +57,22 @@ const SignUp: FC<{}> = () => {
       ? &nbsp;
       <span style={{ textDecoration: "underline" }}>{t("signin")}</span>
     </>
+  );
+
+  const userAgreement = (
+    <Form.Item style={{ textAlign: "center" }}>
+      <Typography.Text style={{ fontSize: "12px" }}>
+        By clicking “Create account”, you agree to our{" "}
+        <Typography.Link href="/user-agreement" target="blank">
+          User agreement
+        </Typography.Link>{" "}
+        and{" "}
+        <Typography.Link href="/privacy-policy" target="blank">
+          Privacy policy
+        </Typography.Link>{" "}
+        of Save plus
+      </Typography.Text>
+    </Form.Item>
   );
 
   return (
@@ -105,7 +121,7 @@ const SignUp: FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {gotAccountMsg()}
+              {gotAccountMsg}
             </Button>
           </Form.Item>
         </Form>
@@ -190,6 +206,9 @@ const SignUp: FC<{}> = () => {
               <Alert message={error} type="error" showIcon />
             </Form.Item>
           )}
+
+          {userAgreement}
+
           <Form.Item>
             <Button type="primary" block htmlType="submit" loading={loading}>
               {t("create account").toUpperCase()}
@@ -203,7 +222,7 @@ const SignUp: FC<{}> = () => {
                 changeAuthContext("login")(dispatch);
               }}
             >
-              {gotAccountMsg()}
+              {gotAccountMsg}
             </Button>
           </Form.Item>
         </Form>
