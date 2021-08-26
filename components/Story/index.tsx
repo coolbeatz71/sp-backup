@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Button, Col, Modal, Row } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined, UpOutlined } from "@ant-design/icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "redux/initialStates";
@@ -11,9 +11,9 @@ import {
 import Stories from "react-insta-stories";
 
 import styles from "./index.module.scss";
-import ReactPlayer from "react-player";
 import { isEmpty, truncate } from "lodash";
 import dayjs from "dayjs";
+import { IUnknownObject } from "interfaces/unknownObject";
 
 const Story: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -43,30 +43,23 @@ const Story: FC<{}> = () => {
   };
 
   const imgStory = (media: string) => <img src={media} />;
-  const videoStory = (media: string) => (
-    <ReactPlayer
-      playing
-      width="100%"
-      height="100%"
-      controls={false}
-      url={media}
-    />
-  );
 
   const content = (children: ReactElement, text: string) => (
     <Row className={styles.story__container}>
-      <div className={styles.story__container__action}>
+      <div className={styles.story__container__action} data-action>
         <Button
           type="default"
           shape="circle"
           icon={<LeftOutlined />}
           size="small"
+          data-btn
         />
         <Button
           type="default"
           shape="circle"
           icon={<RightOutlined />}
           size="small"
+          data-btn
         />
       </div>
       <Col span={24} className={styles.story__container__img}>
@@ -82,15 +75,75 @@ const Story: FC<{}> = () => {
     </Row>
   );
 
-  const stories = data?.map((item) =>
+  const stories: IUnknownObject[] = data?.map((item) =>
     getFileType(item.mimetype) === "image"
       ? {
-          content: () => content(imgStory(item.media), item.text),
           duration: 10000,
+          content: () => content(imgStory(item.media), item.text),
         }
       : {
-          content: () => content(videoStory(item.media), item.text),
-          duration: 30000,
+          type: "video",
+          url: item.media,
+          header: {
+            subheading: (
+              <div className={styles.story__container__action}>
+                <Button
+                  type="default"
+                  shape="circle"
+                  icon={<LeftOutlined />}
+                  size="small"
+                  data-btn
+                />
+                <Button
+                  type="default"
+                  shape="circle"
+                  icon={<RightOutlined />}
+                  size="small"
+                  data-btn
+                />
+              </div>
+            ),
+          },
+          seeMoreCollapsed: ({ toggleMore }: IUnknownObject) =>
+            item.text && (
+              <div>
+                <Row align="middle" justify="center">
+                  <Button
+                    type="text"
+                    onClick={() => toggleMore(true)}
+                    data-view-more-arrow
+                  >
+                    <UpOutlined style={{ color: "#fff" }} />
+                  </Button>
+                </Row>
+                <Row align="middle" justify="center">
+                  <Button
+                    type="text"
+                    className="view-more-btn"
+                    onClick={() => toggleMore(true)}
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: truncate(item.text, { length: 40 }),
+                      }}
+                    />
+                  </Button>
+                </Row>
+              </div>
+            ),
+          seeMore: ({ close }: IUnknownObject) => (
+            <div className="view-container">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: truncate(item.text, { length: 230 }),
+                }}
+              />
+              <br />
+              <Button onClick={close} size="large" type="primary">
+                Close
+              </Button>
+            </div>
+          ),
         },
   );
 
@@ -106,7 +159,7 @@ const Story: FC<{}> = () => {
       }}
       maskClosable={false}
     >
-      <Stories stories={stories} width="100%" loop />
+      <Stories stories={stories} width="100%" loop keyboardNavigation />
     </Modal>
   ) : null;
 };

@@ -7,6 +7,67 @@
     & > :first-child {
       background: transparent !important;
     }
+
+    video {
+      top: -1rem !important;
+      position: relative !important;
+    }
+
+    [class~="anticon"] {
+      position: relative;
+      top: 3.5rem !important;
+    }
+
+    [class~="view-more-btn"] {
+      text-align: center;
+      font-size: 14px;
+      bottom: 18px;
+      position: relative;
+      color: #fff;
+    }
+
+    [data-view-more-arrow="true"] {
+      span {
+        top: 4.2rem !important;
+      }
+    }
+
+    [class~="view-container"] {
+      background-color: #fff;
+      background-image: url(/images/circle.svg), url(/images/circle.svg),
+        url(/images/square.svg), url(/images/square.svg);
+      background-repeat: no-repeat;
+      background-size: 400px, 400px, 200px, 200px;
+      background-position: -200px -200px,
+        calc(100% + 200px) clamp(200px, calc(100% + 100px), calc(100% + 100px)),
+        0px clamp(200px, 100%, 100%), 100% 0px;
+      max-width: 100%;
+      height: 100%;
+      padding: 40px;
+      color: $dark;
+      text-align: center;
+
+      & > span {
+        position: relative;
+        top: 7rem;
+      }
+
+      [class~="ant-btn"] {
+        position: relative;
+        top: 10rem;
+      }
+    }
+
+    & > div {
+      & > div:nth-child(2) {
+        background: $black;
+        height: calc(550px - 3rem) !important;
+        svg {
+          position: relative;
+          top: -5rem;
+        }
+      }
+    }
   }
 
   [class~="ant-modal-content"] {
@@ -31,6 +92,7 @@
     &__desc {
       height: 30%;
       padding: 2rem;
+      background-color: #fff;
       background-image: url(/images/circle.svg), url(/images/circle.svg),
         url(/images/square.svg), url(/images/square.svg);
       background-repeat: no-repeat;
@@ -40,20 +102,34 @@
         0px clamp(200px, 100%, 100%), 100% 0px;
     }
 
+    [data-action="true"] {
+      width: unset;
+      padding: 0 1.2rem !important;
+      top: 10rem;
+    }
+
     &__action {
       position: absolute;
       z-index: 120;
-      top: 32%;
+      top: 12rem;
       left: 0;
       right: 0;
+      display: -webkit-flex;
       display: flex;
+      -webkit-justify-content: space-between;
       justify-content: space-between;
       padding: 0 0.5rem;
+      width: 498px;
 
-      button {
+      [data-btn="true"] {
         border: none;
-        box-shadow: 0px 0px 18px $black;
+        box-shadow: 0px 0px 18px rgba($color: $dark, $alpha: 0.1);
         color: $primary;
+
+        [class~="anticon"] {
+          position: relative;
+          top: 5rem !important;
+        }
       }
     }
   }
